@@ -1,0 +1,7 @@
+io = "https://github.com/WebAssembly/wasi-io/archive/refs/tags/v0.2.1.tar.gz"
+cli = "https://github.com/WebAssembly/wasi-cli/archive/refs/tags/v0.2.1.tar.gz"
+random = "https://github.com/WebAssembly/wasi-random/archive/refs/tags/v0.2.1.tar.gz"
+clocks = "https://github.com/WebAssembly/wasi-clocks/archive/refs/tags/v0.2.1.tar.gz"
+filesystem = "https://github.com/WebAssembly/wasi-filesystem/archive/refs/tags/v0.2.1.tar.gz"
+sockets = "https://github.com/WebAssembly/wasi-sockets/archive/refs/tags/v0.2.1.tar.gz"
+nn = "https://github.com/WebAssembly/wasi-nn/archive/refs/tags/0.2.0-rc-2024-08-19.tar.gz"
