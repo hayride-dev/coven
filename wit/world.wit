@@ -3,9 +3,11 @@ package hayride:broom@0.0.1;
 world wasip2-proposals {
     import wasi:http/types@0.2.2;
     import wasi:http/outgoing-handler@0.2.2;
+    include wasi:nn/ml@0.2.0-rc-2024-08-19;
 }
 
 world wasip2 {
+    include wasip2-proposals;
     // WASI imports/exports are dependent on the compile toolchain. 
     // These are common imports by wasip2 and compilers may
     // opt in to include these are targets at comp time. 
@@ -20,11 +22,8 @@ world wasip2 {
     import wasi:cli/stdin@0.2.2;
     import wasi:cli/environment@0.2.2;
     export wasi:cli/run@0.2.2;
-
-    include wasip2-proposals;
 }
 
 world llm {
     include wasip2;
-    include wasi:nn/ml@0.2.0-rc-2024-08-19;
 }
