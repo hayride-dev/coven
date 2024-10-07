@@ -9,6 +9,8 @@ deps: ; wit-deps update
 
 gen-go: ; wit-bindgen-go generate --world $(world) --out ./gen/go/ ./wit
 
-gen-rust: ; wit-bindgen rust --wit ./wit --out ./gen/rust/
+gen-rust: ; wit-bindgen rust --generate-all --world $(world) --out-dir ./gen/rust ./wit 
 
-clean: ; rm -rf ./gen/go/* & rm -rf ./gen/go/*
+gen-c: ; wit-bindgen c --world $(world) --out-dir ./gen/c ./wit 
+
+clean: ; rm -rf ./gen/go/* & rm -rf ./gen/rust/*  
