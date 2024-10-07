@@ -6,7 +6,7 @@ import (
 	"github.com/bytecodealliance/wasm-tools-go/cm"
 )
 
-// Exports represents the caller-defined exports from "wasi:cli/run@0.2.1".
+// Exports represents the caller-defined exports from "wasi:cli/run@0.2.2".
 var Exports struct {
 	// Run represents the caller-defined, exported function "run".
 	//
