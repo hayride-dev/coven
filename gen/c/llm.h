@@ -74,6 +74,9 @@ typedef struct wasi_io_streams_stream_error_t {
 // The last operation (a write or flush) failed before completion.
 // 
 // More information is available in the `error` payload.
+// 
+// After this, the stream will be closed. All future operations return
+// `stream-error::closed`.
 #define WASI_IO_STREAMS_STREAM_ERROR_LAST_OPERATION_FAILED 0
 // The stream is closed: no more input will be accepted by the
 // stream. A closed output-stream will return this error on all
@@ -561,6 +564,452 @@ typedef struct {
   llm_string_t val;
 } llm_option_string_t;
 
+typedef wasi_clocks_monotonic_clock_duration_t wasi_http_types_duration_t;
+
+// This type corresponds to HTTP standard Methods.
+typedef struct wasi_http_types_method_t {
+  uint8_t tag;
+  union {
+    llm_string_t     other;
+  } val;
+} wasi_http_types_method_t;
+
+#define WASI_HTTP_TYPES_METHOD_GET 0
+#define WASI_HTTP_TYPES_METHOD_HEAD 1
+#define WASI_HTTP_TYPES_METHOD_POST 2
+#define WASI_HTTP_TYPES_METHOD_PUT 3
+#define WASI_HTTP_TYPES_METHOD_DELETE 4
+#define WASI_HTTP_TYPES_METHOD_CONNECT 5
+#define WASI_HTTP_TYPES_METHOD_OPTIONS 6
+#define WASI_HTTP_TYPES_METHOD_TRACE 7
+#define WASI_HTTP_TYPES_METHOD_PATCH 8
+#define WASI_HTTP_TYPES_METHOD_OTHER 9
+
+// This type corresponds to HTTP standard Related Schemes.
+typedef struct wasi_http_types_scheme_t {
+  uint8_t tag;
+  union {
+    llm_string_t     other;
+  } val;
+} wasi_http_types_scheme_t;
+
+#define WASI_HTTP_TYPES_SCHEME_HTTP 0
+#define WASI_HTTP_TYPES_SCHEME_HTTPS 1
+#define WASI_HTTP_TYPES_SCHEME_OTHER 2
+
+typedef struct {
+  bool is_some;
+  uint16_t val;
+} llm_option_u16_t;
+
+// Defines the case payload type for `DNS-error` above:
+typedef struct wasi_http_types_dns_error_payload_t {
+  llm_option_string_t   rcode;
+  llm_option_u16_t   info_code;
+} wasi_http_types_dns_error_payload_t;
+
+typedef struct {
+  bool is_some;
+  uint8_t val;
+} llm_option_u8_t;
+
+// Defines the case payload type for `TLS-alert-received` above:
+typedef struct wasi_http_types_tls_alert_received_payload_t {
+  llm_option_u8_t   alert_id;
+  llm_option_string_t   alert_message;
+} wasi_http_types_tls_alert_received_payload_t;
+
+typedef struct {
+  bool is_some;
+  uint32_t val;
+} llm_option_u32_t;
+
+// Defines the case payload type for `HTTP-response-{header,trailer}-size` above:
+typedef struct wasi_http_types_field_size_payload_t {
+  llm_option_string_t   field_name;
+  llm_option_u32_t   field_size;
+} wasi_http_types_field_size_payload_t;
+
+typedef struct {
+  bool is_some;
+  uint64_t val;
+} llm_option_u64_t;
+
+typedef struct {
+  bool is_some;
+  wasi_http_types_field_size_payload_t val;
+} wasi_http_types_option_field_size_payload_t;
+
+// These cases are inspired by the IANA HTTP Proxy Error Types:
+// https://www.iana.org/assignments/http-proxy-status/http-proxy-status.xhtml#table-http-proxy-error-types
+typedef struct wasi_http_types_error_code_t {
+  uint8_t tag;
+  union {
+    wasi_http_types_dns_error_payload_t     dns_error;
+    wasi_http_types_tls_alert_received_payload_t     tls_alert_received;
+    llm_option_u64_t     http_request_body_size;
+    llm_option_u32_t     http_request_header_section_size;
+    wasi_http_types_option_field_size_payload_t     http_request_header_size;
+    llm_option_u32_t     http_request_trailer_section_size;
+    wasi_http_types_field_size_payload_t     http_request_trailer_size;
+    llm_option_u32_t     http_response_header_section_size;
+    wasi_http_types_field_size_payload_t     http_response_header_size;
+    llm_option_u64_t     http_response_body_size;
+    llm_option_u32_t     http_response_trailer_section_size;
+    wasi_http_types_field_size_payload_t     http_response_trailer_size;
+    llm_option_string_t     http_response_transfer_coding;
+    llm_option_string_t     http_response_content_coding;
+    llm_option_string_t     internal_error;
+  } val;
+} wasi_http_types_error_code_t;
+
+#define WASI_HTTP_TYPES_ERROR_CODE_DNS_TIMEOUT 0
+#define WASI_HTTP_TYPES_ERROR_CODE_DNS_ERROR 1
+#define WASI_HTTP_TYPES_ERROR_CODE_DESTINATION_NOT_FOUND 2
+#define WASI_HTTP_TYPES_ERROR_CODE_DESTINATION_UNAVAILABLE 3
+#define WASI_HTTP_TYPES_ERROR_CODE_DESTINATION_IP_PROHIBITED 4
+#define WASI_HTTP_TYPES_ERROR_CODE_DESTINATION_IP_UNROUTABLE 5
+#define WASI_HTTP_TYPES_ERROR_CODE_CONNECTION_REFUSED 6
+#define WASI_HTTP_TYPES_ERROR_CODE_CONNECTION_TERMINATED 7
+#define WASI_HTTP_TYPES_ERROR_CODE_CONNECTION_TIMEOUT 8
+#define WASI_HTTP_TYPES_ERROR_CODE_CONNECTION_READ_TIMEOUT 9
+#define WASI_HTTP_TYPES_ERROR_CODE_CONNECTION_WRITE_TIMEOUT 10
+#define WASI_HTTP_TYPES_ERROR_CODE_CONNECTION_LIMIT_REACHED 11
+#define WASI_HTTP_TYPES_ERROR_CODE_TLS_PROTOCOL_ERROR 12
+#define WASI_HTTP_TYPES_ERROR_CODE_TLS_CERTIFICATE_ERROR 13
+#define WASI_HTTP_TYPES_ERROR_CODE_TLS_ALERT_RECEIVED 14
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_REQUEST_DENIED 15
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_REQUEST_LENGTH_REQUIRED 16
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_REQUEST_BODY_SIZE 17
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_REQUEST_METHOD_INVALID 18
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_REQUEST_URI_INVALID 19
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_REQUEST_URI_TOO_LONG 20
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_REQUEST_HEADER_SECTION_SIZE 21
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_REQUEST_HEADER_SIZE 22
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_REQUEST_TRAILER_SECTION_SIZE 23
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_REQUEST_TRAILER_SIZE 24
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_RESPONSE_INCOMPLETE 25
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_RESPONSE_HEADER_SECTION_SIZE 26
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_RESPONSE_HEADER_SIZE 27
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_RESPONSE_BODY_SIZE 28
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_RESPONSE_TRAILER_SECTION_SIZE 29
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_RESPONSE_TRAILER_SIZE 30
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_RESPONSE_TRANSFER_CODING 31
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_RESPONSE_CONTENT_CODING 32
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_RESPONSE_TIMEOUT 33
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_UPGRADE_FAILED 34
+#define WASI_HTTP_TYPES_ERROR_CODE_HTTP_PROTOCOL_ERROR 35
+#define WASI_HTTP_TYPES_ERROR_CODE_LOOP_DETECTED 36
+#define WASI_HTTP_TYPES_ERROR_CODE_CONFIGURATION_ERROR 37
+// This is a catch-all error for anything that doesn't fit cleanly into a
+// more specific case. It also includes an optional string for an
+// unstructured description of the error. Users should not depend on the
+// string for diagnosing errors, as it's not required to be consistent
+// between implementations.
+#define WASI_HTTP_TYPES_ERROR_CODE_INTERNAL_ERROR 38
+
+// This type enumerates the different kinds of errors that may occur when
+// setting or appending to a `fields` resource.
+typedef struct wasi_http_types_header_error_t {
+  uint8_t tag;
+} wasi_http_types_header_error_t;
+
+// This error indicates that a `field-name` or `field-value` was
+// syntactically invalid when used with an operation that sets headers in a
+// `fields`.
+#define WASI_HTTP_TYPES_HEADER_ERROR_INVALID_SYNTAX 0
+// This error indicates that a forbidden `field-name` was used when trying
+// to set a header in a `fields`.
+#define WASI_HTTP_TYPES_HEADER_ERROR_FORBIDDEN 1
+// This error indicates that the operation on the `fields` was not
+// permitted because the fields are immutable.
+#define WASI_HTTP_TYPES_HEADER_ERROR_IMMUTABLE 2
+
+// Field keys are always strings.
+// 
+// Field keys should always be treated as case insensitive by the `fields`
+// resource for the purposes of equality checking.
+// 
+// # Deprecation
+// 
+// This type has been deprecated in favor of the `field-name` type.
+typedef llm_string_t wasi_http_types_field_key_t;
+
+// Field names are always strings.
+// 
+// Field names should always be treated as case insensitive by the `fields`
+// resource for the purposes of equality checking.
+typedef wasi_http_types_field_key_t wasi_http_types_field_name_t;
+
+// Field values should always be ASCII strings. However, in
+// reality, HTTP implementations often have to interpret malformed values,
+// so they are provided as a list of bytes.
+typedef struct wasi_http_types_field_value_t {
+  uint8_t   *ptr;
+  size_t len;
+} wasi_http_types_field_value_t;
+
+typedef struct wasi_http_types_own_fields_t {
+  int32_t __handle;
+} wasi_http_types_own_fields_t;
+
+typedef struct wasi_http_types_borrow_fields_t {
+  int32_t __handle;
+} wasi_http_types_borrow_fields_t;
+
+typedef struct wasi_http_types_own_incoming_request_t {
+  int32_t __handle;
+} wasi_http_types_own_incoming_request_t;
+
+typedef struct wasi_http_types_borrow_incoming_request_t {
+  int32_t __handle;
+} wasi_http_types_borrow_incoming_request_t;
+
+typedef struct wasi_http_types_own_outgoing_request_t {
+  int32_t __handle;
+} wasi_http_types_own_outgoing_request_t;
+
+typedef struct wasi_http_types_borrow_outgoing_request_t {
+  int32_t __handle;
+} wasi_http_types_borrow_outgoing_request_t;
+
+typedef struct wasi_http_types_own_request_options_t {
+  int32_t __handle;
+} wasi_http_types_own_request_options_t;
+
+typedef struct wasi_http_types_borrow_request_options_t {
+  int32_t __handle;
+} wasi_http_types_borrow_request_options_t;
+
+typedef struct wasi_http_types_own_response_outparam_t {
+  int32_t __handle;
+} wasi_http_types_own_response_outparam_t;
+
+typedef struct wasi_http_types_borrow_response_outparam_t {
+  int32_t __handle;
+} wasi_http_types_borrow_response_outparam_t;
+
+// This type corresponds to the HTTP standard Status Code.
+typedef uint16_t wasi_http_types_status_code_t;
+
+typedef struct wasi_http_types_own_incoming_response_t {
+  int32_t __handle;
+} wasi_http_types_own_incoming_response_t;
+
+typedef struct wasi_http_types_borrow_incoming_response_t {
+  int32_t __handle;
+} wasi_http_types_borrow_incoming_response_t;
+
+typedef struct wasi_http_types_own_incoming_body_t {
+  int32_t __handle;
+} wasi_http_types_own_incoming_body_t;
+
+typedef struct wasi_http_types_borrow_incoming_body_t {
+  int32_t __handle;
+} wasi_http_types_borrow_incoming_body_t;
+
+typedef struct wasi_http_types_own_future_trailers_t {
+  int32_t __handle;
+} wasi_http_types_own_future_trailers_t;
+
+typedef struct wasi_http_types_borrow_future_trailers_t {
+  int32_t __handle;
+} wasi_http_types_borrow_future_trailers_t;
+
+typedef struct wasi_http_types_own_outgoing_response_t {
+  int32_t __handle;
+} wasi_http_types_own_outgoing_response_t;
+
+typedef struct wasi_http_types_borrow_outgoing_response_t {
+  int32_t __handle;
+} wasi_http_types_borrow_outgoing_response_t;
+
+typedef struct wasi_http_types_own_outgoing_body_t {
+  int32_t __handle;
+} wasi_http_types_own_outgoing_body_t;
+
+typedef struct wasi_http_types_borrow_outgoing_body_t {
+  int32_t __handle;
+} wasi_http_types_borrow_outgoing_body_t;
+
+typedef struct wasi_http_types_own_future_incoming_response_t {
+  int32_t __handle;
+} wasi_http_types_own_future_incoming_response_t;
+
+typedef struct wasi_http_types_borrow_future_incoming_response_t {
+  int32_t __handle;
+} wasi_http_types_borrow_future_incoming_response_t;
+
+typedef wasi_io_error_borrow_error_t wasi_http_types_borrow_io_error_t;
+
+typedef struct {
+  bool is_some;
+  wasi_http_types_error_code_t val;
+} wasi_http_types_option_error_code_t;
+
+typedef struct {
+  wasi_http_types_field_name_t f0;
+  wasi_http_types_field_value_t f1;
+} llm_tuple2_field_name_field_value_t;
+
+typedef struct {
+  llm_tuple2_field_name_field_value_t *ptr;
+  size_t len;
+} llm_list_tuple2_field_name_field_value_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_own_fields_t ok;
+    wasi_http_types_header_error_t err;
+  } val;
+} wasi_http_types_result_own_fields_header_error_t;
+
+typedef struct {
+  wasi_http_types_field_value_t *ptr;
+  size_t len;
+} llm_list_field_value_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_header_error_t err;
+  } val;
+} wasi_http_types_result_void_header_error_t;
+
+typedef struct {
+  bool is_some;
+  wasi_http_types_scheme_t val;
+} wasi_http_types_option_scheme_t;
+
+typedef wasi_http_types_own_fields_t wasi_http_types_own_headers_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_own_incoming_body_t ok;
+  } val;
+} wasi_http_types_result_own_incoming_body_void_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_own_outgoing_body_t ok;
+  } val;
+} wasi_http_types_result_own_outgoing_body_void_t;
+
+typedef struct {
+  bool is_err;
+} wasi_http_types_result_void_void_t;
+
+typedef struct {
+  bool is_some;
+  wasi_http_types_duration_t val;
+} llm_option_duration_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_own_outgoing_response_t ok;
+    wasi_http_types_error_code_t err;
+  } val;
+} wasi_http_types_result_own_outgoing_response_error_code_t;
+
+typedef wasi_io_streams_own_input_stream_t wasi_http_types_own_input_stream_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_own_input_stream_t ok;
+  } val;
+} wasi_http_types_result_own_input_stream_void_t;
+
+typedef wasi_io_poll_own_pollable_t wasi_http_types_own_pollable_t;
+
+typedef wasi_http_types_own_fields_t wasi_http_types_own_trailers_t;
+
+typedef struct {
+  bool is_some;
+  wasi_http_types_own_trailers_t val;
+} wasi_http_types_option_own_trailers_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_option_own_trailers_t ok;
+    wasi_http_types_error_code_t err;
+  } val;
+} wasi_http_types_result_option_own_trailers_error_code_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_result_option_own_trailers_error_code_t ok;
+  } val;
+} wasi_http_types_result_result_option_own_trailers_error_code_void_t;
+
+typedef struct {
+  bool is_some;
+  wasi_http_types_result_result_option_own_trailers_error_code_void_t val;
+} wasi_http_types_option_result_result_option_own_trailers_error_code_void_t;
+
+typedef wasi_io_streams_own_output_stream_t wasi_http_types_own_output_stream_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_own_output_stream_t ok;
+  } val;
+} wasi_http_types_result_own_output_stream_void_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_error_code_t err;
+  } val;
+} wasi_http_types_result_void_error_code_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_own_incoming_response_t ok;
+    wasi_http_types_error_code_t err;
+  } val;
+} wasi_http_types_result_own_incoming_response_error_code_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_types_result_own_incoming_response_error_code_t ok;
+  } val;
+} wasi_http_types_result_result_own_incoming_response_error_code_void_t;
+
+typedef struct {
+  bool is_some;
+  wasi_http_types_result_result_own_incoming_response_error_code_void_t val;
+} wasi_http_types_option_result_result_own_incoming_response_error_code_void_t;
+
+typedef wasi_http_types_error_code_t wasi_http_outgoing_handler_error_code_t;
+
+typedef wasi_http_types_own_outgoing_request_t wasi_http_outgoing_handler_own_outgoing_request_t;
+
+typedef wasi_http_types_own_request_options_t wasi_http_outgoing_handler_own_request_options_t;
+
+typedef struct {
+  bool is_some;
+  wasi_http_outgoing_handler_own_request_options_t val;
+} wasi_http_outgoing_handler_option_own_request_options_t;
+
+typedef wasi_http_types_own_future_incoming_response_t wasi_http_outgoing_handler_own_future_incoming_response_t;
+
+typedef struct {
+  bool is_err;
+  union {
+    wasi_http_outgoing_handler_own_future_incoming_response_t ok;
+    wasi_http_outgoing_handler_error_code_t err;
+  } val;
+} wasi_http_outgoing_handler_result_own_future_incoming_response_error_code_t;
+
 // The dimensions of a tensor.
 // 
 // The array length matches the tensor rank and each element in the array describes the size of
@@ -725,7 +1174,7 @@ typedef struct {
   bool is_err;
 } exports_wasi_cli_run_result_void_void_t;
 
-// Imported Functions from `wasi:clocks/wall-clock@0.2.1`
+// Imported Functions from `wasi:clocks/wall-clock@0.2.2`
 // Read the current value of the clock.
 // 
 // This clock is not monotonic, therefore calling this function repeatedly
@@ -745,7 +1194,7 @@ extern void wasi_clocks_wall_clock_now(wasi_clocks_wall_clock_datetime_t *ret);
 // The nanoseconds field of the output is always less than 1000000000.
 extern void wasi_clocks_wall_clock_resolution(wasi_clocks_wall_clock_datetime_t *ret);
 
-// Imported Functions from `wasi:io/poll@0.2.1`
+// Imported Functions from `wasi:io/poll@0.2.2`
 // Return the readiness of a pollable. This function never blocks.
 // 
 // Returns `true` when the pollable is ready, and `false` otherwise.
@@ -777,7 +1226,7 @@ extern void wasi_io_poll_method_pollable_block(wasi_io_poll_borrow_pollable_t se
 // being ready for I/O.
 extern void wasi_io_poll_poll(wasi_io_poll_list_borrow_pollable_t *in, llm_list_u32_t *ret);
 
-// Imported Functions from `wasi:clocks/monotonic-clock@0.2.1`
+// Imported Functions from `wasi:clocks/monotonic-clock@0.2.2`
 // Read the current value of the clock.
 // 
 // The clock is monotonic, therefore calling this function repeatedly will
@@ -793,7 +1242,7 @@ extern wasi_clocks_monotonic_clock_own_pollable_t wasi_clocks_monotonic_clock_su
 // elapsed from the time this function is invoked.
 extern wasi_clocks_monotonic_clock_own_pollable_t wasi_clocks_monotonic_clock_subscribe_duration(wasi_clocks_monotonic_clock_duration_t when);
 
-// Imported Functions from `wasi:random/random@0.2.1`
+// Imported Functions from `wasi:random/random@0.2.2`
 // Return `len` cryptographically-secure random or pseudo-random bytes.
 // 
 // This function must produce data at least as cryptographically secure and
@@ -813,7 +1262,7 @@ extern void wasi_random_random_get_random_bytes(uint64_t len, llm_list_u8_t *ret
 // represented as a `u64`.
 extern uint64_t wasi_random_random_get_random_u64(void);
 
-// Imported Functions from `wasi:io/error@0.2.1`
+// Imported Functions from `wasi:io/error@0.2.2`
 // Returns a string that is suitable to assist humans in debugging
 // this error.
 // 
@@ -823,7 +1272,7 @@ extern uint64_t wasi_random_random_get_random_u64(void);
 // hazard.
 extern void wasi_io_error_method_error_to_debug_string(wasi_io_error_borrow_error_t self, llm_string_t *ret);
 
-// Imported Functions from `wasi:io/streams@0.2.1`
+// Imported Functions from `wasi:io/streams@0.2.2`
 // Perform a non-blocking read from the stream.
 // 
 // When the source of a `read` is binary data, the bytes from the source
@@ -996,7 +1445,7 @@ extern bool wasi_io_streams_method_output_stream_splice(wasi_io_streams_borrow_o
 // is ready for reading, before performing the `splice`.
 extern bool wasi_io_streams_method_output_stream_blocking_splice(wasi_io_streams_borrow_output_stream_t self, wasi_io_streams_borrow_input_stream_t src, uint64_t len, uint64_t *ret, wasi_io_streams_stream_error_t *err);
 
-// Imported Functions from `wasi:filesystem/types@0.2.1`
+// Imported Functions from `wasi:filesystem/types@0.2.2`
 // Return a stream for reading from a file, if available.
 // 
 // May fail with an error-code describing why the file cannot be read.
@@ -1134,12 +1583,6 @@ extern bool wasi_filesystem_types_method_descriptor_set_times_at(wasi_filesystem
 extern bool wasi_filesystem_types_method_descriptor_link_at(wasi_filesystem_types_borrow_descriptor_t self, wasi_filesystem_types_path_flags_t old_path_flags, llm_string_t *old_path, wasi_filesystem_types_borrow_descriptor_t new_descriptor, llm_string_t *new_path, wasi_filesystem_types_error_code_t *err);
 // Open a file or directory.
 // 
-// The returned descriptor is not guaranteed to be the lowest-numbered
-// descriptor not currently open/ it is randomized to prevent applications
-// from depending on making assumptions about indexes, since this is
-// error-prone in multi-threaded contexts. The returned descriptor is
-// guaranteed to be less than 2**31.
-// 
 // If `flags` contains `descriptor-flags::mutate-directory`, and the base
 // descriptor doesn't have `descriptor-flags::mutate-directory` set,
 // `open-at` fails with `error-code::read-only`.
@@ -1226,20 +1669,20 @@ extern bool wasi_filesystem_types_method_directory_entry_stream_read_directory_e
 // errors are filesystem-related errors.
 extern bool wasi_filesystem_types_filesystem_error_code(wasi_filesystem_types_borrow_error_t err_, wasi_filesystem_types_error_code_t *ret);
 
-// Imported Functions from `wasi:filesystem/preopens@0.2.1`
+// Imported Functions from `wasi:filesystem/preopens@0.2.2`
 // Return the set of preopened directories, and their path.
 extern void wasi_filesystem_preopens_get_directories(wasi_filesystem_preopens_list_tuple2_own_descriptor_string_t *ret);
 
-// Imported Functions from `wasi:cli/stdout@0.2.1`
+// Imported Functions from `wasi:cli/stdout@0.2.2`
 extern wasi_cli_stdout_own_output_stream_t wasi_cli_stdout_get_stdout(void);
 
-// Imported Functions from `wasi:cli/stderr@0.2.1`
+// Imported Functions from `wasi:cli/stderr@0.2.2`
 extern wasi_cli_stderr_own_output_stream_t wasi_cli_stderr_get_stderr(void);
 
-// Imported Functions from `wasi:cli/stdin@0.2.1`
+// Imported Functions from `wasi:cli/stdin@0.2.2`
 extern wasi_cli_stdin_own_input_stream_t wasi_cli_stdin_get_stdin(void);
 
-// Imported Functions from `wasi:cli/environment@0.2.1`
+// Imported Functions from `wasi:cli/environment@0.2.2`
 // Get the POSIX-style environment variables.
 // 
 // Each environment variable is provided as a pair of string variable names
@@ -1254,6 +1697,322 @@ extern void wasi_cli_environment_get_arguments(llm_list_string_t *ret);
 // Return a path that programs should use as their initial current working
 // directory, interpreting `.` as shorthand for this.
 extern bool wasi_cli_environment_initial_cwd(llm_string_t *ret);
+
+// Imported Functions from `wasi:http/types@0.2.2`
+// Attempts to extract a http-related `error` from the wasi:io `error`
+// provided.
+// 
+// Stream operations which return
+// `wasi:io/stream/stream-error::last-operation-failed` have a payload of
+// type `wasi:io/error/error` with more information about the operation
+// that failed. This payload can be passed through to this function to see
+// if there's http-related information about the error to return.
+// 
+// Note that this function is fallible because not all io-errors are
+// http-related errors.
+extern bool wasi_http_types_http_error_code(wasi_http_types_borrow_io_error_t err_, wasi_http_types_error_code_t *ret);
+// Construct an empty HTTP Fields.
+// 
+// The resulting `fields` is mutable.
+extern wasi_http_types_own_fields_t wasi_http_types_constructor_fields(void);
+// Construct an HTTP Fields.
+// 
+// The resulting `fields` is mutable.
+// 
+// The list represents each name-value pair in the Fields. Names
+// which have multiple values are represented by multiple entries in this
+// list with the same name.
+// 
+// The tuple is a pair of the field name, represented as a string, and
+// Value, represented as a list of bytes.
+// 
+// An error result will be returned if any `field-name` or `field-value` is
+// syntactically invalid, or if a field is forbidden.
+extern bool wasi_http_types_static_fields_from_list(llm_list_tuple2_field_name_field_value_t *entries, wasi_http_types_own_fields_t *ret, wasi_http_types_header_error_t *err);
+// Get all of the values corresponding to a name. If the name is not present
+// in this `fields` or is syntactically invalid, an empty list is returned.
+// However, if the name is present but empty, this is represented by a list
+// with one or more empty field-values present.
+extern void wasi_http_types_method_fields_get(wasi_http_types_borrow_fields_t self, wasi_http_types_field_name_t *name, llm_list_field_value_t *ret);
+// Returns `true` when the name is present in this `fields`. If the name is
+// syntactically invalid, `false` is returned.
+extern bool wasi_http_types_method_fields_has(wasi_http_types_borrow_fields_t self, wasi_http_types_field_name_t *name);
+// Set all of the values for a name. Clears any existing values for that
+// name, if they have been set.
+// 
+// Fails with `header-error.immutable` if the `fields` are immutable.
+// 
+// Fails with `header-error.invalid-syntax` if the `field-name` or any of
+// the `field-value`s are syntactically invalid.
+extern bool wasi_http_types_method_fields_set(wasi_http_types_borrow_fields_t self, wasi_http_types_field_name_t *name, llm_list_field_value_t *value, wasi_http_types_header_error_t *err);
+// Delete all values for a name. Does nothing if no values for the name
+// exist.
+// 
+// Fails with `header-error.immutable` if the `fields` are immutable.
+// 
+// Fails with `header-error.invalid-syntax` if the `field-name` is
+// syntactically invalid.
+extern bool wasi_http_types_method_fields_delete(wasi_http_types_borrow_fields_t self, wasi_http_types_field_name_t *name, wasi_http_types_header_error_t *err);
+// Append a value for a name. Does not change or delete any existing
+// values for that name.
+// 
+// Fails with `header-error.immutable` if the `fields` are immutable.
+// 
+// Fails with `header-error.invalid-syntax` if the `field-name` or
+// `field-value` are syntactically invalid.
+extern bool wasi_http_types_method_fields_append(wasi_http_types_borrow_fields_t self, wasi_http_types_field_name_t *name, wasi_http_types_field_value_t *value, wasi_http_types_header_error_t *err);
+// Retrieve the full set of names and values in the Fields. Like the
+// constructor, the list represents each name-value pair.
+// 
+// The outer list represents each name-value pair in the Fields. Names
+// which have multiple values are represented by multiple entries in this
+// list with the same name.
+// 
+// The names and values are always returned in the original casing and in
+// the order in which they will be serialized for transport.
+extern void wasi_http_types_method_fields_entries(wasi_http_types_borrow_fields_t self, llm_list_tuple2_field_name_field_value_t *ret);
+// Make a deep copy of the Fields. Equivalent in behavior to calling the
+// `fields` constructor on the return value of `entries`. The resulting
+// `fields` is mutable.
+extern wasi_http_types_own_fields_t wasi_http_types_method_fields_clone(wasi_http_types_borrow_fields_t self);
+// Returns the method of the incoming request.
+extern void wasi_http_types_method_incoming_request_method(wasi_http_types_borrow_incoming_request_t self, wasi_http_types_method_t *ret);
+// Returns the path with query parameters from the request, as a string.
+extern bool wasi_http_types_method_incoming_request_path_with_query(wasi_http_types_borrow_incoming_request_t self, llm_string_t *ret);
+// Returns the protocol scheme from the request.
+extern bool wasi_http_types_method_incoming_request_scheme(wasi_http_types_borrow_incoming_request_t self, wasi_http_types_scheme_t *ret);
+// Returns the authority of the Request's target URI, if present.
+extern bool wasi_http_types_method_incoming_request_authority(wasi_http_types_borrow_incoming_request_t self, llm_string_t *ret);
+// Get the `headers` associated with the request.
+// 
+// The returned `headers` resource is immutable: `set`, `append`, and
+// `delete` operations will fail with `header-error.immutable`.
+// 
+// The `headers` returned are a child resource: it must be dropped before
+// the parent `incoming-request` is dropped. Dropping this
+// `incoming-request` before all children are dropped will trap.
+extern wasi_http_types_own_headers_t wasi_http_types_method_incoming_request_headers(wasi_http_types_borrow_incoming_request_t self);
+// Gives the `incoming-body` associated with this request. Will only
+// return success at most once, and subsequent calls will return error.
+extern bool wasi_http_types_method_incoming_request_consume(wasi_http_types_borrow_incoming_request_t self, wasi_http_types_own_incoming_body_t *ret);
+// Construct a new `outgoing-request` with a default `method` of `GET`, and
+// `none` values for `path-with-query`, `scheme`, and `authority`.
+// 
+// * `headers` is the HTTP Headers for the Request.
+// 
+// It is possible to construct, or manipulate with the accessor functions
+// below, an `outgoing-request` with an invalid combination of `scheme`
+// and `authority`, or `headers` which are not permitted to be sent.
+// It is the obligation of the `outgoing-handler.handle` implementation
+// to reject invalid constructions of `outgoing-request`.
+extern wasi_http_types_own_outgoing_request_t wasi_http_types_constructor_outgoing_request(wasi_http_types_own_headers_t headers);
+// Returns the resource corresponding to the outgoing Body for this
+// Request.
+// 
+// Returns success on the first call: the `outgoing-body` resource for
+// this `outgoing-request` can be retrieved at most once. Subsequent
+// calls will return error.
+extern bool wasi_http_types_method_outgoing_request_body(wasi_http_types_borrow_outgoing_request_t self, wasi_http_types_own_outgoing_body_t *ret);
+// Get the Method for the Request.
+extern void wasi_http_types_method_outgoing_request_method(wasi_http_types_borrow_outgoing_request_t self, wasi_http_types_method_t *ret);
+// Set the Method for the Request. Fails if the string present in a
+// `method.other` argument is not a syntactically valid method.
+extern bool wasi_http_types_method_outgoing_request_set_method(wasi_http_types_borrow_outgoing_request_t self, wasi_http_types_method_t *method);
+// Get the combination of the HTTP Path and Query for the Request.
+// When `none`, this represents an empty Path and empty Query.
+extern bool wasi_http_types_method_outgoing_request_path_with_query(wasi_http_types_borrow_outgoing_request_t self, llm_string_t *ret);
+// Set the combination of the HTTP Path and Query for the Request.
+// When `none`, this represents an empty Path and empty Query. Fails is the
+// string given is not a syntactically valid path and query uri component.
+extern bool wasi_http_types_method_outgoing_request_set_path_with_query(wasi_http_types_borrow_outgoing_request_t self, llm_string_t *maybe_path_with_query);
+// Get the HTTP Related Scheme for the Request. When `none`, the
+// implementation may choose an appropriate default scheme.
+extern bool wasi_http_types_method_outgoing_request_scheme(wasi_http_types_borrow_outgoing_request_t self, wasi_http_types_scheme_t *ret);
+// Set the HTTP Related Scheme for the Request. When `none`, the
+// implementation may choose an appropriate default scheme. Fails if the
+// string given is not a syntactically valid uri scheme.
+extern bool wasi_http_types_method_outgoing_request_set_scheme(wasi_http_types_borrow_outgoing_request_t self, wasi_http_types_scheme_t *maybe_scheme);
+// Get the authority of the Request's target URI. A value of `none` may be used
+// with Related Schemes which do not require an authority. The HTTP and
+// HTTPS schemes always require an authority.
+extern bool wasi_http_types_method_outgoing_request_authority(wasi_http_types_borrow_outgoing_request_t self, llm_string_t *ret);
+// Set the authority of the Request's target URI. A value of `none` may be used
+// with Related Schemes which do not require an authority. The HTTP and
+// HTTPS schemes always require an authority. Fails if the string given is
+// not a syntactically valid URI authority.
+extern bool wasi_http_types_method_outgoing_request_set_authority(wasi_http_types_borrow_outgoing_request_t self, llm_string_t *maybe_authority);
+// Get the headers associated with the Request.
+// 
+// The returned `headers` resource is immutable: `set`, `append`, and
+// `delete` operations will fail with `header-error.immutable`.
+// 
+// This headers resource is a child: it must be dropped before the parent
+// `outgoing-request` is dropped, or its ownership is transferred to
+// another component by e.g. `outgoing-handler.handle`.
+extern wasi_http_types_own_headers_t wasi_http_types_method_outgoing_request_headers(wasi_http_types_borrow_outgoing_request_t self);
+// Construct a default `request-options` value.
+extern wasi_http_types_own_request_options_t wasi_http_types_constructor_request_options(void);
+// The timeout for the initial connect to the HTTP Server.
+extern bool wasi_http_types_method_request_options_connect_timeout(wasi_http_types_borrow_request_options_t self, wasi_http_types_duration_t *ret);
+// Set the timeout for the initial connect to the HTTP Server. An error
+// return value indicates that this timeout is not supported.
+extern bool wasi_http_types_method_request_options_set_connect_timeout(wasi_http_types_borrow_request_options_t self, wasi_http_types_duration_t *maybe_duration);
+// The timeout for receiving the first byte of the Response body.
+extern bool wasi_http_types_method_request_options_first_byte_timeout(wasi_http_types_borrow_request_options_t self, wasi_http_types_duration_t *ret);
+// Set the timeout for receiving the first byte of the Response body. An
+// error return value indicates that this timeout is not supported.
+extern bool wasi_http_types_method_request_options_set_first_byte_timeout(wasi_http_types_borrow_request_options_t self, wasi_http_types_duration_t *maybe_duration);
+// The timeout for receiving subsequent chunks of bytes in the Response
+// body stream.
+extern bool wasi_http_types_method_request_options_between_bytes_timeout(wasi_http_types_borrow_request_options_t self, wasi_http_types_duration_t *ret);
+// Set the timeout for receiving subsequent chunks of bytes in the Response
+// body stream. An error return value indicates that this timeout is not
+// supported.
+extern bool wasi_http_types_method_request_options_set_between_bytes_timeout(wasi_http_types_borrow_request_options_t self, wasi_http_types_duration_t *maybe_duration);
+// Set the value of the `response-outparam` to either send a response,
+// or indicate an error.
+// 
+// This method consumes the `response-outparam` to ensure that it is
+// called at most once. If it is never called, the implementation
+// will respond with an error.
+// 
+// The user may provide an `error` to `response` to allow the
+// implementation determine how to respond with an HTTP error response.
+extern void wasi_http_types_static_response_outparam_set(wasi_http_types_own_response_outparam_t param, wasi_http_types_result_own_outgoing_response_error_code_t *response);
+// Returns the status code from the incoming response.
+extern wasi_http_types_status_code_t wasi_http_types_method_incoming_response_status(wasi_http_types_borrow_incoming_response_t self);
+// Returns the headers from the incoming response.
+// 
+// The returned `headers` resource is immutable: `set`, `append`, and
+// `delete` operations will fail with `header-error.immutable`.
+// 
+// This headers resource is a child: it must be dropped before the parent
+// `incoming-response` is dropped.
+extern wasi_http_types_own_headers_t wasi_http_types_method_incoming_response_headers(wasi_http_types_borrow_incoming_response_t self);
+// Returns the incoming body. May be called at most once. Returns error
+// if called additional times.
+extern bool wasi_http_types_method_incoming_response_consume(wasi_http_types_borrow_incoming_response_t self, wasi_http_types_own_incoming_body_t *ret);
+// Returns the contents of the body, as a stream of bytes.
+// 
+// Returns success on first call: the stream representing the contents
+// can be retrieved at most once. Subsequent calls will return error.
+// 
+// The returned `input-stream` resource is a child: it must be dropped
+// before the parent `incoming-body` is dropped, or consumed by
+// `incoming-body.finish`.
+// 
+// This invariant ensures that the implementation can determine whether
+// the user is consuming the contents of the body, waiting on the
+// `future-trailers` to be ready, or neither. This allows for network
+// backpressure is to be applied when the user is consuming the body,
+// and for that backpressure to not inhibit delivery of the trailers if
+// the user does not read the entire body.
+extern bool wasi_http_types_method_incoming_body_stream(wasi_http_types_borrow_incoming_body_t self, wasi_http_types_own_input_stream_t *ret);
+// Takes ownership of `incoming-body`, and returns a `future-trailers`.
+// This function will trap if the `input-stream` child is still alive.
+extern wasi_http_types_own_future_trailers_t wasi_http_types_static_incoming_body_finish(wasi_http_types_own_incoming_body_t this_);
+// Returns a pollable which becomes ready when either the trailers have
+// been received, or an error has occurred. When this pollable is ready,
+// the `get` method will return `some`.
+extern wasi_http_types_own_pollable_t wasi_http_types_method_future_trailers_subscribe(wasi_http_types_borrow_future_trailers_t self);
+// Returns the contents of the trailers, or an error which occurred,
+// once the future is ready.
+// 
+// The outer `option` represents future readiness. Users can wait on this
+// `option` to become `some` using the `subscribe` method.
+// 
+// The outer `result` is used to retrieve the trailers or error at most
+// once. It will be success on the first call in which the outer option
+// is `some`, and error on subsequent calls.
+// 
+// The inner `result` represents that either the HTTP Request or Response
+// body, as well as any trailers, were received successfully, or that an
+// error occurred receiving them. The optional `trailers` indicates whether
+// or not trailers were present in the body.
+// 
+// When some `trailers` are returned by this method, the `trailers`
+// resource is immutable, and a child. Use of the `set`, `append`, or
+// `delete` methods will return an error, and the resource must be
+// dropped before the parent `future-trailers` is dropped.
+extern bool wasi_http_types_method_future_trailers_get(wasi_http_types_borrow_future_trailers_t self, wasi_http_types_result_result_option_own_trailers_error_code_void_t *ret);
+// Construct an `outgoing-response`, with a default `status-code` of `200`.
+// If a different `status-code` is needed, it must be set via the
+// `set-status-code` method.
+// 
+// * `headers` is the HTTP Headers for the Response.
+extern wasi_http_types_own_outgoing_response_t wasi_http_types_constructor_outgoing_response(wasi_http_types_own_headers_t headers);
+// Get the HTTP Status Code for the Response.
+extern wasi_http_types_status_code_t wasi_http_types_method_outgoing_response_status_code(wasi_http_types_borrow_outgoing_response_t self);
+// Set the HTTP Status Code for the Response. Fails if the status-code
+// given is not a valid http status code.
+extern bool wasi_http_types_method_outgoing_response_set_status_code(wasi_http_types_borrow_outgoing_response_t self, wasi_http_types_status_code_t status_code);
+// Get the headers associated with the Request.
+// 
+// The returned `headers` resource is immutable: `set`, `append`, and
+// `delete` operations will fail with `header-error.immutable`.
+// 
+// This headers resource is a child: it must be dropped before the parent
+// `outgoing-request` is dropped, or its ownership is transferred to
+// another component by e.g. `outgoing-handler.handle`.
+extern wasi_http_types_own_headers_t wasi_http_types_method_outgoing_response_headers(wasi_http_types_borrow_outgoing_response_t self);
+// Returns the resource corresponding to the outgoing Body for this Response.
+// 
+// Returns success on the first call: the `outgoing-body` resource for
+// this `outgoing-response` can be retrieved at most once. Subsequent
+// calls will return error.
+extern bool wasi_http_types_method_outgoing_response_body(wasi_http_types_borrow_outgoing_response_t self, wasi_http_types_own_outgoing_body_t *ret);
+// Returns a stream for writing the body contents.
+// 
+// The returned `output-stream` is a child resource: it must be dropped
+// before the parent `outgoing-body` resource is dropped (or finished),
+// otherwise the `outgoing-body` drop or `finish` will trap.
+// 
+// Returns success on the first call: the `output-stream` resource for
+// this `outgoing-body` may be retrieved at most once. Subsequent calls
+// will return error.
+extern bool wasi_http_types_method_outgoing_body_write(wasi_http_types_borrow_outgoing_body_t self, wasi_http_types_own_output_stream_t *ret);
+// Finalize an outgoing body, optionally providing trailers. This must be
+// called to signal that the response is complete. If the `outgoing-body`
+// is dropped without calling `outgoing-body.finalize`, the implementation
+// should treat the body as corrupted.
+// 
+// Fails if the body's `outgoing-request` or `outgoing-response` was
+// constructed with a Content-Length header, and the contents written
+// to the body (via `write`) does not match the value given in the
+// Content-Length.
+extern bool wasi_http_types_static_outgoing_body_finish(wasi_http_types_own_outgoing_body_t this_, wasi_http_types_own_trailers_t *maybe_trailers, wasi_http_types_error_code_t *err);
+// Returns a pollable which becomes ready when either the Response has
+// been received, or an error has occurred. When this pollable is ready,
+// the `get` method will return `some`.
+extern wasi_http_types_own_pollable_t wasi_http_types_method_future_incoming_response_subscribe(wasi_http_types_borrow_future_incoming_response_t self);
+// Returns the incoming HTTP Response, or an error, once one is ready.
+// 
+// The outer `option` represents future readiness. Users can wait on this
+// `option` to become `some` using the `subscribe` method.
+// 
+// The outer `result` is used to retrieve the response or error at most
+// once. It will be success on the first call in which the outer option
+// is `some`, and error on subsequent calls.
+// 
+// The inner `result` represents that either the incoming HTTP Response
+// status and headers have received successfully, or that an error
+// occurred. Errors may also occur while consuming the response body,
+// but those will be reported by the `incoming-body` and its
+// `output-stream` child.
+extern bool wasi_http_types_method_future_incoming_response_get(wasi_http_types_borrow_future_incoming_response_t self, wasi_http_types_result_result_own_incoming_response_error_code_void_t *ret);
+
+// Imported Functions from `wasi:http/outgoing-handler@0.2.2`
+// This function is invoked with an outgoing HTTP Request, and it returns
+// a resource `future-incoming-response` which represents an HTTP Response
+// which may arrive in the future.
+// 
+// The `options` argument accepts optional parameters for the HTTP
+// protocol's transport layer.
+// 
+// This function may return an error if the `outgoing-request` is invalid
+// or not allowed to be made. Otherwise, protocol errors are reported
+// through the `future-incoming-response`.
+extern bool wasi_http_outgoing_handler_handle(wasi_http_outgoing_handler_own_outgoing_request_t request, wasi_http_outgoing_handler_own_request_options_t *maybe_options, wasi_http_outgoing_handler_own_future_incoming_response_t *ret, wasi_http_outgoing_handler_error_code_t *err);
 
 // Imported Functions from `wasi:nn/tensor@0.2.0-rc-2024-08-19`
 extern wasi_nn_tensor_own_tensor_t wasi_nn_tensor_constructor_tensor(wasi_nn_tensor_tensor_dimensions_t *dimensions, wasi_nn_tensor_tensor_type_t ty, wasi_nn_tensor_tensor_data_t *data);
@@ -1294,7 +2053,7 @@ extern bool wasi_nn_graph_load(llm_list_graph_builder_t *builder, wasi_nn_graph_
 // range from simple to complex (e.g., URLs?) and caching mechanisms of various kinds.
 extern bool wasi_nn_graph_load_by_name(llm_string_t *name, wasi_nn_graph_own_graph_t *ret, wasi_nn_graph_own_error_t *err);
 
-// Exported Functions from `wasi:cli/run@0.2.1`
+// Exported Functions from `wasi:cli/run@0.2.2`
 bool exports_wasi_cli_run_run(void);
 
 // Helper Functions
@@ -1386,6 +2145,130 @@ void llm_list_tuple2_string_string_free(llm_list_tuple2_string_string_t *ptr);
 void llm_list_string_free(llm_list_string_t *ptr);
 
 void llm_option_string_free(llm_option_string_t *ptr);
+
+void wasi_http_types_method_free(wasi_http_types_method_t *ptr);
+
+void wasi_http_types_scheme_free(wasi_http_types_scheme_t *ptr);
+
+void llm_option_u16_free(llm_option_u16_t *ptr);
+
+void wasi_http_types_dns_error_payload_free(wasi_http_types_dns_error_payload_t *ptr);
+
+void llm_option_u8_free(llm_option_u8_t *ptr);
+
+void wasi_http_types_tls_alert_received_payload_free(wasi_http_types_tls_alert_received_payload_t *ptr);
+
+void llm_option_u32_free(llm_option_u32_t *ptr);
+
+void wasi_http_types_field_size_payload_free(wasi_http_types_field_size_payload_t *ptr);
+
+void llm_option_u64_free(llm_option_u64_t *ptr);
+
+void wasi_http_types_option_field_size_payload_free(wasi_http_types_option_field_size_payload_t *ptr);
+
+void wasi_http_types_error_code_free(wasi_http_types_error_code_t *ptr);
+
+void wasi_http_types_header_error_free(wasi_http_types_header_error_t *ptr);
+
+void wasi_http_types_field_key_free(wasi_http_types_field_key_t *ptr);
+
+void wasi_http_types_field_name_free(wasi_http_types_field_name_t *ptr);
+
+void wasi_http_types_field_value_free(wasi_http_types_field_value_t *ptr);
+
+extern void wasi_http_types_fields_drop_own(wasi_http_types_own_fields_t handle);
+
+extern wasi_http_types_borrow_fields_t wasi_http_types_borrow_fields(wasi_http_types_own_fields_t handle);
+
+extern void wasi_http_types_incoming_request_drop_own(wasi_http_types_own_incoming_request_t handle);
+
+extern wasi_http_types_borrow_incoming_request_t wasi_http_types_borrow_incoming_request(wasi_http_types_own_incoming_request_t handle);
+
+extern void wasi_http_types_outgoing_request_drop_own(wasi_http_types_own_outgoing_request_t handle);
+
+extern wasi_http_types_borrow_outgoing_request_t wasi_http_types_borrow_outgoing_request(wasi_http_types_own_outgoing_request_t handle);
+
+extern void wasi_http_types_request_options_drop_own(wasi_http_types_own_request_options_t handle);
+
+extern wasi_http_types_borrow_request_options_t wasi_http_types_borrow_request_options(wasi_http_types_own_request_options_t handle);
+
+extern void wasi_http_types_response_outparam_drop_own(wasi_http_types_own_response_outparam_t handle);
+
+extern wasi_http_types_borrow_response_outparam_t wasi_http_types_borrow_response_outparam(wasi_http_types_own_response_outparam_t handle);
+
+extern void wasi_http_types_incoming_response_drop_own(wasi_http_types_own_incoming_response_t handle);
+
+extern wasi_http_types_borrow_incoming_response_t wasi_http_types_borrow_incoming_response(wasi_http_types_own_incoming_response_t handle);
+
+extern void wasi_http_types_incoming_body_drop_own(wasi_http_types_own_incoming_body_t handle);
+
+extern wasi_http_types_borrow_incoming_body_t wasi_http_types_borrow_incoming_body(wasi_http_types_own_incoming_body_t handle);
+
+extern void wasi_http_types_future_trailers_drop_own(wasi_http_types_own_future_trailers_t handle);
+
+extern wasi_http_types_borrow_future_trailers_t wasi_http_types_borrow_future_trailers(wasi_http_types_own_future_trailers_t handle);
+
+extern void wasi_http_types_outgoing_response_drop_own(wasi_http_types_own_outgoing_response_t handle);
+
+extern wasi_http_types_borrow_outgoing_response_t wasi_http_types_borrow_outgoing_response(wasi_http_types_own_outgoing_response_t handle);
+
+extern void wasi_http_types_outgoing_body_drop_own(wasi_http_types_own_outgoing_body_t handle);
+
+extern wasi_http_types_borrow_outgoing_body_t wasi_http_types_borrow_outgoing_body(wasi_http_types_own_outgoing_body_t handle);
+
+extern void wasi_http_types_future_incoming_response_drop_own(wasi_http_types_own_future_incoming_response_t handle);
+
+extern wasi_http_types_borrow_future_incoming_response_t wasi_http_types_borrow_future_incoming_response(wasi_http_types_own_future_incoming_response_t handle);
+
+void wasi_http_types_option_error_code_free(wasi_http_types_option_error_code_t *ptr);
+
+void llm_tuple2_field_name_field_value_free(llm_tuple2_field_name_field_value_t *ptr);
+
+void llm_list_tuple2_field_name_field_value_free(llm_list_tuple2_field_name_field_value_t *ptr);
+
+void wasi_http_types_result_own_fields_header_error_free(wasi_http_types_result_own_fields_header_error_t *ptr);
+
+void llm_list_field_value_free(llm_list_field_value_t *ptr);
+
+void wasi_http_types_result_void_header_error_free(wasi_http_types_result_void_header_error_t *ptr);
+
+void wasi_http_types_option_scheme_free(wasi_http_types_option_scheme_t *ptr);
+
+void wasi_http_types_result_own_incoming_body_void_free(wasi_http_types_result_own_incoming_body_void_t *ptr);
+
+void wasi_http_types_result_own_outgoing_body_void_free(wasi_http_types_result_own_outgoing_body_void_t *ptr);
+
+void wasi_http_types_result_void_void_free(wasi_http_types_result_void_void_t *ptr);
+
+void llm_option_duration_free(llm_option_duration_t *ptr);
+
+void wasi_http_types_result_own_outgoing_response_error_code_free(wasi_http_types_result_own_outgoing_response_error_code_t *ptr);
+
+void wasi_http_types_result_own_input_stream_void_free(wasi_http_types_result_own_input_stream_void_t *ptr);
+
+void wasi_http_types_option_own_trailers_free(wasi_http_types_option_own_trailers_t *ptr);
+
+void wasi_http_types_result_option_own_trailers_error_code_free(wasi_http_types_result_option_own_trailers_error_code_t *ptr);
+
+void wasi_http_types_result_result_option_own_trailers_error_code_void_free(wasi_http_types_result_result_option_own_trailers_error_code_void_t *ptr);
+
+void wasi_http_types_option_result_result_option_own_trailers_error_code_void_free(wasi_http_types_option_result_result_option_own_trailers_error_code_void_t *ptr);
+
+void wasi_http_types_result_own_output_stream_void_free(wasi_http_types_result_own_output_stream_void_t *ptr);
+
+void wasi_http_types_result_void_error_code_free(wasi_http_types_result_void_error_code_t *ptr);
+
+void wasi_http_types_result_own_incoming_response_error_code_free(wasi_http_types_result_own_incoming_response_error_code_t *ptr);
+
+void wasi_http_types_result_result_own_incoming_response_error_code_void_free(wasi_http_types_result_result_own_incoming_response_error_code_void_t *ptr);
+
+void wasi_http_types_option_result_result_own_incoming_response_error_code_void_free(wasi_http_types_option_result_result_own_incoming_response_error_code_void_t *ptr);
+
+void wasi_http_outgoing_handler_error_code_free(wasi_http_outgoing_handler_error_code_t *ptr);
+
+void wasi_http_outgoing_handler_option_own_request_options_free(wasi_http_outgoing_handler_option_own_request_options_t *ptr);
+
+void wasi_http_outgoing_handler_result_own_future_incoming_response_error_code_free(wasi_http_outgoing_handler_result_own_future_incoming_response_error_code_t *ptr);
 
 void wasi_nn_tensor_tensor_dimensions_free(wasi_nn_tensor_tensor_dimensions_t *ptr);
 
