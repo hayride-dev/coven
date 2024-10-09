@@ -1,6 +1,6 @@
 package hayride:broom@0.0.1;
 
-world host {
+world runtime {
     include wasip2;
     include http-client;
     include ai;
