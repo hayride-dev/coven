@@ -1,4 +1,4 @@
-# <a id="http_client"></a>World http-client
+# <a id="client"></a>World client
 
 
  - Imports:

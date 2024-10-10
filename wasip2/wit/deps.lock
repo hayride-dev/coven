@@ -13,20 +13,10 @@ url = "https://github.com/WebAssembly/wasi-filesystem/archive/refs/tags/v0.2.0.t
 sha256 = "498c465cfd04587db40f970fff2185daa597d074c20b68a8bcbae558f261499b"
 sha512 = "ead452f9b7bfb88593a502ec00d76d4228003d51c40fd0408aebc32d35c94673551b00230d730873361567cc209ec218c41fb4e95bad194268592c49e7964347"
 
-[http]
-url = "https://github.com/WebAssembly/wasi-http/archive/refs/tags/v0.2.0.tar.gz"
-sha256 = "8f44402bde16c48e28c47dc53eab0b26af5b3b3482a1852cf77673e0880ba1c1"
-sha512 = "760695f9a25c25bf75a25b731cb21c3bda9e288e450edda823324ecbc73d5d798bbb5de2edad999566980836f037463ee9e57d61789d04b3f3e381475b1a9a0f"
-
 [io]
 url = "https://github.com/WebAssembly/wasi-io/archive/refs/tags/v0.2.0.tar.gz"
 sha256 = "7210e5653539a15478f894d4da24cc69d61924cbcba21d2804d69314a88e5a4c"
 sha512 = "49184a1b0945a889abd52d25271172ed3dc2db6968fcdddb1bab7ee0081f4a3eeee0977ad2291126a37631c0d86eeea75d822fa8af224c422134500bf9f0f2bb"
-
-[nn]
-url = "https://github.com/WebAssembly/wasi-nn/archive/refs/tags/0.2.0-rc-2024-08-19.tar.gz"
-sha256 = "6b79718b98942734d2dcb30859bde5ed23e831ecbe445501fc1ba17360bba5fb"
-sha512 = "1a312b4abd81a486ade06115e6bd59b904f3134aefcd608b99d7593e96e94c3e54edd604e6fba2ddee21d231ffc26fa12657c8e17dcbfc2976fb134fafbdf9e7"
 
 [random]
 url = "https://github.com/WebAssembly/wasi-random/archive/refs/tags/v0.2.0.tar.gz"

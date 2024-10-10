@@ -1,0 +1,4 @@
+[nn]
+url = "https://github.com/WebAssembly/wasi-nn/archive/refs/tags/0.2.0-rc-2024-08-19.tar.gz"
+sha256 = "6b79718b98942734d2dcb30859bde5ed23e831ecbe445501fc1ba17360bba5fb"
+sha512 = "1a312b4abd81a486ade06115e6bd59b904f3134aefcd608b99d7593e96e94c3e54edd604e6fba2ddee21d231ffc26fa12657c8e17dcbfc2976fb134fafbdf9e7"

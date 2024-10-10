@@ -4,14 +4,14 @@ Coven is a group of wit defintions that outline the support host/guest wasm impo
 
 ## Defined Worlds 
 
-- [runtime](runtime.md): outlines all import functions the host runtime must implement and what exports are expected. 
-- [http-client](http-client.md): outlines the import functions available for http-client requests from a guest component 
-- [ai](ai.md): outlines the import functions available for ai inference form a guest component 
-- [wasip2](wasip2.md): outlines the wasip2 *0.2.0* import and exports 
+- http
+    - [client](./http/client.md): outlines the import functions available for client requests for a guest component 
+- ai
+    - [imports](./ai/imports.md): outlines the import functions available for ai inference for a guest component 
+- wasip2
+    - [imports](./wasip2/imports.md): outlines the wasip2 *0.2.0* imports 
+    - [exports](./wasip2/exports.md): outlines the wasip2 *0.2.0* exports 
 
-
-## Use
-todo wit-deps info on how to include 
 
 ## Test Bindings Generation 
 
