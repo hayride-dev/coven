@@ -1,4 +1,4 @@
-# <a id="wasip2"></a>World wasip2
+# <a id="imports"></a>World imports
 
 
  - Imports:
@@ -15,8 +15,6 @@
     - interface `wasi:cli/stdin@0.2.0`
     - interface `wasi:cli/environment@0.2.0`
     - interface `wasi:cli/exit@0.2.0`
- - Exports:
-    - interface `wasi:cli/run@0.2.0`
 
 ## <a id="wasi_clocks_wall_clock_0_2_0"></a>Import interface wasi:clocks/wall-clock@0.2.0
 
@@ -1815,18 +1813,4 @@ Exit the current instance and any linked instances.
 ##### Params
 
 - <a id="exit.status"></a>`status`: result
-
-## <a id="wasi_cli_run_0_2_0"></a>Export interface wasi:cli/run@0.2.0
-
-----
-
-### Functions
-
-#### <a id="run"></a>`run: func`
-
-Run the program.
-
-##### Return values
-
-- <a id="run.0"></a> result
 

@@ -4,5 +4,3 @@ random = "https://github.com/WebAssembly/wasi-random/archive/refs/tags/v0.2.0.ta
 clocks = "https://github.com/WebAssembly/wasi-clocks/archive/refs/tags/v0.2.0.tar.gz"
 filesystem = "https://github.com/WebAssembly/wasi-filesystem/archive/refs/tags/v0.2.0.tar.gz"
 sockets = "https://github.com/WebAssembly/wasi-sockets/archive/refs/tags/v0.2.0.tar.gz"
-nn = "https://github.com/WebAssembly/wasi-nn/archive/refs/tags/0.2.0-rc-2024-08-19.tar.gz"
-http = "https://github.com/WebAssembly/wasi-http/archive/refs/tags/v0.2.0.tar.gz"
