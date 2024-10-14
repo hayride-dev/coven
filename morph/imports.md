@@ -2,9 +2,9 @@
 
 
  - Imports:
-    - interface `hayride:morph/types@0.0.2`
+    - interface `hayride:morph/types@0.0.3`
 
-## <a id="hayride_morph_types_0_0_2"></a>Import interface hayride:morph/types@0.0.2
+## <a id="hayride_morph_types_0_0_3"></a>Import interface hayride:morph/types@0.0.3
 
 
 ----

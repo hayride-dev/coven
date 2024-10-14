@@ -1,4 +1,4 @@
-package hayride:morph@0.0.2;
+package hayride:morph@0.0.3;
 
 interface types {
     variant spawn-error {

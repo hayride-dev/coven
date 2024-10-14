@@ -12,7 +12,7 @@ Coven is a group of wit defintions that outline the support host/guest wasm impo
     - [imports](./wasip2/imports.md): outlines the wasip2 *0.2.0* imports 
     - [exports](./wasip2/exports.md): outlines the wasip2 *0.2.0* exports 
 - morph 
-    - [imports](./morph/imports.md): outlines the morph *0.2.0* imports 
+    - [imports](./morph/imports.md): outlines the morph imports 
 
 ## Test Bindings Generation 
 
