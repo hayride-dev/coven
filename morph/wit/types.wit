@@ -1,0 +1,14 @@
+package hayride:morph@0.0.2;
+
+interface types {
+    variant spawn-error {
+        invalid-syntax,
+        forbidden,
+        internal-error,
+    }
+
+    resource spawn {
+        constructor();
+        exec: func(name: string, args: list<u8>) -> result<list<u8>, spawn-error>;
+    }
+}

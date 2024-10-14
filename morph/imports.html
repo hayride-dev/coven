@@ -1,0 +1,37 @@
+<h1><a id="imports"></a>World imports</h1>
+<ul>
+<li>Imports:
+<ul>
+<li>interface <a href="#hayride_morph_types_0_0_2"><code>hayride:morph/types@0.0.2</code></a></li>
+</ul>
+</li>
+</ul>
+<h2><a id="hayride_morph_types_0_0_2"></a>Import interface hayride:morph/types@0.0.2</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="spawn_error"></a><code>variant spawn-error</code></h4>
+<h5>Variant Cases</h5>
+<ul>
+<li><a id="spawn_error.invalid_syntax"></a><code>invalid-syntax</code></li>
+<li><a id="spawn_error.forbidden"></a><code>forbidden</code></li>
+<li><a id="spawn_error.internal_error"></a><code>internal-error</code></li>
+</ul>
+<h4><a id="spawn"></a><code>resource spawn</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="constructor_spawn"></a><code>[constructor]spawn: func</code></h4>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_spawn.0"></a> own&lt;<a href="#spawn"><a href="#spawn"><code>spawn</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_spawn_exec"></a><code>[method]spawn.exec: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_spawn_exec.self"></a><code>self</code>: borrow&lt;<a href="#spawn"><a href="#spawn"><code>spawn</code></a></a>&gt;</li>
+<li><a id="method_spawn_exec.name"></a><code>name</code>: <code>string</code></li>
+<li><a id="method_spawn_exec.args"></a><code>args</code>: list&lt;<code>u8</code>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_spawn_exec.0"></a> result&lt;list&lt;<code>u8</code>&gt;, <a href="#spawn_error"><a href="#spawn_error"><code>spawn-error</code></a></a>&gt;</li>
+</ul>
