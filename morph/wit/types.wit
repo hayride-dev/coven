@@ -9,6 +9,6 @@ interface types {
 
     resource spawn {
         constructor();
-        exec: func(name: string, args: list<u8>) -> result<list<u8>, spawn-error>;
+        exec: func(name: string, args: list<string>) -> result<list<string>, spawn-error>;
     }
 }
