@@ -1,4 +1,4 @@
-package hayride:ai@0.0.3;
+package hayride:ai@0.0.4;
 
 world imports {
     import wasi:nn/tensor@0.2.0-rc-2024-08-19;

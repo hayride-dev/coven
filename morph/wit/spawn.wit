@@ -1,4 +1,4 @@
-package hayride:morph@0.0.3;
+package hayride:morph@0.0.4;
 
 interface spawn {
     use wasi:io/streams@0.2.0.{input-stream, output-stream};
