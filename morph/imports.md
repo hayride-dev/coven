@@ -39,9 +39,9 @@
 
 - <a id="method_spawn_exec.self"></a>`self`: borrow<[`spawn`](#spawn)>
 - <a id="method_spawn_exec.name"></a>`name`: `string`
-- <a id="method_spawn_exec.args"></a>`args`: list<`u8`>
+- <a id="method_spawn_exec.args"></a>`args`: list<`string`>
 
 ##### Return values
 
-- <a id="method_spawn_exec.0"></a> result<list<`u8`>, [`spawn-error`](#spawn_error)>
+- <a id="method_spawn_exec.0"></a> result<list<`string`>, [`spawn-error`](#spawn_error)>
 
