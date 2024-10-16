@@ -5,7 +5,7 @@
 <li>interface <a href="#wasi_io_error_0_2_0"><code>wasi:io/error@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_streams_0_2_0"><code>wasi:io/streams@0.2.0</code></a></li>
-<li>interface <a href="#hayride_morph_spawn_0_0_4"><code>hayride:morph/spawn@0.0.4</code></a></li>
+<li>interface <a href="#hayride_morph_spawn_0_0_5"><code>hayride:morph/spawn@0.0.5</code></a></li>
 </ul>
 </li>
 </ul>
@@ -419,7 +419,7 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="method_output_stream_blocking_splice.0"></a> result&lt;<code>u64</code>, <a href="#stream_error"><a href="#stream_error"><code>stream-error</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_morph_spawn_0_0_4"></a>Import interface hayride:morph/spawn@0.0.4</h2>
+<h2><a id="hayride_morph_spawn_0_0_5"></a>Import interface hayride:morph/spawn@0.0.5</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="input_stream"></a><code>type input-stream</code></h4>
@@ -431,8 +431,38 @@ is ready for reading, before performing the <code>splice</code>.</p>
 #### <a id="error"></a>`type error`
 [`error`](#error)
 <p>
-----
+#### <a id="writer"></a>`resource writer`
+<h4><a id="reader"></a><code>resource reader</code></h4>
+<hr />
 <h3>Functions</h3>
+<h4><a id="constructor_writer"></a><code>[constructor]writer: func</code></h4>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_writer.0"></a> own&lt;<a href="#writer"><a href="#writer"><code>writer</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_writer_stream"></a><code>[method]writer.stream: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_writer_stream.self"></a><code>self</code>: borrow&lt;<a href="#writer"><a href="#writer"><code>writer</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_writer_stream.0"></a> result&lt;own&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="constructor_reader"></a><code>[constructor]reader: func</code></h4>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_reader.0"></a> own&lt;<a href="#reader"><a href="#reader"><code>reader</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_reader_stream"></a><code>[method]reader.stream: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_reader_stream.self"></a><code>self</code>: borrow&lt;<a href="#reader"><a href="#reader"><code>reader</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_reader_stream.0"></a> result&lt;own&lt;<a href="#input_stream"><a href="#input_stream"><code>input-stream</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
 <h4><a id="exec"></a><code>exec: func</code></h4>
 <h5>Params</h5>
 <ul>

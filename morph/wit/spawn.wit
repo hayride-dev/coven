@@ -1,8 +1,18 @@
-package hayride:morph@0.0.4;
+package hayride:morph@0.0.5;
 
 interface spawn {
     use wasi:io/streams@0.2.0.{input-stream, output-stream};
     use wasi:io/error@0.2.0.{error};
 
+    resource writer {
+        constructor();
+        %stream: func() -> result<output-stream, error>; 
+    }
+
+    resource reader {
+        constructor();
+        %stream: func() -> result<input-stream, error>; 
+    }
+    
     exec: func(name: string, args: output-stream) -> result<input-stream, error>;
 }
