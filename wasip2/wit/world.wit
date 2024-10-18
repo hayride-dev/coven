@@ -1,4 +1,4 @@
-package hayride:wasip2@0.0.5;
+package hayride:wasip2@0.0.6;
 
 world imports {
     // wasi imports are dependent on the compile toolchain. 
