@@ -5,7 +5,7 @@
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:morph/spawn@0.0.5`
+    - interface `hayride:morph/spawn@0.0.6`
 
 ## <a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0
 
@@ -519,7 +519,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_morph_spawn_0_0_5"></a>Import interface hayride:morph/spawn@0.0.5
+## <a id="hayride_morph_spawn_0_0_6"></a>Import interface hayride:morph/spawn@0.0.6
 
 
 ----
@@ -585,9 +585,9 @@ is ready for reading, before performing the `splice`.
 ##### Params
 
 - <a id="exec.name"></a>`name`: `string`
-- <a id="exec.args"></a>`args`: own<[`output-stream`](#output_stream)>
+- <a id="exec.args"></a>`args`: list<`u8`>
 
 ##### Return values
 
-- <a id="exec.0"></a> result<own<[`input-stream`](#input_stream)>, own<[`error`](#error)>>
+- <a id="exec.0"></a> result<list<`u8`>, own<[`error`](#error)>>
 

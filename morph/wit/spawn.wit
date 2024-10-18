@@ -1,4 +1,4 @@
-package hayride:morph@0.0.5;
+package hayride:morph@0.0.6;
 
 interface spawn {
     use wasi:io/streams@0.2.0.{input-stream, output-stream};
@@ -14,5 +14,5 @@ interface spawn {
         %stream: func() -> result<input-stream, error>; 
     }
     
-    exec: func(name: string, args: output-stream) -> result<input-stream, error>;
+    exec: func(name: string, args: list<u8>) -> result<list<u8>, error>;
 }
