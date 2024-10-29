@@ -1,11 +1,10 @@
-package hayride:morph@0.0.8;
+package hayride:morph@0.0.9;
 
 interface spawn {
     use wasi:io/streams@0.2.0.{input-stream, output-stream};
     use errors.{error};
 
-    sync: func(name: string, input: input-stream, output: output-stream) -> result<error>;
-    
+    sync: func(name: string, input: input-stream, output: output-stream) -> result<_,error>;
 }
 
 interface errors {

@@ -1,4 +1,4 @@
-package hayride:morph@0.0.8;
+package hayride:morph@0.0.9;
 
 world imports {
     import spawn;
