@@ -5,8 +5,8 @@
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:morph/errors@0.0.8`
-    - interface `hayride:morph/spawn@0.0.8`
+    - interface `hayride:morph/errors@0.0.9`
+    - interface `hayride:morph/spawn@0.0.9`
 
 ## <a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0
 
@@ -520,7 +520,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_morph_errors_0_0_8"></a>Import interface hayride:morph/errors@0.0.8
+## <a id="hayride_morph_errors_0_0_9"></a>Import interface hayride:morph/errors@0.0.9
 
 
 ----
@@ -568,7 +568,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_morph_spawn_0_0_8"></a>Import interface hayride:morph/spawn@0.0.8
+## <a id="hayride_morph_spawn_0_0_9"></a>Import interface hayride:morph/spawn@0.0.9
 
 
 ----
@@ -599,5 +599,5 @@ Errors can propagated with backend specific status through a string value.
 
 ##### Return values
 
-- <a id="sync.0"></a> result<own<[`error`](#error)>>
+- <a id="sync.0"></a> result<_, own<[`error`](#error)>>
 
