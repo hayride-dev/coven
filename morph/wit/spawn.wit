@@ -1,18 +1,28 @@
-package hayride:morph@0.0.7;
+package hayride:morph@0.0.8;
 
 interface spawn {
     use wasi:io/streams@0.2.0.{input-stream, output-stream};
-    use wasi:io/error@0.2.0.{error};
+    use errors.{error};
 
-    resource writer {
-        constructor();
-        %stream: func() -> result<output-stream, error>; 
-    }
-
-    resource reader {
-        constructor();
-        %stream: func() -> result<input-stream, error>; 
-    }
+    sync: func(name: string, input: input-stream, output: output-stream) -> result<error>;
     
-    exec: func(name: string, args: list<string>) -> result<string, error>;
+}
+
+interface errors {
+    enum error-code {
+        invalid-argument,
+        timeout,
+        runtime-error,
+        unsupported-operation,
+        too-large,
+        unknown
+    }
+
+    resource error {
+        /// Return the error code.
+        code: func() -> error-code;
+
+        /// Errors can propagated with backend specific status through a string value.
+        data: func() -> string;
+    }
 }

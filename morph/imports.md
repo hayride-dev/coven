@@ -5,7 +5,8 @@
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:morph/spawn@0.0.7`
+    - interface `hayride:morph/errors@0.0.8`
+    - interface `hayride:morph/spawn@0.0.8`
 
 ## <a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0
 
@@ -519,7 +520,55 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_morph_spawn_0_0_7"></a>Import interface hayride:morph/spawn@0.0.7
+## <a id="hayride_morph_errors_0_0_8"></a>Import interface hayride:morph/errors@0.0.8
+
+
+----
+
+### Types
+
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.invalid_argument"></a>`invalid-argument`
+- <a id="error_code.timeout"></a>`timeout`
+- <a id="error_code.runtime_error"></a>`runtime-error`
+- <a id="error_code.unsupported_operation"></a>`unsupported-operation`
+- <a id="error_code.too_large"></a>`too-large`
+- <a id="error_code.unknown"></a>`unknown`
+#### <a id="error"></a>`resource error`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+Return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+Errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+## <a id="hayride_morph_spawn_0_0_8"></a>Import interface hayride:morph/spawn@0.0.8
 
 
 ----
@@ -535,59 +584,20 @@ is ready for reading, before performing the `splice`.
 #### <a id="error"></a>`type error`
 [`error`](#error)
 <p>
-#### <a id="writer"></a>`resource writer`
-
-#### <a id="reader"></a>`resource reader`
-
 ----
 
 ### Functions
 
-#### <a id="constructor_writer"></a>`[constructor]writer: func`
-
-
-##### Return values
-
-- <a id="constructor_writer.0"></a> own<[`writer`](#writer)>
-
-#### <a id="method_writer_stream"></a>`[method]writer.stream: func`
+#### <a id="sync"></a>`sync: func`
 
 
 ##### Params
 
-- <a id="method_writer_stream.self"></a>`self`: borrow<[`writer`](#writer)>
+- <a id="sync.name"></a>`name`: `string`
+- <a id="sync.input"></a>`input`: own<[`input-stream`](#input_stream)>
+- <a id="sync.output"></a>`output`: own<[`output-stream`](#output_stream)>
 
 ##### Return values
 
-- <a id="method_writer_stream.0"></a> result<own<[`output-stream`](#output_stream)>, own<[`error`](#error)>>
-
-#### <a id="constructor_reader"></a>`[constructor]reader: func`
-
-
-##### Return values
-
-- <a id="constructor_reader.0"></a> own<[`reader`](#reader)>
-
-#### <a id="method_reader_stream"></a>`[method]reader.stream: func`
-
-
-##### Params
-
-- <a id="method_reader_stream.self"></a>`self`: borrow<[`reader`](#reader)>
-
-##### Return values
-
-- <a id="method_reader_stream.0"></a> result<own<[`input-stream`](#input_stream)>, own<[`error`](#error)>>
-
-#### <a id="exec"></a>`exec: func`
-
-
-##### Params
-
-- <a id="exec.name"></a>`name`: `string`
-- <a id="exec.args"></a>`args`: list<`string`>
-
-##### Return values
-
-- <a id="exec.0"></a> result<`string`, own<[`error`](#error)>>
+- <a id="sync.0"></a> result<own<[`error`](#error)>>
 
