@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:morph/errors@0.0.10`
-    - interface `hayride:morph/spawn@0.0.10`
+    - interface `hayride:morph/errors@0.0.11`
+    - interface `hayride:morph/spawn@0.0.11`
 
-## <a id="hayride_morph_errors_0_0_10"></a>Import interface hayride:morph/errors@0.0.10
+## <a id="hayride_morph_errors_0_0_11"></a>Import interface hayride:morph/errors@0.0.11
 
 
 ----
@@ -53,7 +53,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_morph_spawn_0_0_10"></a>Import interface hayride:morph/spawn@0.0.10
+## <a id="hayride_morph_spawn_0_0_11"></a>Import interface hayride:morph/spawn@0.0.11
 
 
 ----
