@@ -6,7 +6,7 @@ Coven is a group of wit defintions that outline the support host/guest wasm impo
 
 - http
     - [client](./http/client.md): outlines the import functions available for client requests for a guest component 
-    - [server](.http/server.md): outlines the export functions available for a handing server request from a guest component
+    - [server](./http/server.md): outlines the export functions available for a handing server request from a guest component
 - ai
     - [imports](./ai/imports.md): outlines the import functions available for ai inference for a guest component 
 - wasip2
