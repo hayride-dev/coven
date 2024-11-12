@@ -6,6 +6,6 @@ interface process {
     type err-no = u32;
 
     spawn: func(path: string, args: list<string>) -> result<s32, err-no>;
-    wait: func(pid: u32) -> result<u32, err-no>;
+    wait: func(pid: u32) -> result<s32, err-no>;
     kill: func (pid: u32,sig: s32);
 }

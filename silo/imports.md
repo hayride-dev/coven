@@ -44,7 +44,7 @@
 
 ##### Return values
 
-- <a id="wait.0"></a> result<`u32`, [`err-no`](#err_no)>
+- <a id="wait.0"></a> result<`s32`, [`err-no`](#err_no)>
 
 #### <a id="kill"></a>`kill: func`
 
