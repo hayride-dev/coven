@@ -1,4 +1,4 @@
-package hayride:core@0.0.14;
+package hayride:core@0.0.15;
 
 interface types {
     record logging {
@@ -38,4 +38,10 @@ interface types {
         /// Errors can propagated with backend specific status through a string value.
         data: func() -> string;
     }
+}
+
+interface config {
+    use types.{config, error};
+    get: func() -> result<config, error>;
+    set : func(config: config) -> result<_, error>;
 }

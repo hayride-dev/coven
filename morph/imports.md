@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:morph/errors@0.0.14`
-    - interface `hayride:morph/spawn@0.0.14`
+    - interface `hayride:morph/errors@0.0.15`
+    - interface `hayride:morph/spawn@0.0.15`
 
-## <a id="hayride_morph_errors_0_0_14"></a>Import interface hayride:morph/errors@0.0.14
+## <a id="hayride_morph_errors_0_0_15"></a>Import interface hayride:morph/errors@0.0.15
 
 
 ----
@@ -53,7 +53,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_morph_spawn_0_0_14"></a>Import interface hayride:morph/spawn@0.0.14
+## <a id="hayride_morph_spawn_0_0_15"></a>Import interface hayride:morph/spawn@0.0.15
 
 a Morph is a thread supported by a wasmtime instance - that uses host capabilites to communicate between wasmtime instances ( AKA morph channels? )
 

@@ -1,8 +1,5 @@
-package hayride:core@0.0.14;
+package hayride:core@0.0.15;
 
 world imports {
-    use types.{config, error};
-
-    import set-config: func(config: config) -> result<_,error>;
-    import get-config: func() -> result<config, error>;
+    import config;
 }
