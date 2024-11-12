@@ -33,7 +33,7 @@
 
 ##### Return values
 
-- <a id="spawn.0"></a> result<`u32`, [`err-no`](#err_no)>
+- <a id="spawn.0"></a> result<`s32`, [`err-no`](#err_no)>
 
 #### <a id="wait"></a>`wait: func`
 
