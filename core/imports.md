@@ -2,13 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:core/types@0.0.14`
-    - type `config`
-    - type `error`
-    - function `set-config`
-    - function `get-config`
+    - interface `hayride:core/types@0.0.15`
+    - interface `hayride:core/config@0.0.15`
 
-## <a id="hayride_core_types_0_0_14"></a>Import interface hayride:core/types@0.0.14
+## <a id="hayride_core_types_0_0_15"></a>Import interface hayride:core/types@0.0.15
 
 
 ----
@@ -88,7 +85,8 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## Exported types from world `imports`
+## <a id="hayride_core_config_0_0_15"></a>Import interface hayride:core/config@0.0.15
+
 
 ----
 
@@ -100,23 +98,25 @@ Errors can propagated with backend specific status through a string value.
 #### <a id="error"></a>`type error`
 [`error`](#error)
 <p>
-## Imported functions to world `imports`
+----
 
-#### <a id="set_config"></a>`set-config: func`
+### Functions
+
+#### <a id="get"></a>`get: func`
+
+
+##### Return values
+
+- <a id="get.0"></a> result<[`config`](#config), own<[`error`](#error)>>
+
+#### <a id="set"></a>`set: func`
 
 
 ##### Params
 
-- <a id="set_config.config"></a>`config`: [`config`](#config)
+- <a id="set.config"></a>`config`: [`config`](#config)
 
 ##### Return values
 
-- <a id="set_config.0"></a> result<_, own<[`error`](#error)>>
-
-#### <a id="get_config"></a>`get-config: func`
-
-
-##### Return values
-
-- <a id="get_config.0"></a> result<[`config`](#config), own<[`error`](#error)>>
+- <a id="set.0"></a> result<_, own<[`error`](#error)>>
 
