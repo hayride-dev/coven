@@ -1,8 +1,10 @@
-package hayride:morph@0.0.12;
+package hayride:morph@0.0.13;
 
+// a Morph is a thread supported by a wasmtime instance - that uses host capabilites to communicate between wasmtime instances ( AKA morph channels? )
 interface spawn {
     use errors.{error};
     sync: func(name: string, args: list<string>) -> result<string,error>;
+
 }
 
 interface errors {
