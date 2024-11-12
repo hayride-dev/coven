@@ -1,4 +1,4 @@
-package hayride:morph@0.0.13;
+package hayride:morph@0.0.14;
 
 // a Morph is a thread supported by a wasmtime instance - that uses host capabilites to communicate between wasmtime instances ( AKA morph channels? )
 interface spawn {
