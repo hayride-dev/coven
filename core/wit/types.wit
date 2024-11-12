@@ -43,5 +43,5 @@ interface types {
 interface config {
     use types.{config, error};
     get: func() -> result<config, error>;
-    set : func(config: config) -> result<_, error>;
+    set: func(config: config) -> result<_, error>;
 }
