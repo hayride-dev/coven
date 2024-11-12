@@ -54,3 +54,7 @@
 - <a id="kill.pid"></a>`pid`: `u32`
 - <a id="kill.sig"></a>`sig`: `s32`
 
+##### Return values
+
+- <a id="kill.0"></a> result<`s32`, [`err-no`](#err_no)>
+
