@@ -4,19 +4,7 @@ package hayride:morph@0.0.13;
 interface spawn {
     use errors.{error};
     sync: func(name: string, args: list<string>) -> result<string,error>;
-    /*
-        Parent Wasmtime ( LLM )
-            return result of Child Wasmtime ( Lex )
-                - sync 
 
-        Parent Wasmtime ( LLM )
-            async child wasmtime ( lex ) -> id 
-                that id is used to reference a mpc channel in rust 
-                that mpc channel is used to communicate between the parent and child wasmtime instances
-                     async child wasmtime ( lex ) -> id 
-                        that id is used to reference a mpc channel in rust 
-                        that mpc channel is used to communicate between the parent and child wasmtime instances
-    */
 }
 
 interface errors {
