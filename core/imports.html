@@ -1,0 +1,103 @@
+<h1><a id="imports"></a>World imports</h1>
+<ul>
+<li>Imports:
+<ul>
+<li>interface <a href="#hayride_core_types_0_0_14"><code>hayride:core/types@0.0.14</code></a></li>
+<li>type <a href="#config"><code>config</code></a></li>
+<li>type <a href="#error"><code>error</code></a></li>
+<li>function <a href="#set_config"><code>set-config</code></a></li>
+<li>function <a href="#get_config"><code>get-config</code></a></li>
+</ul>
+</li>
+</ul>
+<h2><a id="hayride_core_types_0_0_14"></a>Import interface hayride:core/types@0.0.14</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="logging"></a><code>record logging</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="logging.enabled"></a><code>enabled</code>: <code>bool</code></li>
+<li><a id="logging.level"></a><code>level</code>: <code>string</code></li>
+<li><a id="logging.file"></a><code>file</code>: <code>string</code></li>
+</ul>
+<h4><a id="http"></a><code>record http</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="http.address"></a><code>address</code>: <code>string</code></li>
+</ul>
+<h4><a id="runtime"></a><code>record runtime</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="runtime.http"></a><a href="#http"><code>http</code></a>: <a href="#http"><a href="#http"><code>http</code></a></a></li>
+</ul>
+<h4><a id="config"></a><code>record config</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="config.version"></a><code>version</code>: <code>string</code></li>
+<li><a id="config.license"></a><code>license</code>: <code>string</code></li>
+<li><a id="config.logging"></a><a href="#logging"><code>logging</code></a>: <a href="#logging"><a href="#logging"><code>logging</code></a></a></li>
+<li><a id="config.runtime"></a><a href="#runtime"><code>runtime</code></a>: <a href="#runtime"><a href="#runtime"><code>runtime</code></a></a></li>
+</ul>
+<h4><a id="error_code"></a><code>enum error-code</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li>
+<p><a id="error_code.invalid_argument"></a><code>invalid-argument</code></p>
+<p>Caller module passed an invalid argument.
+</li>
+<li>
+<p><a id="error_code.runtime_error"></a><code>runtime-error</code></p>
+<p>Generic Runtime Error.
+</li>
+<li>
+<p><a id="error_code.unknown"></a><code>unknown</code></p>
+<p>Unsupported operation.
+</li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<p>Return the error code.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<p>Errors can propagated with backend specific status through a string value.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
+</ul>
+<h2>Exported types from world <a href="#imports"><code>imports</code></a></h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="config"></a><code>type config</code></h4>
+<p><a href="#config"><a href="#config"><code>config</code></a></a></p>
+<p>
+#### <a id="error"></a>`type error`
+[`error`](#error)
+<p>
+## Imported functions to world `imports`
+<h4><a id="set_config"></a><code>set-config: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="set_config.config"></a><a href="#config"><code>config</code></a>: <a href="#config"><a href="#config"><code>config</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="set_config.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="get_config"></a><code>get-config: func</code></h4>
+<h5>Return values</h5>
+<ul>
+<li><a id="get_config.0"></a> result&lt;<a href="#config"><a href="#config"><code>config</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
