@@ -2,63 +2,25 @@
 <ul>
 <li>Imports:
 <ul>
-<li>interface <a href="#hayride_morph_errors_0_0_15"><code>hayride:morph/errors@0.0.15</code></a></li>
-<li>interface <a href="#hayride_morph_spawn_0_0_15"><code>hayride:morph/spawn@0.0.15</code></a></li>
+<li>interface <a href="#hayride_silo_threads_0_0_16"><code>hayride:silo/threads@0.0.16</code></a></li>
 </ul>
 </li>
 </ul>
-<h2><a id="hayride_morph_errors_0_0_15"></a>Import interface hayride:morph/errors@0.0.15</h2>
+<h2><a id="hayride_silo_threads_0_0_16"></a>Import interface hayride:silo/threads@0.0.16</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="error_code"></a><code>enum error-code</code></h4>
-<h5>Enum Cases</h5>
-<ul>
-<li><a id="error_code.invalid_argument"></a><code>invalid-argument</code></li>
-<li><a id="error_code.timeout"></a><code>timeout</code></li>
-<li><a id="error_code.runtime_error"></a><code>runtime-error</code></li>
-<li><a id="error_code.unsupported_operation"></a><code>unsupported-operation</code></li>
-<li><a id="error_code.too_large"></a><code>too-large</code></li>
-<li><a id="error_code.unknown"></a><code>unknown</code></li>
-</ul>
-<h4><a id="error"></a><code>resource error</code></h4>
+<h4><a id="err_no"></a><code>type err-no</code></h4>
+<p><code>u32</code></p>
+<p>system error numbers
 <hr />
 <h3>Functions</h3>
-<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
-<p>Return the error code.</p>
+<h4><a id="spawn"></a><code>spawn: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+<li><a id="spawn.path"></a><code>path</code>: <code>string</code></li>
+<li><a id="spawn.args"></a><code>args</code>: list&lt;<code>string</code>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
-</ul>
-<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
-<p>Errors can propagated with backend specific status through a string value.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_error_data.0"></a> <code>string</code></li>
-</ul>
-<h2><a id="hayride_morph_spawn_0_0_15"></a>Import interface hayride:morph/spawn@0.0.15</h2>
-<p>a Morph is a thread supported by a wasmtime instance - that uses host capabilites to communicate between wasmtime instances ( AKA morph channels? )</p>
-<hr />
-<h3>Types</h3>
-<h4><a id="error"></a><code>type error</code></h4>
-<p><a href="#error"><a href="#error"><code>error</code></a></a></p>
-<p>
-----
-<h3>Functions</h3>
-<h4><a id="sync"></a><code>sync: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="sync.name"></a><code>name</code>: <code>string</code></li>
-<li><a id="sync.args"></a><code>args</code>: list&lt;<code>string</code>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="sync.0"></a> result&lt;<code>string</code>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="spawn.0"></a> result&lt;<code>s32</code>, <a href="#err_no"><a href="#err_no"><code>err-no</code></a></a>&gt;</li>
 </ul>
