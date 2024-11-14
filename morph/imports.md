@@ -2,81 +2,32 @@
 
 
  - Imports:
-    - interface `hayride:morph/errors@0.0.15`
-    - interface `hayride:morph/spawn@0.0.15`
+    - interface `hayride:silo/threads@0.0.16`
 
-## <a id="hayride_morph_errors_0_0_15"></a>Import interface hayride:morph/errors@0.0.15
+## <a id="hayride_silo_threads_0_0_16"></a>Import interface hayride:silo/threads@0.0.16
 
 
 ----
 
 ### Types
 
-#### <a id="error_code"></a>`enum error-code`
-
-
-##### Enum Cases
-
-- <a id="error_code.invalid_argument"></a>`invalid-argument`
-- <a id="error_code.timeout"></a>`timeout`
-- <a id="error_code.runtime_error"></a>`runtime-error`
-- <a id="error_code.unsupported_operation"></a>`unsupported-operation`
-- <a id="error_code.too_large"></a>`too-large`
-- <a id="error_code.unknown"></a>`unknown`
-#### <a id="error"></a>`resource error`
+#### <a id="err_no"></a>`type err-no`
+`u32`
+<p>system error numbers
 
 ----
 
 ### Functions
 
-#### <a id="method_error_code"></a>`[method]error.code: func`
-
-Return the error code.
-
-##### Params
-
-- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_code.0"></a> [`error-code`](#error_code)
-
-#### <a id="method_error_data"></a>`[method]error.data: func`
-
-Errors can propagated with backend specific status through a string value.
-
-##### Params
-
-- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_data.0"></a> `string`
-
-## <a id="hayride_morph_spawn_0_0_15"></a>Import interface hayride:morph/spawn@0.0.15
-
-a Morph is a thread supported by a wasmtime instance - that uses host capabilites to communicate between wasmtime instances ( AKA morph channels? )
-
-----
-
-### Types
-
-#### <a id="error"></a>`type error`
-[`error`](#error)
-<p>
-----
-
-### Functions
-
-#### <a id="sync"></a>`sync: func`
+#### <a id="spawn"></a>`spawn: func`
 
 
 ##### Params
 
-- <a id="sync.name"></a>`name`: `string`
-- <a id="sync.args"></a>`args`: list<`string`>
+- <a id="spawn.path"></a>`path`: `string`
+- <a id="spawn.args"></a>`args`: list<`string`>
 
 ##### Return values
 
-- <a id="sync.0"></a> result<`string`, own<[`error`](#error)>>
+- <a id="spawn.0"></a> result<`s32`, [`err-no`](#err_no)>
 
