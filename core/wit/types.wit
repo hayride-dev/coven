@@ -1,4 +1,4 @@
-package hayride:core@0.0.18;
+package hayride:core@0.0.19;
 
 interface types {
     record logging {
@@ -10,16 +10,26 @@ interface types {
     record http {
         address: string
     }
-    
+
+    record websocket {
+        address: string
+    }
+
     record runtime {
-        http: http
+        http: http,
+        websocket: websocket
     }
     
     record config {
         version: string,
         license: string,
         logging: logging,
-        runtime: runtime
+        runtime: runtime,
+        llm: llm  
+    }
+
+    record llm {
+        model: string
     }
 
     enum error-code {
