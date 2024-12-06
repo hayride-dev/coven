@@ -1,5 +1,0 @@
-package hayride:morph@0.0.18;
-
-world imports {
-    import hayride:silo/threads@0.0.18;
-}

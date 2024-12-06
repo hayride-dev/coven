@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:core/types@0.0.18`
-    - interface `hayride:core/config@0.0.18`
+    - interface `hayride:core/types@0.0.19`
+    - interface `hayride:core/config@0.0.19`
 
-## <a id="hayride_core_types_0_0_18"></a>Import interface hayride:core/types@0.0.18
+## <a id="hayride_core_types_0_0_19"></a>Import interface hayride:core/types@0.0.19
 
 
 ----
@@ -26,12 +26,25 @@
 ##### Record Fields
 
 - <a id="http.address"></a>`address`: `string`
+#### <a id="websocket"></a>`record websocket`
+
+
+##### Record Fields
+
+- <a id="websocket.address"></a>`address`: `string`
 #### <a id="runtime"></a>`record runtime`
 
 
 ##### Record Fields
 
 - <a id="runtime.http"></a>`http`: [`http`](#http)
+- <a id="runtime.websocket"></a>`websocket`: [`websocket`](#websocket)
+#### <a id="llm"></a>`record llm`
+
+
+##### Record Fields
+
+- <a id="llm.model"></a>`model`: `string`
 #### <a id="config"></a>`record config`
 
 
@@ -41,6 +54,7 @@
 - <a id="config.license"></a>`license`: `string`
 - <a id="config.logging"></a>`logging`: [`logging`](#logging)
 - <a id="config.runtime"></a>`runtime`: [`runtime`](#runtime)
+- <a id="config.llm"></a>`llm`: [`llm`](#llm)
 #### <a id="error_code"></a>`enum error-code`
 
 
@@ -85,7 +99,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_core_config_0_0_18"></a>Import interface hayride:core/config@0.0.18
+## <a id="hayride_core_config_0_0_19"></a>Import interface hayride:core/config@0.0.19
 
 
 ----
