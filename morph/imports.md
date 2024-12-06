@@ -2,9 +2,9 @@
 
 
  - Imports:
-    - interface `hayride:silo/threads@0.0.17`
+    - interface `hayride:silo/threads@0.0.18`
 
-## <a id="hayride_silo_threads_0_0_17"></a>Import interface hayride:silo/threads@0.0.17
+## <a id="hayride_silo_threads_0_0_18"></a>Import interface hayride:silo/threads@0.0.18
 
 
 ----
