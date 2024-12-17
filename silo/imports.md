@@ -26,6 +26,7 @@
 ##### Params
 
 - <a id="spawn.path"></a>`path`: `string`
+- <a id="spawn.function"></a>`function`: `string`
 - <a id="spawn.args"></a>`args`: list<`string`>
 
 ##### Return values
