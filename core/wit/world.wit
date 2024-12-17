@@ -1,4 +1,4 @@
-package hayride:core@0.0.20;
+package hayride:core@0.0.21;
 
 world imports {
     import config;
