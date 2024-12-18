@@ -7,6 +7,12 @@ interface types {
         file: string
     }
 
+    record morphs {
+        path: string,
+        server: server,
+        ai: ai
+    }
+
     record http {
         address: string
     }
@@ -15,21 +21,25 @@ interface types {
         address: string
     }
 
-    record runtime {
+    record server {
+        http: http
+    }
+
+    record ai {
+        websocket: websocket,
         http: http,
-        websocket: websocket
+        llm: llm
+    }
+
+    record llm {
+        model: string
     }
     
     record config {
         version: string,
         license: string,
         logging: logging,
-        runtime: runtime,
-        llm: llm  
-    }
-
-    record llm {
-        model: string
+        morphs: morphs,
     }
 
     enum error-code {
