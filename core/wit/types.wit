@@ -8,7 +8,6 @@ interface types {
     }
 
     record morphs {
-        path: string,
         server: server,
         ai: ai
     }

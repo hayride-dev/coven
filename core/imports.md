@@ -57,7 +57,6 @@
 
 ##### Record Fields
 
-- <a id="morphs.path"></a>`path`: `string`
 - <a id="morphs.server"></a>`server`: [`server`](#server)
 - <a id="morphs.ai"></a>`ai`: [`ai`](#ai)
 #### <a id="config"></a>`record config`
