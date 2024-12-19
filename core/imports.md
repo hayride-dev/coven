@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:core/types@0.0.21`
-    - interface `hayride:core/config@0.0.21`
+    - interface `hayride:core/types@0.0.22`
+    - interface `hayride:core/config@0.0.22`
 
-## <a id="hayride_core_types_0_0_21"></a>Import interface hayride:core/types@0.0.21
+## <a id="hayride_core_types_0_0_22"></a>Import interface hayride:core/types@0.0.22
 
 
 ----
@@ -32,19 +32,33 @@
 ##### Record Fields
 
 - <a id="websocket.address"></a>`address`: `string`
-#### <a id="runtime"></a>`record runtime`
+#### <a id="server"></a>`record server`
 
 
 ##### Record Fields
 
-- <a id="runtime.http"></a>`http`: [`http`](#http)
-- <a id="runtime.websocket"></a>`websocket`: [`websocket`](#websocket)
+- <a id="server.http"></a>`http`: [`http`](#http)
 #### <a id="llm"></a>`record llm`
 
 
 ##### Record Fields
 
 - <a id="llm.model"></a>`model`: `string`
+#### <a id="ai"></a>`record ai`
+
+
+##### Record Fields
+
+- <a id="ai.websocket"></a>`websocket`: [`websocket`](#websocket)
+- <a id="ai.http"></a>`http`: [`http`](#http)
+- <a id="ai.llm"></a>`llm`: [`llm`](#llm)
+#### <a id="morphs"></a>`record morphs`
+
+
+##### Record Fields
+
+- <a id="morphs.server"></a>`server`: [`server`](#server)
+- <a id="morphs.ai"></a>`ai`: [`ai`](#ai)
 #### <a id="config"></a>`record config`
 
 
@@ -53,8 +67,7 @@
 - <a id="config.version"></a>`version`: `string`
 - <a id="config.license"></a>`license`: `string`
 - <a id="config.logging"></a>`logging`: [`logging`](#logging)
-- <a id="config.runtime"></a>`runtime`: [`runtime`](#runtime)
-- <a id="config.llm"></a>`llm`: [`llm`](#llm)
+- <a id="config.morphs"></a>`morphs`: [`morphs`](#morphs)
 #### <a id="error_code"></a>`enum error-code`
 
 
@@ -99,7 +112,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_core_config_0_0_21"></a>Import interface hayride:core/config@0.0.21
+## <a id="hayride_core_config_0_0_22"></a>Import interface hayride:core/config@0.0.22
 
 
 ----

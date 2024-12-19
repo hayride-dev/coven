@@ -2,12 +2,12 @@
 <ul>
 <li>Imports:
 <ul>
-<li>interface <a href="#hayride_core_types_0_0_21"><code>hayride:core/types@0.0.21</code></a></li>
-<li>interface <a href="#hayride_core_config_0_0_21"><code>hayride:core/config@0.0.21</code></a></li>
+<li>interface <a href="#hayride_core_types_0_0_22"><code>hayride:core/types@0.0.22</code></a></li>
+<li>interface <a href="#hayride_core_config_0_0_22"><code>hayride:core/config@0.0.22</code></a></li>
 </ul>
 </li>
 </ul>
-<h2><a id="hayride_core_types_0_0_21"></a>Import interface hayride:core/types@0.0.21</h2>
+<h2><a id="hayride_core_types_0_0_22"></a>Import interface hayride:core/types@0.0.22</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="logging"></a><code>record logging</code></h4>
@@ -27,16 +27,28 @@
 <ul>
 <li><a id="websocket.address"></a><code>address</code>: <code>string</code></li>
 </ul>
-<h4><a id="runtime"></a><code>record runtime</code></h4>
+<h4><a id="server"></a><code>record server</code></h4>
 <h5>Record Fields</h5>
 <ul>
-<li><a id="runtime.http"></a><a href="#http"><code>http</code></a>: <a href="#http"><a href="#http"><code>http</code></a></a></li>
-<li><a id="runtime.websocket"></a><a href="#websocket"><code>websocket</code></a>: <a href="#websocket"><a href="#websocket"><code>websocket</code></a></a></li>
+<li><a id="server.http"></a><a href="#http"><code>http</code></a>: <a href="#http"><a href="#http"><code>http</code></a></a></li>
 </ul>
 <h4><a id="llm"></a><code>record llm</code></h4>
 <h5>Record Fields</h5>
 <ul>
 <li><a id="llm.model"></a><code>model</code>: <code>string</code></li>
+</ul>
+<h4><a id="ai"></a><code>record ai</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="ai.websocket"></a><a href="#websocket"><code>websocket</code></a>: <a href="#websocket"><a href="#websocket"><code>websocket</code></a></a></li>
+<li><a id="ai.http"></a><a href="#http"><code>http</code></a>: <a href="#http"><a href="#http"><code>http</code></a></a></li>
+<li><a id="ai.llm"></a><a href="#llm"><code>llm</code></a>: <a href="#llm"><a href="#llm"><code>llm</code></a></a></li>
+</ul>
+<h4><a id="morphs"></a><code>record morphs</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="morphs.server"></a><a href="#server"><code>server</code></a>: <a href="#server"><a href="#server"><code>server</code></a></a></li>
+<li><a id="morphs.ai"></a><a href="#ai"><code>ai</code></a>: <a href="#ai"><a href="#ai"><code>ai</code></a></a></li>
 </ul>
 <h4><a id="config"></a><code>record config</code></h4>
 <h5>Record Fields</h5>
@@ -44,8 +56,7 @@
 <li><a id="config.version"></a><code>version</code>: <code>string</code></li>
 <li><a id="config.license"></a><code>license</code>: <code>string</code></li>
 <li><a id="config.logging"></a><a href="#logging"><code>logging</code></a>: <a href="#logging"><a href="#logging"><code>logging</code></a></a></li>
-<li><a id="config.runtime"></a><a href="#runtime"><code>runtime</code></a>: <a href="#runtime"><a href="#runtime"><code>runtime</code></a></a></li>
-<li><a id="config.llm"></a><a href="#llm"><code>llm</code></a>: <a href="#llm"><a href="#llm"><code>llm</code></a></a></li>
+<li><a id="config.morphs"></a><a href="#morphs"><code>morphs</code></a>: <a href="#morphs"><a href="#morphs"><code>morphs</code></a></a></li>
 </ul>
 <h4><a id="error_code"></a><code>enum error-code</code></h4>
 <h5>Enum Cases</h5>
@@ -86,7 +97,7 @@
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
-<h2><a id="hayride_core_config_0_0_21"></a>Import interface hayride:core/config@0.0.21</h2>
+<h2><a id="hayride_core_config_0_0_22"></a>Import interface hayride:core/config@0.0.22</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="config"></a><code>type config</code></h4>

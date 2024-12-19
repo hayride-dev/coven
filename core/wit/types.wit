@@ -1,10 +1,15 @@
-package hayride:core@0.0.21;
+package hayride:core@0.0.22;
 
 interface types {
     record logging {
         enabled: bool,
         level: string,
         file: string
+    }
+
+    record morphs {
+        server: server,
+        ai: ai
     }
 
     record http {
@@ -15,21 +20,25 @@ interface types {
         address: string
     }
 
-    record runtime {
+    record server {
+        http: http
+    }
+
+    record ai {
+        websocket: websocket,
         http: http,
-        websocket: websocket
+        llm: llm
+    }
+
+    record llm {
+        model: string
     }
     
     record config {
         version: string,
         license: string,
         logging: logging,
-        runtime: runtime,
-        llm: llm  
-    }
-
-    record llm {
-        model: string
+        morphs: morphs,
     }
 
     enum error-code {
