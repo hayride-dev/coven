@@ -9,9 +9,10 @@
 <li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_error_0_2_0"><code>wasi:io/error@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_streams_0_2_0"><code>wasi:io/streams@0.2.0</code></a></li>
-<li>interface <a href="#hayride_ai_tensor_stream_0_0_22"><code>hayride:ai/tensor-stream@0.0.22</code></a></li>
-<li>interface <a href="#hayride_ai_inference_stream_0_0_22"><code>hayride:ai/inference-stream@0.0.22</code></a></li>
-<li>interface <a href="#hayride_ai_graph_stream_0_0_22"><code>hayride:ai/graph-stream@0.0.22</code></a></li>
+<li>interface <a href="#hayride_ai_tensor_stream_0_0_23"><code>hayride:ai/tensor-stream@0.0.23</code></a></li>
+<li>interface <a href="#hayride_ai_inference_stream_0_0_23"><code>hayride:ai/inference-stream@0.0.23</code></a></li>
+<li>interface <a href="#hayride_ai_graph_stream_0_0_23"><code>hayride:ai/graph-stream@0.0.23</code></a></li>
+<li>interface <a href="#hayride_ai_agent_0_0_23"><code>hayride:ai/agent@0.0.23</code></a></li>
 </ul>
 </li>
 </ul>
@@ -680,7 +681,7 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="method_output_stream_blocking_splice.0"></a> result&lt;<code>u64</code>, <a href="#stream_error"><a href="#stream_error"><code>stream-error</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_tensor_stream_0_0_22"></a>Import interface hayride:ai/tensor-stream@0.0.22</h2>
+<h2><a id="hayride_ai_tensor_stream_0_0_23"></a>Import interface hayride:ai/tensor-stream@0.0.23</h2>
 <p>This interface defines a stream of tensors. The stream is a sequence of tensors.</p>
 <hr />
 <h3>Types</h3>
@@ -754,7 +755,7 @@ containing a single value, use <code>[1]</code> for the tensor dimensions.</p>
 <ul>
 <li><a id="method_tensor_stream_subscribe.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_inference_stream_0_0_22"></a>Import interface hayride:ai/inference-stream@0.0.22</h2>
+<h2><a id="hayride_ai_inference_stream_0_0_23"></a>Import interface hayride:ai/inference-stream@0.0.23</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
@@ -794,7 +795,7 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="method_graph_execution_context_stream_compute.0"></a> result&lt;<a href="#named_tensor_stream"><a href="#named_tensor_stream"><code>named-tensor-stream</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_graph_stream_0_0_22"></a>Import interface hayride:ai/graph-stream@0.0.22</h2>
+<h2><a id="hayride_ai_graph_stream_0_0_23"></a>Import interface hayride:ai/graph-stream@0.0.23</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
@@ -830,4 +831,117 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h5>Return values</h5>
 <ul>
 <li><a id="load_by_name.0"></a> result&lt;own&lt;<a href="#graph_stream"><a href="#graph_stream"><code>graph-stream</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h2><a id="hayride_ai_agent_0_0_23"></a>Import interface hayride:ai/agent@0.0.23</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="pollable"></a><code>type pollable</code></h4>
+<p><a href="#pollable"><a href="#pollable"><code>pollable</code></a></a></p>
+<p>
+#### <a id="error_code"></a>`enum error-code`
+<h5>Enum Cases</h5>
+<ul>
+<li>
+<p><a id="error_code.invalid_argument"></a><code>invalid-argument</code></p>
+<p>caller module passed an invalid argument.
+</li>
+<li>
+<p><a id="error_code.missing_capability"></a><code>missing-capability</code></p>
+<p>missing capability
+</li>
+<li>
+<p><a id="error_code.runtime_error"></a><code>runtime-error</code></p>
+<p>heneric Runtime Error.
+</li>
+<li>
+<p><a id="error_code.unknown"></a><code>unknown</code></p>
+<p>unsupported operation.
+</li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<h4><a id="future_result"></a><code>resource future-result</code></h4>
+<h4><a id="agent"></a><code>resource agent</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<p>return the error code.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<p>errors can propagated with backend specific status through a string value.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
+</ul>
+<h4><a id="method_future_result_subscribe"></a><code>[method]future-result.subscribe: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_future_result_subscribe.self"></a><code>self</code>: borrow&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_future_result_subscribe.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_future_result_get"></a><code>[method]future-result.get: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_future_result_get.self"></a><code>self</code>: borrow&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_future_result_get.0"></a> result&lt;list&lt;<code>u8</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="constructor_agent"></a><code>[constructor]agent: func</code></h4>
+<p>create an agent with the given component or capabilities</p>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_agent.component"></a><code>component</code>: list&lt;<code>string</code>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_agent.0"></a> own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_agent_enhance"></a><code>[method]agent.enhance: func</code></h4>
+<p>enhance the agent with the given component or capabilities</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_enhance.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_enhance.components"></a><code>components</code>: list&lt;<code>string</code>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_agent_enhance.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="method_agent_capabilties"></a><code>[method]agent.capabilties: func</code></h4>
+<p>list the capabilities of the agent</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_capabilties.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_agent_capabilties.0"></a> result&lt;list&lt;<code>string</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="method_agent_invoke"></a><code>[method]agent.invoke: func</code></h4>
+<p>invoke a function in the given component or capability set</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_invoke.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke.component"></a><code>component</code>: <code>string</code></li>
+<li><a id="method_agent_invoke.function"></a><code>function</code>: <code>string</code></li>
+<li><a id="method_agent_invoke.args"></a><code>args</code>: list&lt;<code>string</code>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_agent_invoke.0"></a> result&lt;own&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>

@@ -1,0 +1,39 @@
+package hayride:ai@0.0.23;
+
+interface agent {
+    use wasi:io/poll@0.2.0.{pollable};
+
+    enum error-code {
+        // caller module passed an invalid argument.
+        invalid-argument,
+        // missing capability
+        missing-capability,
+        // heneric Runtime Error.
+        runtime-error,
+        // unsupported operation.
+        unknown
+    }
+    
+    resource error {
+        /// return the error code.
+        code: func() -> error-code;
+        /// errors can propagated with backend specific status through a string value.
+        data: func() -> string;
+    }
+
+    resource future-result {
+        subscribe: func() -> pollable;
+        get: func() -> result<list<u8>, error>;
+    }
+
+    resource agent {
+        // create an agent with the given component or capabilities
+        constructor(component: list<string>);
+        // enhance the agent with the given component or capabilities
+        enhance: func(components: list<string>) -> result<_,error>; 
+        // list the capabilities of the agent
+        capabilties: func() -> result<list<string>,error>;
+        // invoke a function in the given component or capability set
+        invoke: func( component: string, function: string, args: list<string>) -> result<future-result,error>;
+    }
+}

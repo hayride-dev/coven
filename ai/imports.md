@@ -9,9 +9,10 @@
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:ai/tensor-stream@0.0.22`
-    - interface `hayride:ai/inference-stream@0.0.22`
-    - interface `hayride:ai/graph-stream@0.0.22`
+    - interface `hayride:ai/tensor-stream@0.0.23`
+    - interface `hayride:ai/inference-stream@0.0.23`
+    - interface `hayride:ai/graph-stream@0.0.23`
+    - interface `hayride:ai/agent@0.0.23`
 
 ## <a id="wasi_nn_tensor_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/tensor@0.2.0-rc-2024-10-28
 
@@ -833,7 +834,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_ai_tensor_stream_0_0_22"></a>Import interface hayride:ai/tensor-stream@0.0.22
+## <a id="hayride_ai_tensor_stream_0_0_23"></a>Import interface hayride:ai/tensor-stream@0.0.23
 
 This interface defines a stream of tensors. The stream is a sequence of tensors.
 
@@ -924,7 +925,7 @@ Read up to `len` bytes from the stream.
 
 - <a id="method_tensor_stream_subscribe.0"></a> own<[`pollable`](#pollable)>
 
-## <a id="hayride_ai_inference_stream_0_0_22"></a>Import interface hayride:ai/inference-stream@0.0.22
+## <a id="hayride_ai_inference_stream_0_0_23"></a>Import interface hayride:ai/inference-stream@0.0.23
 
 
 ----
@@ -975,7 +976,7 @@ Compute the inference on the given inputs.
 
 - <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
 
-## <a id="hayride_ai_graph_stream_0_0_22"></a>Import interface hayride:ai/graph-stream@0.0.22
+## <a id="hayride_ai_graph_stream_0_0_23"></a>Import interface hayride:ai/graph-stream@0.0.23
 
 
 ----
@@ -1023,4 +1024,139 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 ##### Return values
 
 - <a id="load_by_name.0"></a> result<own<[`graph-stream`](#graph_stream)>, own<[`error`](#error)>>
+
+## <a id="hayride_ai_agent_0_0_23"></a>Import interface hayride:ai/agent@0.0.23
+
+
+----
+
+### Types
+
+#### <a id="pollable"></a>`type pollable`
+[`pollable`](#pollable)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.invalid_argument"></a>`invalid-argument`
+  <p>caller module passed an invalid argument.
+
+- <a id="error_code.missing_capability"></a>`missing-capability`
+  <p>missing capability
+
+- <a id="error_code.runtime_error"></a>`runtime-error`
+  <p>heneric Runtime Error.
+
+- <a id="error_code.unknown"></a>`unknown`
+  <p>unsupported operation.
+
+#### <a id="error"></a>`resource error`
+
+#### <a id="future_result"></a>`resource future-result`
+
+#### <a id="agent"></a>`resource agent`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+#### <a id="method_future_result_subscribe"></a>`[method]future-result.subscribe: func`
+
+
+##### Params
+
+- <a id="method_future_result_subscribe.self"></a>`self`: borrow<[`future-result`](#future_result)>
+
+##### Return values
+
+- <a id="method_future_result_subscribe.0"></a> own<[`pollable`](#pollable)>
+
+#### <a id="method_future_result_get"></a>`[method]future-result.get: func`
+
+
+##### Params
+
+- <a id="method_future_result_get.self"></a>`self`: borrow<[`future-result`](#future_result)>
+
+##### Return values
+
+- <a id="method_future_result_get.0"></a> result<list<`u8`>, own<[`error`](#error)>>
+
+#### <a id="constructor_agent"></a>`[constructor]agent: func`
+
+create an agent with the given component or capabilities
+
+##### Params
+
+- <a id="constructor_agent.component"></a>`component`: list<`string`>
+
+##### Return values
+
+- <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
+
+#### <a id="method_agent_enhance"></a>`[method]agent.enhance: func`
+
+enhance the agent with the given component or capabilities
+
+##### Params
+
+- <a id="method_agent_enhance.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_enhance.components"></a>`components`: list<`string`>
+
+##### Return values
+
+- <a id="method_agent_enhance.0"></a> result<_, own<[`error`](#error)>>
+
+#### <a id="method_agent_capabilties"></a>`[method]agent.capabilties: func`
+
+list the capabilities of the agent
+
+##### Params
+
+- <a id="method_agent_capabilties.self"></a>`self`: borrow<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="method_agent_capabilties.0"></a> result<list<`string`>, own<[`error`](#error)>>
+
+#### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
+
+invoke a function in the given component or capability set
+
+##### Params
+
+- <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_invoke.component"></a>`component`: `string`
+- <a id="method_agent_invoke.function"></a>`function`: `string`
+- <a id="method_agent_invoke.args"></a>`args`: list<`string`>
+
+##### Return values
+
+- <a id="method_agent_invoke.0"></a> result<own<[`future-result`](#future_result)>, own<[`error`](#error)>>
 
