@@ -32,7 +32,7 @@ interface agent {
         // enhance the agent with the given component or capabilities
         enhance: func(components: list<string>) -> result<_,error>; 
         // list the capabilities of the agent
-        capabilties: func() -> result<list<string>,error>;
+        capabilities: func() -> result<list<string>,error>;
         // invoke a function in the given component or capability set
         invoke: func( component: string, function: string, args: list<string>) -> result<future-result,error>;
     }

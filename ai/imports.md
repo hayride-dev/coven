@@ -1133,17 +1133,17 @@ enhance the agent with the given component or capabilities
 
 - <a id="method_agent_enhance.0"></a> result<_, own<[`error`](#error)>>
 
-#### <a id="method_agent_capabilties"></a>`[method]agent.capabilties: func`
+#### <a id="method_agent_capabilities"></a>`[method]agent.capabilities: func`
 
 list the capabilities of the agent
 
 ##### Params
 
-- <a id="method_agent_capabilties.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_capabilities.self"></a>`self`: borrow<[`agent`](#agent)>
 
 ##### Return values
 
-- <a id="method_agent_capabilties.0"></a> result<list<`string`>, own<[`error`](#error)>>
+- <a id="method_agent_capabilities.0"></a> result<list<`string`>, own<[`error`](#error)>>
 
 #### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
 
