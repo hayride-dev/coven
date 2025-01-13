@@ -1,4 +1,5 @@
-package hayride:ai@0.0.23;
+package hayride:ai@0.0.24;
+
 
 interface agent {
     use wasi:io/poll@0.2.0.{pollable};
@@ -27,8 +28,9 @@ interface agent {
     }
 
     resource agent {
-        // create an agent with the given component or capabilities
-        constructor(component: list<string>);
+        constructor (description: string, components: list<string>);
+        // return the description of the agent 
+        description: func() -> string; 
         // enhance the agent with the given component or capabilities
         enhance: func(components: list<string>) -> result<_,error>; 
         // list the capabilities of the agent
@@ -36,4 +38,6 @@ interface agent {
         // invoke a function in the given component or capability set
         invoke: func( component: string, function: string, args: list<string>) -> result<future-result,error>;
     }
+
+    initialize: func() -> result<agent,error>;
 }

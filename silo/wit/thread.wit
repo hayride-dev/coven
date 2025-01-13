@@ -1,4 +1,4 @@
-package hayride:silo@0.0.23;
+package hayride:silo@0.0.24;
 
 interface threads {
       /// system error numbers
