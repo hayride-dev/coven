@@ -27,13 +27,13 @@ interface types {
     record ai {
         websocket: websocket,
         http: http,
-        llm: llm
+        llm: llm,
     }
 
     record llm {
         model: string
     }
-    
+
     record config {
         version: string,
         license: string,

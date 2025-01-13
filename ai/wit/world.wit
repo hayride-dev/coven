@@ -1,14 +1,13 @@
 package hayride:ai@0.0.23;
 
 world imports {
-    import wasi:nn/tensor@0.2.0-rc-2024-10-28;
-    import wasi:nn/graph@0.2.0-rc-2024-10-28;
-    import wasi:nn/inference@0.2.0-rc-2024-10-28;
-    import wasi:nn/errors@0.2.0-rc-2024-10-28;
+    include wasi:nn/ml@0.2.0-rc-2024-10-28;
     // hayride streaming extension
     import tensor-stream;
     import inference-stream;
     import graph-stream;
-    // hayride agent extension
-    import agent;
+}
+
+world exports {
+    export agent; 
 }

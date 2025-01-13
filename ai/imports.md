@@ -3,16 +3,15 @@
 
  - Imports:
     - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
-    - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
-    - interface `wasi:nn/inference@0.2.0-rc-2024-10-28`
-    - interface `wasi:nn/graph@0.2.0-rc-2024-10-28`
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/streams@0.2.0`
     - interface `hayride:ai/tensor-stream@0.0.23`
+    - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
     - interface `hayride:ai/inference-stream@0.0.23`
     - interface `hayride:ai/graph-stream@0.0.23`
-    - interface `hayride:ai/agent@0.0.23`
+    - interface `wasi:nn/inference@0.2.0-rc-2024-10-28`
+    - interface `wasi:nn/graph@0.2.0-rc-2024-10-28`
 
 ## <a id="wasi_nn_tensor_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/tensor@0.2.0-rc-2024-10-28
 
@@ -107,220 +106,6 @@ Return the tensor data.
 ##### Return values
 
 - <a id="method_tensor_data.0"></a> [`tensor-data`](#tensor_data)
-
-## <a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28
-
-TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)
-
-----
-
-### Types
-
-#### <a id="error_code"></a>`enum error-code`
-
-
-##### Enum Cases
-
-- <a id="error_code.invalid_argument"></a>`invalid-argument`
-  <p>Caller module passed an invalid argument.
-
-- <a id="error_code.invalid_encoding"></a>`invalid-encoding`
-  <p>Invalid encoding.
-
-- <a id="error_code.timeout"></a>`timeout`
-  <p>The operation timed out.
-
-- <a id="error_code.runtime_error"></a>`runtime-error`
-  <p>Runtime Error.
-
-- <a id="error_code.unsupported_operation"></a>`unsupported-operation`
-  <p>Unsupported operation.
-
-- <a id="error_code.too_large"></a>`too-large`
-  <p>Graph is too large.
-
-- <a id="error_code.not_found"></a>`not-found`
-  <p>Graph not found.
-
-- <a id="error_code.security"></a>`security`
-  <p>The operation is insecure or has insufficient privilege to be performed.
-  e.g., cannot access a hardware feature requested
-
-- <a id="error_code.unknown"></a>`unknown`
-  <p>The operation failed for an unspecified reason.
-
-#### <a id="error"></a>`resource error`
-
-----
-
-### Functions
-
-#### <a id="method_error_code"></a>`[method]error.code: func`
-
-Return the error code.
-
-##### Params
-
-- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_code.0"></a> [`error-code`](#error_code)
-
-#### <a id="method_error_data"></a>`[method]error.data: func`
-
-Errors can propagated with backend specific status through a string value.
-
-##### Params
-
-- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_data.0"></a> `string`
-
-## <a id="wasi_nn_inference_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/inference@0.2.0-rc-2024-10-28
-
-An inference "session" is encapsulated by a `graph-execution-context`. This structure binds a
-`graph` to input tensors before `compute`-ing an inference:
-
-----
-
-### Types
-
-#### <a id="error"></a>`type error`
-[`error`](#error)
-<p>
-#### <a id="tensor"></a>`type tensor`
-[`tensor`](#tensor)
-<p>
-#### <a id="named_tensor"></a>`tuple named-tensor`
-
-Identify a tensor by name; this is necessary to associate tensors to
-graph inputs and outputs.
-
-##### Tuple Fields
-
-- <a id="named_tensor.0"></a>`0`: `string`
-- <a id="named_tensor.1"></a>`1`: own<[`tensor`](#tensor)>
-#### <a id="graph_execution_context"></a>`resource graph-execution-context`
-
-Bind a `graph` to the input and output tensors for an inference.
-
-TODO: this may no longer be necessary in WIT
-(https://github.com/WebAssembly/wasi-nn/issues/43)
-----
-
-### Functions
-
-#### <a id="method_graph_execution_context_compute"></a>`[method]graph-execution-context.compute: func`
-
-Compute the inference on the given inputs.
-
-##### Params
-
-- <a id="method_graph_execution_context_compute.self"></a>`self`: borrow<[`graph-execution-context`](#graph_execution_context)>
-- <a id="method_graph_execution_context_compute.inputs"></a>`inputs`: list<[`named-tensor`](#named_tensor)>
-
-##### Return values
-
-- <a id="method_graph_execution_context_compute.0"></a> result<list<[`named-tensor`](#named_tensor)>, own<[`error`](#error)>>
-
-## <a id="wasi_nn_graph_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/graph@0.2.0-rc-2024-10-28
-
-A `graph` is a loaded instance of a specific ML model (e.g., MobileNet) for a specific ML
-framework (e.g., TensorFlow):
-
-----
-
-### Types
-
-#### <a id="error"></a>`type error`
-[`error`](#error)
-<p>
-#### <a id="tensor"></a>`type tensor`
-[`tensor`](#tensor)
-<p>
-#### <a id="graph_execution_context"></a>`type graph-execution-context`
-[`graph-execution-context`](#graph_execution_context)
-<p>
-#### <a id="graph"></a>`resource graph`
-
-An execution graph for performing inference (i.e., a model).
-#### <a id="graph_encoding"></a>`enum graph-encoding`
-
-Describes the encoding of the graph. This allows the API to be implemented by various
-backends that encode (i.e., serialize) their graph IR with different formats.
-
-##### Enum Cases
-
-- <a id="graph_encoding.openvino"></a>`openvino`
-- <a id="graph_encoding.onnx"></a>`onnx`
-- <a id="graph_encoding.tensorflow"></a>`tensorflow`
-- <a id="graph_encoding.pytorch"></a>`pytorch`
-- <a id="graph_encoding.tensorflowlite"></a>`tensorflowlite`
-- <a id="graph_encoding.ggml"></a>`ggml`
-- <a id="graph_encoding.autodetect"></a>`autodetect`
-#### <a id="execution_target"></a>`enum execution-target`
-
-Define where the graph should be executed.
-
-##### Enum Cases
-
-- <a id="execution_target.cpu"></a>`cpu`
-- <a id="execution_target.gpu"></a>`gpu`
-- <a id="execution_target.tpu"></a>`tpu`
-#### <a id="graph_builder"></a>`type graph-builder`
-[`graph-builder`](#graph_builder)
-<p>The graph initialization data.
-
-This gets bundled up into an array of buffers because implementing backends may encode their
-graph IR in parts (e.g., OpenVINO stores its IR and weights separately).
-
-----
-
-### Functions
-
-#### <a id="method_graph_init_execution_context"></a>`[method]graph.init-execution-context: func`
-
-
-##### Params
-
-- <a id="method_graph_init_execution_context.self"></a>`self`: borrow<[`graph`](#graph)>
-
-##### Return values
-
-- <a id="method_graph_init_execution_context.0"></a> result<own<[`graph-execution-context`](#graph_execution_context)>, own<[`error`](#error)>>
-
-#### <a id="load"></a>`load: func`
-
-Load a `graph` from an opaque sequence of bytes to use for inference.
-
-##### Params
-
-- <a id="load.builder"></a>`builder`: list<[`graph-builder`](#graph_builder)>
-- <a id="load.encoding"></a>`encoding`: [`graph-encoding`](#graph_encoding)
-- <a id="load.target"></a>`target`: [`execution-target`](#execution_target)
-
-##### Return values
-
-- <a id="load.0"></a> result<own<[`graph`](#graph)>, own<[`error`](#error)>>
-
-#### <a id="load_by_name"></a>`load-by-name: func`
-
-Load a `graph` by name.
-
-How the host expects the names to be passed and how it stores the graphs for retrieval via
-this function is **implementation-specific**. This allows hosts to choose name schemes that
-range from simple to complex (e.g., URLs?) and caching mechanisms of various kinds.
-
-##### Params
-
-- <a id="load_by_name.name"></a>`name`: `string`
-
-##### Return values
-
-- <a id="load_by_name.0"></a> result<own<[`graph`](#graph)>, own<[`error`](#error)>>
 
 ## <a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0
 
@@ -925,6 +710,77 @@ Read up to `len` bytes from the stream.
 
 - <a id="method_tensor_stream_subscribe.0"></a> own<[`pollable`](#pollable)>
 
+## <a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28
+
+TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)
+
+----
+
+### Types
+
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.invalid_argument"></a>`invalid-argument`
+  <p>Caller module passed an invalid argument.
+
+- <a id="error_code.invalid_encoding"></a>`invalid-encoding`
+  <p>Invalid encoding.
+
+- <a id="error_code.timeout"></a>`timeout`
+  <p>The operation timed out.
+
+- <a id="error_code.runtime_error"></a>`runtime-error`
+  <p>Runtime Error.
+
+- <a id="error_code.unsupported_operation"></a>`unsupported-operation`
+  <p>Unsupported operation.
+
+- <a id="error_code.too_large"></a>`too-large`
+  <p>Graph is too large.
+
+- <a id="error_code.not_found"></a>`not-found`
+  <p>Graph not found.
+
+- <a id="error_code.security"></a>`security`
+  <p>The operation is insecure or has insufficient privilege to be performed.
+  e.g., cannot access a hardware feature requested
+
+- <a id="error_code.unknown"></a>`unknown`
+  <p>The operation failed for an unspecified reason.
+
+#### <a id="error"></a>`resource error`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+Return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+Errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
 ## <a id="hayride_ai_inference_stream_0_0_23"></a>Import interface hayride:ai/inference-stream@0.0.23
 
 
@@ -1025,138 +881,146 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 - <a id="load_by_name.0"></a> result<own<[`graph-stream`](#graph_stream)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_agent_0_0_23"></a>Import interface hayride:ai/agent@0.0.23
+## <a id="wasi_nn_inference_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/inference@0.2.0-rc-2024-10-28
 
+An inference "session" is encapsulated by a `graph-execution-context`. This structure binds a
+`graph` to input tensors before `compute`-ing an inference:
 
 ----
 
 ### Types
 
-#### <a id="pollable"></a>`type pollable`
-[`pollable`](#pollable)
+#### <a id="error"></a>`type error`
+[`error`](#error)
 <p>
-#### <a id="error_code"></a>`enum error-code`
+#### <a id="tensor"></a>`type tensor`
+[`tensor`](#tensor)
+<p>
+#### <a id="named_tensor"></a>`tuple named-tensor`
 
+Identify a tensor by name; this is necessary to associate tensors to
+graph inputs and outputs.
+
+##### Tuple Fields
+
+- <a id="named_tensor.0"></a>`0`: `string`
+- <a id="named_tensor.1"></a>`1`: own<[`tensor`](#tensor)>
+#### <a id="graph_execution_context"></a>`resource graph-execution-context`
+
+Bind a `graph` to the input and output tensors for an inference.
+
+TODO: this may no longer be necessary in WIT
+(https://github.com/WebAssembly/wasi-nn/issues/43)
+----
+
+### Functions
+
+#### <a id="method_graph_execution_context_compute"></a>`[method]graph-execution-context.compute: func`
+
+Compute the inference on the given inputs.
+
+##### Params
+
+- <a id="method_graph_execution_context_compute.self"></a>`self`: borrow<[`graph-execution-context`](#graph_execution_context)>
+- <a id="method_graph_execution_context_compute.inputs"></a>`inputs`: list<[`named-tensor`](#named_tensor)>
+
+##### Return values
+
+- <a id="method_graph_execution_context_compute.0"></a> result<list<[`named-tensor`](#named_tensor)>, own<[`error`](#error)>>
+
+## <a id="wasi_nn_graph_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/graph@0.2.0-rc-2024-10-28
+
+A `graph` is a loaded instance of a specific ML model (e.g., MobileNet) for a specific ML
+framework (e.g., TensorFlow):
+
+----
+
+### Types
+
+#### <a id="error"></a>`type error`
+[`error`](#error)
+<p>
+#### <a id="tensor"></a>`type tensor`
+[`tensor`](#tensor)
+<p>
+#### <a id="graph_execution_context"></a>`type graph-execution-context`
+[`graph-execution-context`](#graph_execution_context)
+<p>
+#### <a id="graph"></a>`resource graph`
+
+An execution graph for performing inference (i.e., a model).
+#### <a id="graph_encoding"></a>`enum graph-encoding`
+
+Describes the encoding of the graph. This allows the API to be implemented by various
+backends that encode (i.e., serialize) their graph IR with different formats.
 
 ##### Enum Cases
 
-- <a id="error_code.invalid_argument"></a>`invalid-argument`
-  <p>caller module passed an invalid argument.
+- <a id="graph_encoding.openvino"></a>`openvino`
+- <a id="graph_encoding.onnx"></a>`onnx`
+- <a id="graph_encoding.tensorflow"></a>`tensorflow`
+- <a id="graph_encoding.pytorch"></a>`pytorch`
+- <a id="graph_encoding.tensorflowlite"></a>`tensorflowlite`
+- <a id="graph_encoding.ggml"></a>`ggml`
+- <a id="graph_encoding.autodetect"></a>`autodetect`
+#### <a id="execution_target"></a>`enum execution-target`
 
-- <a id="error_code.missing_capability"></a>`missing-capability`
-  <p>missing capability
+Define where the graph should be executed.
 
-- <a id="error_code.runtime_error"></a>`runtime-error`
-  <p>heneric Runtime Error.
+##### Enum Cases
 
-- <a id="error_code.unknown"></a>`unknown`
-  <p>unsupported operation.
+- <a id="execution_target.cpu"></a>`cpu`
+- <a id="execution_target.gpu"></a>`gpu`
+- <a id="execution_target.tpu"></a>`tpu`
+#### <a id="graph_builder"></a>`type graph-builder`
+[`graph-builder`](#graph_builder)
+<p>The graph initialization data.
 
-#### <a id="error"></a>`resource error`
-
-#### <a id="future_result"></a>`resource future-result`
-
-#### <a id="agent"></a>`resource agent`
+This gets bundled up into an array of buffers because implementing backends may encode their
+graph IR in parts (e.g., OpenVINO stores its IR and weights separately).
 
 ----
 
 ### Functions
 
-#### <a id="method_error_code"></a>`[method]error.code: func`
-
-return the error code.
-
-##### Params
-
-- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_code.0"></a> [`error-code`](#error_code)
-
-#### <a id="method_error_data"></a>`[method]error.data: func`
-
-errors can propagated with backend specific status through a string value.
-
-##### Params
-
-- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_data.0"></a> `string`
-
-#### <a id="method_future_result_subscribe"></a>`[method]future-result.subscribe: func`
+#### <a id="method_graph_init_execution_context"></a>`[method]graph.init-execution-context: func`
 
 
 ##### Params
 
-- <a id="method_future_result_subscribe.self"></a>`self`: borrow<[`future-result`](#future_result)>
+- <a id="method_graph_init_execution_context.self"></a>`self`: borrow<[`graph`](#graph)>
 
 ##### Return values
 
-- <a id="method_future_result_subscribe.0"></a> own<[`pollable`](#pollable)>
+- <a id="method_graph_init_execution_context.0"></a> result<own<[`graph-execution-context`](#graph_execution_context)>, own<[`error`](#error)>>
 
-#### <a id="method_future_result_get"></a>`[method]future-result.get: func`
+#### <a id="load"></a>`load: func`
 
+Load a `graph` from an opaque sequence of bytes to use for inference.
 
 ##### Params
 
-- <a id="method_future_result_get.self"></a>`self`: borrow<[`future-result`](#future_result)>
+- <a id="load.builder"></a>`builder`: list<[`graph-builder`](#graph_builder)>
+- <a id="load.encoding"></a>`encoding`: [`graph-encoding`](#graph_encoding)
+- <a id="load.target"></a>`target`: [`execution-target`](#execution_target)
 
 ##### Return values
 
-- <a id="method_future_result_get.0"></a> result<list<`u8`>, own<[`error`](#error)>>
+- <a id="load.0"></a> result<own<[`graph`](#graph)>, own<[`error`](#error)>>
 
-#### <a id="constructor_agent"></a>`[constructor]agent: func`
+#### <a id="load_by_name"></a>`load-by-name: func`
 
-create an agent with the given component or capabilities
+Load a `graph` by name.
+
+How the host expects the names to be passed and how it stores the graphs for retrieval via
+this function is **implementation-specific**. This allows hosts to choose name schemes that
+range from simple to complex (e.g., URLs?) and caching mechanisms of various kinds.
 
 ##### Params
 
-- <a id="constructor_agent.component"></a>`component`: list<`string`>
+- <a id="load_by_name.name"></a>`name`: `string`
 
 ##### Return values
 
-- <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
-
-#### <a id="method_agent_enhance"></a>`[method]agent.enhance: func`
-
-enhance the agent with the given component or capabilities
-
-##### Params
-
-- <a id="method_agent_enhance.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_enhance.components"></a>`components`: list<`string`>
-
-##### Return values
-
-- <a id="method_agent_enhance.0"></a> result<_, own<[`error`](#error)>>
-
-#### <a id="method_agent_capabilties"></a>`[method]agent.capabilties: func`
-
-list the capabilities of the agent
-
-##### Params
-
-- <a id="method_agent_capabilties.self"></a>`self`: borrow<[`agent`](#agent)>
-
-##### Return values
-
-- <a id="method_agent_capabilties.0"></a> result<list<`string`>, own<[`error`](#error)>>
-
-#### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
-
-invoke a function in the given component or capability set
-
-##### Params
-
-- <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_invoke.component"></a>`component`: `string`
-- <a id="method_agent_invoke.function"></a>`function`: `string`
-- <a id="method_agent_invoke.args"></a>`args`: list<`string`>
-
-##### Return values
-
-- <a id="method_agent_invoke.0"></a> result<own<[`future-result`](#future_result)>, own<[`error`](#error)>>
+- <a id="load_by_name.0"></a> result<own<[`graph`](#graph)>, own<[`error`](#error)>>
 
