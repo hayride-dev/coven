@@ -1006,6 +1006,9 @@ Load a `graph` from an opaque sequence of bytes to use for inference.
 
 ##### Return values
 
+- <a id="load.0"></a> result<own<[`graph`](#graph)>, own<[`error`](#error)>>
+
+#### <a id="load_by_name"></a>`load-by-name: func`
 
 Load a `graph` by name.
 
