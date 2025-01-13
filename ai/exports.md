@@ -4,7 +4,7 @@
  - Imports:
     - interface `wasi:io/poll@0.2.0`
  - Exports:
-    - interface `hayride:ai/agent@0.0.23`
+    - interface `hayride:ai/agent@0.0.24`
 
 ## <a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0
 
@@ -77,7 +77,7 @@ being reaedy for I/O.
 
 - <a id="poll.0"></a> list<`u32`>
 
-## <a id="hayride_ai_agent_0_0_23"></a>Export interface hayride:ai/agent@0.0.23
+## <a id="hayride_ai_agent_0_0_24"></a>Export interface hayride:ai/agent@0.0.24
 
 ----
 
@@ -106,6 +106,8 @@ being reaedy for I/O.
 #### <a id="error"></a>`resource error`
 
 #### <a id="future_result"></a>`resource future-result`
+
+#### <a id="agent"></a>`resource agent`
 
 ----
 
@@ -157,44 +159,74 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_future_result_get.0"></a> result<list<`u8`>, own<[`error`](#error)>>
 
-#### <a id="description"></a>`description: func`
+#### <a id="constructor_agent"></a>`[constructor]agent: func`
 
+
+##### Params
+
+- <a id="constructor_agent.description"></a>`description`: `string`
+- <a id="constructor_agent.components"></a>`components`: list<`string`>
 
 ##### Return values
 
-- <a id="description.0"></a> `string`
+- <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
 
-#### <a id="enhance"></a>`enhance: func`
+#### <a id="method_agent_description"></a>`[method]agent.description: func`
+
+return the description of the agent
+
+##### Params
+
+- <a id="method_agent_description.self"></a>`self`: borrow<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="method_agent_description.0"></a> `string`
+
+#### <a id="method_agent_enhance"></a>`[method]agent.enhance: func`
 
 enhance the agent with the given component or capabilities
 
 ##### Params
 
-- <a id="enhance.components"></a>`components`: list<`string`>
+- <a id="method_agent_enhance.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_enhance.components"></a>`components`: list<`string`>
 
 ##### Return values
 
-- <a id="enhance.0"></a> result<_, own<[`error`](#error)>>
+- <a id="method_agent_enhance.0"></a> result<_, own<[`error`](#error)>>
 
-#### <a id="capabilities"></a>`capabilities: func`
+#### <a id="method_agent_capabilities"></a>`[method]agent.capabilities: func`
 
 list the capabilities of the agent
 
+##### Params
+
+- <a id="method_agent_capabilities.self"></a>`self`: borrow<[`agent`](#agent)>
+
 ##### Return values
 
-- <a id="capabilities.0"></a> result<list<`string`>, own<[`error`](#error)>>
+- <a id="method_agent_capabilities.0"></a> result<list<`string`>, own<[`error`](#error)>>
 
-#### <a id="invoke"></a>`invoke: func`
+#### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
 
 invoke a function in the given component or capability set
 
 ##### Params
 
-- <a id="invoke.component"></a>`component`: `string`
-- <a id="invoke.function"></a>`function`: `string`
-- <a id="invoke.args"></a>`args`: list<`string`>
+- <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_invoke.component"></a>`component`: `string`
+- <a id="method_agent_invoke.function"></a>`function`: `string`
+- <a id="method_agent_invoke.args"></a>`args`: list<`string`>
 
 ##### Return values
 
-- <a id="invoke.0"></a> result<own<[`future-result`](#future_result)>, own<[`error`](#error)>>
+- <a id="method_agent_invoke.0"></a> result<own<[`future-result`](#future_result)>, own<[`error`](#error)>>
+
+#### <a id="initialize"></a>`initialize: func`
+
+
+##### Return values
+
+- <a id="initialize.0"></a> result<own<[`agent`](#agent)>, own<[`error`](#error)>>
 

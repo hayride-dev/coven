@@ -7,7 +7,7 @@
 </li>
 <li>Exports:
 <ul>
-<li>interface <a href="#hayride_ai_agent_0_0_23"><code>hayride:ai/agent@0.0.23</code></a></li>
+<li>interface <a href="#hayride_ai_agent_0_0_24"><code>hayride:ai/agent@0.0.24</code></a></li>
 </ul>
 </li>
 </ul>
@@ -61,7 +61,7 @@ being reaedy for I/O.</p>
 <ul>
 <li><a id="poll.0"></a> list&lt;<code>u32</code>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_agent_0_0_23"></a>Export interface hayride:ai/agent@0.0.23</h2>
+<h2><a id="hayride_ai_agent_0_0_24"></a>Export interface hayride:ai/agent@0.0.24</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="pollable"></a><code>type pollable</code></h4>
@@ -89,6 +89,7 @@ being reaedy for I/O.</p>
 </ul>
 <h4><a id="error"></a><code>resource error</code></h4>
 <h4><a id="future_result"></a><code>resource future-result</code></h4>
+<h4><a id="agent"></a><code>resource agent</code></h4>
 <hr />
 <h3>Functions</h3>
 <h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
@@ -129,36 +130,62 @@ being reaedy for I/O.</p>
 <ul>
 <li><a id="method_future_result_get.0"></a> result&lt;list&lt;<code>u8</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h4><a id="description"></a><code>description: func</code></h4>
+<h4><a id="constructor_agent"></a><code>[constructor]agent: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_agent.description"></a><code>description</code>: <code>string</code></li>
+<li><a id="constructor_agent.components"></a><code>components</code>: list&lt;<code>string</code>&gt;</li>
+</ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="description.0"></a> <code>string</code></li>
+<li><a id="constructor_agent.0"></a> own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
 </ul>
-<h4><a id="enhance"></a><code>enhance: func</code></h4>
+<h4><a id="method_agent_description"></a><code>[method]agent.description: func</code></h4>
+<p>return the description of the agent</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_description.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_agent_description.0"></a> <code>string</code></li>
+</ul>
+<h4><a id="method_agent_enhance"></a><code>[method]agent.enhance: func</code></h4>
 <p>enhance the agent with the given component or capabilities</p>
 <h5>Params</h5>
 <ul>
-<li><a id="enhance.components"></a><code>components</code>: list&lt;<code>string</code>&gt;</li>
+<li><a id="method_agent_enhance.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_enhance.components"></a><code>components</code>: list&lt;<code>string</code>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="enhance.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_agent_enhance.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h4><a id="capabilities"></a><code>capabilities: func</code></h4>
+<h4><a id="method_agent_capabilities"></a><code>[method]agent.capabilities: func</code></h4>
 <p>list the capabilities of the agent</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_capabilities.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+</ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="capabilities.0"></a> result&lt;list&lt;<code>string</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_agent_capabilities.0"></a> result&lt;list&lt;<code>string</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h4><a id="invoke"></a><code>invoke: func</code></h4>
+<h4><a id="method_agent_invoke"></a><code>[method]agent.invoke: func</code></h4>
 <p>invoke a function in the given component or capability set</p>
 <h5>Params</h5>
 <ul>
-<li><a id="invoke.component"></a><code>component</code>: <code>string</code></li>
-<li><a id="invoke.function"></a><code>function</code>: <code>string</code></li>
-<li><a id="invoke.args"></a><code>args</code>: list&lt;<code>string</code>&gt;</li>
+<li><a id="method_agent_invoke.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke.component"></a><code>component</code>: <code>string</code></li>
+<li><a id="method_agent_invoke.function"></a><code>function</code>: <code>string</code></li>
+<li><a id="method_agent_invoke.args"></a><code>args</code>: list&lt;<code>string</code>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="invoke.0"></a> result&lt;own&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_agent_invoke.0"></a> result&lt;own&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="initialize"></a><code>initialize: func</code></h4>
+<h5>Return values</h5>
+<ul>
+<li><a id="initialize.0"></a> result&lt;own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>

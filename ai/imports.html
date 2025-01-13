@@ -6,10 +6,10 @@
 <li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_error_0_2_0"><code>wasi:io/error@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_streams_0_2_0"><code>wasi:io/streams@0.2.0</code></a></li>
-<li>interface <a href="#hayride_ai_tensor_stream_0_0_23"><code>hayride:ai/tensor-stream@0.0.23</code></a></li>
+<li>interface <a href="#hayride_ai_tensor_stream_0_0_24"><code>hayride:ai/tensor-stream@0.0.24</code></a></li>
 <li>interface <a href="#wasi_nn_errors_0_2_0_rc_2024_10_28"><code>wasi:nn/errors@0.2.0-rc-2024-10-28</code></a></li>
-<li>interface <a href="#hayride_ai_inference_stream_0_0_23"><code>hayride:ai/inference-stream@0.0.23</code></a></li>
-<li>interface <a href="#hayride_ai_graph_stream_0_0_23"><code>hayride:ai/graph-stream@0.0.23</code></a></li>
+<li>interface <a href="#hayride_ai_inference_stream_0_0_24"><code>hayride:ai/inference-stream@0.0.24</code></a></li>
+<li>interface <a href="#hayride_ai_graph_stream_0_0_24"><code>hayride:ai/graph-stream@0.0.24</code></a></li>
 <li>interface <a href="#wasi_nn_inference_0_2_0_rc_2024_10_28"><code>wasi:nn/inference@0.2.0-rc-2024-10-28</code></a></li>
 <li>interface <a href="#wasi_nn_graph_0_2_0_rc_2024_10_28"><code>wasi:nn/graph@0.2.0-rc-2024-10-28</code></a></li>
 </ul>
@@ -499,7 +499,7 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="method_output_stream_blocking_splice.0"></a> result&lt;<code>u64</code>, <a href="#stream_error"><a href="#stream_error"><code>stream-error</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_tensor_stream_0_0_23"></a>Import interface hayride:ai/tensor-stream@0.0.23</h2>
+<h2><a id="hayride_ai_tensor_stream_0_0_24"></a>Import interface hayride:ai/tensor-stream@0.0.24</h2>
 <p>This interface defines a stream of tensors. The stream is a sequence of tensors.</p>
 <hr />
 <h3>Types</h3>
@@ -641,7 +641,7 @@ e.g., cannot access a hardware feature requested
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
-<h2><a id="hayride_ai_inference_stream_0_0_23"></a>Import interface hayride:ai/inference-stream@0.0.23</h2>
+<h2><a id="hayride_ai_inference_stream_0_0_24"></a>Import interface hayride:ai/inference-stream@0.0.24</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
@@ -681,7 +681,7 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="method_graph_execution_context_stream_compute.0"></a> result&lt;<a href="#named_tensor_stream"><a href="#named_tensor_stream"><code>named-tensor-stream</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_graph_stream_0_0_23"></a>Import interface hayride:ai/graph-stream@0.0.23</h2>
+<h2><a id="hayride_ai_graph_stream_0_0_24"></a>Import interface hayride:ai/graph-stream@0.0.24</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
