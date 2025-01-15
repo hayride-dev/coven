@@ -1,9 +1,10 @@
-<h1><a id="exports"></a>World exports</h1>
+<h1><a id="agentic"></a>World agentic</h1>
 <ul>
 <li>Imports:
 <ul>
 <li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
 <li>interface <a href="#hayride_ai_types_0_0_25"><code>hayride:ai/types@0.0.25</code></a></li>
+<li>interface <a href="#hayride_ai_tools_0_0_25"><code>hayride:ai/tools@0.0.25</code></a></li>
 </ul>
 </li>
 <li>Exports:
@@ -176,6 +177,41 @@ being reaedy for I/O.</p>
 <h5>Return values</h5>
 <ul>
 <li><a id="method_agent_capabilities.0"></a> result&lt;list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h2><a id="hayride_ai_tools_0_0_25"></a>Import interface hayride:ai/tools@0.0.25</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="tool"></a><code>type tool</code></h4>
+<p><a href="#tool"><a href="#tool"><code>tool</code></a></a></p>
+<p>
+#### <a id="error"></a>`type error`
+[`error`](#error)
+<p>
+#### <a id="future_result"></a>`type future-result`
+[`future-result`](#future_result)
+<p>
+----
+<h3>Functions</h3>
+<h4><a id="format"></a><code>format: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="format.model"></a><code>model</code>: <code>string</code></li>
+<li><a id="format.tool"></a><a href="#tool"><code>tool</code></a>: <a href="#tool"><a href="#tool"><code>tool</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="format.0"></a> <code>string</code></li>
+</ul>
+<h4><a id="invoke"></a><code>invoke: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="invoke.tool"></a><a href="#tool"><code>tool</code></a>: <a href="#tool"><a href="#tool"><code>tool</code></a></a></li>
+<li><a id="invoke.function"></a><code>function</code>: <code>string</code></li>
+<li><a id="invoke.args"></a><code>args</code>: list&lt;<code>string</code>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="invoke.0"></a> result&lt;own&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h2><a id="hayride_ai_agents_0_0_25"></a>Export interface hayride:ai/agents@0.0.25</h2>
 <hr />

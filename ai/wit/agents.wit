@@ -1,7 +1,7 @@
-package hayride:ai@0.0.24;
+package hayride:ai@0.0.25;
 
 
-interface agent {
+interface types {
     use wasi:io/poll@0.2.0.{pollable};
 
     enum error-code {
@@ -14,7 +14,7 @@ interface agent {
         // unsupported operation.
         unknown
     }
-    
+
     resource error {
         /// return the error code.
         code: func() -> error-code;
@@ -27,17 +27,32 @@ interface agent {
         get: func() -> result<list<u8>, error>;
     }
 
-    resource agent {
-        constructor (description: string, components: list<string>);
-        // return the description of the agent 
-        description: func() -> string; 
-        // enhance the agent with the given component or capabilities
-        enhance: func(components: list<string>) -> result<_,error>; 
-        // list the capabilities of the agent
-        capabilities: func() -> result<list<string>,error>;
-        // invoke a function in the given component or capability set
-        invoke: func( component: string, function: string, args: list<string>) -> result<future-result,error>;
+    record tool {
+      package-id: string,
+      description: string
     }
 
-    initialize: func() -> result<agent,error>;
+    resource agent {
+        constructor(name: string, description: string, capabilities: list<tool>);
+        name: func() -> string;
+        // return the description of the agent 
+        description: func() -> string; 
+        // list the capabilities of the agent
+        capabilities: func() -> result<list<tool>,error>;
+    }
 }
+
+interface agents {
+    use types.{agent,error,tool};
+    set: func(agent: agent) -> result<_,error>;
+    get: func(name: string) -> result<agent,error>;
+    // enhance the agent with the given component or capabilities 
+    enhance: func(agent: agent, tools: list<tool>) -> result<_,error>; 
+}
+
+interface tools {
+    use types.{tool,error,future-result};
+    format: func(model: string, tool: tool) -> string;
+    invoke: func(tool: tool, function: string, args: list<string>) -> result<future-result,error>;
+}
+
