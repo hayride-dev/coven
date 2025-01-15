@@ -1,9 +1,10 @@
-# <a id="exports"></a>World exports
+# <a id="agentic"></a>World agentic
 
 
  - Imports:
     - interface `wasi:io/poll@0.2.0`
     - interface `hayride:ai/types@0.0.25`
+    - interface `hayride:ai/tools@0.0.25`
  - Exports:
     - interface `hayride:ai/agents@0.0.25`
 
@@ -215,6 +216,51 @@ list the capabilities of the agent
 ##### Return values
 
 - <a id="method_agent_capabilities.0"></a> result<list<[`tool`](#tool)>, own<[`error`](#error)>>
+
+## <a id="hayride_ai_tools_0_0_25"></a>Import interface hayride:ai/tools@0.0.25
+
+
+----
+
+### Types
+
+#### <a id="tool"></a>`type tool`
+[`tool`](#tool)
+<p>
+#### <a id="error"></a>`type error`
+[`error`](#error)
+<p>
+#### <a id="future_result"></a>`type future-result`
+[`future-result`](#future_result)
+<p>
+----
+
+### Functions
+
+#### <a id="format"></a>`format: func`
+
+
+##### Params
+
+- <a id="format.model"></a>`model`: `string`
+- <a id="format.tool"></a>`tool`: [`tool`](#tool)
+
+##### Return values
+
+- <a id="format.0"></a> `string`
+
+#### <a id="invoke"></a>`invoke: func`
+
+
+##### Params
+
+- <a id="invoke.tool"></a>`tool`: [`tool`](#tool)
+- <a id="invoke.function"></a>`function`: `string`
+- <a id="invoke.args"></a>`args`: list<`string`>
+
+##### Return values
+
+- <a id="invoke.0"></a> result<own<[`future-result`](#future_result)>, own<[`error`](#error)>>
 
 ## <a id="hayride_ai_agents_0_0_25"></a>Export interface hayride:ai/agents@0.0.25
 
