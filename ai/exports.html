@@ -2,94 +2,18 @@
 <ul>
 <li>Imports:
 <ul>
-<li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
-<li>interface <a href="#hayride_ai_types_0_0_26"><code>hayride:ai/types@0.0.26</code></a></li>
+<li>interface <a href="#hayride_ai_types_0_0_27"><code>hayride:ai/types@0.0.27</code></a></li>
 </ul>
 </li>
 <li>Exports:
 <ul>
-<li>interface <a href="#hayride_ai_agents_0_0_26"><code>hayride:ai/agents@0.0.26</code></a></li>
+<li>interface <a href="#hayride_ai_agents_0_0_27"><code>hayride:ai/agents@0.0.27</code></a></li>
 </ul>
 </li>
 </ul>
-<h2><a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0</h2>
-<p>A poll API intended to let users wait for I/O events on multiple handles
-at once.</p>
+<h2><a id="hayride_ai_types_0_0_27"></a>Import interface hayride:ai/types@0.0.27</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="pollable"></a><code>resource pollable</code></h4>
-<h2><a href="#pollable"><code>pollable</code></a> represents a single I/O event which may be ready, or not.</h2>
-<h3>Functions</h3>
-<h4><a id="method_pollable_ready"></a><code>[method]pollable.ready: func</code></h4>
-<p>Return the readiness of a pollable. This function never blocks.</p>
-<p>Returns <code>true</code> when the pollable is ready, and <code>false</code> otherwise.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_pollable_ready.self"></a><code>self</code>: borrow&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_pollable_ready.0"></a> <code>bool</code></li>
-</ul>
-<h4><a id="method_pollable_block"></a><code>[method]pollable.block: func</code></h4>
-<p><code>block</code> returns immediately if the pollable is ready, and otherwise
-blocks until ready.</p>
-<p>This function is equivalent to calling <code>poll.poll</code> on a list
-containing only this pollable.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_pollable_block.self"></a><code>self</code>: borrow&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
-</ul>
-<h4><a id="poll"></a><code>poll: func</code></h4>
-<p>Poll for completion on a set of pollables.</p>
-<p>This function takes a list of pollables, which identify I/O sources of
-interest, and waits until one or more of the events is ready for I/O.</p>
-<p>The result <code>list&lt;u32&gt;</code> contains one or more indices of handles in the
-argument list that is ready for I/O.</p>
-<p>If the list contains more elements than can be indexed with a <code>u32</code>
-value, this function traps.</p>
-<p>A timeout can be implemented by adding a pollable from the
-wasi-clocks API to the list.</p>
-<p>This function does not return a <code>result</code>; polling in itself does not
-do any I/O so it doesn't fail. If any of the I/O sources identified by
-the pollables has an error, it is indicated by marking the source as
-being reaedy for I/O.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="poll.in"></a><code>in</code>: list&lt;borrow&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="poll.0"></a> list&lt;<code>u32</code>&gt;</li>
-</ul>
-<h2><a id="hayride_ai_types_0_0_26"></a>Import interface hayride:ai/types@0.0.26</h2>
-<hr />
-<h3>Types</h3>
-<h4><a id="pollable"></a><code>type pollable</code></h4>
-<p><a href="#pollable"><a href="#pollable"><code>pollable</code></a></a></p>
-<p>
-#### <a id="error_code"></a>`enum error-code`
-<h5>Enum Cases</h5>
-<ul>
-<li>
-<p><a id="error_code.invalid_argument"></a><code>invalid-argument</code></p>
-<p>caller module passed an invalid argument.
-</li>
-<li>
-<p><a id="error_code.missing_capability"></a><code>missing-capability</code></p>
-<p>missing capability
-</li>
-<li>
-<p><a id="error_code.runtime_error"></a><code>runtime-error</code></p>
-<p>heneric Runtime Error.
-</li>
-<li>
-<p><a id="error_code.unknown"></a><code>unknown</code></p>
-<p>unsupported operation.
-</li>
-</ul>
-<h4><a id="error"></a><code>resource error</code></h4>
-<h4><a id="future_result"></a><code>resource future-result</code></h4>
 <h4><a id="tool"></a><code>record tool</code></h4>
 <h5>Record Fields</h5>
 <ul>
@@ -103,6 +27,28 @@ being reaedy for I/O.</p>
 <li><a id="agent.description"></a><code>description</code>: <code>string</code></li>
 <li><a id="agent.capabilities"></a><code>capabilities</code>: list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;</li>
 </ul>
+<h2><a id="hayride_ai_agents_0_0_27"></a>Export interface hayride:ai/agents@0.0.27</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="agent"></a><code>type agent</code></h4>
+<p><a href="#agent"><a href="#agent"><code>agent</code></a></a></p>
+<p>
+#### <a id="tool"></a>`type tool`
+[`tool`](#tool)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+<h5>Enum Cases</h5>
+<ul>
+<li>
+<p><a id="error_code.enhance_error"></a><code>enhance-error</code></p>
+<p>generic Runtime Error.
+</li>
+<li>
+<p><a id="error_code.unknown"></a><code>unknown</code></p>
+<p>unsupported operation.
+</li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
 <hr />
 <h3>Functions</h3>
 <h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
@@ -125,38 +71,6 @@ being reaedy for I/O.</p>
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
-<h4><a id="method_future_result_subscribe"></a><code>[method]future-result.subscribe: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="method_future_result_subscribe.self"></a><code>self</code>: borrow&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_future_result_subscribe.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
-</ul>
-<h4><a id="method_future_result_get"></a><code>[method]future-result.get: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="method_future_result_get.self"></a><code>self</code>: borrow&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_future_result_get.0"></a> result&lt;list&lt;<code>u8</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
-</ul>
-<h2><a id="hayride_ai_agents_0_0_26"></a>Export interface hayride:ai/agents@0.0.26</h2>
-<hr />
-<h3>Types</h3>
-<h4><a id="agent"></a><code>type agent</code></h4>
-<p><a href="#agent"><a href="#agent"><code>agent</code></a></a></p>
-<p>
-#### <a id="error"></a>`type error`
-[`error`](#error)
-<p>
-#### <a id="tool"></a>`type tool`
-[`tool`](#tool)
-<p>
-----
-<h3>Functions</h3>
 <h4><a id="set"></a><code>set: func</code></h4>
 <h5>Params</h5>
 <ul>
@@ -176,7 +90,6 @@ being reaedy for I/O.</p>
 <li><a id="get.0"></a> result&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h4><a id="enhance"></a><code>enhance: func</code></h4>
-<p>enhance the agent with the given component or capabilities</p>
 <h5>Params</h5>
 <ul>
 <li><a id="enhance.agent"></a><a href="#agent"><code>agent</code></a>: <a href="#agent"><a href="#agent"><code>agent</code></a></a></li>
