@@ -1,4 +1,4 @@
-package hayride:ai@0.0.25;
+package hayride:ai@0.0.26;
 
 
 interface types {
@@ -32,13 +32,10 @@ interface types {
       description: string
     }
 
-    resource agent {
-        constructor(name: string, description: string, capabilities: list<tool>);
-        name: func() -> string;
-        // return the description of the agent 
-        description: func() -> string; 
-        // list the capabilities of the agent
-        capabilities: func() -> result<list<tool>,error>;
+    record agent {
+        name: string,
+        description: string,
+        capabilities: list<tool>
     }
 }
 

@@ -3,12 +3,12 @@
 <li>Imports:
 <ul>
 <li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
-<li>interface <a href="#hayride_ai_types_0_0_25"><code>hayride:ai/types@0.0.25</code></a></li>
+<li>interface <a href="#hayride_ai_types_0_0_26"><code>hayride:ai/types@0.0.26</code></a></li>
 </ul>
 </li>
 <li>Exports:
 <ul>
-<li>interface <a href="#hayride_ai_agents_0_0_25"><code>hayride:ai/agents@0.0.25</code></a></li>
+<li>interface <a href="#hayride_ai_agents_0_0_26"><code>hayride:ai/agents@0.0.26</code></a></li>
 </ul>
 </li>
 </ul>
@@ -62,7 +62,7 @@ being reaedy for I/O.</p>
 <ul>
 <li><a id="poll.0"></a> list&lt;<code>u32</code>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_types_0_0_25"></a>Import interface hayride:ai/types@0.0.25</h2>
+<h2><a id="hayride_ai_types_0_0_26"></a>Import interface hayride:ai/types@0.0.26</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="pollable"></a><code>type pollable</code></h4>
@@ -96,7 +96,13 @@ being reaedy for I/O.</p>
 <li><a id="tool.package_id"></a><code>package-id</code>: <code>string</code></li>
 <li><a id="tool.description"></a><code>description</code>: <code>string</code></li>
 </ul>
-<h4><a id="agent"></a><code>resource agent</code></h4>
+<h4><a id="agent"></a><code>record agent</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="agent.name"></a><code>name</code>: <code>string</code></li>
+<li><a id="agent.description"></a><code>description</code>: <code>string</code></li>
+<li><a id="agent.capabilities"></a><code>capabilities</code>: list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;</li>
+</ul>
 <hr />
 <h3>Functions</h3>
 <h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
@@ -137,47 +143,7 @@ being reaedy for I/O.</p>
 <ul>
 <li><a id="method_future_result_get.0"></a> result&lt;list&lt;<code>u8</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h4><a id="constructor_agent"></a><code>[constructor]agent: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="constructor_agent.name"></a><code>name</code>: <code>string</code></li>
-<li><a id="constructor_agent.description"></a><code>description</code>: <code>string</code></li>
-<li><a id="constructor_agent.capabilities"></a><code>capabilities</code>: list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="constructor_agent.0"></a> own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-</ul>
-<h4><a id="method_agent_name"></a><code>[method]agent.name: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="method_agent_name.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_agent_name.0"></a> <code>string</code></li>
-</ul>
-<h4><a id="method_agent_description"></a><code>[method]agent.description: func</code></h4>
-<p>return the description of the agent</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_agent_description.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_agent_description.0"></a> <code>string</code></li>
-</ul>
-<h4><a id="method_agent_capabilities"></a><code>[method]agent.capabilities: func</code></h4>
-<p>list the capabilities of the agent</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_agent_capabilities.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_agent_capabilities.0"></a> result&lt;list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
-</ul>
-<h2><a id="hayride_ai_agents_0_0_25"></a>Export interface hayride:ai/agents@0.0.25</h2>
+<h2><a id="hayride_ai_agents_0_0_26"></a>Export interface hayride:ai/agents@0.0.26</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="agent"></a><code>type agent</code></h4>
@@ -194,7 +160,7 @@ being reaedy for I/O.</p>
 <h4><a id="set"></a><code>set: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="set.agent"></a><a href="#agent"><code>agent</code></a>: own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="set.agent"></a><a href="#agent"><code>agent</code></a>: <a href="#agent"><a href="#agent"><code>agent</code></a></a></li>
 </ul>
 <h5>Return values</h5>
 <ul>
@@ -207,13 +173,13 @@ being reaedy for I/O.</p>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="get.0"></a> result&lt;own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="get.0"></a> result&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h4><a id="enhance"></a><code>enhance: func</code></h4>
 <p>enhance the agent with the given component or capabilities</p>
 <h5>Params</h5>
 <ul>
-<li><a id="enhance.agent"></a><a href="#agent"><code>agent</code></a>: own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="enhance.agent"></a><a href="#agent"><code>agent</code></a>: <a href="#agent"><a href="#agent"><code>agent</code></a></a></li>
 <li><a id="enhance.tools"></a><code>tools</code>: list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>

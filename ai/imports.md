@@ -6,10 +6,10 @@
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:ai/tensor-stream@0.0.25`
+    - interface `hayride:ai/tensor-stream@0.0.26`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
-    - interface `hayride:ai/inference-stream@0.0.25`
-    - interface `hayride:ai/graph-stream@0.0.25`
+    - interface `hayride:ai/inference-stream@0.0.26`
+    - interface `hayride:ai/graph-stream@0.0.26`
     - interface `wasi:nn/inference@0.2.0-rc-2024-10-28`
     - interface `wasi:nn/graph@0.2.0-rc-2024-10-28`
 
@@ -619,7 +619,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_ai_tensor_stream_0_0_25"></a>Import interface hayride:ai/tensor-stream@0.0.25
+## <a id="hayride_ai_tensor_stream_0_0_26"></a>Import interface hayride:ai/tensor-stream@0.0.26
 
 This interface defines a stream of tensors. The stream is a sequence of tensors.
 
@@ -781,7 +781,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_ai_inference_stream_0_0_25"></a>Import interface hayride:ai/inference-stream@0.0.25
+## <a id="hayride_ai_inference_stream_0_0_26"></a>Import interface hayride:ai/inference-stream@0.0.26
 
 
 ----
@@ -832,7 +832,7 @@ Compute the inference on the given inputs.
 
 - <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
 
-## <a id="hayride_ai_graph_stream_0_0_25"></a>Import interface hayride:ai/graph-stream@0.0.25
+## <a id="hayride_ai_graph_stream_0_0_26"></a>Import interface hayride:ai/graph-stream@0.0.26
 
 
 ----

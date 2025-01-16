@@ -3,9 +3,9 @@
 
  - Imports:
     - interface `wasi:io/poll@0.2.0`
-    - interface `hayride:ai/types@0.0.25`
+    - interface `hayride:ai/types@0.0.26`
  - Exports:
-    - interface `hayride:ai/agents@0.0.25`
+    - interface `hayride:ai/agents@0.0.26`
 
 ## <a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0
 
@@ -78,7 +78,7 @@ being reaedy for I/O.
 
 - <a id="poll.0"></a> list<`u32`>
 
-## <a id="hayride_ai_types_0_0_25"></a>Import interface hayride:ai/types@0.0.25
+## <a id="hayride_ai_types_0_0_26"></a>Import interface hayride:ai/types@0.0.26
 
 
 ----
@@ -116,8 +116,14 @@ being reaedy for I/O.
 
 - <a id="tool.package_id"></a>`package-id`: `string`
 - <a id="tool.description"></a>`description`: `string`
-#### <a id="agent"></a>`resource agent`
+#### <a id="agent"></a>`record agent`
 
+
+##### Record Fields
+
+- <a id="agent.name"></a>`name`: `string`
+- <a id="agent.description"></a>`description`: `string`
+- <a id="agent.capabilities"></a>`capabilities`: list<[`tool`](#tool)>
 ----
 
 ### Functions
@@ -168,55 +174,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_future_result_get.0"></a> result<list<`u8`>, own<[`error`](#error)>>
 
-#### <a id="constructor_agent"></a>`[constructor]agent: func`
-
-
-##### Params
-
-- <a id="constructor_agent.name"></a>`name`: `string`
-- <a id="constructor_agent.description"></a>`description`: `string`
-- <a id="constructor_agent.capabilities"></a>`capabilities`: list<[`tool`](#tool)>
-
-##### Return values
-
-- <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
-
-#### <a id="method_agent_name"></a>`[method]agent.name: func`
-
-
-##### Params
-
-- <a id="method_agent_name.self"></a>`self`: borrow<[`agent`](#agent)>
-
-##### Return values
-
-- <a id="method_agent_name.0"></a> `string`
-
-#### <a id="method_agent_description"></a>`[method]agent.description: func`
-
-return the description of the agent
-
-##### Params
-
-- <a id="method_agent_description.self"></a>`self`: borrow<[`agent`](#agent)>
-
-##### Return values
-
-- <a id="method_agent_description.0"></a> `string`
-
-#### <a id="method_agent_capabilities"></a>`[method]agent.capabilities: func`
-
-list the capabilities of the agent
-
-##### Params
-
-- <a id="method_agent_capabilities.self"></a>`self`: borrow<[`agent`](#agent)>
-
-##### Return values
-
-- <a id="method_agent_capabilities.0"></a> result<list<[`tool`](#tool)>, own<[`error`](#error)>>
-
-## <a id="hayride_ai_agents_0_0_25"></a>Export interface hayride:ai/agents@0.0.25
+## <a id="hayride_ai_agents_0_0_26"></a>Export interface hayride:ai/agents@0.0.26
 
 ----
 
@@ -240,7 +198,7 @@ list the capabilities of the agent
 
 ##### Params
 
-- <a id="set.agent"></a>`agent`: own<[`agent`](#agent)>
+- <a id="set.agent"></a>`agent`: [`agent`](#agent)
 
 ##### Return values
 
@@ -255,7 +213,7 @@ list the capabilities of the agent
 
 ##### Return values
 
-- <a id="get.0"></a> result<own<[`agent`](#agent)>, own<[`error`](#error)>>
+- <a id="get.0"></a> result<[`agent`](#agent), own<[`error`](#error)>>
 
 #### <a id="enhance"></a>`enhance: func`
 
@@ -263,7 +221,7 @@ enhance the agent with the given component or capabilities
 
 ##### Params
 
-- <a id="enhance.agent"></a>`agent`: own<[`agent`](#agent)>
+- <a id="enhance.agent"></a>`agent`: [`agent`](#agent)
 - <a id="enhance.tools"></a>`tools`: list<[`tool`](#tool)>
 
 ##### Return values

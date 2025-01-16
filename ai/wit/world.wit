@@ -1,4 +1,4 @@
-package hayride:ai@0.0.25;
+package hayride:ai@0.0.26;
 
 world imports {
     include wasi:nn/ml@0.2.0-rc-2024-10-28;
@@ -14,5 +14,5 @@ world exports {
 
 world agentic {
     import tools;
-    export agents;
+    import agents;
 }
