@@ -1,32 +1,7 @@
-package hayride:ai@0.0.26;
+package hayride:ai@0.0.27;
 
 
 interface types {
-    use wasi:io/poll@0.2.0.{pollable};
-
-    enum error-code {
-        // caller module passed an invalid argument.
-        invalid-argument,
-        // missing capability
-        missing-capability,
-        // heneric Runtime Error.
-        runtime-error,
-        // unsupported operation.
-        unknown
-    }
-
-    resource error {
-        /// return the error code.
-        code: func() -> error-code;
-        /// errors can propagated with backend specific status through a string value.
-        data: func() -> string;
-    }
-
-    resource future-result {
-        subscribe: func() -> pollable;
-        get: func() -> result<list<u8>, error>;
-    }
-
     record tool {
       package-id: string,
       description: string
@@ -40,15 +15,54 @@ interface types {
 }
 
 interface agents {
-    use types.{agent,error,tool};
+    use types.{agent,tool};
+
+    enum error-code {
+        // generic Runtime Error.
+        enhance-error,
+        // unsupported operation.
+        unknown
+    }
+
+    resource error {
+        /// return the error code.
+        code: func() -> error-code;
+        /// errors can propagated with backend specific status through a string value.
+        data: func() -> string;
+    }
+
     set: func(agent: agent) -> result<_,error>;
     get: func(name: string) -> result<agent,error>;
-    // enhance the agent with the given component or capabilities 
     enhance: func(agent: agent, tools: list<tool>) -> result<_,error>; 
 }
 
 interface tools {
-    use types.{tool,error,future-result};
+    use wasi:io/poll@0.2.0.{pollable};
+    use types.{tool};
+
+    enum error-code {
+        // caller module passed an invalid argument.
+        invalid-argument,
+        // missing function
+        missing-function,
+        // heneric Runtime Error.
+        runtime-error,
+        // unsupported operation.
+        unknown
+    }
+
+    resource error {
+        // return the error code.
+        code: func() -> error-code;
+        // errors can propagated with backend specific status through a string value.
+        data: func() -> string;
+    }
+
+    resource future-result {
+        subscribe: func() -> pollable;
+        get: func() -> result<list<u8>, error>;
+    }
+
     format: func(model: string, tool: tool) -> string;
     invoke: func(tool: tool, function: string, args: list<string>) -> result<future-result,error>;
 }

@@ -3,9 +3,9 @@
 
  - Imports:
     - interface `wasi:io/poll@0.2.0`
-    - interface `hayride:ai/types@0.0.26`
-    - interface `hayride:ai/tools@0.0.26`
-    - interface `hayride:ai/agents@0.0.26`
+    - interface `hayride:ai/types@0.0.27`
+    - interface `hayride:ai/tools@0.0.27`
+    - interface `hayride:ai/agents@0.0.27`
 
 ## <a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0
 
@@ -78,36 +78,12 @@ being reaedy for I/O.
 
 - <a id="poll.0"></a> list<`u32`>
 
-## <a id="hayride_ai_types_0_0_26"></a>Import interface hayride:ai/types@0.0.26
+## <a id="hayride_ai_types_0_0_27"></a>Import interface hayride:ai/types@0.0.27
 
 
 ----
 
 ### Types
-
-#### <a id="pollable"></a>`type pollable`
-[`pollable`](#pollable)
-<p>
-#### <a id="error_code"></a>`enum error-code`
-
-
-##### Enum Cases
-
-- <a id="error_code.invalid_argument"></a>`invalid-argument`
-  <p>caller module passed an invalid argument.
-
-- <a id="error_code.missing_capability"></a>`missing-capability`
-  <p>missing capability
-
-- <a id="error_code.runtime_error"></a>`runtime-error`
-  <p>heneric Runtime Error.
-
-- <a id="error_code.unknown"></a>`unknown`
-  <p>unsupported operation.
-
-#### <a id="error"></a>`resource error`
-
-#### <a id="future_result"></a>`resource future-result`
 
 #### <a id="tool"></a>`record tool`
 
@@ -124,6 +100,40 @@ being reaedy for I/O.
 - <a id="agent.name"></a>`name`: `string`
 - <a id="agent.description"></a>`description`: `string`
 - <a id="agent.capabilities"></a>`capabilities`: list<[`tool`](#tool)>
+## <a id="hayride_ai_tools_0_0_27"></a>Import interface hayride:ai/tools@0.0.27
+
+
+----
+
+### Types
+
+#### <a id="pollable"></a>`type pollable`
+[`pollable`](#pollable)
+<p>
+#### <a id="tool"></a>`type tool`
+[`tool`](#tool)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.invalid_argument"></a>`invalid-argument`
+  <p>caller module passed an invalid argument.
+
+- <a id="error_code.missing_function"></a>`missing-function`
+  <p>missing function
+
+- <a id="error_code.runtime_error"></a>`runtime-error`
+  <p>heneric Runtime Error.
+
+- <a id="error_code.unknown"></a>`unknown`
+  <p>unsupported operation.
+
+#### <a id="error"></a>`resource error`
+
+#### <a id="future_result"></a>`resource future-result`
+
 ----
 
 ### Functions
@@ -174,26 +184,6 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_future_result_get.0"></a> result<list<`u8`>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_tools_0_0_26"></a>Import interface hayride:ai/tools@0.0.26
-
-
-----
-
-### Types
-
-#### <a id="tool"></a>`type tool`
-[`tool`](#tool)
-<p>
-#### <a id="error"></a>`type error`
-[`error`](#error)
-<p>
-#### <a id="future_result"></a>`type future-result`
-[`future-result`](#future_result)
-<p>
-----
-
-### Functions
-
 #### <a id="format"></a>`format: func`
 
 
@@ -219,7 +209,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="invoke.0"></a> result<own<[`future-result`](#future_result)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_agents_0_0_26"></a>Import interface hayride:ai/agents@0.0.26
+## <a id="hayride_ai_agents_0_0_27"></a>Import interface hayride:ai/agents@0.0.27
 
 
 ----
@@ -229,15 +219,49 @@ errors can propagated with backend specific status through a string value.
 #### <a id="agent"></a>`type agent`
 [`agent`](#agent)
 <p>
-#### <a id="error"></a>`type error`
-[`error`](#error)
-<p>
 #### <a id="tool"></a>`type tool`
 [`tool`](#tool)
 <p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.enhance_error"></a>`enhance-error`
+  <p>generic Runtime Error.
+
+- <a id="error_code.unknown"></a>`unknown`
+  <p>unsupported operation.
+
+#### <a id="error"></a>`resource error`
+
 ----
 
 ### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
 
 #### <a id="set"></a>`set: func`
 
@@ -263,7 +287,6 @@ errors can propagated with backend specific status through a string value.
 
 #### <a id="enhance"></a>`enhance: func`
 
-enhance the agent with the given component or capabilities
 
 ##### Params
 
