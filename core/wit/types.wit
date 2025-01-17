@@ -1,4 +1,4 @@
-package hayride:core@0.0.27;
+package hayride:core@0.0.28;
 
 interface types {
     record logging {
@@ -28,10 +28,15 @@ interface types {
         websocket: websocket,
         http: http,
         llm: llm,
+        agents: list<agent>
     }
-
+    
     record llm {
         model: string
+    }
+
+    record agent {
+        name: string
     }
 
     record config {

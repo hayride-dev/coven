@@ -2,12 +2,12 @@
 <ul>
 <li>Imports:
 <ul>
-<li>interface <a href="#hayride_core_types_0_0_27"><code>hayride:core/types@0.0.27</code></a></li>
-<li>interface <a href="#hayride_core_config_0_0_27"><code>hayride:core/config@0.0.27</code></a></li>
+<li>interface <a href="#hayride_core_types_0_0_28"><code>hayride:core/types@0.0.28</code></a></li>
+<li>interface <a href="#hayride_core_config_0_0_28"><code>hayride:core/config@0.0.28</code></a></li>
 </ul>
 </li>
 </ul>
-<h2><a id="hayride_core_types_0_0_27"></a>Import interface hayride:core/types@0.0.27</h2>
+<h2><a id="hayride_core_types_0_0_28"></a>Import interface hayride:core/types@0.0.28</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="logging"></a><code>record logging</code></h4>
@@ -37,12 +37,18 @@
 <ul>
 <li><a id="llm.model"></a><code>model</code>: <code>string</code></li>
 </ul>
+<h4><a id="agent"></a><code>record agent</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="agent.name"></a><code>name</code>: <code>string</code></li>
+</ul>
 <h4><a id="ai"></a><code>record ai</code></h4>
 <h5>Record Fields</h5>
 <ul>
 <li><a id="ai.websocket"></a><a href="#websocket"><code>websocket</code></a>: <a href="#websocket"><a href="#websocket"><code>websocket</code></a></a></li>
 <li><a id="ai.http"></a><a href="#http"><code>http</code></a>: <a href="#http"><a href="#http"><code>http</code></a></a></li>
 <li><a id="ai.llm"></a><a href="#llm"><code>llm</code></a>: <a href="#llm"><a href="#llm"><code>llm</code></a></a></li>
+<li><a id="ai.agents"></a><code>agents</code>: list&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
 </ul>
 <h4><a id="morphs"></a><code>record morphs</code></h4>
 <h5>Record Fields</h5>
@@ -97,7 +103,7 @@
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
-<h2><a id="hayride_core_config_0_0_27"></a>Import interface hayride:core/config@0.0.27</h2>
+<h2><a id="hayride_core_config_0_0_28"></a>Import interface hayride:core/config@0.0.28</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="config"></a><code>type config</code></h4>
