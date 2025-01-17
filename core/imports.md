@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:core/types@0.0.27`
-    - interface `hayride:core/config@0.0.27`
+    - interface `hayride:core/types@0.0.28`
+    - interface `hayride:core/config@0.0.28`
 
-## <a id="hayride_core_types_0_0_27"></a>Import interface hayride:core/types@0.0.27
+## <a id="hayride_core_types_0_0_28"></a>Import interface hayride:core/types@0.0.28
 
 
 ----
@@ -44,6 +44,12 @@
 ##### Record Fields
 
 - <a id="llm.model"></a>`model`: `string`
+#### <a id="agent"></a>`record agent`
+
+
+##### Record Fields
+
+- <a id="agent.name"></a>`name`: `string`
 #### <a id="ai"></a>`record ai`
 
 
@@ -52,6 +58,7 @@
 - <a id="ai.websocket"></a>`websocket`: [`websocket`](#websocket)
 - <a id="ai.http"></a>`http`: [`http`](#http)
 - <a id="ai.llm"></a>`llm`: [`llm`](#llm)
+- <a id="ai.agents"></a>`agents`: list<[`agent`](#agent)>
 #### <a id="morphs"></a>`record morphs`
 
 
@@ -112,7 +119,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_core_config_0_0_27"></a>Import interface hayride:core/config@0.0.27
+## <a id="hayride_core_config_0_0_28"></a>Import interface hayride:core/config@0.0.28
 
 
 ----

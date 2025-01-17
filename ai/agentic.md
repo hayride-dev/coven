@@ -3,9 +3,9 @@
 
  - Imports:
     - interface `wasi:io/poll@0.2.0`
-    - interface `hayride:ai/types@0.0.27`
-    - interface `hayride:ai/tools@0.0.27`
-    - interface `hayride:ai/agents@0.0.27`
+    - interface `hayride:ai/types@0.0.28`
+    - interface `hayride:ai/tools@0.0.28`
+    - interface `hayride:ai/agents@0.0.28`
 
 ## <a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0
 
@@ -78,7 +78,7 @@ being reaedy for I/O.
 
 - <a id="poll.0"></a> list<`u32`>
 
-## <a id="hayride_ai_types_0_0_27"></a>Import interface hayride:ai/types@0.0.27
+## <a id="hayride_ai_types_0_0_28"></a>Import interface hayride:ai/types@0.0.28
 
 
 ----
@@ -100,7 +100,7 @@ being reaedy for I/O.
 - <a id="agent.name"></a>`name`: `string`
 - <a id="agent.description"></a>`description`: `string`
 - <a id="agent.capabilities"></a>`capabilities`: list<[`tool`](#tool)>
-## <a id="hayride_ai_tools_0_0_27"></a>Import interface hayride:ai/tools@0.0.27
+## <a id="hayride_ai_tools_0_0_28"></a>Import interface hayride:ai/tools@0.0.28
 
 
 ----
@@ -209,7 +209,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="invoke.0"></a> result<own<[`future-result`](#future_result)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_agents_0_0_27"></a>Import interface hayride:ai/agents@0.0.27
+## <a id="hayride_ai_agents_0_0_28"></a>Import interface hayride:ai/agents@0.0.28
 
 
 ----
