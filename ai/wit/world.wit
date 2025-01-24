@@ -15,5 +15,6 @@ world exports {
 world agentic {
     import tools;
     import agents;
+    import rag;
 }
 

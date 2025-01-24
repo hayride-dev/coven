@@ -6,6 +6,8 @@
 <li>interface <a href="#hayride_ai_types_0_0_28"><code>hayride:ai/types@0.0.28</code></a></li>
 <li>interface <a href="#hayride_ai_tools_0_0_28"><code>hayride:ai/tools@0.0.28</code></a></li>
 <li>interface <a href="#hayride_ai_agents_0_0_28"><code>hayride:ai/agents@0.0.28</code></a></li>
+<li>interface <a href="#hayride_ai_transformer_0_0_28"><code>hayride:ai/transformer@0.0.28</code></a></li>
+<li>interface <a href="#hayride_ai_rag_0_0_28"><code>hayride:ai/rag@0.0.28</code></a></li>
 </ul>
 </li>
 </ul>
@@ -238,4 +240,130 @@ being reaedy for I/O.</p>
 <h5>Return values</h5>
 <ul>
 <li><a id="enhance.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h2><a id="hayride_ai_transformer_0_0_28"></a>Import interface hayride:ai/transformer@0.0.28</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="embedding_type"></a><code>enum embedding-type</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="embedding_type.sentence"></a><code>sentence</code></li>
+</ul>
+<h4><a id="transformer"></a><code>resource transformer</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="constructor_transformer"></a><code>[constructor]transformer: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_transformer.embedding"></a><code>embedding</code>: <a href="#embedding_type"><a href="#embedding_type"><code>embedding-type</code></a></a></li>
+<li><a id="constructor_transformer.model"></a><code>model</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_transformer.0"></a> own&lt;<a href="#transformer"><a href="#transformer"><code>transformer</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_transformer_embedding"></a><code>[method]transformer.embedding: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_transformer_embedding.self"></a><code>self</code>: borrow&lt;<a href="#transformer"><a href="#transformer"><code>transformer</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_transformer_embedding.0"></a> <a href="#embedding_type"><a href="#embedding_type"><code>embedding-type</code></a></a></li>
+</ul>
+<h4><a id="method_transformer_model"></a><code>[method]transformer.model: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_transformer_model.self"></a><code>self</code>: borrow&lt;<a href="#transformer"><a href="#transformer"><code>transformer</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_transformer_model.0"></a> <code>string</code></li>
+</ul>
+<h2><a id="hayride_ai_rag_0_0_28"></a>Import interface hayride:ai/rag@0.0.28</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="transformer"></a><code>type transformer</code></h4>
+<p><a href="#transformer"><a href="#transformer"><code>transformer</code></a></a></p>
+<p>
+#### <a id="error_code"></a>`enum error-code`
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="error_code.create_table"></a><code>create-table</code></li>
+<li><a id="error_code.missing_table"></a><code>missing-table</code></li>
+<li><a id="error_code.invalid_option"></a><code>invalid-option</code></li>
+<li><a id="error_code.unknown"></a><code>unknown</code><p>unsupported operation.
+</li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<h4><a id="rag_option"></a><code>tuple rag-option</code></h4>
+<h5>Tuple Fields</h5>
+<ul>
+<li><a id="rag_option.0"></a><code>0</code>: <code>string</code></li>
+<li><a id="rag_option.1"></a><code>1</code>: <code>string</code></li>
+</ul>
+<h4><a id="connection"></a><code>resource connection</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<p>return the error code.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<p>errors can propagated with backend specific status through a string value.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
+</ul>
+<h4><a id="method_connection_register"></a><code>[method]connection.register: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_connection_register.self"></a><code>self</code>: borrow&lt;<a href="#connection"><a href="#connection"><code>connection</code></a></a>&gt;</li>
+<li><a id="method_connection_register.transformer"></a><a href="#transformer"><code>transformer</code></a>: own&lt;<a href="#transformer"><a href="#transformer"><code>transformer</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_connection_register.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="method_connection_embed"></a><code>[method]connection.embed: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_connection_embed.self"></a><code>self</code>: borrow&lt;<a href="#connection"><a href="#connection"><code>connection</code></a></a>&gt;</li>
+<li><a id="method_connection_embed.table"></a><code>table</code>: <code>string</code></li>
+<li><a id="method_connection_embed.data"></a><code>data</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_connection_embed.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="method_connection_query"></a><code>[method]connection.query: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_connection_query.self"></a><code>self</code>: borrow&lt;<a href="#connection"><a href="#connection"><code>connection</code></a></a>&gt;</li>
+<li><a id="method_connection_query.table"></a><code>table</code>: <code>string</code></li>
+<li><a id="method_connection_query.data"></a><code>data</code>: <code>string</code></li>
+<li><a id="method_connection_query.options"></a><code>options</code>: list&lt;<a href="#rag_option"><a href="#rag_option"><code>rag-option</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_connection_query.0"></a> result&lt;list&lt;<code>string</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="connect"></a><code>connect: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="connect.dsn"></a><code>dsn</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="connect.0"></a> result&lt;own&lt;<a href="#connection"><a href="#connection"><code>connection</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>

@@ -6,6 +6,8 @@
     - interface `hayride:ai/types@0.0.28`
     - interface `hayride:ai/tools@0.0.28`
     - interface `hayride:ai/agents@0.0.28`
+    - interface `hayride:ai/transformer@0.0.28`
+    - interface `hayride:ai/rag@0.0.28`
 
 ## <a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0
 
@@ -296,4 +298,167 @@ errors can propagated with backend specific status through a string value.
 ##### Return values
 
 - <a id="enhance.0"></a> result<_, own<[`error`](#error)>>
+
+## <a id="hayride_ai_transformer_0_0_28"></a>Import interface hayride:ai/transformer@0.0.28
+
+
+----
+
+### Types
+
+#### <a id="embedding_type"></a>`enum embedding-type`
+
+
+##### Enum Cases
+
+- <a id="embedding_type.sentence"></a>`sentence`
+#### <a id="transformer"></a>`resource transformer`
+
+----
+
+### Functions
+
+#### <a id="constructor_transformer"></a>`[constructor]transformer: func`
+
+
+##### Params
+
+- <a id="constructor_transformer.embedding"></a>`embedding`: [`embedding-type`](#embedding_type)
+- <a id="constructor_transformer.model"></a>`model`: `string`
+
+##### Return values
+
+- <a id="constructor_transformer.0"></a> own<[`transformer`](#transformer)>
+
+#### <a id="method_transformer_embedding"></a>`[method]transformer.embedding: func`
+
+
+##### Params
+
+- <a id="method_transformer_embedding.self"></a>`self`: borrow<[`transformer`](#transformer)>
+
+##### Return values
+
+- <a id="method_transformer_embedding.0"></a> [`embedding-type`](#embedding_type)
+
+#### <a id="method_transformer_model"></a>`[method]transformer.model: func`
+
+
+##### Params
+
+- <a id="method_transformer_model.self"></a>`self`: borrow<[`transformer`](#transformer)>
+
+##### Return values
+
+- <a id="method_transformer_model.0"></a> `string`
+
+## <a id="hayride_ai_rag_0_0_28"></a>Import interface hayride:ai/rag@0.0.28
+
+
+----
+
+### Types
+
+#### <a id="transformer"></a>`type transformer`
+[`transformer`](#transformer)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.create_table"></a>`create-table`
+- <a id="error_code.missing_table"></a>`missing-table`
+- <a id="error_code.invalid_option"></a>`invalid-option`
+- <a id="error_code.unknown"></a>`unknown`
+  <p>unsupported operation.
+
+#### <a id="error"></a>`resource error`
+
+#### <a id="rag_option"></a>`tuple rag-option`
+
+
+##### Tuple Fields
+
+- <a id="rag_option.0"></a>`0`: `string`
+- <a id="rag_option.1"></a>`1`: `string`
+#### <a id="connection"></a>`resource connection`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+#### <a id="method_connection_register"></a>`[method]connection.register: func`
+
+
+##### Params
+
+- <a id="method_connection_register.self"></a>`self`: borrow<[`connection`](#connection)>
+- <a id="method_connection_register.transformer"></a>`transformer`: own<[`transformer`](#transformer)>
+
+##### Return values
+
+- <a id="method_connection_register.0"></a> result<_, own<[`error`](#error)>>
+
+#### <a id="method_connection_embed"></a>`[method]connection.embed: func`
+
+
+##### Params
+
+- <a id="method_connection_embed.self"></a>`self`: borrow<[`connection`](#connection)>
+- <a id="method_connection_embed.table"></a>`table`: `string`
+- <a id="method_connection_embed.data"></a>`data`: `string`
+
+##### Return values
+
+- <a id="method_connection_embed.0"></a> result<_, own<[`error`](#error)>>
+
+#### <a id="method_connection_query"></a>`[method]connection.query: func`
+
+
+##### Params
+
+- <a id="method_connection_query.self"></a>`self`: borrow<[`connection`](#connection)>
+- <a id="method_connection_query.table"></a>`table`: `string`
+- <a id="method_connection_query.data"></a>`data`: `string`
+- <a id="method_connection_query.options"></a>`options`: list<[`rag-option`](#rag_option)>
+
+##### Return values
+
+- <a id="method_connection_query.0"></a> result<list<`string`>, own<[`error`](#error)>>
+
+#### <a id="connect"></a>`connect: func`
+
+
+##### Params
+
+- <a id="connect.dsn"></a>`dsn`: `string`
+
+##### Return values
+
+- <a id="connect.0"></a> result<own<[`connection`](#connection)>, own<[`error`](#error)>>
 
