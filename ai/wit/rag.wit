@@ -1,0 +1,45 @@
+package hayride:ai@0.0.28;
+
+
+
+interface transformer { 
+    enum embedding-type {
+        sentence
+    }
+    resource transformer {
+        constructor(embedding: embedding-type, model: string);
+        embedding: func() -> embedding-type;
+        model: func() -> string;
+    }
+}
+
+interface rag {
+
+    enum error-code {
+        create-table,
+        missing-table,
+        invalid-option,
+        // unsupported operation.
+        unknown
+    }
+
+    resource error {
+        /// return the error code.
+        code: func() -> error-code;
+        /// errors can propagated with backend specific status through a string value.
+        data: func() -> string;
+    }
+
+    use transformer.{transformer};
+    type rag-option = tuple<string, string>;
+    resource connection {
+        register: func(transformer: transformer) -> result<_,error>;
+        embed: func(table:string, data: string) -> result<_,error>;
+        query: func(table:string, data: string, options: list<rag-option>) -> result<list<string>,error>;
+    }
+    connect: func(dsn: string) -> result<connection, error>;
+}
+
+
+
+
