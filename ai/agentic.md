@@ -3,11 +3,11 @@
 
  - Imports:
     - interface `wasi:io/poll@0.2.0`
-    - interface `hayride:ai/types@0.0.28`
-    - interface `hayride:ai/tools@0.0.28`
-    - interface `hayride:ai/agents@0.0.28`
-    - interface `hayride:ai/transformer@0.0.28`
-    - interface `hayride:ai/rag@0.0.28`
+    - interface `hayride:ai/types@0.0.29`
+    - interface `hayride:ai/tools@0.0.29`
+    - interface `hayride:ai/agents@0.0.29`
+    - interface `hayride:ai/transformer@0.0.29`
+    - interface `hayride:ai/rag@0.0.29`
 
 ## <a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0
 
@@ -80,7 +80,7 @@ being reaedy for I/O.
 
 - <a id="poll.0"></a> list<`u32`>
 
-## <a id="hayride_ai_types_0_0_28"></a>Import interface hayride:ai/types@0.0.28
+## <a id="hayride_ai_types_0_0_29"></a>Import interface hayride:ai/types@0.0.29
 
 
 ----
@@ -102,7 +102,7 @@ being reaedy for I/O.
 - <a id="agent.name"></a>`name`: `string`
 - <a id="agent.description"></a>`description`: `string`
 - <a id="agent.capabilities"></a>`capabilities`: list<[`tool`](#tool)>
-## <a id="hayride_ai_tools_0_0_28"></a>Import interface hayride:ai/tools@0.0.28
+## <a id="hayride_ai_tools_0_0_29"></a>Import interface hayride:ai/tools@0.0.29
 
 
 ----
@@ -211,7 +211,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="invoke.0"></a> result<own<[`future-result`](#future_result)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_agents_0_0_28"></a>Import interface hayride:ai/agents@0.0.28
+## <a id="hayride_ai_agents_0_0_29"></a>Import interface hayride:ai/agents@0.0.29
 
 
 ----
@@ -299,7 +299,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="enhance.0"></a> result<_, own<[`error`](#error)>>
 
-## <a id="hayride_ai_transformer_0_0_28"></a>Import interface hayride:ai/transformer@0.0.28
+## <a id="hayride_ai_transformer_0_0_29"></a>Import interface hayride:ai/transformer@0.0.29
 
 
 ----
@@ -325,6 +325,8 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="constructor_transformer.embedding"></a>`embedding`: [`embedding-type`](#embedding_type)
 - <a id="constructor_transformer.model"></a>`model`: `string`
+- <a id="constructor_transformer.data_column"></a>`data-column`: `string`
+- <a id="constructor_transformer.vector_column"></a>`vector-column`: `string`
 
 ##### Return values
 
@@ -352,7 +354,29 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_transformer_model.0"></a> `string`
 
-## <a id="hayride_ai_rag_0_0_28"></a>Import interface hayride:ai/rag@0.0.28
+#### <a id="method_transformer_data_column"></a>`[method]transformer.data-column: func`
+
+
+##### Params
+
+- <a id="method_transformer_data_column.self"></a>`self`: borrow<[`transformer`](#transformer)>
+
+##### Return values
+
+- <a id="method_transformer_data_column.0"></a> `string`
+
+#### <a id="method_transformer_vector_column"></a>`[method]transformer.vector-column: func`
+
+
+##### Params
+
+- <a id="method_transformer_vector_column.self"></a>`self`: borrow<[`transformer`](#transformer)>
+
+##### Return values
+
+- <a id="method_transformer_vector_column.0"></a> `string`
+
+## <a id="hayride_ai_rag_0_0_29"></a>Import interface hayride:ai/rag@0.0.29
 
 
 ----
