@@ -1,4 +1,4 @@
-package hayride:ai@0.0.29;
+package hayride:ai@0.0.30;
 
 world imports {
     include wasi:nn/ml@0.2.0-rc-2024-10-28;
@@ -6,15 +6,12 @@ world imports {
     import tensor-stream;
     import inference-stream;
     import graph-stream;
-}
 
-world exports {
-    export agents; 
-}
-
-world agentic {
     import tools;
     import agents;
     import rag;
 }
 
+world exports {
+    export agents;
+}
