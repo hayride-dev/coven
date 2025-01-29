@@ -1,4 +1,4 @@
-package hayride:ai@0.0.29;
+package hayride:ai@0.0.30;
 
 interface types {
     record tool {
