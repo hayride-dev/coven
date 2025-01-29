@@ -1,15 +1,15 @@
-package hayride:ai@0.0.28;
-
-
+package hayride:ai@0.0.29;
 
 interface transformer { 
     enum embedding-type {
         sentence
     }
     resource transformer {
-        constructor(embedding: embedding-type, model: string);
+        constructor(embedding: embedding-type, model: string, data-column: string, vector-column: string);
         embedding: func() -> embedding-type;
         model: func() -> string;
+        data-column: func() -> string;
+        vector-column: func() -> string;
     }
 }
 
@@ -34,12 +34,8 @@ interface rag {
     type rag-option = tuple<string, string>;
     resource connection {
         register: func(transformer: transformer) -> result<_,error>;
-        embed: func(table:string, data: string) -> result<_,error>;
-        query: func(table:string, data: string, options: list<rag-option>) -> result<list<string>,error>;
+        embed: func(table: string, data: string) -> result<_,error>;
+        query: func(table: string, data: string, options: list<rag-option>) -> result<list<string>,error>;
     }
     connect: func(dsn: string) -> result<connection, error>;
 }
-
-
-
-

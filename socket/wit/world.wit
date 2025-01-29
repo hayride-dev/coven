@@ -1,4 +1,4 @@
-package hayride:socket@0.0.28;
+package hayride:socket@0.0.29;
 
 interface websocket {
     use wasi:io/streams@0.2.0.{output-stream};
