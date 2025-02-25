@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:silo/threads@0.0.30`
-    - interface `hayride:silo/process@0.0.30`
+    - interface `hayride:silo/threads@0.0.31`
+    - interface `hayride:silo/process@0.0.31`
 
-## <a id="hayride_silo_threads_0_0_30"></a>Import interface hayride:silo/threads@0.0.30
+## <a id="hayride_silo_threads_0_0_31"></a>Import interface hayride:silo/threads@0.0.31
 
 
 ----
@@ -31,20 +31,20 @@
 
 ##### Return values
 
-- <a id="spawn.0"></a> result<`s32`, [`err-no`](#err_no)>
+- <a id="spawn.0"></a> result<`string`, [`err-no`](#err_no)>
 
 #### <a id="wait"></a>`wait: func`
 
 
 ##### Params
 
-- <a id="wait.thread_id"></a>`thread-id`: `u32`
+- <a id="wait.thread_id"></a>`thread-id`: `string`
 
 ##### Return values
 
 - <a id="wait.0"></a> result<list<`u8`>, [`err-no`](#err_no)>
 
-## <a id="hayride_silo_process_0_0_30"></a>Import interface hayride:silo/process@0.0.30
+## <a id="hayride_silo_process_0_0_31"></a>Import interface hayride:silo/process@0.0.31
 
 
 ----
