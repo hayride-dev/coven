@@ -1,4 +1,4 @@
-package hayride:core@0.0.31;
+package hayride:core@0.0.32;
 
 interface types {
     record logging {

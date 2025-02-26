@@ -6,15 +6,15 @@
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:ai/tensor-stream@0.0.31`
+    - interface `hayride:ai/tensor-stream@0.0.32`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
-    - interface `hayride:ai/inference-stream@0.0.31`
-    - interface `hayride:ai/graph-stream@0.0.31`
-    - interface `hayride:ai/types@0.0.31`
-    - interface `hayride:ai/tools@0.0.31`
-    - interface `hayride:ai/agents@0.0.31`
-    - interface `hayride:ai/transformer@0.0.31`
-    - interface `hayride:ai/rag@0.0.31`
+    - interface `hayride:ai/inference-stream@0.0.32`
+    - interface `hayride:ai/graph-stream@0.0.32`
+    - interface `hayride:ai/types@0.0.32`
+    - interface `hayride:ai/tools@0.0.32`
+    - interface `hayride:ai/agents@0.0.32`
+    - interface `hayride:ai/transformer@0.0.32`
+    - interface `hayride:ai/rag@0.0.32`
     - interface `wasi:nn/inference@0.2.0-rc-2024-10-28`
     - interface `wasi:nn/graph@0.2.0-rc-2024-10-28`
 
@@ -624,7 +624,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_ai_tensor_stream_0_0_31"></a>Import interface hayride:ai/tensor-stream@0.0.31
+## <a id="hayride_ai_tensor_stream_0_0_32"></a>Import interface hayride:ai/tensor-stream@0.0.32
 
 This interface defines a stream of tensors. The stream is a sequence of tensors.
 
@@ -786,7 +786,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_ai_inference_stream_0_0_31"></a>Import interface hayride:ai/inference-stream@0.0.31
+## <a id="hayride_ai_inference_stream_0_0_32"></a>Import interface hayride:ai/inference-stream@0.0.32
 
 
 ----
@@ -837,7 +837,7 @@ Compute the inference on the given inputs.
 
 - <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
 
-## <a id="hayride_ai_graph_stream_0_0_31"></a>Import interface hayride:ai/graph-stream@0.0.31
+## <a id="hayride_ai_graph_stream_0_0_32"></a>Import interface hayride:ai/graph-stream@0.0.32
 
 
 ----
@@ -886,7 +886,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 - <a id="load_by_name.0"></a> result<own<[`graph-stream`](#graph_stream)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_types_0_0_31"></a>Import interface hayride:ai/types@0.0.31
+## <a id="hayride_ai_types_0_0_32"></a>Import interface hayride:ai/types@0.0.32
 
 
 ----
@@ -908,7 +908,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 - <a id="agent.name"></a>`name`: `string`
 - <a id="agent.description"></a>`description`: `string`
 - <a id="agent.capabilities"></a>`capabilities`: list<[`tool`](#tool)>
-## <a id="hayride_ai_tools_0_0_31"></a>Import interface hayride:ai/tools@0.0.31
+## <a id="hayride_ai_tools_0_0_32"></a>Import interface hayride:ai/tools@0.0.32
 
 
 ----
@@ -1017,7 +1017,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="invoke.0"></a> result<own<[`future-result`](#future_result)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_agents_0_0_31"></a>Import interface hayride:ai/agents@0.0.31
+## <a id="hayride_ai_agents_0_0_32"></a>Import interface hayride:ai/agents@0.0.32
 
 
 ----
@@ -1105,7 +1105,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="enhance.0"></a> result<_, own<[`error`](#error)>>
 
-## <a id="hayride_ai_transformer_0_0_31"></a>Import interface hayride:ai/transformer@0.0.31
+## <a id="hayride_ai_transformer_0_0_32"></a>Import interface hayride:ai/transformer@0.0.32
 
 
 ----
@@ -1182,7 +1182,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_transformer_vector_column.0"></a> `string`
 
-## <a id="hayride_ai_rag_0_0_31"></a>Import interface hayride:ai/rag@0.0.31
+## <a id="hayride_ai_rag_0_0_32"></a>Import interface hayride:ai/rag@0.0.32
 
 
 ----

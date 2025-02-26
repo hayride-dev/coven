@@ -1,4 +1,4 @@
-package hayride:silo@0.0.31;
+package hayride:silo@0.0.32;
 
 interface process {
     /// system error numbers
@@ -6,5 +6,5 @@ interface process {
 
     spawn: func(path: string, args: list<string>) -> result<s32, err-no>; // pid 
     wait: func(pid: u32) -> result<s32, err-no>;
-    kill: func (pid: u32,sig: s32) -> result<s32, err-no>;
+    kill: func(pid: u32, sig: s32) -> result<s32, err-no>;
 }
