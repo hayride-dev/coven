@@ -1,4 +1,4 @@
-package hayride:ai@0.0.32;
+package hayride:ai@0.0.33;
 
 interface transformer { 
     enum embedding-type {
@@ -16,10 +16,14 @@ interface transformer {
 interface rag {
 
     enum error-code {
-        create-table,
+        connection-failed,
+        create-table-failed,
+        query-failed,
+        embed-failed,
+        register-failed,
         missing-table,
         invalid-option,
-        // unsupported operation.
+        not-enabled,
         unknown
     }
 

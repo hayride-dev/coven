@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:core/types@0.0.32`
-    - interface `hayride:core/config@0.0.32`
+    - interface `hayride:core/types@0.0.33`
+    - interface `hayride:core/config@0.0.33`
 
-## <a id="hayride_core_types_0_0_32"></a>Import interface hayride:core/types@0.0.32
+## <a id="hayride_core_types_0_0_33"></a>Import interface hayride:core/types@0.0.33
 
 
 ----
@@ -73,15 +73,10 @@
 
 ##### Enum Cases
 
-- <a id="error_code.invalid_argument"></a>`invalid-argument`
-  <p>Caller module passed an invalid argument.
-
-- <a id="error_code.runtime_error"></a>`runtime-error`
-  <p>Generic Runtime Error.
-
+- <a id="error_code.set_failed"></a>`set-failed`
+- <a id="error_code.get_failed"></a>`get-failed`
+- <a id="error_code.config_not_set"></a>`config-not-set`
 - <a id="error_code.unknown"></a>`unknown`
-  <p>Unsupported operation.
-
 #### <a id="error"></a>`resource error`
 
 ----
@@ -112,7 +107,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_core_config_0_0_32"></a>Import interface hayride:core/config@0.0.32
+## <a id="hayride_core_config_0_0_33"></a>Import interface hayride:core/config@0.0.33
 
 
 ----
