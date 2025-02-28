@@ -1,4 +1,4 @@
-package hayride:core@0.0.32;
+package hayride:core@0.0.33;
 
 interface types {
     record logging {
@@ -42,11 +42,9 @@ interface types {
     }
 
     enum error-code {
-        // Caller module passed an invalid argument.
-        invalid-argument,
-        // Generic Runtime Error.
-        runtime-error,
-        // Unsupported operation.
+        set-failed,
+        get-failed,
+        config-not-set,
         unknown
     }
     

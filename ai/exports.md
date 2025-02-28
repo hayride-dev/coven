@@ -2,11 +2,11 @@
 
 
  - Imports:
-    - interface `hayride:ai/types@0.0.32`
+    - interface `hayride:ai/types@0.0.33`
  - Exports:
-    - interface `hayride:ai/agents@0.0.32`
+    - interface `hayride:ai/agents@0.0.33`
 
-## <a id="hayride_ai_types_0_0_32"></a>Import interface hayride:ai/types@0.0.32
+## <a id="hayride_ai_types_0_0_33"></a>Import interface hayride:ai/types@0.0.33
 
 
 ----
@@ -28,7 +28,7 @@
 - <a id="agent.name"></a>`name`: `string`
 - <a id="agent.description"></a>`description`: `string`
 - <a id="agent.capabilities"></a>`capabilities`: list<[`tool`](#tool)>
-## <a id="hayride_ai_agents_0_0_32"></a>Export interface hayride:ai/agents@0.0.32
+## <a id="hayride_ai_agents_0_0_33"></a>Export interface hayride:ai/agents@0.0.33
 
 ----
 
