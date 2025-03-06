@@ -1,12 +1,10 @@
-# <a id="exports"></a>World exports
+# <a id="io"></a>World io
 
 
  - Imports:
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/streams@0.2.0`
- - Exports:
-    - interface `hayride:socket/websocket@0.0.34`
 
 ## <a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0
 
@@ -519,28 +517,4 @@ is ready for reading, before performing the `splice`.
 ##### Return values
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
-
-## <a id="hayride_socket_websocket_0_0_34"></a>Export interface hayride:socket/websocket@0.0.34
-
-----
-
-### Types
-
-#### <a id="output_stream"></a>`type output-stream`
-[`output-stream`](#output_stream)
-<p>
-#### <a id="io_error"></a>`type io-error`
-[`error`](#error)
-<p>
-----
-
-### Functions
-
-#### <a id="handle"></a>`handle: func`
-
-
-##### Params
-
-- <a id="handle.text"></a>`text`: `string`
-- <a id="handle.out"></a>`out`: own<[`output-stream`](#output_stream)>
 
