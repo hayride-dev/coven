@@ -1,4 +1,4 @@
-package hayride:wasip2@0.0.33;
+package hayride:wasip2@0.0.34;
 
 world imports {
     // wasi imports are dependent on the compile toolchain. 
@@ -21,4 +21,8 @@ world imports {
 world exports {
     // wasi entry that is expected for command components
     export wasi:cli/run@0.2.0;
+}
+
+world io {
+    import wasi:io/streams@0.2.0;
 }
