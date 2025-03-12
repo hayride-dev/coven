@@ -974,7 +974,7 @@ errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="method_model_compute.self"></a>`self`: borrow<[`model`](#model)>
-- <a id="method_model_compute.output"></a>`output`: own<[`output-stream`](#output_stream)>
+- <a id="method_model_compute.output"></a>`output`: borrow<[`output-stream`](#output_stream)>
 
 ##### Return values
 

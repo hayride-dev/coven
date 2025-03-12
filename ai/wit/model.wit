@@ -20,6 +20,6 @@ interface model {
     resource model {
         constructor(graph: graph-execution-context-stream);
         push: func(messages: list<message>) -> result<_,error>;
-        compute: func(output: output-stream) -> result<message,error>;
+        compute: func(output: borrow<output-stream>) -> result<message,error>;
     }
 }
