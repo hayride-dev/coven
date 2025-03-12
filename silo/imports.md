@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:silo/threads@0.0.34`
-    - interface `hayride:silo/process@0.0.34`
+    - interface `hayride:silo/threads@0.0.35`
+    - interface `hayride:silo/process@0.0.35`
 
-## <a id="hayride_silo_threads_0_0_34"></a>Import interface hayride:silo/threads@0.0.34
+## <a id="hayride_silo_threads_0_0_35"></a>Import interface hayride:silo/threads@0.0.35
 
 
 ----
@@ -55,7 +55,7 @@
 
 - <a id="kill.0"></a> result<_, [`err-no`](#err_no)>
 
-## <a id="hayride_silo_process_0_0_34"></a>Import interface hayride:silo/process@0.0.34
+## <a id="hayride_silo_process_0_0_35"></a>Import interface hayride:silo/process@0.0.35
 
 
 ----

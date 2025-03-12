@@ -6,15 +6,15 @@
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:ai/tensor-stream@0.0.34`
+    - interface `hayride:ai/tensor-stream@0.0.35`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
-    - interface `hayride:ai/inference-stream@0.0.34`
-    - interface `hayride:ai/graph-stream@0.0.34`
-    - interface `hayride:ai/types@0.0.34`
-    - interface `hayride:ai/tools@0.0.34`
-    - interface `hayride:ai/agents@0.0.34`
-    - interface `hayride:ai/transformer@0.0.34`
-    - interface `hayride:ai/rag@0.0.34`
+    - interface `hayride:ai/inference-stream@0.0.35`
+    - interface `hayride:ai/graph-stream@0.0.35`
+    - interface `hayride:ai/types@0.0.35`
+    - interface `hayride:ai/model@0.0.35`
+    - interface `hayride:ai/agent@0.0.35`
+    - interface `hayride:ai/transformer@0.0.35`
+    - interface `hayride:ai/rag@0.0.35`
     - interface `wasi:nn/inference@0.2.0-rc-2024-10-28`
     - interface `wasi:nn/graph@0.2.0-rc-2024-10-28`
 
@@ -624,7 +624,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_ai_tensor_stream_0_0_34"></a>Import interface hayride:ai/tensor-stream@0.0.34
+## <a id="hayride_ai_tensor_stream_0_0_35"></a>Import interface hayride:ai/tensor-stream@0.0.35
 
 This interface defines a stream of tensors. The stream is a sequence of tensors.
 
@@ -786,7 +786,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_ai_inference_stream_0_0_34"></a>Import interface hayride:ai/inference-stream@0.0.34
+## <a id="hayride_ai_inference_stream_0_0_35"></a>Import interface hayride:ai/inference-stream@0.0.35
 
 
 ----
@@ -837,7 +837,7 @@ Compute the inference on the given inputs.
 
 - <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
 
-## <a id="hayride_ai_graph_stream_0_0_34"></a>Import interface hayride:ai/graph-stream@0.0.34
+## <a id="hayride_ai_graph_stream_0_0_35"></a>Import interface hayride:ai/graph-stream@0.0.35
 
 
 ----
@@ -886,61 +886,90 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 - <a id="load_by_name.0"></a> result<own<[`graph-stream`](#graph_stream)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_types_0_0_34"></a>Import interface hayride:ai/types@0.0.34
+## <a id="hayride_ai_types_0_0_35"></a>Import interface hayride:ai/types@0.0.35
 
 
 ----
 
 ### Types
 
-#### <a id="tool"></a>`record tool`
+#### <a id="role"></a>`enum role`
+
+
+##### Enum Cases
+
+- <a id="role.user"></a>`user`
+- <a id="role.assistant"></a>`assistant`
+- <a id="role.system"></a>`system`
+- <a id="role.tool"></a>`tool`
+- <a id="role.unknown"></a>`unknown`
+#### <a id="text_content"></a>`record text-content`
 
 
 ##### Record Fields
 
-- <a id="tool.package_id"></a>`package-id`: `string`
-- <a id="tool.description"></a>`description`: `string`
-#### <a id="agent"></a>`record agent`
+- <a id="text_content.text"></a>`text`: `string`
+- <a id="text_content.content_type"></a>`content-type`: `string`
+#### <a id="tool_input"></a>`record tool-input`
 
 
 ##### Record Fields
 
-- <a id="agent.name"></a>`name`: `string`
-- <a id="agent.description"></a>`description`: `string`
-- <a id="agent.capabilities"></a>`capabilities`: list<[`tool`](#tool)>
-## <a id="hayride_ai_tools_0_0_34"></a>Import interface hayride:ai/tools@0.0.34
+- <a id="tool_input.content_type"></a>`content-type`: `string`
+- <a id="tool_input.id"></a>`id`: `string`
+- <a id="tool_input.name"></a>`name`: `string`
+- <a id="tool_input.input"></a>`input`: `string`
+#### <a id="tool_output"></a>`record tool-output`
+
+
+##### Record Fields
+
+- <a id="tool_output.content_type"></a>`content-type`: `string`
+- <a id="tool_output.id"></a>`id`: `string`
+- <a id="tool_output.name"></a>`name`: `string`
+- <a id="tool_output.output"></a>`output`: `string`
+#### <a id="content"></a>`variant content`
+
+
+##### Variant Cases
+
+- <a id="content.none"></a>`none`
+- <a id="content.text"></a>`text`: [`text-content`](#text_content)
+- <a id="content.tool_input"></a>`tool-input`: [`tool-input`](#tool_input)
+- <a id="content.tool_output"></a>`tool-output`: [`tool-output`](#tool_output)
+#### <a id="message"></a>`record message`
+
+
+##### Record Fields
+
+- <a id="message.role"></a>`role`: [`role`](#role)
+- <a id="message.content"></a>`content`: list<[`content`](#content)>
+## <a id="hayride_ai_model_0_0_35"></a>Import interface hayride:ai/model@0.0.35
 
 
 ----
 
 ### Types
 
-#### <a id="pollable"></a>`type pollable`
-[`pollable`](#pollable)
+#### <a id="message"></a>`type message`
+[`message`](#message)
 <p>
-#### <a id="tool"></a>`type tool`
-[`tool`](#tool)
+#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
+[`graph-execution-context-stream`](#graph_execution_context_stream)
+<p>
+#### <a id="output_stream"></a>`type output-stream`
+[`output-stream`](#output_stream)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 
 
 ##### Enum Cases
 
-- <a id="error_code.invalid_argument"></a>`invalid-argument`
-  <p>caller module passed an invalid argument.
-
-- <a id="error_code.missing_function"></a>`missing-function`
-  <p>missing function
-
-- <a id="error_code.runtime_error"></a>`runtime-error`
-  <p>heneric Runtime Error.
-
+- <a id="error_code.format_error"></a>`format-error`
 - <a id="error_code.unknown"></a>`unknown`
-  <p>unsupported operation.
-
 #### <a id="error"></a>`resource error`
 
-#### <a id="future_result"></a>`resource future-result`
+#### <a id="model"></a>`resource model`
 
 ----
 
@@ -970,142 +999,103 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-#### <a id="method_future_result_subscribe"></a>`[method]future-result.subscribe: func`
+#### <a id="constructor_model"></a>`[constructor]model: func`
 
 
 ##### Params
 
-- <a id="method_future_result_subscribe.self"></a>`self`: borrow<[`future-result`](#future_result)>
+- <a id="constructor_model.graph"></a>`graph`: own<[`graph-execution-context-stream`](#graph_execution_context_stream)>
 
 ##### Return values
 
-- <a id="method_future_result_subscribe.0"></a> own<[`pollable`](#pollable)>
+- <a id="constructor_model.0"></a> own<[`model`](#model)>
 
-#### <a id="method_future_result_get"></a>`[method]future-result.get: func`
+#### <a id="method_model_push"></a>`[method]model.push: func`
 
 
 ##### Params
 
-- <a id="method_future_result_get.self"></a>`self`: borrow<[`future-result`](#future_result)>
+- <a id="method_model_push.self"></a>`self`: borrow<[`model`](#model)>
+- <a id="method_model_push.messages"></a>`messages`: list<[`message`](#message)>
 
 ##### Return values
 
-- <a id="method_future_result_get.0"></a> result<list<`u8`>, own<[`error`](#error)>>
+- <a id="method_model_push.0"></a> result<_, own<[`error`](#error)>>
 
-#### <a id="format"></a>`format: func`
+#### <a id="method_model_compute"></a>`[method]model.compute: func`
 
 
 ##### Params
 
-- <a id="format.model"></a>`model`: `string`
-- <a id="format.tool"></a>`tool`: [`tool`](#tool)
+- <a id="method_model_compute.self"></a>`self`: borrow<[`model`](#model)>
+- <a id="method_model_compute.output"></a>`output`: own<[`output-stream`](#output_stream)>
 
 ##### Return values
 
-- <a id="format.0"></a> `string`
+- <a id="method_model_compute.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+
+## <a id="hayride_ai_agent_0_0_35"></a>Import interface hayride:ai/agent@0.0.35
+
+
+----
+
+### Types
+
+#### <a id="output_stream"></a>`type output-stream`
+[`output-stream`](#output_stream)
+<p>
+#### <a id="message"></a>`type message`
+[`message`](#message)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.unknown"></a>`unknown`
+#### <a id="error"></a>`resource error`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
 
 #### <a id="invoke"></a>`invoke: func`
 
 
 ##### Params
 
-- <a id="invoke.tool"></a>`tool`: [`tool`](#tool)
-- <a id="invoke.function"></a>`function`: `string`
-- <a id="invoke.args"></a>`args`: list<`string`>
+- <a id="invoke.msg"></a>`msg`: [`message`](#message)
+- <a id="invoke.output"></a>`output`: own<[`output-stream`](#output_stream)>
 
 ##### Return values
 
-- <a id="invoke.0"></a> result<own<[`future-result`](#future_result)>, own<[`error`](#error)>>
+- <a id="invoke.0"></a> result<_, own<[`error`](#error)>>
 
-## <a id="hayride_ai_agents_0_0_34"></a>Import interface hayride:ai/agents@0.0.34
-
-
-----
-
-### Types
-
-#### <a id="agent"></a>`type agent`
-[`agent`](#agent)
-<p>
-#### <a id="tool"></a>`type tool`
-[`tool`](#tool)
-<p>
-#### <a id="error_code"></a>`enum error-code`
-
-
-##### Enum Cases
-
-- <a id="error_code.enhance_error"></a>`enhance-error`
-  <p>generic Runtime Error.
-
-- <a id="error_code.unknown"></a>`unknown`
-  <p>unsupported operation.
-
-#### <a id="error"></a>`resource error`
-
-----
-
-### Functions
-
-#### <a id="method_error_code"></a>`[method]error.code: func`
-
-return the error code.
-
-##### Params
-
-- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_code.0"></a> [`error-code`](#error_code)
-
-#### <a id="method_error_data"></a>`[method]error.data: func`
-
-errors can propagated with backend specific status through a string value.
-
-##### Params
-
-- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_data.0"></a> `string`
-
-#### <a id="set"></a>`set: func`
-
-
-##### Params
-
-- <a id="set.agent"></a>`agent`: [`agent`](#agent)
-
-##### Return values
-
-- <a id="set.0"></a> result<_, own<[`error`](#error)>>
-
-#### <a id="get"></a>`get: func`
-
-
-##### Params
-
-- <a id="get.name"></a>`name`: `string`
-
-##### Return values
-
-- <a id="get.0"></a> result<[`agent`](#agent), own<[`error`](#error)>>
-
-#### <a id="enhance"></a>`enhance: func`
-
-
-##### Params
-
-- <a id="enhance.agent"></a>`agent`: [`agent`](#agent)
-- <a id="enhance.tools"></a>`tools`: list<[`tool`](#tool)>
-
-##### Return values
-
-- <a id="enhance.0"></a> result<_, own<[`error`](#error)>>
-
-## <a id="hayride_ai_transformer_0_0_34"></a>Import interface hayride:ai/transformer@0.0.34
+## <a id="hayride_ai_transformer_0_0_35"></a>Import interface hayride:ai/transformer@0.0.35
 
 
 ----
@@ -1182,7 +1172,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_transformer_vector_column.0"></a> `string`
 
-## <a id="hayride_ai_rag_0_0_34"></a>Import interface hayride:ai/rag@0.0.34
+## <a id="hayride_ai_rag_0_0_35"></a>Import interface hayride:ai/rag@0.0.35
 
 
 ----
