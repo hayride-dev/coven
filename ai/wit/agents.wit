@@ -1,25 +1,10 @@
-package hayride:ai@0.0.34;
+package hayride:ai@0.0.35;
 
-interface types {
-    record tool {
-      package-id: string,
-      description: string
-    }
-
-    record agent {
-        name: string,
-        description: string,
-        capabilities: list<tool>
-    }
-}
-
-interface agents {
-    use types.{agent,tool};
-
+interface agent {
+    use wasi:io/streams@0.2.0.{output-stream};
+    use model.{message};
+    
     enum error-code {
-        // generic Runtime Error.
-        enhance-error,
-        // unsupported operation.
         unknown
     }
 
@@ -30,39 +15,5 @@ interface agents {
         data: func() -> string;
     }
 
-    set: func(agent: agent) -> result<_,error>;
-    get: func(name: string) -> result<agent,error>;
-    enhance: func(agent: agent, tools: list<tool>) -> result<_,error>; 
+    invoke: func(msg: message, output: output-stream) -> result<_,error>;
 }
-
-interface tools {
-    use wasi:io/poll@0.2.0.{pollable};
-    use types.{tool};
-
-    enum error-code {
-        // caller module passed an invalid argument.
-        invalid-argument,
-        // missing function
-        missing-function,
-        // heneric Runtime Error.
-        runtime-error,
-        // unsupported operation.
-        unknown
-    }
-
-    resource error {
-        // return the error code.
-        code: func() -> error-code;
-        // errors can propagated with backend specific status through a string value.
-        data: func() -> string;
-    }
-
-    resource future-result {
-        subscribe: func() -> pollable;
-        get: func() -> result<list<u8>, error>;
-    }
-
-    format: func(model: string, tool: tool) -> string;
-    invoke: func(tool: tool, function: string, args: list<string>) -> result<future-result,error>;
-}
-

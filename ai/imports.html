@@ -6,15 +6,15 @@
 <li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_error_0_2_0"><code>wasi:io/error@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_streams_0_2_0"><code>wasi:io/streams@0.2.0</code></a></li>
-<li>interface <a href="#hayride_ai_tensor_stream_0_0_34"><code>hayride:ai/tensor-stream@0.0.34</code></a></li>
+<li>interface <a href="#hayride_ai_tensor_stream_0_0_35"><code>hayride:ai/tensor-stream@0.0.35</code></a></li>
 <li>interface <a href="#wasi_nn_errors_0_2_0_rc_2024_10_28"><code>wasi:nn/errors@0.2.0-rc-2024-10-28</code></a></li>
-<li>interface <a href="#hayride_ai_inference_stream_0_0_34"><code>hayride:ai/inference-stream@0.0.34</code></a></li>
-<li>interface <a href="#hayride_ai_graph_stream_0_0_34"><code>hayride:ai/graph-stream@0.0.34</code></a></li>
-<li>interface <a href="#hayride_ai_types_0_0_34"><code>hayride:ai/types@0.0.34</code></a></li>
-<li>interface <a href="#hayride_ai_tools_0_0_34"><code>hayride:ai/tools@0.0.34</code></a></li>
-<li>interface <a href="#hayride_ai_agents_0_0_34"><code>hayride:ai/agents@0.0.34</code></a></li>
-<li>interface <a href="#hayride_ai_transformer_0_0_34"><code>hayride:ai/transformer@0.0.34</code></a></li>
-<li>interface <a href="#hayride_ai_rag_0_0_34"><code>hayride:ai/rag@0.0.34</code></a></li>
+<li>interface <a href="#hayride_ai_inference_stream_0_0_35"><code>hayride:ai/inference-stream@0.0.35</code></a></li>
+<li>interface <a href="#hayride_ai_graph_stream_0_0_35"><code>hayride:ai/graph-stream@0.0.35</code></a></li>
+<li>interface <a href="#hayride_ai_types_0_0_35"><code>hayride:ai/types@0.0.35</code></a></li>
+<li>interface <a href="#hayride_ai_model_0_0_35"><code>hayride:ai/model@0.0.35</code></a></li>
+<li>interface <a href="#hayride_ai_agent_0_0_35"><code>hayride:ai/agent@0.0.35</code></a></li>
+<li>interface <a href="#hayride_ai_transformer_0_0_35"><code>hayride:ai/transformer@0.0.35</code></a></li>
+<li>interface <a href="#hayride_ai_rag_0_0_35"><code>hayride:ai/rag@0.0.35</code></a></li>
 <li>interface <a href="#wasi_nn_inference_0_2_0_rc_2024_10_28"><code>wasi:nn/inference@0.2.0-rc-2024-10-28</code></a></li>
 <li>interface <a href="#wasi_nn_graph_0_2_0_rc_2024_10_28"><code>wasi:nn/graph@0.2.0-rc-2024-10-28</code></a></li>
 </ul>
@@ -504,7 +504,7 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="method_output_stream_blocking_splice.0"></a> result&lt;<code>u64</code>, <a href="#stream_error"><a href="#stream_error"><code>stream-error</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_tensor_stream_0_0_34"></a>Import interface hayride:ai/tensor-stream@0.0.34</h2>
+<h2><a id="hayride_ai_tensor_stream_0_0_35"></a>Import interface hayride:ai/tensor-stream@0.0.35</h2>
 <p>This interface defines a stream of tensors. The stream is a sequence of tensors.</p>
 <hr />
 <h3>Types</h3>
@@ -646,7 +646,7 @@ e.g., cannot access a hardware feature requested
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
-<h2><a id="hayride_ai_inference_stream_0_0_34"></a>Import interface hayride:ai/inference-stream@0.0.34</h2>
+<h2><a id="hayride_ai_inference_stream_0_0_35"></a>Import interface hayride:ai/inference-stream@0.0.35</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
@@ -686,7 +686,7 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="method_graph_execution_context_stream_compute.0"></a> result&lt;<a href="#named_tensor_stream"><a href="#named_tensor_stream"><code>named-tensor-stream</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_graph_stream_0_0_34"></a>Import interface hayride:ai/graph-stream@0.0.34</h2>
+<h2><a id="hayride_ai_graph_stream_0_0_35"></a>Import interface hayride:ai/graph-stream@0.0.35</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
@@ -723,53 +723,74 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="load_by_name.0"></a> result&lt;own&lt;<a href="#graph_stream"><a href="#graph_stream"><code>graph-stream</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_types_0_0_34"></a>Import interface hayride:ai/types@0.0.34</h2>
+<h2><a id="hayride_ai_types_0_0_35"></a>Import interface hayride:ai/types@0.0.35</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="tool"></a><code>record tool</code></h4>
+<h4><a id="role"></a><code>enum role</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="role.user"></a><code>user</code></li>
+<li><a id="role.assistant"></a><code>assistant</code></li>
+<li><a id="role.system"></a><code>system</code></li>
+<li><a id="role.tool"></a><code>tool</code></li>
+<li><a id="role.unknown"></a><code>unknown</code></li>
+</ul>
+<h4><a id="text_content"></a><code>record text-content</code></h4>
 <h5>Record Fields</h5>
 <ul>
-<li><a id="tool.package_id"></a><code>package-id</code>: <code>string</code></li>
-<li><a id="tool.description"></a><code>description</code>: <code>string</code></li>
+<li><a id="text_content.text"></a><code>text</code>: <code>string</code></li>
+<li><a id="text_content.content_type"></a><code>content-type</code>: <code>string</code></li>
 </ul>
-<h4><a id="agent"></a><code>record agent</code></h4>
+<h4><a id="tool_input"></a><code>record tool-input</code></h4>
 <h5>Record Fields</h5>
 <ul>
-<li><a id="agent.name"></a><code>name</code>: <code>string</code></li>
-<li><a id="agent.description"></a><code>description</code>: <code>string</code></li>
-<li><a id="agent.capabilities"></a><code>capabilities</code>: list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;</li>
+<li><a id="tool_input.content_type"></a><code>content-type</code>: <code>string</code></li>
+<li><a id="tool_input.id"></a><code>id</code>: <code>string</code></li>
+<li><a id="tool_input.name"></a><code>name</code>: <code>string</code></li>
+<li><a id="tool_input.input"></a><code>input</code>: <code>string</code></li>
 </ul>
-<h2><a id="hayride_ai_tools_0_0_34"></a>Import interface hayride:ai/tools@0.0.34</h2>
+<h4><a id="tool_output"></a><code>record tool-output</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="tool_output.content_type"></a><code>content-type</code>: <code>string</code></li>
+<li><a id="tool_output.id"></a><code>id</code>: <code>string</code></li>
+<li><a id="tool_output.name"></a><code>name</code>: <code>string</code></li>
+<li><a id="tool_output.output"></a><code>output</code>: <code>string</code></li>
+</ul>
+<h4><a id="content"></a><code>variant content</code></h4>
+<h5>Variant Cases</h5>
+<ul>
+<li><a id="content.none"></a><code>none</code></li>
+<li><a id="content.text"></a><code>text</code>: <a href="#text_content"><a href="#text_content"><code>text-content</code></a></a></li>
+<li><a id="content.tool_input"></a><a href="#tool_input"><code>tool-input</code></a>: <a href="#tool_input"><a href="#tool_input"><code>tool-input</code></a></a></li>
+<li><a id="content.tool_output"></a><a href="#tool_output"><code>tool-output</code></a>: <a href="#tool_output"><a href="#tool_output"><code>tool-output</code></a></a></li>
+</ul>
+<h4><a id="message"></a><code>record message</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="message.role"></a><a href="#role"><code>role</code></a>: <a href="#role"><a href="#role"><code>role</code></a></a></li>
+<li><a id="message.content"></a><a href="#content"><code>content</code></a>: list&lt;<a href="#content"><a href="#content"><code>content</code></a></a>&gt;</li>
+</ul>
+<h2><a id="hayride_ai_model_0_0_35"></a>Import interface hayride:ai/model@0.0.35</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="pollable"></a><code>type pollable</code></h4>
-<p><a href="#pollable"><a href="#pollable"><code>pollable</code></a></a></p>
+<h4><a id="message"></a><code>type message</code></h4>
+<p><a href="#message"><a href="#message"><code>message</code></a></a></p>
 <p>
-#### <a id="tool"></a>`type tool`
-[`tool`](#tool)
+#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
+[`graph-execution-context-stream`](#graph_execution_context_stream)
+<p>
+#### <a id="output_stream"></a>`type output-stream`
+[`output-stream`](#output_stream)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
 <ul>
-<li>
-<p><a id="error_code.invalid_argument"></a><code>invalid-argument</code></p>
-<p>caller module passed an invalid argument.
-</li>
-<li>
-<p><a id="error_code.missing_function"></a><code>missing-function</code></p>
-<p>missing function
-</li>
-<li>
-<p><a id="error_code.runtime_error"></a><code>runtime-error</code></p>
-<p>heneric Runtime Error.
-</li>
-<li>
-<p><a id="error_code.unknown"></a><code>unknown</code></p>
-<p>unsupported operation.
-</li>
+<li><a id="error_code.format_error"></a><code>format-error</code></li>
+<li><a id="error_code.unknown"></a><code>unknown</code></li>
 </ul>
 <h4><a id="error"></a><code>resource error</code></h4>
-<h4><a id="future_result"></a><code>resource future-result</code></h4>
+<h4><a id="model"></a><code>resource model</code></h4>
 <hr />
 <h3>Functions</h3>
 <h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
@@ -792,118 +813,83 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
-<h4><a id="method_future_result_subscribe"></a><code>[method]future-result.subscribe: func</code></h4>
+<h4><a id="constructor_model"></a><code>[constructor]model: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_future_result_subscribe.self"></a><code>self</code>: borrow&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;</li>
+<li><a id="constructor_model.graph"></a><a href="#graph"><code>graph</code></a>: own&lt;<a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_future_result_subscribe.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
+<li><a id="constructor_model.0"></a> own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
 </ul>
-<h4><a id="method_future_result_get"></a><code>[method]future-result.get: func</code></h4>
+<h4><a id="method_model_push"></a><code>[method]model.push: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_future_result_get.self"></a><code>self</code>: borrow&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;</li>
+<li><a id="method_model_push.self"></a><code>self</code>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
+<li><a id="method_model_push.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_future_result_get.0"></a> result&lt;list&lt;<code>u8</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_model_push.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h4><a id="format"></a><code>format: func</code></h4>
+<h4><a id="method_model_compute"></a><code>[method]model.compute: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="format.model"></a><code>model</code>: <code>string</code></li>
-<li><a id="format.tool"></a><a href="#tool"><code>tool</code></a>: <a href="#tool"><a href="#tool"><code>tool</code></a></a></li>
+<li><a id="method_model_compute.self"></a><code>self</code>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
+<li><a id="method_model_compute.output"></a><code>output</code>: borrow&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="format.0"></a> <code>string</code></li>
+<li><a id="method_model_compute.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h2><a id="hayride_ai_agent_0_0_35"></a>Import interface hayride:ai/agent@0.0.35</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="output_stream"></a><code>type output-stream</code></h4>
+<p><a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a></p>
+<p>
+#### <a id="message"></a>`type message`
+[`message`](#message)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="error_code.unknown"></a><code>unknown</code></li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<p>return the error code.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<p>errors can propagated with backend specific status through a string value.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
 <h4><a id="invoke"></a><code>invoke: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="invoke.tool"></a><a href="#tool"><code>tool</code></a>: <a href="#tool"><a href="#tool"><code>tool</code></a></a></li>
-<li><a id="invoke.function"></a><code>function</code>: <code>string</code></li>
-<li><a id="invoke.args"></a><code>args</code>: list&lt;<code>string</code>&gt;</li>
+<li><a id="invoke.msg"></a><code>msg</code>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
+<li><a id="invoke.output"></a><code>output</code>: own&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="invoke.0"></a> result&lt;own&lt;<a href="#future_result"><a href="#future_result"><code>future-result</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="invoke.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_agents_0_0_34"></a>Import interface hayride:ai/agents@0.0.34</h2>
-<hr />
-<h3>Types</h3>
-<h4><a id="agent"></a><code>type agent</code></h4>
-<p><a href="#agent"><a href="#agent"><code>agent</code></a></a></p>
-<p>
-#### <a id="tool"></a>`type tool`
-[`tool`](#tool)
-<p>
-#### <a id="error_code"></a>`enum error-code`
-<h5>Enum Cases</h5>
-<ul>
-<li>
-<p><a id="error_code.enhance_error"></a><code>enhance-error</code></p>
-<p>generic Runtime Error.
-</li>
-<li>
-<p><a id="error_code.unknown"></a><code>unknown</code></p>
-<p>unsupported operation.
-</li>
-</ul>
-<h4><a id="error"></a><code>resource error</code></h4>
-<hr />
-<h3>Functions</h3>
-<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
-<p>return the error code.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
-</ul>
-<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
-<p>errors can propagated with backend specific status through a string value.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_error_data.0"></a> <code>string</code></li>
-</ul>
-<h4><a id="set"></a><code>set: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="set.agent"></a><a href="#agent"><code>agent</code></a>: <a href="#agent"><a href="#agent"><code>agent</code></a></a></li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="set.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
-</ul>
-<h4><a id="get"></a><code>get: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="get.name"></a><code>name</code>: <code>string</code></li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="get.0"></a> result&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
-</ul>
-<h4><a id="enhance"></a><code>enhance: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="enhance.agent"></a><a href="#agent"><code>agent</code></a>: <a href="#agent"><a href="#agent"><code>agent</code></a></a></li>
-<li><a id="enhance.tools"></a><code>tools</code>: list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="enhance.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
-</ul>
-<h2><a id="hayride_ai_transformer_0_0_34"></a>Import interface hayride:ai/transformer@0.0.34</h2>
+<h2><a id="hayride_ai_transformer_0_0_35"></a>Import interface hayride:ai/transformer@0.0.35</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="embedding_type"></a><code>enum embedding-type</code></h4>
@@ -918,7 +904,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h5>Params</h5>
 <ul>
 <li><a id="constructor_transformer.embedding"></a><code>embedding</code>: <a href="#embedding_type"><a href="#embedding_type"><code>embedding-type</code></a></a></li>
-<li><a id="constructor_transformer.model"></a><code>model</code>: <code>string</code></li>
+<li><a id="constructor_transformer.model"></a><a href="#model"><code>model</code></a>: <code>string</code></li>
 <li><a id="constructor_transformer.data_column"></a><code>data-column</code>: <code>string</code></li>
 <li><a id="constructor_transformer.vector_column"></a><code>vector-column</code>: <code>string</code></li>
 </ul>
@@ -962,7 +948,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="method_transformer_vector_column.0"></a> <code>string</code></li>
 </ul>
-<h2><a id="hayride_ai_rag_0_0_34"></a>Import interface hayride:ai/rag@0.0.34</h2>
+<h2><a id="hayride_ai_rag_0_0_35"></a>Import interface hayride:ai/rag@0.0.35</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="transformer"></a><code>type transformer</code></h4>
