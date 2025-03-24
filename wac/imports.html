@@ -1,0 +1,61 @@
+<h1><a id="imports"></a>World imports</h1>
+<ul>
+<li>Imports:
+<ul>
+<li>interface <a href="#hayride_wac_types_0_0_37"><code>hayride:wac/types@0.0.37</code></a></li>
+<li>interface <a href="#hayride_wac_wac_0_0_37"><code>hayride:wac/wac@0.0.37</code></a></li>
+</ul>
+</li>
+</ul>
+<h2><a id="hayride_wac_types_0_0_37"></a>Import interface hayride:wac/types@0.0.37</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="error_code"></a><code>enum error-code</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="error_code.file_not_found"></a><code>file-not-found</code></li>
+<li><a id="error_code.resolve_failed"></a><code>resolve-failed</code></li>
+<li><a id="error_code.compose_failed"></a><code>compose-failed</code></li>
+<li><a id="error_code.encode_failed"></a><code>encode-failed</code></li>
+<li><a id="error_code.unknown"></a><code>unknown</code></li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<p>Return the error code.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<p>Errors can propagated with backend specific status through a string value.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
+</ul>
+<h2><a id="hayride_wac_wac_0_0_37"></a>Import interface hayride:wac/wac@0.0.37</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="error"></a><code>type error</code></h4>
+<p><a href="#error"><a href="#error"><code>error</code></a></a></p>
+<p>
+----
+<h3>Functions</h3>
+<h4><a id="compose"></a><code>compose: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="compose.input"></a><code>input</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="compose.0"></a> result&lt;list&lt;<code>u8</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
