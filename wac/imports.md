@@ -83,7 +83,7 @@ Errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="plug.socket_path"></a>`socket-path`: `string`
-- <a id="plug.plug_path"></a>`plug-path`: `string`
+- <a id="plug.plug_paths"></a>`plug-paths`: list<`string`>
 
 ##### Return values
 
