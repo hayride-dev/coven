@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:core/types@0.0.36`
-    - interface `hayride:core/config@0.0.36`
+    - interface `hayride:core/types@0.0.37`
+    - interface `hayride:core/config@0.0.37`
 
-## <a id="hayride_core_types_0_0_36"></a>Import interface hayride:core/types@0.0.36
+## <a id="hayride_core_types_0_0_37"></a>Import interface hayride:core/types@0.0.37
 
 
 ----
@@ -107,7 +107,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_core_config_0_0_36"></a>Import interface hayride:core/config@0.0.36
+## <a id="hayride_core_config_0_0_37"></a>Import interface hayride:core/config@0.0.37
 
 
 ----
