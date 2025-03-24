@@ -71,9 +71,21 @@ Errors can propagated with backend specific status through a string value.
 
 ##### Params
 
-- <a id="compose.input"></a>`input`: `string`
+- <a id="compose.path"></a>`path`: `string`
 
 ##### Return values
 
 - <a id="compose.0"></a> result<list<`u8`>, own<[`error`](#error)>>
+
+#### <a id="plug"></a>`plug: func`
+
+
+##### Params
+
+- <a id="plug.socket_path"></a>`socket-path`: `string`
+- <a id="plug.plug_path"></a>`plug-path`: `string`
+
+##### Return values
+
+- <a id="plug.0"></a> result<list<`u8`>, own<[`error`](#error)>>
 
