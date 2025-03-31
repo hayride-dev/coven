@@ -6,7 +6,7 @@
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/streams@0.2.0`
  - Exports:
-    - interface `hayride:socket/websocket@0.0.37`
+    - interface `hayride:socket/websocket@0.0.38`
 
 ## <a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0
 
@@ -520,17 +520,17 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_socket_websocket_0_0_37"></a>Export interface hayride:socket/websocket@0.0.37
+## <a id="hayride_socket_websocket_0_0_38"></a>Export interface hayride:socket/websocket@0.0.38
 
 ----
 
 ### Types
 
+#### <a id="input_stream"></a>`type input-stream`
+[`input-stream`](#input_stream)
+<p>
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
-<p>
-#### <a id="io_error"></a>`type io-error`
-[`error`](#error)
 <p>
 ----
 
@@ -541,6 +541,6 @@ is ready for reading, before performing the `splice`.
 
 ##### Params
 
-- <a id="handle.text"></a>`text`: `string`
-- <a id="handle.out"></a>`out`: own<[`output-stream`](#output_stream)>
+- <a id="handle.input"></a>`input`: own<[`input-stream`](#input_stream)>
+- <a id="handle.output"></a>`output`: own<[`output-stream`](#output_stream)>
 

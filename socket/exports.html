@@ -9,7 +9,7 @@
 </li>
 <li>Exports:
 <ul>
-<li>interface <a href="#hayride_socket_websocket_0_0_37"><code>hayride:socket/websocket@0.0.37</code></a></li>
+<li>interface <a href="#hayride_socket_websocket_0_0_38"><code>hayride:socket/websocket@0.0.38</code></a></li>
 </ul>
 </li>
 </ul>
@@ -423,20 +423,20 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="method_output_stream_blocking_splice.0"></a> result&lt;<code>u64</code>, <a href="#stream_error"><a href="#stream_error"><code>stream-error</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_socket_websocket_0_0_37"></a>Export interface hayride:socket/websocket@0.0.37</h2>
+<h2><a id="hayride_socket_websocket_0_0_38"></a>Export interface hayride:socket/websocket@0.0.38</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="output_stream"></a><code>type output-stream</code></h4>
-<p><a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a></p>
+<h4><a id="input_stream"></a><code>type input-stream</code></h4>
+<p><a href="#input_stream"><a href="#input_stream"><code>input-stream</code></a></a></p>
 <p>
-#### <a id="io_error"></a>`type io-error`
-[`error`](#error)
+#### <a id="output_stream"></a>`type output-stream`
+[`output-stream`](#output_stream)
 <p>
 ----
 <h3>Functions</h3>
 <h4><a id="handle"></a><code>handle: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="handle.text"></a><code>text</code>: <code>string</code></li>
-<li><a id="handle.out"></a><code>out</code>: own&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
+<li><a id="handle.input"></a><code>input</code>: own&lt;<a href="#input_stream"><a href="#input_stream"><code>input-stream</code></a></a>&gt;</li>
+<li><a id="handle.output"></a><code>output</code>: own&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
 </ul>
