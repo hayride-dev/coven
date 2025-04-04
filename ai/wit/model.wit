@@ -1,16 +1,14 @@
-package hayride:ai@0.0.39;
+package hayride:ai@0.0.40;
 
 interface model {
-    use types.{message};
     use inference-stream.{graph-execution-context-stream};
-    use wasi:io/streams@0.2.0.{output-stream};
+    use context.{context};
 
     enum error-code {
+        context-error,
         context-encode,
-        message-decode,
+        context-decode,
         compute-error,
-        unexpected-message-type,
-        format-error,
         unknown
     }
 
@@ -22,8 +20,7 @@ interface model {
     }
 
     resource model {
-        constructor(graph: graph-execution-context-stream);
-        push: func(messages: list<message>) -> result<_,error>;
-        compute: func(output: borrow<output-stream>) -> result<message,error>;
+        constructor(graph: graph-execution-context-stream, ctx: context); // Initialize the model with a graph and a context
+        compute: func(ctx: borrow<context>) -> result<error>; // to use the context object and call the graph compute with context 
     }
 }

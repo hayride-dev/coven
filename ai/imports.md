@@ -6,15 +6,16 @@
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:ai/tensor-stream@0.0.39`
+    - interface `hayride:ai/tensor-stream@0.0.40`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
-    - interface `hayride:ai/inference-stream@0.0.39`
-    - interface `hayride:ai/graph-stream@0.0.39`
-    - interface `hayride:ai/types@0.0.39`
-    - interface `hayride:ai/model@0.0.39`
-    - interface `hayride:ai/agent@0.0.39`
-    - interface `hayride:ai/transformer@0.0.39`
-    - interface `hayride:ai/rag@0.0.39`
+    - interface `hayride:ai/inference-stream@0.0.40`
+    - interface `hayride:ai/graph-stream@0.0.40`
+    - interface `hayride:ai/types@0.0.40`
+    - interface `hayride:ai/context@0.0.40`
+    - interface `hayride:ai/model@0.0.40`
+    - interface `hayride:ai/agent@0.0.40`
+    - interface `hayride:ai/transformer@0.0.40`
+    - interface `hayride:ai/rag@0.0.40`
     - interface `wasi:nn/inference@0.2.0-rc-2024-10-28`
     - interface `wasi:nn/graph@0.2.0-rc-2024-10-28`
 
@@ -624,7 +625,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_ai_tensor_stream_0_0_39"></a>Import interface hayride:ai/tensor-stream@0.0.39
+## <a id="hayride_ai_tensor_stream_0_0_40"></a>Import interface hayride:ai/tensor-stream@0.0.40
 
 This interface defines a stream of tensors. The stream is a sequence of tensors.
 
@@ -786,7 +787,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_ai_inference_stream_0_0_39"></a>Import interface hayride:ai/inference-stream@0.0.39
+## <a id="hayride_ai_inference_stream_0_0_40"></a>Import interface hayride:ai/inference-stream@0.0.40
 
 
 ----
@@ -837,7 +838,7 @@ Compute the inference on the given inputs.
 
 - <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
 
-## <a id="hayride_ai_graph_stream_0_0_39"></a>Import interface hayride:ai/graph-stream@0.0.39
+## <a id="hayride_ai_graph_stream_0_0_40"></a>Import interface hayride:ai/graph-stream@0.0.40
 
 
 ----
@@ -886,7 +887,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 - <a id="load_by_name.0"></a> result<own<[`graph-stream`](#graph_stream)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_types_0_0_39"></a>Import interface hayride:ai/types@0.0.39
+## <a id="hayride_ai_types_0_0_40"></a>Import interface hayride:ai/types@0.0.40
 
 
 ----
@@ -954,7 +955,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 - <a id="message.role"></a>`role`: [`role`](#role)
 - <a id="message.content"></a>`content`: list<[`content`](#content)>
-## <a id="hayride_ai_model_0_0_39"></a>Import interface hayride:ai/model@0.0.39
+## <a id="hayride_ai_context_0_0_40"></a>Import interface hayride:ai/context@0.0.40
 
 
 ----
@@ -964,22 +965,117 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="message"></a>`type message`
 [`message`](#message)
 <p>
-#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
-[`graph-execution-context-stream`](#graph_execution_context_stream)
-<p>
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
+<p>
+#### <a id="tensor_stream"></a>`type tensor-stream`
+[`tensor-stream`](#tensor_stream)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 
 
 ##### Enum Cases
 
-- <a id="error_code.context_encode"></a>`context-encode`
-- <a id="error_code.message_decode"></a>`message-decode`
-- <a id="error_code.compute_error"></a>`compute-error`
 - <a id="error_code.unexpected_message_type"></a>`unexpected-message-type`
-- <a id="error_code.format_error"></a>`format-error`
+- <a id="error_code.write_error"></a>`write-error`
+- <a id="error_code.message_not_found"></a>`message-not-found`
+- <a id="error_code.pipe_error"></a>`pipe-error`
+- <a id="error_code.unknown"></a>`unknown`
+#### <a id="error"></a>`resource error`
+
+#### <a id="context"></a>`resource context`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+#### <a id="constructor_context"></a>`[constructor]context: func`
+
+
+##### Return values
+
+- <a id="constructor_context.0"></a> own<[`context`](#context)>
+
+#### <a id="method_context_write"></a>`[method]context.write: func`
+
+
+##### Params
+
+- <a id="method_context_write.self"></a>`self`: borrow<[`context`](#context)>
+- <a id="method_context_write.messages"></a>`messages`: list<[`message`](#message)>
+
+##### Return values
+
+- <a id="method_context_write.0"></a> result<_, own<[`error`](#error)>>
+
+#### <a id="method_context_messages"></a>`[method]context.messages: func`
+
+
+##### Params
+
+- <a id="method_context_messages.self"></a>`self`: borrow<[`context`](#context)>
+
+##### Return values
+
+- <a id="method_context_messages.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
+
+#### <a id="method_context_next"></a>`[method]context.next: func`
+
+
+##### Params
+
+- <a id="method_context_next.self"></a>`self`: borrow<[`context`](#context)>
+
+##### Return values
+
+- <a id="method_context_next.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+
+## <a id="hayride_ai_model_0_0_40"></a>Import interface hayride:ai/model@0.0.40
+
+
+----
+
+### Types
+
+#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
+[`graph-execution-context-stream`](#graph_execution_context_stream)
+<p>
+#### <a id="context"></a>`type context`
+[`context`](#context)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.context_error"></a>`context-error`
+- <a id="error_code.context_encode"></a>`context-encode`
+- <a id="error_code.context_decode"></a>`context-decode`
+- <a id="error_code.compute_error"></a>`compute-error`
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
@@ -1019,47 +1115,40 @@ errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="constructor_model.graph"></a>`graph`: own<[`graph-execution-context-stream`](#graph_execution_context_stream)>
+- <a id="constructor_model.ctx"></a>`ctx`: own<[`context`](#context)>
 
 ##### Return values
 
 - <a id="constructor_model.0"></a> own<[`model`](#model)>
 
-#### <a id="method_model_push"></a>`[method]model.push: func`
-
-
-##### Params
-
-- <a id="method_model_push.self"></a>`self`: borrow<[`model`](#model)>
-- <a id="method_model_push.messages"></a>`messages`: list<[`message`](#message)>
-
-##### Return values
-
-- <a id="method_model_push.0"></a> result<_, own<[`error`](#error)>>
-
 #### <a id="method_model_compute"></a>`[method]model.compute: func`
 
+Initialize the model with a graph and a context
 
 ##### Params
 
 - <a id="method_model_compute.self"></a>`self`: borrow<[`model`](#model)>
-- <a id="method_model_compute.output"></a>`output`: borrow<[`output-stream`](#output_stream)>
+- <a id="method_model_compute.ctx"></a>`ctx`: borrow<[`context`](#context)>
 
 ##### Return values
 
-- <a id="method_model_compute.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+- <a id="method_model_compute.0"></a> result<own<[`error`](#error)>>
 
-## <a id="hayride_ai_agent_0_0_39"></a>Import interface hayride:ai/agent@0.0.39
+## <a id="hayride_ai_agent_0_0_40"></a>Import interface hayride:ai/agent@0.0.40
 
 
 ----
 
 ### Types
 
-#### <a id="output_stream"></a>`type output-stream`
-[`output-stream`](#output_stream)
+#### <a id="context"></a>`type context`
+[`context`](#context)
 <p>
 #### <a id="message"></a>`type message`
 [`message`](#message)
+<p>
+#### <a id="model"></a>`type model`
+[`model`](#model)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 
@@ -1068,6 +1157,8 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
+
+#### <a id="agent"></a>`resource agent`
 
 ----
 
@@ -1097,19 +1188,30 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-#### <a id="invoke"></a>`invoke: func`
+#### <a id="constructor_agent"></a>`[constructor]agent: func`
 
 
 ##### Params
 
-- <a id="invoke.msg"></a>`msg`: [`message`](#message)
-- <a id="invoke.output"></a>`output`: borrow<[`output-stream`](#output_stream)>
+- <a id="constructor_agent.model"></a>`model`: own<[`model`](#model)>
 
 ##### Return values
 
-- <a id="invoke.0"></a> result<_, own<[`error`](#error)>>
+- <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
 
-## <a id="hayride_ai_transformer_0_0_39"></a>Import interface hayride:ai/transformer@0.0.39
+#### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
+
+
+##### Params
+
+- <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_invoke.msg"></a>`msg`: [`message`](#message)
+
+##### Return values
+
+- <a id="method_agent_invoke.0"></a> result<_, own<[`error`](#error)>>
+
+## <a id="hayride_ai_transformer_0_0_40"></a>Import interface hayride:ai/transformer@0.0.40
 
 
 ----
@@ -1186,7 +1288,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_transformer_vector_column.0"></a> `string`
 
-## <a id="hayride_ai_rag_0_0_39"></a>Import interface hayride:ai/rag@0.0.39
+## <a id="hayride_ai_rag_0_0_40"></a>Import interface hayride:ai/rag@0.0.40
 
 
 ----
