@@ -1,9 +1,9 @@
-package hayride:ai@0.0.39;
+package hayride:ai@0.0.40;
 
 interface agent {
-    use wasi:io/streams@0.2.0.{output-stream};
-    use model.{message};
-    
+    use context.{context};
+    use types.{message};
+    use model.{model};
     enum error-code {
         unknown
     }
@@ -15,5 +15,8 @@ interface agent {
         data: func() -> string;
     }
 
-    invoke: func(msg: message, output: borrow<output-stream>) -> result<_,error>;
+    resource agent {
+        constructor(model: model);
+        invoke: func(msg: message) -> result<_,error>;
+    }
 }

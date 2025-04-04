@@ -2,22 +2,80 @@
 <ul>
 <li>Imports:
 <ul>
+<li>interface <a href="#hayride_ai_types_0_0_40"><code>hayride:ai/types@0.0.40</code></a></li>
 <li>interface <a href="#wasi_io_error_0_2_0"><code>wasi:io/error@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_streams_0_2_0"><code>wasi:io/streams@0.2.0</code></a></li>
-<li>interface <a href="#hayride_ai_types_0_0_39"><code>hayride:ai/types@0.0.39</code></a></li>
-<li>interface <a href="#wasi_nn_errors_0_2_0_rc_2024_10_28"><code>wasi:nn/errors@0.2.0-rc-2024-10-28</code></a></li>
 <li>interface <a href="#wasi_nn_tensor_0_2_0_rc_2024_10_28"><code>wasi:nn/tensor@0.2.0-rc-2024-10-28</code></a></li>
-<li>interface <a href="#hayride_ai_tensor_stream_0_0_39"><code>hayride:ai/tensor-stream@0.0.39</code></a></li>
-<li>interface <a href="#hayride_ai_inference_stream_0_0_39"><code>hayride:ai/inference-stream@0.0.39</code></a></li>
+<li>interface <a href="#hayride_ai_tensor_stream_0_0_40"><code>hayride:ai/tensor-stream@0.0.40</code></a></li>
+<li>interface <a href="#hayride_ai_context_0_0_40"><code>hayride:ai/context@0.0.40</code></a></li>
+<li>interface <a href="#wasi_nn_errors_0_2_0_rc_2024_10_28"><code>wasi:nn/errors@0.2.0-rc-2024-10-28</code></a></li>
+<li>interface <a href="#hayride_ai_inference_stream_0_0_40"><code>hayride:ai/inference-stream@0.0.40</code></a></li>
 </ul>
 </li>
 <li>Exports:
 <ul>
-<li>interface <a href="#hayride_ai_model_0_0_39"><code>hayride:ai/model@0.0.39</code></a></li>
-<li>interface <a href="#hayride_ai_agent_0_0_39"><code>hayride:ai/agent@0.0.39</code></a></li>
+<li>interface <a href="#hayride_ai_model_0_0_40"><code>hayride:ai/model@0.0.40</code></a></li>
+<li>interface <a href="#hayride_ai_agent_0_0_40"><code>hayride:ai/agent@0.0.40</code></a></li>
 </ul>
 </li>
+</ul>
+<h2><a id="hayride_ai_types_0_0_40"></a>Import interface hayride:ai/types@0.0.40</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="role"></a><code>enum role</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="role.user"></a><code>user</code></li>
+<li><a id="role.assistant"></a><code>assistant</code></li>
+<li><a id="role.system"></a><code>system</code></li>
+<li><a id="role.tool"></a><code>tool</code></li>
+<li><a id="role.unknown"></a><code>unknown</code></li>
+</ul>
+<h4><a id="text_content"></a><code>record text-content</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="text_content.text"></a><code>text</code>: <code>string</code></li>
+<li><a id="text_content.content_type"></a><code>content-type</code>: <code>string</code></li>
+</ul>
+<h4><a id="tool_schema"></a><code>record tool-schema</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="tool_schema.id"></a><code>id</code>: <code>string</code></li>
+<li><a id="tool_schema.name"></a><code>name</code>: <code>string</code></li>
+<li><a id="tool_schema.description"></a><code>description</code>: <code>string</code></li>
+<li><a id="tool_schema.params_schema"></a><code>params-schema</code>: <code>string</code></li>
+</ul>
+<h4><a id="tool_input"></a><code>record tool-input</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="tool_input.content_type"></a><code>content-type</code>: <code>string</code></li>
+<li><a id="tool_input.id"></a><code>id</code>: <code>string</code></li>
+<li><a id="tool_input.name"></a><code>name</code>: <code>string</code></li>
+<li><a id="tool_input.input"></a><code>input</code>: <code>string</code></li>
+</ul>
+<h4><a id="tool_output"></a><code>record tool-output</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="tool_output.content_type"></a><code>content-type</code>: <code>string</code></li>
+<li><a id="tool_output.id"></a><code>id</code>: <code>string</code></li>
+<li><a id="tool_output.name"></a><code>name</code>: <code>string</code></li>
+<li><a id="tool_output.output"></a><code>output</code>: <code>string</code></li>
+</ul>
+<h4><a id="content"></a><code>variant content</code></h4>
+<h5>Variant Cases</h5>
+<ul>
+<li><a id="content.none"></a><code>none</code></li>
+<li><a id="content.text"></a><code>text</code>: <a href="#text_content"><a href="#text_content"><code>text-content</code></a></a></li>
+<li><a id="content.tool_schema"></a><a href="#tool_schema"><code>tool-schema</code></a>: <a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a></li>
+<li><a id="content.tool_input"></a><a href="#tool_input"><code>tool-input</code></a>: <a href="#tool_input"><a href="#tool_input"><code>tool-input</code></a></a></li>
+<li><a id="content.tool_output"></a><a href="#tool_output"><code>tool-output</code></a>: <a href="#tool_output"><a href="#tool_output"><code>tool-output</code></a></a></li>
+</ul>
+<h4><a id="message"></a><code>record message</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="message.role"></a><a href="#role"><code>role</code></a>: <a href="#role"><a href="#role"><code>role</code></a></a></li>
+<li><a id="message.content"></a><a href="#content"><code>content</code></a>: list&lt;<a href="#content"><a href="#content"><code>content</code></a></a>&gt;</li>
 </ul>
 <h2><a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0</h2>
 <hr />
@@ -429,131 +487,6 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="method_output_stream_blocking_splice.0"></a> result&lt;<code>u64</code>, <a href="#stream_error"><a href="#stream_error"><code>stream-error</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_types_0_0_39"></a>Import interface hayride:ai/types@0.0.39</h2>
-<hr />
-<h3>Types</h3>
-<h4><a id="role"></a><code>enum role</code></h4>
-<h5>Enum Cases</h5>
-<ul>
-<li><a id="role.user"></a><code>user</code></li>
-<li><a id="role.assistant"></a><code>assistant</code></li>
-<li><a id="role.system"></a><code>system</code></li>
-<li><a id="role.tool"></a><code>tool</code></li>
-<li><a id="role.unknown"></a><code>unknown</code></li>
-</ul>
-<h4><a id="text_content"></a><code>record text-content</code></h4>
-<h5>Record Fields</h5>
-<ul>
-<li><a id="text_content.text"></a><code>text</code>: <code>string</code></li>
-<li><a id="text_content.content_type"></a><code>content-type</code>: <code>string</code></li>
-</ul>
-<h4><a id="tool_schema"></a><code>record tool-schema</code></h4>
-<h5>Record Fields</h5>
-<ul>
-<li><a id="tool_schema.id"></a><code>id</code>: <code>string</code></li>
-<li><a id="tool_schema.name"></a><code>name</code>: <code>string</code></li>
-<li><a id="tool_schema.description"></a><code>description</code>: <code>string</code></li>
-<li><a id="tool_schema.params_schema"></a><code>params-schema</code>: <code>string</code></li>
-</ul>
-<h4><a id="tool_input"></a><code>record tool-input</code></h4>
-<h5>Record Fields</h5>
-<ul>
-<li><a id="tool_input.content_type"></a><code>content-type</code>: <code>string</code></li>
-<li><a id="tool_input.id"></a><code>id</code>: <code>string</code></li>
-<li><a id="tool_input.name"></a><code>name</code>: <code>string</code></li>
-<li><a id="tool_input.input"></a><code>input</code>: <code>string</code></li>
-</ul>
-<h4><a id="tool_output"></a><code>record tool-output</code></h4>
-<h5>Record Fields</h5>
-<ul>
-<li><a id="tool_output.content_type"></a><code>content-type</code>: <code>string</code></li>
-<li><a id="tool_output.id"></a><code>id</code>: <code>string</code></li>
-<li><a id="tool_output.name"></a><code>name</code>: <code>string</code></li>
-<li><a id="tool_output.output"></a><code>output</code>: <code>string</code></li>
-</ul>
-<h4><a id="content"></a><code>variant content</code></h4>
-<h5>Variant Cases</h5>
-<ul>
-<li><a id="content.none"></a><code>none</code></li>
-<li><a id="content.text"></a><code>text</code>: <a href="#text_content"><a href="#text_content"><code>text-content</code></a></a></li>
-<li><a id="content.tool_schema"></a><a href="#tool_schema"><code>tool-schema</code></a>: <a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a></li>
-<li><a id="content.tool_input"></a><a href="#tool_input"><code>tool-input</code></a>: <a href="#tool_input"><a href="#tool_input"><code>tool-input</code></a></a></li>
-<li><a id="content.tool_output"></a><a href="#tool_output"><code>tool-output</code></a>: <a href="#tool_output"><a href="#tool_output"><code>tool-output</code></a></a></li>
-</ul>
-<h4><a id="message"></a><code>record message</code></h4>
-<h5>Record Fields</h5>
-<ul>
-<li><a id="message.role"></a><a href="#role"><code>role</code></a>: <a href="#role"><a href="#role"><code>role</code></a></a></li>
-<li><a id="message.content"></a><a href="#content"><code>content</code></a>: list&lt;<a href="#content"><a href="#content"><code>content</code></a></a>&gt;</li>
-</ul>
-<h2><a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28</h2>
-<p>TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)</p>
-<hr />
-<h3>Types</h3>
-<h4><a id="error_code"></a><code>enum error-code</code></h4>
-<h5>Enum Cases</h5>
-<ul>
-<li>
-<p><a id="error_code.invalid_argument"></a><code>invalid-argument</code></p>
-<p>Caller module passed an invalid argument.
-</li>
-<li>
-<p><a id="error_code.invalid_encoding"></a><code>invalid-encoding</code></p>
-<p>Invalid encoding.
-</li>
-<li>
-<p><a id="error_code.timeout"></a><code>timeout</code></p>
-<p>The operation timed out.
-</li>
-<li>
-<p><a id="error_code.runtime_error"></a><code>runtime-error</code></p>
-<p>Runtime Error.
-</li>
-<li>
-<p><a id="error_code.unsupported_operation"></a><code>unsupported-operation</code></p>
-<p>Unsupported operation.
-</li>
-<li>
-<p><a id="error_code.too_large"></a><code>too-large</code></p>
-<p>Graph is too large.
-</li>
-<li>
-<p><a id="error_code.not_found"></a><code>not-found</code></p>
-<p>Graph not found.
-</li>
-<li>
-<p><a id="error_code.security"></a><code>security</code></p>
-<p>The operation is insecure or has insufficient privilege to be performed.
-e.g., cannot access a hardware feature requested
-</li>
-<li>
-<p><a id="error_code.unknown"></a><code>unknown</code></p>
-<p>The operation failed for an unspecified reason.
-</li>
-</ul>
-<h4><a id="error"></a><code>resource error</code></h4>
-<hr />
-<h3>Functions</h3>
-<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
-<p>Return the error code.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
-</ul>
-<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
-<p>Errors can propagated with backend specific status through a string value.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_error_data.0"></a> <code>string</code></li>
-</ul>
 <h2><a id="wasi_nn_tensor_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/tensor@0.2.0-rc-2024-10-28</h2>
 <p>All inputs and outputs to an ML inference are represented as <a href="#tensor"><code>tensor</code></a>s.</p>
 <hr />
@@ -628,7 +561,7 @@ containing a single value, use <code>[1]</code> for the tensor dimensions.</p>
 <ul>
 <li><a id="method_tensor_data.0"></a> <a href="#tensor_data"><a href="#tensor_data"><code>tensor-data</code></a></a></li>
 </ul>
-<h2><a id="hayride_ai_tensor_stream_0_0_39"></a>Import interface hayride:ai/tensor-stream@0.0.39</h2>
+<h2><a id="hayride_ai_tensor_stream_0_0_40"></a>Import interface hayride:ai/tensor-stream@0.0.40</h2>
 <p>This interface defines a stream of tensors. The stream is a sequence of tensors.</p>
 <hr />
 <h3>Types</h3>
@@ -702,7 +635,153 @@ containing a single value, use <code>[1]</code> for the tensor dimensions.</p>
 <ul>
 <li><a id="method_tensor_stream_subscribe.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_inference_stream_0_0_39"></a>Import interface hayride:ai/inference-stream@0.0.39</h2>
+<h2><a id="hayride_ai_context_0_0_40"></a>Import interface hayride:ai/context@0.0.40</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="message"></a><code>type message</code></h4>
+<p><a href="#message"><a href="#message"><code>message</code></a></a></p>
+<p>
+#### <a id="output_stream"></a>`type output-stream`
+[`output-stream`](#output_stream)
+<p>
+#### <a id="tensor_stream"></a>`type tensor-stream`
+[`tensor-stream`](#tensor_stream)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="error_code.unexpected_message_type"></a><code>unexpected-message-type</code></li>
+<li><a id="error_code.write_error"></a><code>write-error</code></li>
+<li><a id="error_code.message_not_found"></a><code>message-not-found</code></li>
+<li><a id="error_code.pipe_error"></a><code>pipe-error</code></li>
+<li><a id="error_code.unknown"></a><code>unknown</code></li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<h4><a id="context"></a><code>resource context</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<p>return the error code.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<p>errors can propagated with backend specific status through a string value.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
+</ul>
+<h4><a id="constructor_context"></a><code>[constructor]context: func</code></h4>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_context.0"></a> own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_context_write"></a><code>[method]context.write: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_context_write.self"></a><code>self</code>: borrow&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
+<li><a id="method_context_write.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_context_write.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="method_context_messages"></a><code>[method]context.messages: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_context_messages.self"></a><code>self</code>: borrow&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_context_messages.0"></a> result&lt;list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="method_context_next"></a><code>[method]context.next: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_context_next.self"></a><code>self</code>: borrow&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_context_next.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h2><a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28</h2>
+<p>TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)</p>
+<hr />
+<h3>Types</h3>
+<h4><a id="error_code"></a><code>enum error-code</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li>
+<p><a id="error_code.invalid_argument"></a><code>invalid-argument</code></p>
+<p>Caller module passed an invalid argument.
+</li>
+<li>
+<p><a id="error_code.invalid_encoding"></a><code>invalid-encoding</code></p>
+<p>Invalid encoding.
+</li>
+<li>
+<p><a id="error_code.timeout"></a><code>timeout</code></p>
+<p>The operation timed out.
+</li>
+<li>
+<p><a id="error_code.runtime_error"></a><code>runtime-error</code></p>
+<p>Runtime Error.
+</li>
+<li>
+<p><a id="error_code.unsupported_operation"></a><code>unsupported-operation</code></p>
+<p>Unsupported operation.
+</li>
+<li>
+<p><a id="error_code.too_large"></a><code>too-large</code></p>
+<p>Graph is too large.
+</li>
+<li>
+<p><a id="error_code.not_found"></a><code>not-found</code></p>
+<p>Graph not found.
+</li>
+<li>
+<p><a id="error_code.security"></a><code>security</code></p>
+<p>The operation is insecure or has insufficient privilege to be performed.
+e.g., cannot access a hardware feature requested
+</li>
+<li>
+<p><a id="error_code.unknown"></a><code>unknown</code></p>
+<p>The operation failed for an unspecified reason.
+</li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<p>Return the error code.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<p>Errors can propagated with backend specific status through a string value.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
+</ul>
+<h2><a id="hayride_ai_inference_stream_0_0_40"></a>Import interface hayride:ai/inference-stream@0.0.40</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
@@ -742,26 +821,22 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="method_graph_execution_context_stream_compute.0"></a> result&lt;<a href="#named_tensor_stream"><a href="#named_tensor_stream"><code>named-tensor-stream</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_model_0_0_39"></a>Export interface hayride:ai/model@0.0.39</h2>
+<h2><a id="hayride_ai_model_0_0_40"></a>Export interface hayride:ai/model@0.0.40</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="message"></a><code>type message</code></h4>
-<p><a href="#message"><a href="#message"><code>message</code></a></a></p>
+<h4><a id="graph_execution_context_stream"></a><code>type graph-execution-context-stream</code></h4>
+<p><a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a></p>
 <p>
-#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
-[`graph-execution-context-stream`](#graph_execution_context_stream)
-<p>
-#### <a id="output_stream"></a>`type output-stream`
-[`output-stream`](#output_stream)
+#### <a id="context"></a>`type context`
+[`context`](#context)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
 <ul>
+<li><a id="error_code.context_error"></a><code>context-error</code></li>
 <li><a id="error_code.context_encode"></a><code>context-encode</code></li>
-<li><a id="error_code.message_decode"></a><code>message-decode</code></li>
+<li><a id="error_code.context_decode"></a><code>context-decode</code></li>
 <li><a id="error_code.compute_error"></a><code>compute-error</code></li>
-<li><a id="error_code.unexpected_message_type"></a><code>unexpected-message-type</code></li>
-<li><a id="error_code.format_error"></a><code>format-error</code></li>
 <li><a id="error_code.unknown"></a><code>unknown</code></li>
 </ul>
 <h4><a id="error"></a><code>resource error</code></h4>
@@ -792,39 +867,34 @@ graph inputs and outputs.</p>
 <h5>Params</h5>
 <ul>
 <li><a id="constructor_model.graph"></a><code>graph</code>: own&lt;<a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a>&gt;</li>
+<li><a id="constructor_model.ctx"></a><code>ctx</code>: own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
 <li><a id="constructor_model.0"></a> own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
 </ul>
-<h4><a id="method_model_push"></a><code>[method]model.push: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="method_model_push.self"></a><code>self</code>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
-<li><a id="method_model_push.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_model_push.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
-</ul>
 <h4><a id="method_model_compute"></a><code>[method]model.compute: func</code></h4>
+<p>Initialize the model with a graph and a context</p>
 <h5>Params</h5>
 <ul>
 <li><a id="method_model_compute.self"></a><code>self</code>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
-<li><a id="method_model_compute.output"></a><code>output</code>: borrow&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
+<li><a id="method_model_compute.ctx"></a><code>ctx</code>: borrow&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_model_compute.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_model_compute.0"></a> result&lt;own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_agent_0_0_39"></a>Export interface hayride:ai/agent@0.0.39</h2>
+<h2><a id="hayride_ai_agent_0_0_40"></a>Export interface hayride:ai/agent@0.0.40</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="output_stream"></a><code>type output-stream</code></h4>
-<p><a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a></p>
+<h4><a id="context"></a><code>type context</code></h4>
+<p><a href="#context"><a href="#context"><code>context</code></a></a></p>
 <p>
 #### <a id="message"></a>`type message`
 [`message`](#message)
+<p>
+#### <a id="model"></a>`type model`
+[`model`](#model)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
@@ -832,6 +902,7 @@ graph inputs and outputs.</p>
 <li><a id="error_code.unknown"></a><code>unknown</code></li>
 </ul>
 <h4><a id="error"></a><code>resource error</code></h4>
+<h4><a id="agent"></a><code>resource agent</code></h4>
 <hr />
 <h3>Functions</h3>
 <h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
@@ -854,13 +925,22 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
-<h4><a id="invoke"></a><code>invoke: func</code></h4>
+<h4><a id="constructor_agent"></a><code>[constructor]agent: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="invoke.msg"></a><code>msg</code>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
-<li><a id="invoke.output"></a><code>output</code>: borrow&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
+<li><a id="constructor_agent.model"></a><a href="#model"><code>model</code></a>: own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="invoke.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="constructor_agent.0"></a> own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_agent_invoke"></a><code>[method]agent.invoke: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_invoke.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke.msg"></a><code>msg</code>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_agent_invoke.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
