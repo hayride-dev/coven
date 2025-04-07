@@ -4,7 +4,9 @@ interface agent {
     use context.{context};
     use types.{message};
     use model.{model};
+
     enum error-code {
+        invoke-error,
         unknown
     }
 
@@ -16,7 +18,9 @@ interface agent {
     }
 
     resource agent {
-        constructor(model: model);
-        invoke: func(msg: message) -> result<_,error>;
+        constructor(name: string, instruction: string);
+        name: func() -> string;
+        instruction: func() -> string;
+        invoke: func(ctx: borrow<context>, model: borrow<model>) -> result<list<message>, error>;
     }
 }

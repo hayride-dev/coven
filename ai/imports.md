@@ -965,21 +965,14 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="message"></a>`type message`
 [`message`](#message)
 <p>
-#### <a id="output_stream"></a>`type output-stream`
-[`output-stream`](#output_stream)
-<p>
-#### <a id="tensor_stream"></a>`type tensor-stream`
-[`tensor-stream`](#tensor_stream)
-<p>
 #### <a id="error_code"></a>`enum error-code`
 
 
 ##### Enum Cases
 
 - <a id="error_code.unexpected_message_type"></a>`unexpected-message-type`
-- <a id="error_code.write_error"></a>`write-error`
+- <a id="error_code.push_error"></a>`push-error`
 - <a id="error_code.message_not_found"></a>`message-not-found`
-- <a id="error_code.pipe_error"></a>`pipe-error`
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
@@ -1020,17 +1013,17 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="constructor_context.0"></a> own<[`context`](#context)>
 
-#### <a id="method_context_write"></a>`[method]context.write: func`
+#### <a id="method_context_push"></a>`[method]context.push: func`
 
 
 ##### Params
 
-- <a id="method_context_write.self"></a>`self`: borrow<[`context`](#context)>
-- <a id="method_context_write.messages"></a>`messages`: list<[`message`](#message)>
+- <a id="method_context_push.self"></a>`self`: borrow<[`context`](#context)>
+- <a id="method_context_push.messages"></a>`messages`: list<[`message`](#message)>
 
 ##### Return values
 
-- <a id="method_context_write.0"></a> result<_, own<[`error`](#error)>>
+- <a id="method_context_push.0"></a> result<_, own<[`error`](#error)>>
 
 #### <a id="method_context_messages"></a>`[method]context.messages: func`
 
@@ -1064,8 +1057,8 @@ errors can propagated with backend specific status through a string value.
 #### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
 [`graph-execution-context-stream`](#graph_execution_context_stream)
 <p>
-#### <a id="context"></a>`type context`
-[`context`](#context)
+#### <a id="message"></a>`type message`
+[`message`](#message)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 
@@ -1078,6 +1071,8 @@ errors can propagated with backend specific status through a string value.
 - <a id="error_code.compute_error"></a>`compute-error`
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
+
+#### <a id="format"></a>`resource format`
 
 #### <a id="model"></a>`resource model`
 
@@ -1109,13 +1104,44 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
+#### <a id="constructor_format"></a>`[constructor]format: func`
+
+
+##### Return values
+
+- <a id="constructor_format.0"></a> own<[`format`](#format)>
+
+#### <a id="method_format_encode"></a>`[method]format.encode: func`
+
+
+##### Params
+
+- <a id="method_format_encode.self"></a>`self`: borrow<[`format`](#format)>
+- <a id="method_format_encode.messages"></a>`messages`: list<[`message`](#message)>
+
+##### Return values
+
+- <a id="method_format_encode.0"></a> result<list<`u8`>, own<[`error`](#error)>>
+
+#### <a id="method_format_decode"></a>`[method]format.decode: func`
+
+
+##### Params
+
+- <a id="method_format_decode.self"></a>`self`: borrow<[`format`](#format)>
+- <a id="method_format_decode.raw"></a>`raw`: list<`u8`>
+
+##### Return values
+
+- <a id="method_format_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+
 #### <a id="constructor_model"></a>`[constructor]model: func`
 
 
 ##### Params
 
+- <a id="constructor_model.format"></a>`format`: own<[`format`](#format)>
 - <a id="constructor_model.graph"></a>`graph`: own<[`graph-execution-context-stream`](#graph_execution_context_stream)>
-- <a id="constructor_model.ctx"></a>`ctx`: own<[`context`](#context)>
 
 ##### Return values
 
@@ -1123,16 +1149,15 @@ errors can propagated with backend specific status through a string value.
 
 #### <a id="method_model_compute"></a>`[method]model.compute: func`
 
-Initialize the model with a graph and a context
 
 ##### Params
 
 - <a id="method_model_compute.self"></a>`self`: borrow<[`model`](#model)>
-- <a id="method_model_compute.ctx"></a>`ctx`: borrow<[`context`](#context)>
+- <a id="method_model_compute.messages"></a>`messages`: list<[`message`](#message)>
 
 ##### Return values
 
-- <a id="method_model_compute.0"></a> result<own<[`error`](#error)>>
+- <a id="method_model_compute.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
 ## <a id="hayride_ai_agent_0_0_40"></a>Import interface hayride:ai/agent@0.0.40
 
@@ -1155,6 +1180,7 @@ Initialize the model with a graph and a context
 
 ##### Enum Cases
 
+- <a id="error_code.invoke_error"></a>`invoke-error`
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
@@ -1193,11 +1219,34 @@ errors can propagated with backend specific status through a string value.
 
 ##### Params
 
-- <a id="constructor_agent.model"></a>`model`: own<[`model`](#model)>
+- <a id="constructor_agent.name"></a>`name`: `string`
+- <a id="constructor_agent.instruction"></a>`instruction`: `string`
 
 ##### Return values
 
 - <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
+
+#### <a id="method_agent_name"></a>`[method]agent.name: func`
+
+
+##### Params
+
+- <a id="method_agent_name.self"></a>`self`: borrow<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="method_agent_name.0"></a> `string`
+
+#### <a id="method_agent_instruction"></a>`[method]agent.instruction: func`
+
+
+##### Params
+
+- <a id="method_agent_instruction.self"></a>`self`: borrow<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="method_agent_instruction.0"></a> `string`
 
 #### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
 
@@ -1205,11 +1254,12 @@ errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_invoke.msg"></a>`msg`: [`message`](#message)
+- <a id="method_agent_invoke.ctx"></a>`ctx`: borrow<[`context`](#context)>
+- <a id="method_agent_invoke.model"></a>`model`: borrow<[`model`](#model)>
 
 ##### Return values
 
-- <a id="method_agent_invoke.0"></a> result<_, own<[`error`](#error)>>
+- <a id="method_agent_invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 
 ## <a id="hayride_ai_transformer_0_0_40"></a>Import interface hayride:ai/transformer@0.0.40
 

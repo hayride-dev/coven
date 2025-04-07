@@ -787,19 +787,12 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h4><a id="message"></a><code>type message</code></h4>
 <p><a href="#message"><a href="#message"><code>message</code></a></a></p>
 <p>
-#### <a id="output_stream"></a>`type output-stream`
-[`output-stream`](#output_stream)
-<p>
-#### <a id="tensor_stream"></a>`type tensor-stream`
-[`tensor-stream`](#tensor_stream)
-<p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
 <ul>
 <li><a id="error_code.unexpected_message_type"></a><code>unexpected-message-type</code></li>
-<li><a id="error_code.write_error"></a><code>write-error</code></li>
+<li><a id="error_code.push_error"></a><code>push-error</code></li>
 <li><a id="error_code.message_not_found"></a><code>message-not-found</code></li>
-<li><a id="error_code.pipe_error"></a><code>pipe-error</code></li>
 <li><a id="error_code.unknown"></a><code>unknown</code></li>
 </ul>
 <h4><a id="error"></a><code>resource error</code></h4>
@@ -831,15 +824,15 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="constructor_context.0"></a> own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
 </ul>
-<h4><a id="method_context_write"></a><code>[method]context.write: func</code></h4>
+<h4><a id="method_context_push"></a><code>[method]context.push: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_context_write.self"></a><code>self</code>: borrow&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
-<li><a id="method_context_write.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
+<li><a id="method_context_push.self"></a><code>self</code>: borrow&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
+<li><a id="method_context_push.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_context_write.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_context_push.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h4><a id="method_context_messages"></a><code>[method]context.messages: func</code></h4>
 <h5>Params</h5>
@@ -865,8 +858,8 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h4><a id="graph_execution_context_stream"></a><code>type graph-execution-context-stream</code></h4>
 <p><a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a></p>
 <p>
-#### <a id="context"></a>`type context`
-[`context`](#context)
+#### <a id="message"></a>`type message`
+[`message`](#message)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
@@ -878,6 +871,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <li><a id="error_code.unknown"></a><code>unknown</code></li>
 </ul>
 <h4><a id="error"></a><code>resource error</code></h4>
+<h4><a id="format"></a><code>resource format</code></h4>
 <h4><a id="model"></a><code>resource model</code></h4>
 <hr />
 <h3>Functions</h3>
@@ -901,26 +895,50 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
+<h4><a id="constructor_format"></a><code>[constructor]format: func</code></h4>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_format.0"></a> own&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_format_encode"></a><code>[method]format.encode: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_format_encode.self"></a><code>self</code>: borrow&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
+<li><a id="method_format_encode.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_format_encode.0"></a> result&lt;list&lt;<code>u8</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="method_format_decode"></a><code>[method]format.decode: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_format_decode.self"></a><code>self</code>: borrow&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
+<li><a id="method_format_decode.raw"></a><code>raw</code>: list&lt;<code>u8</code>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_format_decode.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
 <h4><a id="constructor_model"></a><code>[constructor]model: func</code></h4>
 <h5>Params</h5>
 <ul>
+<li><a id="constructor_model.format"></a><a href="#format"><code>format</code></a>: own&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
 <li><a id="constructor_model.graph"></a><a href="#graph"><code>graph</code></a>: own&lt;<a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a>&gt;</li>
-<li><a id="constructor_model.ctx"></a><code>ctx</code>: own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
 <li><a id="constructor_model.0"></a> own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
 </ul>
 <h4><a id="method_model_compute"></a><code>[method]model.compute: func</code></h4>
-<p>Initialize the model with a graph and a context</p>
 <h5>Params</h5>
 <ul>
 <li><a id="method_model_compute.self"></a><code>self</code>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
-<li><a id="method_model_compute.ctx"></a><code>ctx</code>: borrow&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
+<li><a id="method_model_compute.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_model_compute.0"></a> result&lt;own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_model_compute.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h2><a id="hayride_ai_agent_0_0_40"></a>Import interface hayride:ai/agent@0.0.40</h2>
 <hr />
@@ -937,6 +955,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
 <ul>
+<li><a id="error_code.invoke_error"></a><code>invoke-error</code></li>
 <li><a id="error_code.unknown"></a><code>unknown</code></li>
 </ul>
 <h4><a id="error"></a><code>resource error</code></h4>
@@ -966,21 +985,41 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h4><a id="constructor_agent"></a><code>[constructor]agent: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="constructor_agent.model"></a><a href="#model"><code>model</code></a>: own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
+<li><a id="constructor_agent.name"></a><code>name</code>: <code>string</code></li>
+<li><a id="constructor_agent.instruction"></a><code>instruction</code>: <code>string</code></li>
 </ul>
 <h5>Return values</h5>
 <ul>
 <li><a id="constructor_agent.0"></a> own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
 </ul>
+<h4><a id="method_agent_name"></a><code>[method]agent.name: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_name.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_agent_name.0"></a> <code>string</code></li>
+</ul>
+<h4><a id="method_agent_instruction"></a><code>[method]agent.instruction: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_instruction.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_agent_instruction.0"></a> <code>string</code></li>
+</ul>
 <h4><a id="method_agent_invoke"></a><code>[method]agent.invoke: func</code></h4>
 <h5>Params</h5>
 <ul>
 <li><a id="method_agent_invoke.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-<li><a id="method_agent_invoke.msg"></a><code>msg</code>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
+<li><a id="method_agent_invoke.ctx"></a><code>ctx</code>: borrow&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke.model"></a><a href="#model"><code>model</code></a>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_agent_invoke.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_agent_invoke.0"></a> result&lt;list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h2><a id="hayride_ai_transformer_0_0_40"></a>Import interface hayride:ai/transformer@0.0.40</h2>
 <hr />

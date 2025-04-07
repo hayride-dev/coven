@@ -2,14 +2,11 @@ package hayride:ai@0.0.40;
 
 interface context {
     use types.{message};
-    use wasi:io/streams@0.2.0.{output-stream};
-    use tensor-stream.{tensor-stream};
 
     enum error-code {
         unexpected-message-type,
-        write-error,
+        push-error,
         message-not-found,
-        pipe-error,
         unknown
     }
 
@@ -23,11 +20,17 @@ interface context {
 
     resource context {
         constructor();
-        write: func(messages: list<message>) -> result<_, error>;
+        push: func(messages: list<message>) -> result<_, error>;
         messages: func() -> result<list<message>, error>;
         next: func() -> result<message, error>;
+
+        // TODO :: add more context mangement functions ( examples below )
+
+        // truncate can be used to summarize the full context 
+        // truncate: func() -> result<_, error>;
+
+        // clear can be used to clear the context
+        // clear: func() -> result<_, error>;
     }
 } 
-
-
 

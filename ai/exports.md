@@ -3,13 +3,13 @@
 
  - Imports:
     - interface `hayride:ai/types@0.0.40`
-    - interface `wasi:io/error@0.2.0`
-    - interface `wasi:io/poll@0.2.0`
-    - interface `wasi:io/streams@0.2.0`
-    - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
-    - interface `hayride:ai/tensor-stream@0.0.40`
     - interface `hayride:ai/context@0.0.40`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
+    - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
+    - interface `wasi:io/poll@0.2.0`
+    - interface `wasi:io/error@0.2.0`
+    - interface `wasi:io/streams@0.2.0`
+    - interface `hayride:ai/tensor-stream@0.0.40`
     - interface `hayride:ai/inference-stream@0.0.40`
  - Exports:
     - interface `hayride:ai/model@0.0.40`
@@ -83,55 +83,262 @@
 
 - <a id="message.role"></a>`role`: [`role`](#role)
 - <a id="message.content"></a>`content`: list<[`content`](#content)>
-## <a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0
+## <a id="hayride_ai_context_0_0_40"></a>Import interface hayride:ai/context@0.0.40
 
 
 ----
 
 ### Types
 
+#### <a id="message"></a>`type message`
+[`message`](#message)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.unexpected_message_type"></a>`unexpected-message-type`
+- <a id="error_code.push_error"></a>`push-error`
+- <a id="error_code.message_not_found"></a>`message-not-found`
+- <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
-A resource which represents some error information.
+#### <a id="context"></a>`resource context`
 
-The only method provided by this resource is `to-debug-string`,
-which provides some human-readable information about the error.
-
-In the `wasi:io` package, this resource is returned through the
-`wasi:io/streams/stream-error` type.
-
-To provide more specific error information, other interfaces may
-provide functions to further "downcast" this error into more specific
-error information. For example, `error`s returned in streams derived
-from filesystem types to be described using the filesystem's own
-error-code type, using the function
-`wasi:filesystem/types/filesystem-error-code`, which takes a parameter
-`borrow<error>` and returns
-`option<wasi:filesystem/types/error-code>`.
-
-The set of functions which can "downcast" an `error` into a more
-concrete type is open.
 ----
 
 ### Functions
 
-#### <a id="method_error_to_debug_string"></a>`[method]error.to-debug-string: func`
+#### <a id="method_error_code"></a>`[method]error.code: func`
 
-Returns a string that is suitable to assist humans in debugging
-this error.
-
-WARNING: The returned string should not be consumed mechanically!
-It may change across platforms, hosts, or other implementation
-details. Parsing this string is a major platform-compatibility
-hazard.
+return the error code.
 
 ##### Params
 
-- <a id="method_error_to_debug_string.self"></a>`self`: borrow<[`error`](#error)>
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
 
 ##### Return values
 
-- <a id="method_error_to_debug_string.0"></a> `string`
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+#### <a id="constructor_context"></a>`[constructor]context: func`
+
+
+##### Return values
+
+- <a id="constructor_context.0"></a> own<[`context`](#context)>
+
+#### <a id="method_context_push"></a>`[method]context.push: func`
+
+
+##### Params
+
+- <a id="method_context_push.self"></a>`self`: borrow<[`context`](#context)>
+- <a id="method_context_push.messages"></a>`messages`: list<[`message`](#message)>
+
+##### Return values
+
+- <a id="method_context_push.0"></a> result<_, own<[`error`](#error)>>
+
+#### <a id="method_context_messages"></a>`[method]context.messages: func`
+
+
+##### Params
+
+- <a id="method_context_messages.self"></a>`self`: borrow<[`context`](#context)>
+
+##### Return values
+
+- <a id="method_context_messages.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
+
+#### <a id="method_context_next"></a>`[method]context.next: func`
+
+
+##### Params
+
+- <a id="method_context_next.self"></a>`self`: borrow<[`context`](#context)>
+
+##### Return values
+
+- <a id="method_context_next.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+
+## <a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28
+
+TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)
+
+----
+
+### Types
+
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.invalid_argument"></a>`invalid-argument`
+  <p>Caller module passed an invalid argument.
+
+- <a id="error_code.invalid_encoding"></a>`invalid-encoding`
+  <p>Invalid encoding.
+
+- <a id="error_code.timeout"></a>`timeout`
+  <p>The operation timed out.
+
+- <a id="error_code.runtime_error"></a>`runtime-error`
+  <p>Runtime Error.
+
+- <a id="error_code.unsupported_operation"></a>`unsupported-operation`
+  <p>Unsupported operation.
+
+- <a id="error_code.too_large"></a>`too-large`
+  <p>Graph is too large.
+
+- <a id="error_code.not_found"></a>`not-found`
+  <p>Graph not found.
+
+- <a id="error_code.security"></a>`security`
+  <p>The operation is insecure or has insufficient privilege to be performed.
+  e.g., cannot access a hardware feature requested
+
+- <a id="error_code.unknown"></a>`unknown`
+  <p>The operation failed for an unspecified reason.
+
+#### <a id="error"></a>`resource error`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+Return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+Errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+## <a id="wasi_nn_tensor_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/tensor@0.2.0-rc-2024-10-28
+
+All inputs and outputs to an ML inference are represented as `tensor`s.
+
+----
+
+### Types
+
+#### <a id="tensor_dimensions"></a>`type tensor-dimensions`
+[`tensor-dimensions`](#tensor_dimensions)
+<p>The dimensions of a tensor.
+
+The array length matches the tensor rank and each element in the array describes the size of
+each dimension
+
+#### <a id="tensor_type"></a>`enum tensor-type`
+
+The type of the elements in a tensor.
+
+##### Enum Cases
+
+- <a id="tensor_type.fp16"></a>`FP16`
+- <a id="tensor_type.fp32"></a>`FP32`
+- <a id="tensor_type.fp64"></a>`FP64`
+- <a id="tensor_type.bf16"></a>`BF16`
+- <a id="tensor_type.u8"></a>`U8`
+- <a id="tensor_type.i32"></a>`I32`
+- <a id="tensor_type.i64"></a>`I64`
+#### <a id="tensor_data"></a>`type tensor-data`
+[`tensor-data`](#tensor_data)
+<p>The tensor data.
+
+Initially conceived as a sparse representation, each empty cell would be filled with zeros
+and the array length must match the product of all of the dimensions and the number of bytes
+in the type (e.g., a 2x2 tensor with 4-byte f32 elements would have a data array of length
+16). Naturally, this representation requires some knowledge of how to lay out data in
+memory--e.g., using row-major ordering--and could perhaps be improved.
+
+#### <a id="tensor"></a>`resource tensor`
+
+----
+
+### Functions
+
+#### <a id="constructor_tensor"></a>`[constructor]tensor: func`
+
+
+##### Params
+
+- <a id="constructor_tensor.dimensions"></a>`dimensions`: [`tensor-dimensions`](#tensor_dimensions)
+- <a id="constructor_tensor.ty"></a>`ty`: [`tensor-type`](#tensor_type)
+- <a id="constructor_tensor.data"></a>`data`: [`tensor-data`](#tensor_data)
+
+##### Return values
+
+- <a id="constructor_tensor.0"></a> own<[`tensor`](#tensor)>
+
+#### <a id="method_tensor_dimensions"></a>`[method]tensor.dimensions: func`
+
+Describe the size of the tensor (e.g., 2x2x2x2 -> [2, 2, 2, 2]). To represent a tensor
+containing a single value, use `[1]` for the tensor dimensions.
+
+##### Params
+
+- <a id="method_tensor_dimensions.self"></a>`self`: borrow<[`tensor`](#tensor)>
+
+##### Return values
+
+- <a id="method_tensor_dimensions.0"></a> [`tensor-dimensions`](#tensor_dimensions)
+
+#### <a id="method_tensor_ty"></a>`[method]tensor.ty: func`
+
+Describe the type of element in the tensor (e.g., `f32`).
+
+##### Params
+
+- <a id="method_tensor_ty.self"></a>`self`: borrow<[`tensor`](#tensor)>
+
+##### Return values
+
+- <a id="method_tensor_ty.0"></a> [`tensor-type`](#tensor_type)
+
+#### <a id="method_tensor_data"></a>`[method]tensor.data: func`
+
+Return the tensor data.
+
+##### Params
+
+- <a id="method_tensor_data.self"></a>`self`: borrow<[`tensor`](#tensor)>
+
+##### Return values
+
+- <a id="method_tensor_data.0"></a> [`tensor-data`](#tensor_data)
 
 ## <a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0
 
@@ -203,6 +410,56 @@ being reaedy for I/O.
 ##### Return values
 
 - <a id="poll.0"></a> list<`u32`>
+
+## <a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0
+
+
+----
+
+### Types
+
+#### <a id="error"></a>`resource error`
+
+A resource which represents some error information.
+
+The only method provided by this resource is `to-debug-string`,
+which provides some human-readable information about the error.
+
+In the `wasi:io` package, this resource is returned through the
+`wasi:io/streams/stream-error` type.
+
+To provide more specific error information, other interfaces may
+provide functions to further "downcast" this error into more specific
+error information. For example, `error`s returned in streams derived
+from filesystem types to be described using the filesystem's own
+error-code type, using the function
+`wasi:filesystem/types/filesystem-error-code`, which takes a parameter
+`borrow<error>` and returns
+`option<wasi:filesystem/types/error-code>`.
+
+The set of functions which can "downcast" an `error` into a more
+concrete type is open.
+----
+
+### Functions
+
+#### <a id="method_error_to_debug_string"></a>`[method]error.to-debug-string: func`
+
+Returns a string that is suitable to assist humans in debugging
+this error.
+
+WARNING: The returned string should not be consumed mechanically!
+It may change across platforms, hosts, or other implementation
+details. Parsing this string is a major platform-compatibility
+hazard.
+
+##### Params
+
+- <a id="method_error_to_debug_string.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_to_debug_string.0"></a> `string`
 
 ## <a id="wasi_io_streams_0_2_0"></a>Import interface wasi:io/streams@0.2.0
 
@@ -595,100 +852,6 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="wasi_nn_tensor_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/tensor@0.2.0-rc-2024-10-28
-
-All inputs and outputs to an ML inference are represented as `tensor`s.
-
-----
-
-### Types
-
-#### <a id="tensor_dimensions"></a>`type tensor-dimensions`
-[`tensor-dimensions`](#tensor_dimensions)
-<p>The dimensions of a tensor.
-
-The array length matches the tensor rank and each element in the array describes the size of
-each dimension
-
-#### <a id="tensor_type"></a>`enum tensor-type`
-
-The type of the elements in a tensor.
-
-##### Enum Cases
-
-- <a id="tensor_type.fp16"></a>`FP16`
-- <a id="tensor_type.fp32"></a>`FP32`
-- <a id="tensor_type.fp64"></a>`FP64`
-- <a id="tensor_type.bf16"></a>`BF16`
-- <a id="tensor_type.u8"></a>`U8`
-- <a id="tensor_type.i32"></a>`I32`
-- <a id="tensor_type.i64"></a>`I64`
-#### <a id="tensor_data"></a>`type tensor-data`
-[`tensor-data`](#tensor_data)
-<p>The tensor data.
-
-Initially conceived as a sparse representation, each empty cell would be filled with zeros
-and the array length must match the product of all of the dimensions and the number of bytes
-in the type (e.g., a 2x2 tensor with 4-byte f32 elements would have a data array of length
-16). Naturally, this representation requires some knowledge of how to lay out data in
-memory--e.g., using row-major ordering--and could perhaps be improved.
-
-#### <a id="tensor"></a>`resource tensor`
-
-----
-
-### Functions
-
-#### <a id="constructor_tensor"></a>`[constructor]tensor: func`
-
-
-##### Params
-
-- <a id="constructor_tensor.dimensions"></a>`dimensions`: [`tensor-dimensions`](#tensor_dimensions)
-- <a id="constructor_tensor.ty"></a>`ty`: [`tensor-type`](#tensor_type)
-- <a id="constructor_tensor.data"></a>`data`: [`tensor-data`](#tensor_data)
-
-##### Return values
-
-- <a id="constructor_tensor.0"></a> own<[`tensor`](#tensor)>
-
-#### <a id="method_tensor_dimensions"></a>`[method]tensor.dimensions: func`
-
-Describe the size of the tensor (e.g., 2x2x2x2 -> [2, 2, 2, 2]). To represent a tensor
-containing a single value, use `[1]` for the tensor dimensions.
-
-##### Params
-
-- <a id="method_tensor_dimensions.self"></a>`self`: borrow<[`tensor`](#tensor)>
-
-##### Return values
-
-- <a id="method_tensor_dimensions.0"></a> [`tensor-dimensions`](#tensor_dimensions)
-
-#### <a id="method_tensor_ty"></a>`[method]tensor.ty: func`
-
-Describe the type of element in the tensor (e.g., `f32`).
-
-##### Params
-
-- <a id="method_tensor_ty.self"></a>`self`: borrow<[`tensor`](#tensor)>
-
-##### Return values
-
-- <a id="method_tensor_ty.0"></a> [`tensor-type`](#tensor_type)
-
-#### <a id="method_tensor_data"></a>`[method]tensor.data: func`
-
-Return the tensor data.
-
-##### Params
-
-- <a id="method_tensor_data.self"></a>`self`: borrow<[`tensor`](#tensor)>
-
-##### Return values
-
-- <a id="method_tensor_data.0"></a> [`tensor-data`](#tensor_data)
-
 ## <a id="hayride_ai_tensor_stream_0_0_40"></a>Import interface hayride:ai/tensor-stream@0.0.40
 
 This interface defines a stream of tensors. The stream is a sequence of tensors.
@@ -780,176 +943,6 @@ Read up to `len` bytes from the stream.
 
 - <a id="method_tensor_stream_subscribe.0"></a> own<[`pollable`](#pollable)>
 
-## <a id="hayride_ai_context_0_0_40"></a>Import interface hayride:ai/context@0.0.40
-
-
-----
-
-### Types
-
-#### <a id="message"></a>`type message`
-[`message`](#message)
-<p>
-#### <a id="output_stream"></a>`type output-stream`
-[`output-stream`](#output_stream)
-<p>
-#### <a id="tensor_stream"></a>`type tensor-stream`
-[`tensor-stream`](#tensor_stream)
-<p>
-#### <a id="error_code"></a>`enum error-code`
-
-
-##### Enum Cases
-
-- <a id="error_code.unexpected_message_type"></a>`unexpected-message-type`
-- <a id="error_code.write_error"></a>`write-error`
-- <a id="error_code.message_not_found"></a>`message-not-found`
-- <a id="error_code.pipe_error"></a>`pipe-error`
-- <a id="error_code.unknown"></a>`unknown`
-#### <a id="error"></a>`resource error`
-
-#### <a id="context"></a>`resource context`
-
-----
-
-### Functions
-
-#### <a id="method_error_code"></a>`[method]error.code: func`
-
-return the error code.
-
-##### Params
-
-- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_code.0"></a> [`error-code`](#error_code)
-
-#### <a id="method_error_data"></a>`[method]error.data: func`
-
-errors can propagated with backend specific status through a string value.
-
-##### Params
-
-- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_data.0"></a> `string`
-
-#### <a id="constructor_context"></a>`[constructor]context: func`
-
-
-##### Return values
-
-- <a id="constructor_context.0"></a> own<[`context`](#context)>
-
-#### <a id="method_context_write"></a>`[method]context.write: func`
-
-
-##### Params
-
-- <a id="method_context_write.self"></a>`self`: borrow<[`context`](#context)>
-- <a id="method_context_write.messages"></a>`messages`: list<[`message`](#message)>
-
-##### Return values
-
-- <a id="method_context_write.0"></a> result<_, own<[`error`](#error)>>
-
-#### <a id="method_context_messages"></a>`[method]context.messages: func`
-
-
-##### Params
-
-- <a id="method_context_messages.self"></a>`self`: borrow<[`context`](#context)>
-
-##### Return values
-
-- <a id="method_context_messages.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
-
-#### <a id="method_context_next"></a>`[method]context.next: func`
-
-
-##### Params
-
-- <a id="method_context_next.self"></a>`self`: borrow<[`context`](#context)>
-
-##### Return values
-
-- <a id="method_context_next.0"></a> result<[`message`](#message), own<[`error`](#error)>>
-
-## <a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28
-
-TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)
-
-----
-
-### Types
-
-#### <a id="error_code"></a>`enum error-code`
-
-
-##### Enum Cases
-
-- <a id="error_code.invalid_argument"></a>`invalid-argument`
-  <p>Caller module passed an invalid argument.
-
-- <a id="error_code.invalid_encoding"></a>`invalid-encoding`
-  <p>Invalid encoding.
-
-- <a id="error_code.timeout"></a>`timeout`
-  <p>The operation timed out.
-
-- <a id="error_code.runtime_error"></a>`runtime-error`
-  <p>Runtime Error.
-
-- <a id="error_code.unsupported_operation"></a>`unsupported-operation`
-  <p>Unsupported operation.
-
-- <a id="error_code.too_large"></a>`too-large`
-  <p>Graph is too large.
-
-- <a id="error_code.not_found"></a>`not-found`
-  <p>Graph not found.
-
-- <a id="error_code.security"></a>`security`
-  <p>The operation is insecure or has insufficient privilege to be performed.
-  e.g., cannot access a hardware feature requested
-
-- <a id="error_code.unknown"></a>`unknown`
-  <p>The operation failed for an unspecified reason.
-
-#### <a id="error"></a>`resource error`
-
-----
-
-### Functions
-
-#### <a id="method_error_code"></a>`[method]error.code: func`
-
-Return the error code.
-
-##### Params
-
-- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_code.0"></a> [`error-code`](#error_code)
-
-#### <a id="method_error_data"></a>`[method]error.data: func`
-
-Errors can propagated with backend specific status through a string value.
-
-##### Params
-
-- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_data.0"></a> `string`
-
 ## <a id="hayride_ai_inference_stream_0_0_40"></a>Import interface hayride:ai/inference-stream@0.0.40
 
 
@@ -1010,8 +1003,8 @@ Compute the inference on the given inputs.
 #### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
 [`graph-execution-context-stream`](#graph_execution_context_stream)
 <p>
-#### <a id="context"></a>`type context`
-[`context`](#context)
+#### <a id="message"></a>`type message`
+[`message`](#message)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 
@@ -1024,6 +1017,8 @@ Compute the inference on the given inputs.
 - <a id="error_code.compute_error"></a>`compute-error`
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
+
+#### <a id="format"></a>`resource format`
 
 #### <a id="model"></a>`resource model`
 
@@ -1055,13 +1050,44 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
+#### <a id="constructor_format"></a>`[constructor]format: func`
+
+
+##### Return values
+
+- <a id="constructor_format.0"></a> own<[`format`](#format)>
+
+#### <a id="method_format_encode"></a>`[method]format.encode: func`
+
+
+##### Params
+
+- <a id="method_format_encode.self"></a>`self`: borrow<[`format`](#format)>
+- <a id="method_format_encode.messages"></a>`messages`: list<[`message`](#message)>
+
+##### Return values
+
+- <a id="method_format_encode.0"></a> result<list<`u8`>, own<[`error`](#error)>>
+
+#### <a id="method_format_decode"></a>`[method]format.decode: func`
+
+
+##### Params
+
+- <a id="method_format_decode.self"></a>`self`: borrow<[`format`](#format)>
+- <a id="method_format_decode.raw"></a>`raw`: list<`u8`>
+
+##### Return values
+
+- <a id="method_format_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+
 #### <a id="constructor_model"></a>`[constructor]model: func`
 
 
 ##### Params
 
+- <a id="constructor_model.format"></a>`format`: own<[`format`](#format)>
 - <a id="constructor_model.graph"></a>`graph`: own<[`graph-execution-context-stream`](#graph_execution_context_stream)>
-- <a id="constructor_model.ctx"></a>`ctx`: own<[`context`](#context)>
 
 ##### Return values
 
@@ -1069,16 +1095,15 @@ errors can propagated with backend specific status through a string value.
 
 #### <a id="method_model_compute"></a>`[method]model.compute: func`
 
-Initialize the model with a graph and a context
 
 ##### Params
 
 - <a id="method_model_compute.self"></a>`self`: borrow<[`model`](#model)>
-- <a id="method_model_compute.ctx"></a>`ctx`: borrow<[`context`](#context)>
+- <a id="method_model_compute.messages"></a>`messages`: list<[`message`](#message)>
 
 ##### Return values
 
-- <a id="method_model_compute.0"></a> result<own<[`error`](#error)>>
+- <a id="method_model_compute.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
 ## <a id="hayride_ai_agent_0_0_40"></a>Export interface hayride:ai/agent@0.0.40
 
@@ -1100,6 +1125,7 @@ Initialize the model with a graph and a context
 
 ##### Enum Cases
 
+- <a id="error_code.invoke_error"></a>`invoke-error`
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
@@ -1138,11 +1164,34 @@ errors can propagated with backend specific status through a string value.
 
 ##### Params
 
-- <a id="constructor_agent.model"></a>`model`: own<[`model`](#model)>
+- <a id="constructor_agent.name"></a>`name`: `string`
+- <a id="constructor_agent.instruction"></a>`instruction`: `string`
 
 ##### Return values
 
 - <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
+
+#### <a id="method_agent_name"></a>`[method]agent.name: func`
+
+
+##### Params
+
+- <a id="method_agent_name.self"></a>`self`: borrow<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="method_agent_name.0"></a> `string`
+
+#### <a id="method_agent_instruction"></a>`[method]agent.instruction: func`
+
+
+##### Params
+
+- <a id="method_agent_instruction.self"></a>`self`: borrow<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="method_agent_instruction.0"></a> `string`
 
 #### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
 
@@ -1150,9 +1199,10 @@ errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_invoke.msg"></a>`msg`: [`message`](#message)
+- <a id="method_agent_invoke.ctx"></a>`ctx`: borrow<[`context`](#context)>
+- <a id="method_agent_invoke.model"></a>`model`: borrow<[`model`](#model)>
 
 ##### Return values
 
-- <a id="method_agent_invoke.0"></a> result<_, own<[`error`](#error)>>
+- <a id="method_agent_invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 

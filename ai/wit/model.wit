@@ -2,7 +2,7 @@ package hayride:ai@0.0.40;
 
 interface model {
     use inference-stream.{graph-execution-context-stream};
-    use context.{context};
+    use types.{message};
 
     enum error-code {
         context-error,
@@ -19,8 +19,14 @@ interface model {
         data: func() -> string;
     }
 
+    resource format {
+        constructor();
+        encode: func(messages: list<message>) -> result<list<u8>,error>;
+        decode: func(raw: list<u8>) -> result<message, error>;
+    }
+
     resource model {
-        constructor(graph: graph-execution-context-stream, ctx: context); // Initialize the model with a graph and a context
-        compute: func(ctx: borrow<context>) -> result<error>; // to use the context object and call the graph compute with context 
+        constructor(format: format, graph: graph-execution-context-stream);
+        compute: func(messages: list<message>) -> result<message,error>;
     }
 }
