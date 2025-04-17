@@ -11,9 +11,8 @@
     - interface `hayride:ai/inference-stream@0.0.42`
     - interface `hayride:ai/graph-stream@0.0.42`
     - interface `hayride:ai/types@0.0.42`
-    - interface `hayride:ai/context@0.0.42`
-    - interface `hayride:ai/model@0.0.42`
     - interface `hayride:ai/agent@0.0.42`
+    - interface `hayride:ai/model@0.0.42`
     - interface `hayride:ai/transformer@0.0.42`
     - interface `hayride:ai/rag@0.0.42`
     - interface `wasi:nn/inference@0.2.0-rc-2024-10-28`
@@ -955,7 +954,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 - <a id="message.role"></a>`role`: [`role`](#role)
 - <a id="message.content"></a>`content`: list<[`content`](#content)>
-## <a id="hayride_ai_context_0_0_42"></a>Import interface hayride:ai/context@0.0.42
+## <a id="hayride_ai_agent_0_0_42"></a>Import interface hayride:ai/agent@0.0.42
 
 
 ----
@@ -970,13 +969,11 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 ##### Enum Cases
 
-- <a id="error_code.unexpected_message_type"></a>`unexpected-message-type`
-- <a id="error_code.push_error"></a>`push-error`
-- <a id="error_code.message_not_found"></a>`message-not-found`
+- <a id="error_code.invoke_error"></a>`invoke-error`
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
-#### <a id="context"></a>`resource context`
+#### <a id="agent"></a>`resource agent`
 
 ----
 
@@ -1006,46 +1003,24 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-#### <a id="constructor_context"></a>`[constructor]context: func`
+#### <a id="constructor_agent"></a>`[constructor]agent: func`
 
 
 ##### Return values
 
-- <a id="constructor_context.0"></a> own<[`context`](#context)>
+- <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
 
-#### <a id="method_context_push"></a>`[method]context.push: func`
+#### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
 
 
 ##### Params
 
-- <a id="method_context_push.self"></a>`self`: borrow<[`context`](#context)>
-- <a id="method_context_push.messages"></a>`messages`: list<[`message`](#message)>
+- <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_invoke.messages"></a>`messages`: list<[`message`](#message)>
 
 ##### Return values
 
-- <a id="method_context_push.0"></a> result<_, own<[`error`](#error)>>
-
-#### <a id="method_context_messages"></a>`[method]context.messages: func`
-
-
-##### Params
-
-- <a id="method_context_messages.self"></a>`self`: borrow<[`context`](#context)>
-
-##### Return values
-
-- <a id="method_context_messages.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
-
-#### <a id="method_context_next"></a>`[method]context.next: func`
-
-
-##### Params
-
-- <a id="method_context_next.self"></a>`self`: borrow<[`context`](#context)>
-
-##### Return values
-
-- <a id="method_context_next.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+- <a id="method_agent_invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 
 ## <a id="hayride_ai_model_0_0_42"></a>Import interface hayride:ai/model@0.0.42
 
@@ -1158,80 +1133,6 @@ errors can propagated with backend specific status through a string value.
 ##### Return values
 
 - <a id="method_model_compute.0"></a> result<[`message`](#message), own<[`error`](#error)>>
-
-## <a id="hayride_ai_agent_0_0_42"></a>Import interface hayride:ai/agent@0.0.42
-
-
-----
-
-### Types
-
-#### <a id="context"></a>`type context`
-[`context`](#context)
-<p>
-#### <a id="message"></a>`type message`
-[`message`](#message)
-<p>
-#### <a id="model"></a>`type model`
-[`model`](#model)
-<p>
-#### <a id="error_code"></a>`enum error-code`
-
-
-##### Enum Cases
-
-- <a id="error_code.invoke_error"></a>`invoke-error`
-- <a id="error_code.unknown"></a>`unknown`
-#### <a id="error"></a>`resource error`
-
-#### <a id="agent"></a>`resource agent`
-
-----
-
-### Functions
-
-#### <a id="method_error_code"></a>`[method]error.code: func`
-
-return the error code.
-
-##### Params
-
-- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_code.0"></a> [`error-code`](#error_code)
-
-#### <a id="method_error_data"></a>`[method]error.data: func`
-
-errors can propagated with backend specific status through a string value.
-
-##### Params
-
-- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_data.0"></a> `string`
-
-#### <a id="constructor_agent"></a>`[constructor]agent: func`
-
-
-##### Return values
-
-- <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
-
-#### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
-
-
-##### Params
-
-- <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_invoke.messages"></a>`messages`: list<[`message`](#message)>
-
-##### Return values
-
-- <a id="method_agent_invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 
 ## <a id="hayride_ai_transformer_0_0_42"></a>Import interface hayride:ai/transformer@0.0.42
 

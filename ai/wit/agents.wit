@@ -1,9 +1,7 @@
 package hayride:ai@0.0.42;
 
 interface agent {
-    use context.{context};
     use types.{message};
-    use model.{model};
 
     enum error-code {
         invoke-error,
