@@ -2,20 +2,20 @@
 
 
  - Imports:
-    - interface `hayride:ai/types@0.0.41`
-    - interface `hayride:ai/context@0.0.41`
+    - interface `hayride:ai/types@0.0.42`
+    - interface `hayride:ai/context@0.0.42`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
     - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:ai/tensor-stream@0.0.41`
-    - interface `hayride:ai/inference-stream@0.0.41`
+    - interface `hayride:ai/tensor-stream@0.0.42`
+    - interface `hayride:ai/inference-stream@0.0.42`
  - Exports:
-    - interface `hayride:ai/model@0.0.41`
-    - interface `hayride:ai/agent@0.0.41`
+    - interface `hayride:ai/model@0.0.42`
+    - interface `hayride:ai/agent@0.0.42`
 
-## <a id="hayride_ai_types_0_0_40"></a>Import interface hayride:ai/types@0.0.41
+## <a id="hayride_ai_types_0_0_42"></a>Import interface hayride:ai/types@0.0.42
 
 
 ----
@@ -83,7 +83,7 @@
 
 - <a id="message.role"></a>`role`: [`role`](#role)
 - <a id="message.content"></a>`content`: list<[`content`](#content)>
-## <a id="hayride_ai_context_0_0_40"></a>Import interface hayride:ai/context@0.0.41
+## <a id="hayride_ai_context_0_0_42"></a>Import interface hayride:ai/context@0.0.42
 
 
 ----
@@ -852,7 +852,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_ai_tensor_stream_0_0_40"></a>Import interface hayride:ai/tensor-stream@0.0.41
+## <a id="hayride_ai_tensor_stream_0_0_42"></a>Import interface hayride:ai/tensor-stream@0.0.42
 
 This interface defines a stream of tensors. The stream is a sequence of tensors.
 
@@ -943,7 +943,7 @@ Read up to `len` bytes from the stream.
 
 - <a id="method_tensor_stream_subscribe.0"></a> own<[`pollable`](#pollable)>
 
-## <a id="hayride_ai_inference_stream_0_0_40"></a>Import interface hayride:ai/inference-stream@0.0.41
+## <a id="hayride_ai_inference_stream_0_0_42"></a>Import interface hayride:ai/inference-stream@0.0.42
 
 
 ----
@@ -994,7 +994,7 @@ Compute the inference on the given inputs.
 
 - <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
 
-## <a id="hayride_ai_model_0_0_40"></a>Export interface hayride:ai/model@0.0.41
+## <a id="hayride_ai_model_0_0_42"></a>Export interface hayride:ai/model@0.0.42
 
 ----
 
@@ -1105,7 +1105,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_model_compute.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
-## <a id="hayride_ai_agent_0_0_40"></a>Export interface hayride:ai/agent@0.0.41
+## <a id="hayride_ai_agent_0_0_42"></a>Export interface hayride:ai/agent@0.0.42
 
 ----
 
@@ -1162,36 +1162,9 @@ errors can propagated with backend specific status through a string value.
 #### <a id="constructor_agent"></a>`[constructor]agent: func`
 
 
-##### Params
-
-- <a id="constructor_agent.name"></a>`name`: `string`
-- <a id="constructor_agent.instruction"></a>`instruction`: `string`
-
 ##### Return values
 
 - <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
-
-#### <a id="method_agent_name"></a>`[method]agent.name: func`
-
-
-##### Params
-
-- <a id="method_agent_name.self"></a>`self`: borrow<[`agent`](#agent)>
-
-##### Return values
-
-- <a id="method_agent_name.0"></a> `string`
-
-#### <a id="method_agent_instruction"></a>`[method]agent.instruction: func`
-
-
-##### Params
-
-- <a id="method_agent_instruction.self"></a>`self`: borrow<[`agent`](#agent)>
-
-##### Return values
-
-- <a id="method_agent_instruction.0"></a> `string`
 
 #### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
 
@@ -1199,8 +1172,7 @@ errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_invoke.ctx"></a>`ctx`: borrow<[`context`](#context)>
-- <a id="method_agent_invoke.model"></a>`model`: borrow<[`model`](#model)>
+- <a id="method_agent_invoke.messages"></a>`messages`: list<[`message`](#message)>
 
 ##### Return values
 
