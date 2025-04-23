@@ -1,9 +1,0 @@
-package hayride:core@0.0.43;
-
-world imports {
-    import config;
-}
-
-world types {
-    export api;
-}
