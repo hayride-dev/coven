@@ -19,6 +19,6 @@ interface agent {
     resource agent {
         constructor();
         invoke: func(messages: list<message>) -> result<list<message>, error>;
-        invoke-stream: func(messages: list<message>, w: output-stream) -> result<_,error>;
+        invoke-stream: func(messages: list<message>, writer: output-stream) -> result<_,error>;
     }
 }

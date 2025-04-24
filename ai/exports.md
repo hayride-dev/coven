@@ -978,7 +978,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_agent_invoke_stream.self"></a>`self`: borrow<[`agent`](#agent)>
 - <a id="method_agent_invoke_stream.messages"></a>`messages`: list<[`message`](#message)>
-- <a id="method_agent_invoke_stream.w"></a>`w`: own<[`output-stream`](#output_stream)>
+- <a id="method_agent_invoke_stream.writer"></a>`writer`: own<[`output-stream`](#output_stream)>
 
 ##### Return values
 
