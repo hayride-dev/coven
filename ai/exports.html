@@ -2,24 +2,24 @@
 <ul>
 <li>Imports:
 <ul>
-<li>interface <a href="#hayride_ai_types_0_0_43"><code>hayride:ai/types@0.0.43</code></a></li>
+<li>interface <a href="#hayride_ai_types_0_0_44"><code>hayride:ai/types@0.0.44</code></a></li>
+<li>interface <a href="#wasi_io_error_0_2_0"><code>wasi:io/error@0.2.0</code></a></li>
+<li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
+<li>interface <a href="#wasi_io_streams_0_2_0"><code>wasi:io/streams@0.2.0</code></a></li>
 <li>interface <a href="#wasi_nn_errors_0_2_0_rc_2024_10_28"><code>wasi:nn/errors@0.2.0-rc-2024-10-28</code></a></li>
 <li>interface <a href="#wasi_nn_tensor_0_2_0_rc_2024_10_28"><code>wasi:nn/tensor@0.2.0-rc-2024-10-28</code></a></li>
-<li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
-<li>interface <a href="#wasi_io_error_0_2_0"><code>wasi:io/error@0.2.0</code></a></li>
-<li>interface <a href="#wasi_io_streams_0_2_0"><code>wasi:io/streams@0.2.0</code></a></li>
-<li>interface <a href="#hayride_ai_tensor_stream_0_0_43"><code>hayride:ai/tensor-stream@0.0.43</code></a></li>
-<li>interface <a href="#hayride_ai_inference_stream_0_0_43"><code>hayride:ai/inference-stream@0.0.43</code></a></li>
+<li>interface <a href="#hayride_ai_tensor_stream_0_0_44"><code>hayride:ai/tensor-stream@0.0.44</code></a></li>
+<li>interface <a href="#hayride_ai_inference_stream_0_0_44"><code>hayride:ai/inference-stream@0.0.44</code></a></li>
 </ul>
 </li>
 <li>Exports:
 <ul>
-<li>interface <a href="#hayride_ai_agent_0_0_43"><code>hayride:ai/agent@0.0.43</code></a></li>
-<li>interface <a href="#hayride_ai_model_0_0_43"><code>hayride:ai/model@0.0.43</code></a></li>
+<li>interface <a href="#hayride_ai_agent_0_0_44"><code>hayride:ai/agent@0.0.44</code></a></li>
+<li>interface <a href="#hayride_ai_model_0_0_44"><code>hayride:ai/model@0.0.44</code></a></li>
 </ul>
 </li>
 </ul>
-<h2><a id="hayride_ai_types_0_0_43"></a>Import interface hayride:ai/types@0.0.43</h2>
+<h2><a id="hayride_ai_types_0_0_44"></a>Import interface hayride:ai/types@0.0.44</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="role"></a><code>enum role</code></h4>
@@ -76,147 +76,40 @@
 <li><a id="message.role"></a><a href="#role"><code>role</code></a>: <a href="#role"><a href="#role"><code>role</code></a></a></li>
 <li><a id="message.content"></a><a href="#content"><code>content</code></a>: list&lt;<a href="#content"><a href="#content"><code>content</code></a></a>&gt;</li>
 </ul>
-<h2><a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28</h2>
-<p>TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)</p>
+<h2><a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="error_code"></a><code>enum error-code</code></h4>
-<h5>Enum Cases</h5>
-<ul>
-<li>
-<p><a id="error_code.invalid_argument"></a><code>invalid-argument</code></p>
-<p>Caller module passed an invalid argument.
-</li>
-<li>
-<p><a id="error_code.invalid_encoding"></a><code>invalid-encoding</code></p>
-<p>Invalid encoding.
-</li>
-<li>
-<p><a id="error_code.timeout"></a><code>timeout</code></p>
-<p>The operation timed out.
-</li>
-<li>
-<p><a id="error_code.runtime_error"></a><code>runtime-error</code></p>
-<p>Runtime Error.
-</li>
-<li>
-<p><a id="error_code.unsupported_operation"></a><code>unsupported-operation</code></p>
-<p>Unsupported operation.
-</li>
-<li>
-<p><a id="error_code.too_large"></a><code>too-large</code></p>
-<p>Graph is too large.
-</li>
-<li>
-<p><a id="error_code.not_found"></a><code>not-found</code></p>
-<p>Graph not found.
-</li>
-<li>
-<p><a id="error_code.security"></a><code>security</code></p>
-<p>The operation is insecure or has insufficient privilege to be performed.
-e.g., cannot access a hardware feature requested
-</li>
-<li>
-<p><a id="error_code.unknown"></a><code>unknown</code></p>
-<p>The operation failed for an unspecified reason.
-</li>
-</ul>
 <h4><a id="error"></a><code>resource error</code></h4>
-<hr />
+<p>A resource which represents some error information.</p>
+<p>The only method provided by this resource is <code>to-debug-string</code>,
+which provides some human-readable information about the error.</p>
+<p>In the <code>wasi:io</code> package, this resource is returned through the
+<code>wasi:io/streams/stream-error</code> type.</p>
+<p>To provide more specific error information, other interfaces may
+provide functions to further &quot;downcast&quot; this error into more specific
+error information. For example, <a href="#error"><code>error</code></a>s returned in streams derived
+from filesystem types to be described using the filesystem's own
+error-code type, using the function
+<code>wasi:filesystem/types/filesystem-error-code</code>, which takes a parameter
+<code>borrow&lt;error&gt;</code> and returns
+<code>option&lt;wasi:filesystem/types/error-code&gt;</code>.</p>
+<h2>The set of functions which can &quot;downcast&quot; an <a href="#error"><code>error</code></a> into a more
+concrete type is open.</h2>
 <h3>Functions</h3>
-<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
-<p>Return the error code.</p>
+<h4><a id="method_error_to_debug_string"></a><code>[method]error.to-debug-string: func</code></h4>
+<p>Returns a string that is suitable to assist humans in debugging
+this error.</p>
+<p>WARNING: The returned string should not be consumed mechanically!
+It may change across platforms, hosts, or other implementation
+details. Parsing this string is a major platform-compatibility
+hazard.</p>
 <h5>Params</h5>
 <ul>
-<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+<li><a id="method_error_to_debug_string.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
-</ul>
-<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
-<p>Errors can propagated with backend specific status through a string value.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_error_data.0"></a> <code>string</code></li>
-</ul>
-<h2><a id="wasi_nn_tensor_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/tensor@0.2.0-rc-2024-10-28</h2>
-<p>All inputs and outputs to an ML inference are represented as <a href="#tensor"><code>tensor</code></a>s.</p>
-<hr />
-<h3>Types</h3>
-<h4><a id="tensor_dimensions"></a><code>type tensor-dimensions</code></h4>
-<p><a href="#tensor_dimensions"><a href="#tensor_dimensions"><code>tensor-dimensions</code></a></a></p>
-<p>The dimensions of a tensor.
-<p>The array length matches the tensor rank and each element in the array describes the size of
-each dimension</p>
-<h4><a id="tensor_type"></a><code>enum tensor-type</code></h4>
-<p>The type of the elements in a tensor.</p>
-<h5>Enum Cases</h5>
-<ul>
-<li><a id="tensor_type.fp16"></a><code>FP16</code></li>
-<li><a id="tensor_type.fp32"></a><code>FP32</code></li>
-<li><a id="tensor_type.fp64"></a><code>FP64</code></li>
-<li><a id="tensor_type.bf16"></a><code>BF16</code></li>
-<li><a id="tensor_type.u8"></a><code>U8</code></li>
-<li><a id="tensor_type.i32"></a><code>I32</code></li>
-<li><a id="tensor_type.i64"></a><code>I64</code></li>
-</ul>
-<h4><a id="tensor_data"></a><code>type tensor-data</code></h4>
-<p><a href="#tensor_data"><a href="#tensor_data"><code>tensor-data</code></a></a></p>
-<p>The tensor data.
-<p>Initially conceived as a sparse representation, each empty cell would be filled with zeros
-and the array length must match the product of all of the dimensions and the number of bytes
-in the type (e.g., a 2x2 tensor with 4-byte f32 elements would have a data array of length
-16). Naturally, this representation requires some knowledge of how to lay out data in
-memory--e.g., using row-major ordering--and could perhaps be improved.</p>
-<h4><a id="tensor"></a><code>resource tensor</code></h4>
-<hr />
-<h3>Functions</h3>
-<h4><a id="constructor_tensor"></a><code>[constructor]tensor: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="constructor_tensor.dimensions"></a><code>dimensions</code>: <a href="#tensor_dimensions"><a href="#tensor_dimensions"><code>tensor-dimensions</code></a></a></li>
-<li><a id="constructor_tensor.ty"></a><code>ty</code>: <a href="#tensor_type"><a href="#tensor_type"><code>tensor-type</code></a></a></li>
-<li><a id="constructor_tensor.data"></a><code>data</code>: <a href="#tensor_data"><a href="#tensor_data"><code>tensor-data</code></a></a></li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="constructor_tensor.0"></a> own&lt;<a href="#tensor"><a href="#tensor"><code>tensor</code></a></a>&gt;</li>
-</ul>
-<h4><a id="method_tensor_dimensions"></a><code>[method]tensor.dimensions: func</code></h4>
-<p>Describe the size of the tensor (e.g., 2x2x2x2 -&gt; [2, 2, 2, 2]). To represent a tensor
-containing a single value, use <code>[1]</code> for the tensor dimensions.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_tensor_dimensions.self"></a><code>self</code>: borrow&lt;<a href="#tensor"><a href="#tensor"><code>tensor</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_tensor_dimensions.0"></a> <a href="#tensor_dimensions"><a href="#tensor_dimensions"><code>tensor-dimensions</code></a></a></li>
-</ul>
-<h4><a id="method_tensor_ty"></a><code>[method]tensor.ty: func</code></h4>
-<p>Describe the type of element in the tensor (e.g., <code>f32</code>).</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_tensor_ty.self"></a><code>self</code>: borrow&lt;<a href="#tensor"><a href="#tensor"><code>tensor</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_tensor_ty.0"></a> <a href="#tensor_type"><a href="#tensor_type"><code>tensor-type</code></a></a></li>
-</ul>
-<h4><a id="method_tensor_data"></a><code>[method]tensor.data: func</code></h4>
-<p>Return the tensor data.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_tensor_data.self"></a><code>self</code>: borrow&lt;<a href="#tensor"><a href="#tensor"><code>tensor</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_tensor_data.0"></a> <a href="#tensor_data"><a href="#tensor_data"><code>tensor-data</code></a></a></li>
+<li><a id="method_error_to_debug_string.0"></a> <code>string</code></li>
 </ul>
 <h2><a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0</h2>
 <p>A poll API intended to let users wait for I/O events on multiple handles
@@ -267,41 +160,6 @@ being reaedy for I/O.</p>
 <h5>Return values</h5>
 <ul>
 <li><a id="poll.0"></a> list&lt;<code>u32</code>&gt;</li>
-</ul>
-<h2><a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0</h2>
-<hr />
-<h3>Types</h3>
-<h4><a id="error"></a><code>resource error</code></h4>
-<p>A resource which represents some error information.</p>
-<p>The only method provided by this resource is <code>to-debug-string</code>,
-which provides some human-readable information about the error.</p>
-<p>In the <code>wasi:io</code> package, this resource is returned through the
-<code>wasi:io/streams/stream-error</code> type.</p>
-<p>To provide more specific error information, other interfaces may
-provide functions to further &quot;downcast&quot; this error into more specific
-error information. For example, <a href="#error"><code>error</code></a>s returned in streams derived
-from filesystem types to be described using the filesystem's own
-error-code type, using the function
-<code>wasi:filesystem/types/filesystem-error-code</code>, which takes a parameter
-<code>borrow&lt;error&gt;</code> and returns
-<code>option&lt;wasi:filesystem/types/error-code&gt;</code>.</p>
-<h2>The set of functions which can &quot;downcast&quot; an <a href="#error"><code>error</code></a> into a more
-concrete type is open.</h2>
-<h3>Functions</h3>
-<h4><a id="method_error_to_debug_string"></a><code>[method]error.to-debug-string: func</code></h4>
-<p>Returns a string that is suitable to assist humans in debugging
-this error.</p>
-<p>WARNING: The returned string should not be consumed mechanically!
-It may change across platforms, hosts, or other implementation
-details. Parsing this string is a major platform-compatibility
-hazard.</p>
-<h5>Params</h5>
-<ul>
-<li><a id="method_error_to_debug_string.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_error_to_debug_string.0"></a> <code>string</code></li>
 </ul>
 <h2><a id="wasi_io_streams_0_2_0"></a>Import interface wasi:io/streams@0.2.0</h2>
 <p>WASI I/O is an I/O abstraction API which is currently focused on providing
@@ -628,7 +486,149 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="method_output_stream_blocking_splice.0"></a> result&lt;<code>u64</code>, <a href="#stream_error"><a href="#stream_error"><code>stream-error</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_tensor_stream_0_0_43"></a>Import interface hayride:ai/tensor-stream@0.0.43</h2>
+<h2><a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28</h2>
+<p>TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)</p>
+<hr />
+<h3>Types</h3>
+<h4><a id="error_code"></a><code>enum error-code</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li>
+<p><a id="error_code.invalid_argument"></a><code>invalid-argument</code></p>
+<p>Caller module passed an invalid argument.
+</li>
+<li>
+<p><a id="error_code.invalid_encoding"></a><code>invalid-encoding</code></p>
+<p>Invalid encoding.
+</li>
+<li>
+<p><a id="error_code.timeout"></a><code>timeout</code></p>
+<p>The operation timed out.
+</li>
+<li>
+<p><a id="error_code.runtime_error"></a><code>runtime-error</code></p>
+<p>Runtime Error.
+</li>
+<li>
+<p><a id="error_code.unsupported_operation"></a><code>unsupported-operation</code></p>
+<p>Unsupported operation.
+</li>
+<li>
+<p><a id="error_code.too_large"></a><code>too-large</code></p>
+<p>Graph is too large.
+</li>
+<li>
+<p><a id="error_code.not_found"></a><code>not-found</code></p>
+<p>Graph not found.
+</li>
+<li>
+<p><a id="error_code.security"></a><code>security</code></p>
+<p>The operation is insecure or has insufficient privilege to be performed.
+e.g., cannot access a hardware feature requested
+</li>
+<li>
+<p><a id="error_code.unknown"></a><code>unknown</code></p>
+<p>The operation failed for an unspecified reason.
+</li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<p>Return the error code.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<p>Errors can propagated with backend specific status through a string value.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
+</ul>
+<h2><a id="wasi_nn_tensor_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/tensor@0.2.0-rc-2024-10-28</h2>
+<p>All inputs and outputs to an ML inference are represented as <a href="#tensor"><code>tensor</code></a>s.</p>
+<hr />
+<h3>Types</h3>
+<h4><a id="tensor_dimensions"></a><code>type tensor-dimensions</code></h4>
+<p><a href="#tensor_dimensions"><a href="#tensor_dimensions"><code>tensor-dimensions</code></a></a></p>
+<p>The dimensions of a tensor.
+<p>The array length matches the tensor rank and each element in the array describes the size of
+each dimension</p>
+<h4><a id="tensor_type"></a><code>enum tensor-type</code></h4>
+<p>The type of the elements in a tensor.</p>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="tensor_type.fp16"></a><code>FP16</code></li>
+<li><a id="tensor_type.fp32"></a><code>FP32</code></li>
+<li><a id="tensor_type.fp64"></a><code>FP64</code></li>
+<li><a id="tensor_type.bf16"></a><code>BF16</code></li>
+<li><a id="tensor_type.u8"></a><code>U8</code></li>
+<li><a id="tensor_type.i32"></a><code>I32</code></li>
+<li><a id="tensor_type.i64"></a><code>I64</code></li>
+</ul>
+<h4><a id="tensor_data"></a><code>type tensor-data</code></h4>
+<p><a href="#tensor_data"><a href="#tensor_data"><code>tensor-data</code></a></a></p>
+<p>The tensor data.
+<p>Initially conceived as a sparse representation, each empty cell would be filled with zeros
+and the array length must match the product of all of the dimensions and the number of bytes
+in the type (e.g., a 2x2 tensor with 4-byte f32 elements would have a data array of length
+16). Naturally, this representation requires some knowledge of how to lay out data in
+memory--e.g., using row-major ordering--and could perhaps be improved.</p>
+<h4><a id="tensor"></a><code>resource tensor</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="constructor_tensor"></a><code>[constructor]tensor: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_tensor.dimensions"></a><code>dimensions</code>: <a href="#tensor_dimensions"><a href="#tensor_dimensions"><code>tensor-dimensions</code></a></a></li>
+<li><a id="constructor_tensor.ty"></a><code>ty</code>: <a href="#tensor_type"><a href="#tensor_type"><code>tensor-type</code></a></a></li>
+<li><a id="constructor_tensor.data"></a><code>data</code>: <a href="#tensor_data"><a href="#tensor_data"><code>tensor-data</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_tensor.0"></a> own&lt;<a href="#tensor"><a href="#tensor"><code>tensor</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_tensor_dimensions"></a><code>[method]tensor.dimensions: func</code></h4>
+<p>Describe the size of the tensor (e.g., 2x2x2x2 -&gt; [2, 2, 2, 2]). To represent a tensor
+containing a single value, use <code>[1]</code> for the tensor dimensions.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_tensor_dimensions.self"></a><code>self</code>: borrow&lt;<a href="#tensor"><a href="#tensor"><code>tensor</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_tensor_dimensions.0"></a> <a href="#tensor_dimensions"><a href="#tensor_dimensions"><code>tensor-dimensions</code></a></a></li>
+</ul>
+<h4><a id="method_tensor_ty"></a><code>[method]tensor.ty: func</code></h4>
+<p>Describe the type of element in the tensor (e.g., <code>f32</code>).</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_tensor_ty.self"></a><code>self</code>: borrow&lt;<a href="#tensor"><a href="#tensor"><code>tensor</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_tensor_ty.0"></a> <a href="#tensor_type"><a href="#tensor_type"><code>tensor-type</code></a></a></li>
+</ul>
+<h4><a id="method_tensor_data"></a><code>[method]tensor.data: func</code></h4>
+<p>Return the tensor data.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_tensor_data.self"></a><code>self</code>: borrow&lt;<a href="#tensor"><a href="#tensor"><code>tensor</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_tensor_data.0"></a> <a href="#tensor_data"><a href="#tensor_data"><code>tensor-data</code></a></a></li>
+</ul>
+<h2><a id="hayride_ai_tensor_stream_0_0_44"></a>Import interface hayride:ai/tensor-stream@0.0.44</h2>
 <p>This interface defines a stream of tensors. The stream is a sequence of tensors.</p>
 <hr />
 <h3>Types</h3>
@@ -702,7 +702,7 @@ containing a single value, use <code>[1]</code> for the tensor dimensions.</p>
 <ul>
 <li><a id="method_tensor_stream_subscribe.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_inference_stream_0_0_43"></a>Import interface hayride:ai/inference-stream@0.0.43</h2>
+<h2><a id="hayride_ai_inference_stream_0_0_44"></a>Import interface hayride:ai/inference-stream@0.0.44</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
@@ -742,11 +742,14 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="method_graph_execution_context_stream_compute.0"></a> result&lt;<a href="#named_tensor_stream"><a href="#named_tensor_stream"><code>named-tensor-stream</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_agent_0_0_43"></a>Export interface hayride:ai/agent@0.0.43</h2>
+<h2><a id="hayride_ai_agent_0_0_44"></a>Export interface hayride:ai/agent@0.0.44</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="message"></a><code>type message</code></h4>
 <p><a href="#message"><a href="#message"><code>message</code></a></a></p>
+<p>
+#### <a id="output_stream"></a>`type output-stream`
+[`output-stream`](#output_stream)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
@@ -793,7 +796,18 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="method_agent_invoke.0"></a> result&lt;list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_model_0_0_43"></a>Export interface hayride:ai/model@0.0.43</h2>
+<h4><a id="method_agent_invoke_stream"></a><code>[method]agent.invoke-stream: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_invoke_stream.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke_stream.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke_stream.writer"></a><code>writer</code>: own&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_agent_invoke_stream.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h2><a id="hayride_ai_model_0_0_44"></a>Export interface hayride:ai/model@0.0.44</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="graph_execution_context_stream"></a><code>type graph-execution-context-stream</code></h4>
