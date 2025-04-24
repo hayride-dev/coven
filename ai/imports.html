@@ -786,6 +786,9 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h4><a id="message"></a><code>type message</code></h4>
 <p><a href="#message"><a href="#message"><code>message</code></a></a></p>
 <p>
+#### <a id="output_stream"></a>`type output-stream`
+[`output-stream`](#output_stream)
+<p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
 <ul>
@@ -830,6 +833,17 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h5>Return values</h5>
 <ul>
 <li><a id="method_agent_invoke.0"></a> result&lt;list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="method_agent_invoke_stream"></a><code>[method]agent.invoke-stream: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_invoke_stream.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke_stream.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke_stream.w"></a><code>w</code>: own&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_agent_invoke_stream.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h2><a id="hayride_ai_model_0_0_43"></a>Import interface hayride:ai/model@0.0.43</h2>
 <hr />

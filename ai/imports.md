@@ -964,6 +964,9 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="message"></a>`type message`
 [`message`](#message)
 <p>
+#### <a id="output_stream"></a>`type output-stream`
+[`output-stream`](#output_stream)
+<p>
 #### <a id="error_code"></a>`enum error-code`
 
 
@@ -1021,6 +1024,19 @@ errors can propagated with backend specific status through a string value.
 ##### Return values
 
 - <a id="method_agent_invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
+
+#### <a id="method_agent_invoke_stream"></a>`[method]agent.invoke-stream: func`
+
+
+##### Params
+
+- <a id="method_agent_invoke_stream.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_invoke_stream.messages"></a>`messages`: list<[`message`](#message)>
+- <a id="method_agent_invoke_stream.w"></a>`w`: own<[`output-stream`](#output_stream)>
+
+##### Return values
+
+- <a id="method_agent_invoke_stream.0"></a> result<_, own<[`error`](#error)>>
 
 ## <a id="hayride_ai_model_0_0_43"></a>Import interface hayride:ai/model@0.0.43
 
