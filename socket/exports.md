@@ -6,7 +6,7 @@
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/streams@0.2.0`
  - Exports:
-    - interface `hayride:socket/websocket@0.0.44`
+    - interface `hayride:socket/websocket@0.0.45`
 
 ## <a id="wasi_io_error_0_2_0"></a>Import interface wasi:io/error@0.2.0
 
@@ -520,7 +520,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_socket_websocket_0_0_44"></a>Export interface hayride:socket/websocket@0.0.44
+## <a id="hayride_socket_websocket_0_0_45"></a>Export interface hayride:socket/websocket@0.0.45
 
 ----
 

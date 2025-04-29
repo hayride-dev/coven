@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:silo/threads@0.0.44`
-    - interface `hayride:silo/process@0.0.44`
+    - interface `hayride:silo/threads@0.0.45`
+    - interface `hayride:silo/process@0.0.45`
 
-## <a id="hayride_silo_threads_0_0_44"></a>Import interface hayride:silo/threads@0.0.44
+## <a id="hayride_silo_threads_0_0_45"></a>Import interface hayride:silo/threads@0.0.45
 
 
 ----
@@ -44,8 +44,20 @@
 
 - <a id="wait.0"></a> result<list<`u8`>, [`err-no`](#err_no)>
 
+#### <a id="status"></a>`status: func`
+
+
+##### Params
+
+- <a id="status.thread_id"></a>`thread-id`: `string`
+
+##### Return values
+
+- <a id="status.0"></a> result<`bool`, [`err-no`](#err_no)>
+
 #### <a id="kill"></a>`kill: func`
 
+true if running
 
 ##### Params
 
@@ -55,7 +67,7 @@
 
 - <a id="kill.0"></a> result<_, [`err-no`](#err_no)>
 
-## <a id="hayride_silo_process_0_0_44"></a>Import interface hayride:silo/process@0.0.44
+## <a id="hayride_silo_process_0_0_45"></a>Import interface hayride:silo/process@0.0.45
 
 
 ----
@@ -94,8 +106,20 @@ pid
 
 - <a id="wait.0"></a> result<`s32`, [`err-no`](#err_no)>
 
+#### <a id="status"></a>`status: func`
+
+
+##### Params
+
+- <a id="status.pid"></a>`pid`: `u32`
+
+##### Return values
+
+- <a id="status.0"></a> result<`bool`, [`err-no`](#err_no)>
+
 #### <a id="kill"></a>`kill: func`
 
+true if running
 
 ##### Params
 

@@ -2,12 +2,12 @@
 <ul>
 <li>Imports:
 <ul>
-<li>interface <a href="#hayride_silo_threads_0_0_44"><code>hayride:silo/threads@0.0.44</code></a></li>
-<li>interface <a href="#hayride_silo_process_0_0_44"><code>hayride:silo/process@0.0.44</code></a></li>
+<li>interface <a href="#hayride_silo_threads_0_0_45"><code>hayride:silo/threads@0.0.45</code></a></li>
+<li>interface <a href="#hayride_silo_process_0_0_45"><code>hayride:silo/process@0.0.45</code></a></li>
 </ul>
 </li>
 </ul>
-<h2><a id="hayride_silo_threads_0_0_44"></a>Import interface hayride:silo/threads@0.0.44</h2>
+<h2><a id="hayride_silo_threads_0_0_45"></a>Import interface hayride:silo/threads@0.0.45</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="err_no"></a><code>type err-no</code></h4>
@@ -35,7 +35,17 @@
 <ul>
 <li><a id="wait.0"></a> result&lt;list&lt;<code>u8</code>&gt;, <a href="#err_no"><a href="#err_no"><code>err-no</code></a></a>&gt;</li>
 </ul>
+<h4><a id="status"></a><code>status: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="status.thread_id"></a><code>thread-id</code>: <code>string</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="status.0"></a> result&lt;<code>bool</code>, <a href="#err_no"><a href="#err_no"><code>err-no</code></a></a>&gt;</li>
+</ul>
 <h4><a id="kill"></a><code>kill: func</code></h4>
+<p>true if running</p>
 <h5>Params</h5>
 <ul>
 <li><a id="kill.thread_id"></a><code>thread-id</code>: <code>string</code></li>
@@ -44,7 +54,7 @@
 <ul>
 <li><a id="kill.0"></a> result&lt;_, <a href="#err_no"><a href="#err_no"><code>err-no</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_silo_process_0_0_44"></a>Import interface hayride:silo/process@0.0.44</h2>
+<h2><a id="hayride_silo_process_0_0_45"></a>Import interface hayride:silo/process@0.0.45</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="err_no"></a><code>type err-no</code></h4>
@@ -72,7 +82,17 @@
 <ul>
 <li><a id="wait.0"></a> result&lt;<code>s32</code>, <a href="#err_no"><a href="#err_no"><code>err-no</code></a></a>&gt;</li>
 </ul>
+<h4><a id="status"></a><code>status: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="status.pid"></a><code>pid</code>: <code>u32</code></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="status.0"></a> result&lt;<code>bool</code>, <a href="#err_no"><a href="#err_no"><code>err-no</code></a></a>&gt;</li>
+</ul>
 <h4><a id="kill"></a><code>kill: func</code></h4>
+<p>true if running</p>
 <h5>Params</h5>
 <ul>
 <li><a id="kill.pid"></a><code>pid</code>: <code>u32</code></li>
