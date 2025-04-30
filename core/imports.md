@@ -2,12 +2,12 @@
 
 
  - Imports:
-    - interface `hayride:core/types@0.0.45`
-    - interface `hayride:core/config@0.0.45`
-    - interface `hayride:ai/types@0.0.45`
-    - interface `hayride:core/api@0.0.45`
+    - interface `hayride:core/types@0.0.46`
+    - interface `hayride:core/config@0.0.46`
+    - interface `hayride:ai/types@0.0.46`
+    - interface `hayride:core/api@0.0.46`
 
-## <a id="hayride_core_types_0_0_43"></a>Import interface hayride:core/types@0.0.45
+## <a id="hayride_core_types_0_0_43"></a>Import interface hayride:core/types@0.0.46
 
 
 ----
@@ -109,7 +109,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_core_config_0_0_43"></a>Import interface hayride:core/config@0.0.45
+## <a id="hayride_core_config_0_0_43"></a>Import interface hayride:core/config@0.0.46
 
 
 ----
@@ -144,7 +144,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="set.0"></a> result<_, own<[`error`](#error)>>
 
-## <a id="hayride_ai_types_0_0_43"></a>Import interface hayride:ai/types@0.0.45
+## <a id="hayride_ai_types_0_0_43"></a>Import interface hayride:ai/types@0.0.46
 
 
 ----
@@ -212,7 +212,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="message.role"></a>`role`: [`role`](#role)
 - <a id="message.content"></a>`content`: list<[`content`](#content)>
-## <a id="hayride_core_api_0_0_43"></a>Import interface hayride:core/api@0.0.45
+## <a id="hayride_core_api_0_0_43"></a>Import interface hayride:core/api@0.0.46
 
 
 ----
