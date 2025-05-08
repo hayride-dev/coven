@@ -54,8 +54,8 @@ interface types {
     }
 
     variant morph {
-        cli(cli)
-        server(server)
+        cli(cli),
+        server(server),
     }
 
     variant feature {
