@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:silo/threads@0.0.46`
-    - interface `hayride:silo/process@0.0.46`
+    - interface `hayride:silo/threads@0.0.47`
+    - interface `hayride:silo/process@0.0.47`
 
-## <a id="hayride_silo_threads_0_0_46"></a>Import interface hayride:silo/threads@0.0.46
+## <a id="hayride_silo_threads_0_0_47"></a>Import interface hayride:silo/threads@0.0.47
 
 
 ----
@@ -67,7 +67,7 @@ true if running
 
 - <a id="kill.0"></a> result<_, [`err-no`](#err_no)>
 
-## <a id="hayride_silo_process_0_0_46"></a>Import interface hayride:silo/process@0.0.46
+## <a id="hayride_silo_process_0_0_47"></a>Import interface hayride:silo/process@0.0.47
 
 
 ----
@@ -89,6 +89,7 @@ true if running
 
 - <a id="spawn.path"></a>`path`: `string`
 - <a id="spawn.args"></a>`args`: list<`string`>
+- <a id="spawn.envs"></a>`envs`: list<(`string`, `string`)>
 
 ##### Return values
 

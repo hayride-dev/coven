@@ -1,4 +1,4 @@
-package hayride:core@0.0.46;
+package hayride:core@0.0.47;
 
 interface types {
     record logging {
@@ -7,7 +7,7 @@ interface types {
         file: string
     }
 
-    record morphs {
+    record core {
         server: server,
         ai: ai
     }
@@ -21,10 +21,20 @@ interface types {
     }
 
     record server {
-        http: http
+        bin: string,
+        config: server-config,
+    }
+
+    record server-config {
+        http: http,
     }
 
     record ai {
+        bin: string,
+        config: ai-config,
+    }
+
+    record ai-config {
         websocket: websocket,
         http: http,
         llm: llm,
@@ -38,7 +48,7 @@ interface types {
         version: string,
         license: string,
         logging: logging,
-        morphs: morphs,
+        core: core,
     }
 
     enum error-code {
