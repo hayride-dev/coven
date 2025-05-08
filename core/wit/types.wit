@@ -7,11 +7,6 @@ interface types {
         file: string
     }
 
-    record core {
-        server: server,
-        ai: ai
-    }
-
     record http {
         address: string
     }
@@ -22,33 +17,33 @@ interface types {
 
     record server {
         bin: string,
-        config: server-config,
+        logging: logging,
+        http: http,
     }
 
-    record server-config {
-        http: http,
+    record cli {
+        bin: string,
+        logging: logging,
     }
 
     record ai {
         bin: string,
-        config: ai-config,
-    }
-
-    record ai-config {
-        websocket: websocket,
+        logging: logging,
         http: http,
-        llm: llm,
+        websocket: websocket,
     }
 
-    record llm {
-        model: string
+    record ui {
+        bin: string,
+        logging: logging,
+        http: http,
     }
 
     record config {
         version: string,
         license: string,
-        logging: logging,
-        core: core,
+        core: list<morph>,
+        features: list<feature>,
     }
 
     enum error-code {
@@ -56,6 +51,16 @@ interface types {
         get-failed,
         config-not-set,
         unknown
+    }
+
+    variant morph {
+        cli(cli)
+        server(server)
+    }
+
+    variant feature {
+        ai(ai),
+        ui(ui),
     }
     
     resource error {
