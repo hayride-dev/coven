@@ -12,6 +12,7 @@
 <li>Exports:
 <ul>
 <li>interface <a href="#wasi_http_incoming_handler_0_2_0"><code>wasi:http/incoming-handler@0.2.0</code></a></li>
+<li>interface <a href="#hayride_http_config_0_0_48"><code>hayride:http/config@0.0.48</code></a></li>
 </ul>
 </li>
 </ul>
@@ -511,7 +512,7 @@ their headers, trailers, and bodies.</p>
 <p>This type corresponds to HTTP standard Methods.</p>
 <h5>Variant Cases</h5>
 <ul>
-<li><a id="method.get"></a><code>get</code></li>
+<li><a id="method.get"></a><a href="#get"><code>get</code></a></li>
 <li><a id="method.head"></a><code>head</code></li>
 <li><a id="method.post"></a><code>post</code></li>
 <li><a id="method.put"></a><code>put</code></li>
@@ -1208,7 +1209,7 @@ This function will trap if the <a href="#input_stream"><code>input-stream</code>
 <h4><a id="method_future_trailers_subscribe"></a><code>[method]future-trailers.subscribe: func</code></h4>
 <p>Returns a pollable which becomes ready when either the trailers have
 been received, or an error has occured. When this pollable is ready,
-the <code>get</code> method will return <code>some</code>.</p>
+the <a href="#get"><code>get</code></a> method will return <code>some</code>.</p>
 <h5>Params</h5>
 <ul>
 <li><a id="method_future_trailers_subscribe.self"></a><code>self</code>: borrow&lt;<a href="#future_trailers"><a href="#future_trailers"><code>future-trailers</code></a></a>&gt;</li>
@@ -1343,7 +1344,7 @@ Content-Length.</p>
 <h4><a id="method_future_incoming_response_subscribe"></a><code>[method]future-incoming-response.subscribe: func</code></h4>
 <p>Returns a pollable which becomes ready when either the Response has
 been received, or an error has occured. When this pollable is ready,
-the <code>get</code> method will return <code>some</code>.</p>
+the <a href="#get"><code>get</code></a> method will return <code>some</code>.</p>
 <h5>Params</h5>
 <ul>
 <li><a id="method_future_incoming_response_subscribe.self"></a><code>self</code>: borrow&lt;<a href="#future_incoming_response"><a href="#future_incoming_response"><code>future-incoming-response</code></a></a>&gt;</li>
@@ -1397,4 +1398,48 @@ with an error on its behalf.</p>
 <ul>
 <li><a id="handle.request"></a><code>request</code>: own&lt;<a href="#incoming_request"><a href="#incoming_request"><code>incoming-request</code></a></a>&gt;</li>
 <li><a id="handle.response_out"></a><code>response-out</code>: own&lt;<a href="#response_outparam"><a href="#response_outparam"><code>response-outparam</code></a></a>&gt;</li>
+</ul>
+<h2><a id="hayride_http_config_0_0_48"></a>Export interface hayride:http/config@0.0.48</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="server"></a><code>record server</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="server.address"></a><code>address</code>: <code>string</code></li>
+<li><a id="server.read_timeout"></a><code>read-timeout</code>: <code>u32</code></li>
+<li><a id="server.write_timeout"></a><code>write-timeout</code>: <code>u32</code></li>
+<li><a id="server.max_header_bytes"></a><code>max-header-bytes</code>: <code>u32</code></li>
+</ul>
+<h4><a id="error_code"></a><code>enum error-code</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="error_code.invalid"></a><code>invalid</code></li>
+<li><a id="error_code.not_found"></a><code>not-found</code></li>
+<li><a id="error_code.unknown"></a><code>unknown</code></li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
+</ul>
+<h4><a id="get"></a><code>get: func</code></h4>
+<h5>Return values</h5>
+<ul>
+<li><a id="get.0"></a> result&lt;<a href="#server"><a href="#server"><code>server</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
