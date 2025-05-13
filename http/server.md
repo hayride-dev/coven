@@ -9,6 +9,7 @@
     - interface `wasi:http/types@0.2.0`
  - Exports:
     - interface `wasi:http/incoming-handler@0.2.0`
+    - interface `hayride:http/config@0.0.48`
 
 ## <a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0
 
@@ -1695,4 +1696,62 @@ with an error on its behalf.
 
 - <a id="handle.request"></a>`request`: own<[`incoming-request`](#incoming_request)>
 - <a id="handle.response_out"></a>`response-out`: own<[`response-outparam`](#response_outparam)>
+
+## <a id="hayride_http_config_0_0_48"></a>Export interface hayride:http/config@0.0.48
+
+----
+
+### Types
+
+#### <a id="server"></a>`record server`
+
+
+##### Record Fields
+
+- <a id="server.address"></a>`address`: `string`
+- <a id="server.read_timeout"></a>`read-timeout`: `u32`
+- <a id="server.write_timeout"></a>`write-timeout`: `u32`
+- <a id="server.max_header_bytes"></a>`max-header-bytes`: `u32`
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.invalid"></a>`invalid`
+- <a id="error_code.not_found"></a>`not-found`
+- <a id="error_code.unknown"></a>`unknown`
+#### <a id="error"></a>`resource error`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+#### <a id="get"></a>`get: func`
+
+
+##### Return values
+
+- <a id="get.0"></a> result<[`server`](#server), own<[`error`](#error)>>
 
