@@ -1098,10 +1098,6 @@ errors can propagated with backend specific status through a string value.
 #### <a id="constructor_format"></a>`[constructor]format: func`
 
 
-##### Params
-
-- <a id="constructor_format.model"></a>`model`: `string`
-
 ##### Return values
 
 - <a id="constructor_format.0"></a> own<[`format`](#format)>

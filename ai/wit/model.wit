@@ -20,7 +20,7 @@ interface model {
     }
 
     resource format {
-        constructor(model: string);
+        constructor();
         encode: func(messages: list<message>) -> result<list<u8>,error>;
         decode: func(raw: list<u8>) -> result<message, error>;
         model: func() -> string;
