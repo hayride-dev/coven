@@ -1,10 +1,12 @@
+
 package hayride:ai@0.0.52;
 
-interface agent {
-    use types.{message};
+interface tools {
+    use types.{tool-schema, tool-input, tool-output};
 
     enum error-code {
-        invoke-error,
+        tool-call-failed,
+        tool-not-found,
         unknown
     }
 
@@ -15,8 +17,8 @@ interface agent {
         data: func() -> string;
     }
 
-    resource agent {
-        constructor();
-        invoke: func(messages: list<message>) -> result<list<message>, error>;
+    resource tools {
+        constructor(tools: list<tool-schema>);
+        call: func(input: tool-input) -> result<tool-output, error-code>;
     }
 }

@@ -2,20 +2,21 @@
 
 
  - Imports:
-    - interface `hayride:ai/types@0.0.51`
-    - interface `hayride:ai/context@0.0.51`
+    - interface `hayride:ai/types@0.0.52`
+    - interface `hayride:ai/context@0.0.52`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
     - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:ai/tensor-stream@0.0.51`
-    - interface `hayride:ai/inference-stream@0.0.51`
+    - interface `hayride:ai/tensor-stream@0.0.52`
+    - interface `hayride:ai/inference-stream@0.0.52`
+    - interface `hayride:ai/tools@0.0.52`
  - Exports:
-    - interface `hayride:ai/model@0.0.51`
-    - interface `hayride:ai/agents@0.0.51`
+    - interface `hayride:ai/model@0.0.52`
+    - interface `hayride:ai/agents@0.0.52`
 
-## <a id="hayride_ai_types_0_0_51"></a>Import interface hayride:ai/types@0.0.51
+## <a id="hayride_ai_types_0_0_52"></a>Import interface hayride:ai/types@0.0.52
 
 
 ----
@@ -83,7 +84,7 @@
 
 - <a id="message.role"></a>`role`: [`role`](#role)
 - <a id="message.content"></a>`content`: list<[`content`](#content)>
-## <a id="hayride_ai_context_0_0_51"></a>Import interface hayride:ai/context@0.0.51
+## <a id="hayride_ai_context_0_0_52"></a>Import interface hayride:ai/context@0.0.52
 
 
 ----
@@ -841,7 +842,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_ai_tensor_stream_0_0_51"></a>Import interface hayride:ai/tensor-stream@0.0.51
+## <a id="hayride_ai_tensor_stream_0_0_52"></a>Import interface hayride:ai/tensor-stream@0.0.52
 
 This interface defines a stream of tensors. The stream is a sequence of tensors.
 
@@ -932,7 +933,7 @@ Read up to `len` bytes from the stream.
 
 - <a id="method_tensor_stream_subscribe.0"></a> own<[`pollable`](#pollable)>
 
-## <a id="hayride_ai_inference_stream_0_0_51"></a>Import interface hayride:ai/inference-stream@0.0.51
+## <a id="hayride_ai_inference_stream_0_0_52"></a>Import interface hayride:ai/inference-stream@0.0.52
 
 
 ----
@@ -983,7 +984,86 @@ Compute the inference on the given inputs.
 
 - <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
 
-## <a id="hayride_ai_model_0_0_51"></a>Export interface hayride:ai/model@0.0.51
+## <a id="hayride_ai_tools_0_0_52"></a>Import interface hayride:ai/tools@0.0.52
+
+
+----
+
+### Types
+
+#### <a id="tool_schema"></a>`type tool-schema`
+[`tool-schema`](#tool_schema)
+<p>
+#### <a id="tool_input"></a>`type tool-input`
+[`tool-input`](#tool_input)
+<p>
+#### <a id="tool_output"></a>`type tool-output`
+[`tool-output`](#tool_output)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.tool_call_failed"></a>`tool-call-failed`
+- <a id="error_code.tool_not_found"></a>`tool-not-found`
+- <a id="error_code.unknown"></a>`unknown`
+#### <a id="error"></a>`resource error`
+
+#### <a id="tools"></a>`resource tools`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+#### <a id="constructor_tools"></a>`[constructor]tools: func`
+
+
+##### Params
+
+- <a id="constructor_tools.tools"></a>`tools`: list<[`tool-schema`](#tool_schema)>
+
+##### Return values
+
+- <a id="constructor_tools.0"></a> own<[`tools`](#tools)>
+
+#### <a id="method_tools_call"></a>`[method]tools.call: func`
+
+
+##### Params
+
+- <a id="method_tools_call.self"></a>`self`: borrow<[`tools`](#tools)>
+- <a id="method_tools_call.input"></a>`input`: [`tool-input`](#tool_input)
+
+##### Return values
+
+- <a id="method_tools_call.0"></a> result<[`tool-output`](#tool_output), [`error-code`](#error_code)>
+
+## <a id="hayride_ai_model_0_0_52"></a>Export interface hayride:ai/model@0.0.52
 
 ----
 
@@ -994,9 +1074,6 @@ Compute the inference on the given inputs.
 <p>
 #### <a id="message"></a>`type message`
 [`message`](#message)
-<p>
-#### <a id="context"></a>`type context`
-[`context`](#context)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 
@@ -1047,21 +1124,31 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="constructor_model.0"></a> own<[`model`](#model)>
 
-#### <a id="method_model_compute"></a>`[method]model.compute: func`
+#### <a id="method_model_encode"></a>`[method]model.encode: func`
 
-todo: add options to compute so we can set model specific options
 
 ##### Params
 
-- <a id="method_model_compute.self"></a>`self`: borrow<[`model`](#model)>
-- <a id="method_model_compute.graph"></a>`graph`: own<[`graph-execution-context-stream`](#graph_execution_context_stream)>
-- <a id="method_model_compute.messages"></a>`messages`: list<[`message`](#message)>
+- <a id="method_model_encode.self"></a>`self`: borrow<[`model`](#model)>
+- <a id="method_model_encode.messages"></a>`messages`: list<[`message`](#message)>
 
 ##### Return values
 
-- <a id="method_model_compute.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+- <a id="method_model_encode.0"></a> result<list<`u8`>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_agents_0_0_51"></a>Export interface hayride:ai/agents@0.0.51
+#### <a id="method_model_decode"></a>`[method]model.decode: func`
+
+
+##### Params
+
+- <a id="method_model_decode.self"></a>`self`: borrow<[`model`](#model)>
+- <a id="method_model_decode.raw"></a>`raw`: list<`u8`>
+
+##### Return values
+
+- <a id="method_model_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+
+## <a id="hayride_ai_agents_0_0_52"></a>Export interface hayride:ai/agents@0.0.52
 
 ----
 
@@ -1084,6 +1171,9 @@ todo: add options to compute so we can set model specific options
 <p>
 #### <a id="model"></a>`type model`
 [`model`](#model)
+<p>
+#### <a id="tools"></a>`type tools`
+[`tools`](#tools)
 <p>
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
@@ -1134,61 +1224,36 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="constructor_agent.name"></a>`name`: `string`
 - <a id="constructor_agent.instruction"></a>`instruction`: `string`
-- <a id="constructor_agent.tools"></a>`tools`: list<[`tool-schema`](#tool_schema)>
+- <a id="constructor_agent.tools"></a>`tools`: own<[`tools`](#tools)>
+- <a id="constructor_agent.context"></a>`context`: own<[`context`](#context)>
+- <a id="constructor_agent.model"></a>`model`: own<[`model`](#model)>
 
 ##### Return values
 
 - <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
 
-#### <a id="method_agent_context"></a>`[method]agent.context: func`
+#### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
 
 
 ##### Params
 
-- <a id="method_agent_context.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_invoke.input"></a>`input`: [`message`](#message)
 
 ##### Return values
 
-- <a id="method_agent_context.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
+- <a id="method_agent_invoke.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
-#### <a id="method_agent_tool_call"></a>`[method]agent.tool-call: func`
+#### <a id="method_agent_invoke_stream"></a>`[method]agent.invoke-stream: func`
 
 
 ##### Params
 
-- <a id="method_agent_tool_call.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_tool_call.tool_input"></a>`tool-input`: [`tool-input`](#tool_input)
+- <a id="method_agent_invoke_stream.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_invoke_stream.messages"></a>`messages`: list<[`message`](#message)>
+- <a id="method_agent_invoke_stream.writer"></a>`writer`: own<[`output-stream`](#output_stream)>
 
 ##### Return values
 
-- <a id="method_agent_tool_call.0"></a> result<[`tool-output`](#tool_output), own<[`error`](#error)>>
-
-#### <a id="invoke"></a>`invoke: func`
-
-
-##### Params
-
-- <a id="invoke.ctx"></a>`ctx`: own<[`context`](#context)>
-- <a id="invoke.model"></a>`model`: own<[`model`](#model)>
-- <a id="invoke.agent"></a>`agent`: own<[`agent`](#agent)>
-- <a id="invoke.input"></a>`input`: list<[`message`](#message)>
-
-##### Return values
-
-- <a id="invoke.0"></a> result<[`message`](#message), own<[`error`](#error)>>
-
-#### <a id="invoke_stream"></a>`invoke-stream: func`
-
-
-##### Params
-
-- <a id="invoke_stream.ctx"></a>`ctx`: own<[`context`](#context)>
-- <a id="invoke_stream.model"></a>`model`: own<[`model`](#model)>
-- <a id="invoke_stream.agent"></a>`agent`: own<[`agent`](#agent)>
-- <a id="invoke_stream.input"></a>`input`: list<[`message`](#message)>
-- <a id="invoke_stream.output"></a>`output`: own<[`output-stream`](#output_stream)>
-
-##### Return values
-
-- <a id="invoke_stream.0"></a> result<_, own<[`error`](#error)>>
+- <a id="method_agent_invoke_stream.0"></a> result<_, own<[`error`](#error)>>
 

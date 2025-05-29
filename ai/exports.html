@@ -2,25 +2,26 @@
 <ul>
 <li>Imports:
 <ul>
-<li>interface <a href="#hayride_ai_types_0_0_51"><code>hayride:ai/types@0.0.51</code></a></li>
-<li>interface <a href="#hayride_ai_context_0_0_51"><code>hayride:ai/context@0.0.51</code></a></li>
+<li>interface <a href="#hayride_ai_types_0_0_52"><code>hayride:ai/types@0.0.52</code></a></li>
+<li>interface <a href="#hayride_ai_context_0_0_52"><code>hayride:ai/context@0.0.52</code></a></li>
 <li>interface <a href="#wasi_nn_errors_0_2_0_rc_2024_10_28"><code>wasi:nn/errors@0.2.0-rc-2024-10-28</code></a></li>
 <li>interface <a href="#wasi_nn_tensor_0_2_0_rc_2024_10_28"><code>wasi:nn/tensor@0.2.0-rc-2024-10-28</code></a></li>
 <li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_error_0_2_0"><code>wasi:io/error@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_streams_0_2_0"><code>wasi:io/streams@0.2.0</code></a></li>
-<li>interface <a href="#hayride_ai_tensor_stream_0_0_51"><code>hayride:ai/tensor-stream@0.0.51</code></a></li>
-<li>interface <a href="#hayride_ai_inference_stream_0_0_51"><code>hayride:ai/inference-stream@0.0.51</code></a></li>
+<li>interface <a href="#hayride_ai_tensor_stream_0_0_52"><code>hayride:ai/tensor-stream@0.0.52</code></a></li>
+<li>interface <a href="#hayride_ai_inference_stream_0_0_52"><code>hayride:ai/inference-stream@0.0.52</code></a></li>
+<li>interface <a href="#hayride_ai_tools_0_0_52"><code>hayride:ai/tools@0.0.52</code></a></li>
 </ul>
 </li>
 <li>Exports:
 <ul>
-<li>interface <a href="#hayride_ai_model_0_0_51"><code>hayride:ai/model@0.0.51</code></a></li>
-<li>interface <a href="#hayride_ai_agents_0_0_51"><code>hayride:ai/agents@0.0.51</code></a></li>
+<li>interface <a href="#hayride_ai_model_0_0_52"><code>hayride:ai/model@0.0.52</code></a></li>
+<li>interface <a href="#hayride_ai_agents_0_0_52"><code>hayride:ai/agents@0.0.52</code></a></li>
 </ul>
 </li>
 </ul>
-<h2><a id="hayride_ai_types_0_0_51"></a>Import interface hayride:ai/types@0.0.51</h2>
+<h2><a id="hayride_ai_types_0_0_52"></a>Import interface hayride:ai/types@0.0.52</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="role"></a><code>enum role</code></h4>
@@ -77,7 +78,7 @@
 <li><a id="message.role"></a><a href="#role"><code>role</code></a>: <a href="#role"><a href="#role"><code>role</code></a></a></li>
 <li><a id="message.content"></a><a href="#content"><code>content</code></a>: list&lt;<a href="#content"><a href="#content"><code>content</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_context_0_0_51"></a>Import interface hayride:ai/context@0.0.51</h2>
+<h2><a id="hayride_ai_context_0_0_52"></a>Import interface hayride:ai/context@0.0.52</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="message"></a><code>type message</code></h4>
@@ -691,7 +692,7 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="method_output_stream_blocking_splice.0"></a> result&lt;<code>u64</code>, <a href="#stream_error"><a href="#stream_error"><code>stream-error</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_tensor_stream_0_0_51"></a>Import interface hayride:ai/tensor-stream@0.0.51</h2>
+<h2><a id="hayride_ai_tensor_stream_0_0_52"></a>Import interface hayride:ai/tensor-stream@0.0.52</h2>
 <p>This interface defines a stream of tensors. The stream is a sequence of tensors.</p>
 <hr />
 <h3>Types</h3>
@@ -765,7 +766,7 @@ containing a single value, use <code>[1]</code> for the tensor dimensions.</p>
 <ul>
 <li><a id="method_tensor_stream_subscribe.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_inference_stream_0_0_51"></a>Import interface hayride:ai/inference-stream@0.0.51</h2>
+<h2><a id="hayride_ai_inference_stream_0_0_52"></a>Import interface hayride:ai/inference-stream@0.0.52</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
@@ -805,7 +806,69 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="method_graph_execution_context_stream_compute.0"></a> result&lt;<a href="#named_tensor_stream"><a href="#named_tensor_stream"><code>named-tensor-stream</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_model_0_0_51"></a>Export interface hayride:ai/model@0.0.51</h2>
+<h2><a id="hayride_ai_tools_0_0_52"></a>Import interface hayride:ai/tools@0.0.52</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="tool_schema"></a><code>type tool-schema</code></h4>
+<p><a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a></p>
+<p>
+#### <a id="tool_input"></a>`type tool-input`
+[`tool-input`](#tool_input)
+<p>
+#### <a id="tool_output"></a>`type tool-output`
+[`tool-output`](#tool_output)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="error_code.tool_call_failed"></a><code>tool-call-failed</code></li>
+<li><a id="error_code.tool_not_found"></a><code>tool-not-found</code></li>
+<li><a id="error_code.unknown"></a><code>unknown</code></li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<h4><a id="tools"></a><code>resource tools</code></h4>
+<hr />
+<h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<p>return the error code.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<p>errors can propagated with backend specific status through a string value.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
+</ul>
+<h4><a id="constructor_tools"></a><code>[constructor]tools: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_tools.tools"></a><a href="#tools"><code>tools</code></a>: list&lt;<a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_tools.0"></a> own&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_tools_call"></a><code>[method]tools.call: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_tools_call.self"></a><code>self</code>: borrow&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
+<li><a id="method_tools_call.input"></a><code>input</code>: <a href="#tool_input"><a href="#tool_input"><code>tool-input</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_tools_call.0"></a> result&lt;<a href="#tool_output"><a href="#tool_output"><code>tool-output</code></a></a>, <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a>&gt;</li>
+</ul>
+<h2><a id="hayride_ai_model_0_0_52"></a>Export interface hayride:ai/model@0.0.52</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="graph_execution_context_stream"></a><code>type graph-execution-context-stream</code></h4>
@@ -813,9 +876,6 @@ graph inputs and outputs.</p>
 <p>
 #### <a id="message"></a>`type message`
 [`message`](#message)
-<p>
-#### <a id="context"></a>`type context`
-[`context`](#context)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
@@ -855,19 +915,27 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="constructor_model.0"></a> own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
 </ul>
-<h4><a id="method_model_compute"></a><code>[method]model.compute: func</code></h4>
-<p>todo: add options to compute so we can set model specific options</p>
+<h4><a id="method_model_encode"></a><code>[method]model.encode: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_model_compute.self"></a><code>self</code>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
-<li><a id="method_model_compute.graph"></a><code>graph</code>: own&lt;<a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a>&gt;</li>
-<li><a id="method_model_compute.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
+<li><a id="method_model_encode.self"></a><code>self</code>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
+<li><a id="method_model_encode.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_model_compute.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_model_encode.0"></a> result&lt;list&lt;<code>u8</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_agents_0_0_51"></a>Export interface hayride:ai/agents@0.0.51</h2>
+<h4><a id="method_model_decode"></a><code>[method]model.decode: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_model_decode.self"></a><code>self</code>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
+<li><a id="method_model_decode.raw"></a><code>raw</code>: list&lt;<code>u8</code>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_model_decode.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h2><a id="hayride_ai_agents_0_0_52"></a>Export interface hayride:ai/agents@0.0.52</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="message"></a><code>type message</code></h4>
@@ -887,6 +955,9 @@ graph inputs and outputs.</p>
 <p>
 #### <a id="model"></a>`type model`
 [`model`](#model)
+<p>
+#### <a id="tools"></a>`type tools`
+[`tools`](#tools)
 <p>
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
@@ -926,53 +997,32 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="constructor_agent.name"></a><code>name</code>: <code>string</code></li>
 <li><a id="constructor_agent.instruction"></a><code>instruction</code>: <code>string</code></li>
-<li><a id="constructor_agent.tools"></a><code>tools</code>: list&lt;<a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a>&gt;</li>
+<li><a id="constructor_agent.tools"></a><a href="#tools"><code>tools</code></a>: own&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
+<li><a id="constructor_agent.context"></a><a href="#context"><code>context</code></a>: own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
+<li><a id="constructor_agent.model"></a><a href="#model"><code>model</code></a>: own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
 <li><a id="constructor_agent.0"></a> own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
 </ul>
-<h4><a id="method_agent_context"></a><code>[method]agent.context: func</code></h4>
+<h4><a id="method_agent_invoke"></a><code>[method]agent.invoke: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_agent_context.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke.input"></a><code>input</code>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_agent_context.0"></a> result&lt;list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_agent_invoke.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h4><a id="method_agent_tool_call"></a><code>[method]agent.tool-call: func</code></h4>
+<h4><a id="method_agent_invoke_stream"></a><code>[method]agent.invoke-stream: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_agent_tool_call.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-<li><a id="method_agent_tool_call.tool_input"></a><a href="#tool_input"><code>tool-input</code></a>: <a href="#tool_input"><a href="#tool_input"><code>tool-input</code></a></a></li>
+<li><a id="method_agent_invoke_stream.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke_stream.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke_stream.writer"></a><code>writer</code>: own&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_agent_tool_call.0"></a> result&lt;<a href="#tool_output"><a href="#tool_output"><code>tool-output</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
-</ul>
-<h4><a id="invoke"></a><code>invoke: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="invoke.ctx"></a><code>ctx</code>: own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
-<li><a id="invoke.model"></a><a href="#model"><code>model</code></a>: own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
-<li><a id="invoke.agent"></a><a href="#agent"><code>agent</code></a>: own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-<li><a id="invoke.input"></a><code>input</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="invoke.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
-</ul>
-<h4><a id="invoke_stream"></a><code>invoke-stream: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="invoke_stream.ctx"></a><code>ctx</code>: own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
-<li><a id="invoke_stream.model"></a><a href="#model"><code>model</code></a>: own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
-<li><a id="invoke_stream.agent"></a><a href="#agent"><code>agent</code></a>: own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-<li><a id="invoke_stream.input"></a><code>input</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
-<li><a id="invoke_stream.output"></a><code>output</code>: own&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="invoke_stream.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_agent_invoke_stream.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
