@@ -847,11 +847,8 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h2><a id="hayride_ai_model_0_0_52"></a>Import interface hayride:ai/model@0.0.52</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="graph_execution_context_stream"></a><code>type graph-execution-context-stream</code></h4>
-<p><a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a></p>
-<p>
-#### <a id="message"></a>`type message`
-[`message`](#message)
+<h4><a id="message"></a><code>type message</code></h4>
+<p><a href="#message"><a href="#message"><code>message</code></a></a></p>
 <p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
@@ -863,7 +860,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <li><a id="error_code.unknown"></a><code>unknown</code></li>
 </ul>
 <h4><a id="error"></a><code>resource error</code></h4>
-<h4><a id="model"></a><code>resource model</code></h4>
+<h4><a id="format"></a><code>resource format</code></h4>
 <hr />
 <h3>Functions</h3>
 <h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
@@ -886,30 +883,30 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
-<h4><a id="constructor_model"></a><code>[constructor]model: func</code></h4>
+<h4><a id="constructor_format"></a><code>[constructor]format: func</code></h4>
 <h5>Return values</h5>
 <ul>
-<li><a id="constructor_model.0"></a> own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
+<li><a id="constructor_format.0"></a> own&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
 </ul>
-<h4><a id="method_model_encode"></a><code>[method]model.encode: func</code></h4>
+<h4><a id="method_format_encode"></a><code>[method]format.encode: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_model_encode.self"></a><code>self</code>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
-<li><a id="method_model_encode.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
+<li><a id="method_format_encode.self"></a><code>self</code>: borrow&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
+<li><a id="method_format_encode.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_model_encode.0"></a> result&lt;list&lt;<code>u8</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_format_encode.0"></a> result&lt;list&lt;<code>u8</code>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h4><a id="method_model_decode"></a><code>[method]model.decode: func</code></h4>
+<h4><a id="method_format_decode"></a><code>[method]format.decode: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_model_decode.self"></a><code>self</code>: borrow&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
-<li><a id="method_model_decode.raw"></a><code>raw</code>: list&lt;<code>u8</code>&gt;</li>
+<li><a id="method_format_decode.self"></a><code>self</code>: borrow&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
+<li><a id="method_format_decode.raw"></a><code>raw</code>: list&lt;<code>u8</code>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_model_decode.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_format_decode.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h2><a id="hayride_ai_tools_0_0_52"></a>Import interface hayride:ai/tools@0.0.52</h2>
 <hr />
@@ -963,6 +960,15 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="constructor_tools.0"></a> own&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
 </ul>
+<h4><a id="method_tools_capabilities"></a><code>[method]tools.capabilities: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_tools_capabilities.self"></a><code>self</code>: borrow&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_tools_capabilities.0"></a> result&lt;list&lt;<a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
 <h4><a id="method_tools_call"></a><code>[method]tools.call: func</code></h4>
 <h5>Params</h5>
 <ul>
@@ -979,23 +985,17 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h4><a id="message"></a><code>type message</code></h4>
 <p><a href="#message"><a href="#message"><code>message</code></a></a></p>
 <p>
-#### <a id="tool_schema"></a>`type tool-schema`
-[`tool-schema`](#tool_schema)
-<p>
-#### <a id="tool_input"></a>`type tool-input`
-[`tool-input`](#tool_input)
-<p>
-#### <a id="tool_output"></a>`type tool-output`
-[`tool-output`](#tool_output)
-<p>
 #### <a id="context"></a>`type context`
 [`context`](#context)
 <p>
-#### <a id="model"></a>`type model`
-[`model`](#model)
+#### <a id="format"></a>`type format`
+[`format`](#format)
 <p>
 #### <a id="tools"></a>`type tools`
 [`tools`](#tools)
+<p>
+#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
+[`graph-execution-context-stream`](#graph_execution_context_stream)
 <p>
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
@@ -1037,7 +1037,8 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <li><a id="constructor_agent.instruction"></a><code>instruction</code>: <code>string</code></li>
 <li><a id="constructor_agent.tools"></a><a href="#tools"><code>tools</code></a>: own&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
 <li><a id="constructor_agent.context"></a><a href="#context"><code>context</code></a>: own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
-<li><a id="constructor_agent.model"></a><a href="#model"><code>model</code></a>: own&lt;<a href="#model"><a href="#model"><code>model</code></a></a>&gt;</li>
+<li><a id="constructor_agent.format"></a><a href="#format"><code>format</code></a>: own&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
+<li><a id="constructor_agent.graph"></a><a href="#graph"><code>graph</code></a>: own&lt;<a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
@@ -1057,7 +1058,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h5>Params</h5>
 <ul>
 <li><a id="method_agent_invoke_stream.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-<li><a id="method_agent_invoke_stream.messages"></a><code>messages</code>: list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;</li>
+<li><a id="method_agent_invoke_stream.messages"></a><code>messages</code>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
 <li><a id="method_agent_invoke_stream.writer"></a><code>writer</code>: own&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
@@ -1079,7 +1080,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h5>Params</h5>
 <ul>
 <li><a id="constructor_transformer.embedding"></a><code>embedding</code>: <a href="#embedding_type"><a href="#embedding_type"><code>embedding-type</code></a></a></li>
-<li><a id="constructor_transformer.model"></a><a href="#model"><code>model</code></a>: <code>string</code></li>
+<li><a id="constructor_transformer.model"></a><code>model</code>: <code>string</code></li>
 <li><a id="constructor_transformer.data_column"></a><code>data-column</code>: <code>string</code></li>
 <li><a id="constructor_transformer.vector_column"></a><code>vector-column</code>: <code>string</code></li>
 </ul>

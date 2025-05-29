@@ -1044,9 +1044,6 @@ errors can propagated with backend specific status through a string value.
 
 ### Types
 
-#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
-[`graph-execution-context-stream`](#graph_execution_context_stream)
-<p>
 #### <a id="message"></a>`type message`
 [`message`](#message)
 <p>
@@ -1062,7 +1059,7 @@ errors can propagated with backend specific status through a string value.
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
-#### <a id="model"></a>`resource model`
+#### <a id="format"></a>`resource format`
 
 ----
 
@@ -1092,36 +1089,36 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-#### <a id="constructor_model"></a>`[constructor]model: func`
+#### <a id="constructor_format"></a>`[constructor]format: func`
 
 
 ##### Return values
 
-- <a id="constructor_model.0"></a> own<[`model`](#model)>
+- <a id="constructor_format.0"></a> own<[`format`](#format)>
 
-#### <a id="method_model_encode"></a>`[method]model.encode: func`
+#### <a id="method_format_encode"></a>`[method]format.encode: func`
 
 
 ##### Params
 
-- <a id="method_model_encode.self"></a>`self`: borrow<[`model`](#model)>
-- <a id="method_model_encode.messages"></a>`messages`: list<[`message`](#message)>
+- <a id="method_format_encode.self"></a>`self`: borrow<[`format`](#format)>
+- <a id="method_format_encode.messages"></a>`messages`: list<[`message`](#message)>
 
 ##### Return values
 
-- <a id="method_model_encode.0"></a> result<list<`u8`>, own<[`error`](#error)>>
+- <a id="method_format_encode.0"></a> result<list<`u8`>, own<[`error`](#error)>>
 
-#### <a id="method_model_decode"></a>`[method]model.decode: func`
+#### <a id="method_format_decode"></a>`[method]format.decode: func`
 
 
 ##### Params
 
-- <a id="method_model_decode.self"></a>`self`: borrow<[`model`](#model)>
-- <a id="method_model_decode.raw"></a>`raw`: list<`u8`>
+- <a id="method_format_decode.self"></a>`self`: borrow<[`format`](#format)>
+- <a id="method_format_decode.raw"></a>`raw`: list<`u8`>
 
 ##### Return values
 
-- <a id="method_model_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+- <a id="method_format_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
 ## <a id="hayride_ai_tools_0_0_52"></a>Import interface hayride:ai/tools@0.0.52
 
@@ -1190,6 +1187,17 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="constructor_tools.0"></a> own<[`tools`](#tools)>
 
+#### <a id="method_tools_capabilities"></a>`[method]tools.capabilities: func`
+
+
+##### Params
+
+- <a id="method_tools_capabilities.self"></a>`self`: borrow<[`tools`](#tools)>
+
+##### Return values
+
+- <a id="method_tools_capabilities.0"></a> result<list<[`tool-schema`](#tool_schema)>, own<[`error`](#error)>>
+
 #### <a id="method_tools_call"></a>`[method]tools.call: func`
 
 
@@ -1212,23 +1220,17 @@ errors can propagated with backend specific status through a string value.
 #### <a id="message"></a>`type message`
 [`message`](#message)
 <p>
-#### <a id="tool_schema"></a>`type tool-schema`
-[`tool-schema`](#tool_schema)
-<p>
-#### <a id="tool_input"></a>`type tool-input`
-[`tool-input`](#tool_input)
-<p>
-#### <a id="tool_output"></a>`type tool-output`
-[`tool-output`](#tool_output)
-<p>
 #### <a id="context"></a>`type context`
 [`context`](#context)
 <p>
-#### <a id="model"></a>`type model`
-[`model`](#model)
+#### <a id="format"></a>`type format`
+[`format`](#format)
 <p>
 #### <a id="tools"></a>`type tools`
 [`tools`](#tools)
+<p>
+#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
+[`graph-execution-context-stream`](#graph_execution_context_stream)
 <p>
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
@@ -1281,7 +1283,8 @@ errors can propagated with backend specific status through a string value.
 - <a id="constructor_agent.instruction"></a>`instruction`: `string`
 - <a id="constructor_agent.tools"></a>`tools`: own<[`tools`](#tools)>
 - <a id="constructor_agent.context"></a>`context`: own<[`context`](#context)>
-- <a id="constructor_agent.model"></a>`model`: own<[`model`](#model)>
+- <a id="constructor_agent.format"></a>`format`: own<[`format`](#format)>
+- <a id="constructor_agent.graph"></a>`graph`: own<[`graph-execution-context-stream`](#graph_execution_context_stream)>
 
 ##### Return values
 
@@ -1305,7 +1308,7 @@ errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="method_agent_invoke_stream.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_invoke_stream.messages"></a>`messages`: list<[`message`](#message)>
+- <a id="method_agent_invoke_stream.messages"></a>`messages`: [`message`](#message)
 - <a id="method_agent_invoke_stream.writer"></a>`writer`: own<[`output-stream`](#output_stream)>
 
 ##### Return values

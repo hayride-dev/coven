@@ -19,6 +19,8 @@ interface tools {
 
     resource tools {
         constructor(tools: list<tool-schema>);
+        capabilities: func() -> result<list<tool-schema>, error>;
         call: func(input: tool-input) -> result<tool-output, error-code>;
     }
 }
+
