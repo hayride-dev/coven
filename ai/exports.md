@@ -57,7 +57,7 @@
 - <a id="tool_input.content_type"></a>`content-type`: `string`
 - <a id="tool_input.id"></a>`id`: `string`
 - <a id="tool_input.name"></a>`name`: `string`
-- <a id="tool_input.input"></a>`input`: `string`
+- <a id="tool_input.input"></a>`input`: list<(`string`, `string`)>
 #### <a id="tool_output"></a>`record tool-output`
 
 
