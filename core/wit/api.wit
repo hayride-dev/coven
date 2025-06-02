@@ -21,7 +21,7 @@ interface api {
 
     variant response-data {
         unknown,
-        sessions(thread-metadata),
+        sessions(sessions),
         session-id(string),
         session-status(thread-status),
     }
