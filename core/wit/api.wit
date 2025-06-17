@@ -46,7 +46,7 @@ interface ai-api {
         name(string),
     }
 
-    variant request-data {
+    variant response-data {
         unknown,
         messages(list<message>),
         path(string),
