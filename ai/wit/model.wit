@@ -24,3 +24,23 @@ interface model {
         decode: func(raw: list<u8>) -> result<message, error>;
     }
 }
+
+interface model-loader {
+    enum error-code {
+        model-not-found,
+        invalid-model-name,
+        runtime-error,
+        not-enabled,
+        unknown
+    }
+
+    resource error {
+        /// return the error code.
+        code: func() -> error-code;
+        /// errors can propagated with backend specific status through a string value.
+        data: func() -> string;
+    }
+
+    // Load a model by name, returning the path to the model file.
+    load: func(name: string) -> result<string, error>;
+}

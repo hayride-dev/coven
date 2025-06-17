@@ -9,6 +9,7 @@ world imports {
 
     import agents;
     import model;
+    import model-loader;
     import rag;
 }
 
