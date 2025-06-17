@@ -40,18 +40,25 @@ interface api {
 interface ai-api {
     use hayride:ai/types@0.0.53.{message};
 
-    variant data {
+    variant request-data {
         unknown,
         messages(list<message>),
+        name(string),
+    }
+
+    variant request-data {
+        unknown,
+        messages(list<message>),
+        path(string),
     }
 
     record request {
-        data: data,
+        data: request-data,
         metadata: list<tuple<string, string>>,
     }
 
     record response {
-        data: data,
+        data: response-data,
         error: string,
 
         // Cursor for pagination
