@@ -15,7 +15,7 @@
     - interface `hayride:ai/model@0.0.54`
     - interface `hayride:ai/tools@0.0.54`
     - interface `hayride:ai/agents@0.0.54`
-    - interface `hayride:ai/model-loader@0.0.54`
+    - interface `hayride:ai/model-repository@0.0.54`
     - interface `hayride:ai/transformer@0.0.54`
     - interface `hayride:ai/rag@0.0.54`
     - interface `wasi:nn/inference@0.2.0-rc-2024-10-28`
@@ -1316,7 +1316,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_agent_invoke_stream.0"></a> result<_, own<[`error`](#error)>>
 
-## <a id="hayride_ai_model_loader_0_0_54"></a>Import interface hayride:ai/model-loader@0.0.54
+## <a id="hayride_ai_model_repository_0_0_54"></a>Import interface hayride:ai/model-repository@0.0.54
 
 
 ----
@@ -1363,17 +1363,17 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-#### <a id="load"></a>`load: func`
+#### <a id="download"></a>`download: func`
 
-Load a model by name, returning the path to the model file.
+download a model by name
 
 ##### Params
 
-- <a id="load.name"></a>`name`: `string`
+- <a id="download.name"></a>`name`: `string`
 
 ##### Return values
 
-- <a id="load.0"></a> result<`string`, own<[`error`](#error)>>
+- <a id="download.0"></a> result<`string`, own<[`error`](#error)>>
 
 ## <a id="hayride_ai_transformer_0_0_54"></a>Import interface hayride:ai/transformer@0.0.54
 

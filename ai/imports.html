@@ -15,7 +15,7 @@
 <li>interface <a href="#hayride_ai_model_0_0_54"><code>hayride:ai/model@0.0.54</code></a></li>
 <li>interface <a href="#hayride_ai_tools_0_0_54"><code>hayride:ai/tools@0.0.54</code></a></li>
 <li>interface <a href="#hayride_ai_agents_0_0_54"><code>hayride:ai/agents@0.0.54</code></a></li>
-<li>interface <a href="#hayride_ai_model_loader_0_0_54"><code>hayride:ai/model-loader@0.0.54</code></a></li>
+<li>interface <a href="#hayride_ai_model_repository_0_0_54"><code>hayride:ai/model-repository@0.0.54</code></a></li>
 <li>interface <a href="#hayride_ai_transformer_0_0_54"><code>hayride:ai/transformer@0.0.54</code></a></li>
 <li>interface <a href="#hayride_ai_rag_0_0_54"><code>hayride:ai/rag@0.0.54</code></a></li>
 <li>interface <a href="#wasi_nn_inference_0_2_0_rc_2024_10_28"><code>wasi:nn/inference@0.2.0-rc-2024-10-28</code></a></li>
@@ -1066,7 +1066,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="method_agent_invoke_stream.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_model_loader_0_0_54"></a>Import interface hayride:ai/model-loader@0.0.54</h2>
+<h2><a id="hayride_ai_model_repository_0_0_54"></a>Import interface hayride:ai/model-repository@0.0.54</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error_code"></a><code>enum error-code</code></h4>
@@ -1101,15 +1101,15 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
-<h4><a id="load"></a><code>load: func</code></h4>
-<p>Load a model by name, returning the path to the model file.</p>
+<h4><a id="download"></a><code>download: func</code></h4>
+<p>download a model by name</p>
 <h5>Params</h5>
 <ul>
-<li><a id="load.name"></a><code>name</code>: <code>string</code></li>
+<li><a id="download.name"></a><code>name</code>: <code>string</code></li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="load.0"></a> result&lt;<code>string</code>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="download.0"></a> result&lt;<code>string</code>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h2><a id="hayride_ai_transformer_0_0_54"></a>Import interface hayride:ai/transformer@0.0.54</h2>
 <hr />

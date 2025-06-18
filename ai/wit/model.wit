@@ -25,7 +25,7 @@ interface model {
     }
 }
 
-interface model-loader {
+interface model-repository {
     enum error-code {
         model-not-found,
         invalid-model-name,
@@ -41,6 +41,6 @@ interface model-loader {
         data: func() -> string;
     }
 
-    // Load a model by name, returning the path to the model file.
-    load: func(name: string) -> result<string, error>;
+    // download a model by name
+    download: func(name: string) -> result<string, error>;
 }
