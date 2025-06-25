@@ -5,6 +5,7 @@ interface agents {
     use context.{context};
     use model.{format};
     use tools.{tools};
+    use graph-stream.{graph-stream};
     use inference-stream.{graph-execution-context-stream};
     use wasi:io/streams@0.2.0.{output-stream};
 
