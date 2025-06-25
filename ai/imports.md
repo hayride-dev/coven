@@ -1230,6 +1230,9 @@ errors can propagated with backend specific status through a string value.
 #### <a id="tools"></a>`type tools`
 [`tools`](#tools)
 <p>
+#### <a id="graph_stream"></a>`type graph-stream`
+[`graph-stream`](#graph_stream)
+<p>
 #### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
 [`graph-execution-context-stream`](#graph_execution_context_stream)
 <p>

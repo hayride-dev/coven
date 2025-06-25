@@ -12,6 +12,7 @@
     - interface `wasi:io/streams@0.2.0`
     - interface `hayride:ai/tensor-stream@0.0.55`
     - interface `hayride:ai/inference-stream@0.0.55`
+    - interface `hayride:ai/graph-stream@0.0.55`
  - Exports:
     - interface `hayride:ai/model@0.0.55`
     - interface `hayride:ai/agents@0.0.55`
@@ -1074,6 +1075,55 @@ Compute the inference on the given inputs.
 
 - <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
 
+## <a id="hayride_ai_graph_stream_0_0_55"></a>Import interface hayride:ai/graph-stream@0.0.55
+
+
+----
+
+### Types
+
+#### <a id="error"></a>`type error`
+[`error`](#error)
+<p>
+#### <a id="tensor"></a>`type tensor`
+[`tensor`](#tensor)
+<p>
+#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
+[`graph-execution-context-stream`](#graph_execution_context_stream)
+<p>
+#### <a id="graph_stream"></a>`resource graph-stream`
+
+----
+
+### Functions
+
+#### <a id="method_graph_stream_init_execution_context_stream"></a>`[method]graph-stream.init-execution-context-stream: func`
+
+
+##### Params
+
+- <a id="method_graph_stream_init_execution_context_stream.self"></a>`self`: borrow<[`graph-stream`](#graph_stream)>
+
+##### Return values
+
+- <a id="method_graph_stream_init_execution_context_stream.0"></a> result<own<[`graph-execution-context-stream`](#graph_execution_context_stream)>, own<[`error`](#error)>>
+
+#### <a id="load_by_name"></a>`load-by-name: func`
+
+Load a `graph` by name.
+
+How the host expects the names to be passed and how it stores the graphs for retrieval via
+this function is **implementation-specific**. This allows hosts to choose name schemes that
+range from simple to complex (e.g., URLs?) and caching mechanisms of various kinds.
+
+##### Params
+
+- <a id="load_by_name.name"></a>`name`: `string`
+
+##### Return values
+
+- <a id="load_by_name.0"></a> result<own<[`graph-stream`](#graph_stream)>, own<[`error`](#error)>>
+
 ## <a id="hayride_ai_model_0_0_55"></a>Export interface hayride:ai/model@0.0.55
 
 ----
@@ -1173,6 +1223,9 @@ errors can propagated with backend specific status through a string value.
 <p>
 #### <a id="tools"></a>`type tools`
 [`tools`](#tools)
+<p>
+#### <a id="graph_stream"></a>`type graph-stream`
+[`graph-stream`](#graph_stream)
 <p>
 #### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
 [`graph-execution-context-stream`](#graph_execution_context_stream)
