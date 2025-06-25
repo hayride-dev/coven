@@ -32,7 +32,7 @@ release:
         fi \
     done
 
-test-gen-rust: 
+gen-rust: 
 	@for dir in */ ; do \
 		dir=$${dir%/}; \
         worlds=$$(grep -Eo 'world[[:space:]]+[[:alnum:]_]+' $$dir/wit/*.wit | awk '{print $$2}' | sort -u); \
