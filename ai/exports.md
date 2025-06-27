@@ -1298,7 +1298,7 @@ errors can propagated with backend specific status through a string value.
 
 ##### Return values
 
-- <a id="method_agent_invoke.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+- <a id="method_agent_invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 
 #### <a id="method_agent_invoke_stream"></a>`[method]agent.invoke-stream: func`
 
@@ -1306,7 +1306,7 @@ errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="method_agent_invoke_stream.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_invoke_stream.messages"></a>`messages`: [`message`](#message)
+- <a id="method_agent_invoke_stream.message"></a>`message`: [`message`](#message)
 - <a id="method_agent_invoke_stream.writer"></a>`writer`: own<[`output-stream`](#output_stream)>
 
 ##### Return values
