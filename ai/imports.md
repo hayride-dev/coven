@@ -1180,10 +1180,6 @@ errors can propagated with backend specific status through a string value.
 #### <a id="constructor_tools"></a>`[constructor]tools: func`
 
 
-##### Params
-
-- <a id="constructor_tools.tools"></a>`tools`: list<[`tool-schema`](#tool_schema)>
-
 ##### Return values
 
 - <a id="constructor_tools.0"></a> own<[`tools`](#tools)>
