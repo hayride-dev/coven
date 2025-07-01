@@ -71,7 +71,7 @@ Errors can propagated with backend specific status through a string value.
 
 ##### Params
 
-- <a id="compose.path"></a>`path`: `string`
+- <a id="compose.contents"></a>`contents`: `string`
 
 ##### Return values
 
@@ -82,8 +82,8 @@ Errors can propagated with backend specific status through a string value.
 
 ##### Params
 
-- <a id="plug.socket_path"></a>`socket-path`: `string`
-- <a id="plug.plug_paths"></a>`plug-paths`: list<`string`>
+- <a id="plug.socket_pkg"></a>`socket-pkg`: `string`
+- <a id="plug.plug_pkgs"></a>`plug-pkgs`: list<`string`>
 
 ##### Return values
 
