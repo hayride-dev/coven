@@ -520,7 +520,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_socket_websocket_0_0_56"></a>Export interface hayride:socket/websocket@0.0.57
+## <a id="hayride_socket_websocket_0_0_57"></a>Export interface hayride:socket/websocket@0.0.57
 
 ----
 

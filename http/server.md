@@ -1697,7 +1697,7 @@ with an error on its behalf.
 - <a id="handle.request"></a>`request`: own<[`incoming-request`](#incoming_request)>
 - <a id="handle.response_out"></a>`response-out`: own<[`response-outparam`](#response_outparam)>
 
-## <a id="hayride_http_config_0_0_56"></a>Export interface hayride:http/config@0.0.57
+## <a id="hayride_http_config_0_0_57"></a>Export interface hayride:http/config@0.0.57
 
 ----
 
