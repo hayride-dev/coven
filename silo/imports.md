@@ -5,7 +5,7 @@
     - interface `hayride:silo/threads@0.0.57`
     - interface `hayride:silo/process@0.0.57`
 
-## <a id="hayride_silo_threads_0_0_56"></a>Import interface hayride:silo/threads@0.0.57
+## <a id="hayride_silo_threads_0_0_57"></a>Import interface hayride:silo/threads@0.0.57
 
 
 ----
@@ -107,7 +107,7 @@ get metadata about a single thread
 
 - <a id="group.0"></a> result<list<[`thread-metadata`](#thread_metadata)>, [`err-no`](#err_no)>
 
-## <a id="hayride_silo_process_0_0_56"></a>Import interface hayride:silo/process@0.0.57
+## <a id="hayride_silo_process_0_0_57"></a>Import interface hayride:silo/process@0.0.57
 
 
 ----
