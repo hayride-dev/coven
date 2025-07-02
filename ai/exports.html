@@ -2,27 +2,27 @@
 <ul>
 <li>Imports:
 <ul>
-<li>interface <a href="#hayride_ai_types_0_0_56"><code>hayride:ai/types@0.0.56</code></a></li>
-<li>interface <a href="#hayride_ai_context_0_0_56"><code>hayride:ai/context@0.0.56</code></a></li>
-<li>interface <a href="#hayride_ai_tools_0_0_56"><code>hayride:ai/tools@0.0.56</code></a></li>
+<li>interface <a href="#hayride_ai_types_0_0_56"><code>hayride:ai/types@0.0.57</code></a></li>
+<li>interface <a href="#hayride_ai_context_0_0_56"><code>hayride:ai/context@0.0.57</code></a></li>
+<li>interface <a href="#hayride_ai_tools_0_0_56"><code>hayride:ai/tools@0.0.57</code></a></li>
 <li>interface <a href="#wasi_nn_errors_0_2_0_rc_2024_10_28"><code>wasi:nn/errors@0.2.0-rc-2024-10-28</code></a></li>
 <li>interface <a href="#wasi_nn_tensor_0_2_0_rc_2024_10_28"><code>wasi:nn/tensor@0.2.0-rc-2024-10-28</code></a></li>
 <li>interface <a href="#wasi_io_poll_0_2_0"><code>wasi:io/poll@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_error_0_2_0"><code>wasi:io/error@0.2.0</code></a></li>
 <li>interface <a href="#wasi_io_streams_0_2_0"><code>wasi:io/streams@0.2.0</code></a></li>
-<li>interface <a href="#hayride_ai_tensor_stream_0_0_56"><code>hayride:ai/tensor-stream@0.0.56</code></a></li>
-<li>interface <a href="#hayride_ai_inference_stream_0_0_56"><code>hayride:ai/inference-stream@0.0.56</code></a></li>
-<li>interface <a href="#hayride_ai_graph_stream_0_0_56"><code>hayride:ai/graph-stream@0.0.56</code></a></li>
+<li>interface <a href="#hayride_ai_tensor_stream_0_0_56"><code>hayride:ai/tensor-stream@0.0.57</code></a></li>
+<li>interface <a href="#hayride_ai_inference_stream_0_0_56"><code>hayride:ai/inference-stream@0.0.57</code></a></li>
+<li>interface <a href="#hayride_ai_graph_stream_0_0_56"><code>hayride:ai/graph-stream@0.0.57</code></a></li>
 </ul>
 </li>
 <li>Exports:
 <ul>
-<li>interface <a href="#hayride_ai_model_0_0_56"><code>hayride:ai/model@0.0.56</code></a></li>
-<li>interface <a href="#hayride_ai_agents_0_0_56"><code>hayride:ai/agents@0.0.56</code></a></li>
+<li>interface <a href="#hayride_ai_model_0_0_56"><code>hayride:ai/model@0.0.57</code></a></li>
+<li>interface <a href="#hayride_ai_agents_0_0_56"><code>hayride:ai/agents@0.0.57</code></a></li>
 </ul>
 </li>
 </ul>
-<h2><a id="hayride_ai_types_0_0_56"></a>Import interface hayride:ai/types@0.0.56</h2>
+<h2><a id="hayride_ai_types_0_0_56"></a>Import interface hayride:ai/types@0.0.57</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="role"></a><code>enum role</code></h4>
@@ -79,7 +79,7 @@
 <li><a id="message.role"></a><a href="#role"><code>role</code></a>: <a href="#role"><a href="#role"><code>role</code></a></a></li>
 <li><a id="message.content"></a><a href="#content"><code>content</code></a>: list&lt;<a href="#content"><a href="#content"><code>content</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_context_0_0_56"></a>Import interface hayride:ai/context@0.0.56</h2>
+<h2><a id="hayride_ai_context_0_0_56"></a>Import interface hayride:ai/context@0.0.57</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="message"></a><code>type message</code></h4>
@@ -141,7 +141,7 @@
 <ul>
 <li><a id="method_context_messages.0"></a> result&lt;list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_tools_0_0_56"></a>Import interface hayride:ai/tools@0.0.56</h2>
+<h2><a id="hayride_ai_tools_0_0_56"></a>Import interface hayride:ai/tools@0.0.57</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="tool_schema"></a><code>type tool-schema</code></h4>
@@ -760,7 +760,7 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="method_output_stream_blocking_splice.0"></a> result&lt;<code>u64</code>, <a href="#stream_error"><a href="#stream_error"><code>stream-error</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_tensor_stream_0_0_56"></a>Import interface hayride:ai/tensor-stream@0.0.56</h2>
+<h2><a id="hayride_ai_tensor_stream_0_0_56"></a>Import interface hayride:ai/tensor-stream@0.0.57</h2>
 <p>This interface defines a stream of tensors. The stream is a sequence of tensors.</p>
 <hr />
 <h3>Types</h3>
@@ -834,7 +834,7 @@ containing a single value, use <code>[1]</code> for the tensor dimensions.</p>
 <ul>
 <li><a id="method_tensor_stream_subscribe.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
 </ul>
-<h2><a id="hayride_ai_inference_stream_0_0_56"></a>Import interface hayride:ai/inference-stream@0.0.56</h2>
+<h2><a id="hayride_ai_inference_stream_0_0_56"></a>Import interface hayride:ai/inference-stream@0.0.57</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
@@ -874,7 +874,7 @@ graph inputs and outputs.</p>
 <ul>
 <li><a id="method_graph_execution_context_stream_compute.0"></a> result&lt;<a href="#named_tensor_stream"><a href="#named_tensor_stream"><code>named-tensor-stream</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_graph_stream_0_0_56"></a>Import interface hayride:ai/graph-stream@0.0.56</h2>
+<h2><a id="hayride_ai_graph_stream_0_0_56"></a>Import interface hayride:ai/graph-stream@0.0.57</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="error"></a><code>type error</code></h4>
@@ -911,7 +911,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="load_by_name.0"></a> result&lt;own&lt;<a href="#graph_stream"><a href="#graph_stream"><code>graph-stream</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_model_0_0_56"></a>Export interface hayride:ai/model@0.0.56</h2>
+<h2><a id="hayride_ai_model_0_0_56"></a>Export interface hayride:ai/model@0.0.57</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="message"></a><code>type message</code></h4>
@@ -975,7 +975,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="method_format_decode.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_agents_0_0_56"></a>Export interface hayride:ai/agents@0.0.56</h2>
+<h2><a id="hayride_ai_agents_0_0_56"></a>Export interface hayride:ai/agents@0.0.57</h2>
 <hr />
 <h3>Types</h3>
 <h4><a id="message"></a><code>type message</code></h4>
