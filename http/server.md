@@ -9,7 +9,7 @@
     - interface `wasi:http/types@0.2.0`
  - Exports:
     - interface `wasi:http/incoming-handler@0.2.0`
-    - interface `hayride:http/config@0.0.57`
+    - interface `hayride:http/config@0.0.58`
 
 ## <a id="wasi_io_poll_0_2_0"></a>Import interface wasi:io/poll@0.2.0
 
@@ -1697,7 +1697,7 @@ with an error on its behalf.
 - <a id="handle.request"></a>`request`: own<[`incoming-request`](#incoming_request)>
 - <a id="handle.response_out"></a>`response-out`: own<[`response-outparam`](#response_outparam)>
 
-## <a id="hayride_http_config_0_0_57"></a>Export interface hayride:http/config@0.0.57
+## <a id="hayride_http_config_0_0_57"></a>Export interface hayride:http/config@0.0.58
 
 ----
 
