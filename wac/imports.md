@@ -2,10 +2,10 @@
 
 
  - Imports:
-    - interface `hayride:wac/types@0.0.57`
-    - interface `hayride:wac/wac@0.0.57`
+    - interface `hayride:wac/types@0.0.58`
+    - interface `hayride:wac/wac@0.0.58`
 
-## <a id="hayride_wac_types_0_0_57"></a>Import interface hayride:wac/types@0.0.57
+## <a id="hayride_wac_types_0_0_57"></a>Import interface hayride:wac/types@0.0.58
 
 
 ----
@@ -52,7 +52,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-## <a id="hayride_wac_wac_0_0_57"></a>Import interface hayride:wac/wac@0.0.57
+## <a id="hayride_wac_wac_0_0_57"></a>Import interface hayride:wac/wac@0.0.58
 
 
 ----

@@ -2,22 +2,22 @@
 
 
  - Imports:
-    - interface `hayride:ai/types@0.0.57`
-    - interface `hayride:ai/context@0.0.57`
-    - interface `hayride:ai/tools@0.0.57`
+    - interface `hayride:ai/types@0.0.58`
+    - interface `hayride:ai/context@0.0.58`
+    - interface `hayride:ai/tools@0.0.58`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
     - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:ai/tensor-stream@0.0.57`
-    - interface `hayride:ai/inference-stream@0.0.57`
-    - interface `hayride:ai/graph-stream@0.0.57`
+    - interface `hayride:ai/tensor-stream@0.0.58`
+    - interface `hayride:ai/inference-stream@0.0.58`
+    - interface `hayride:ai/graph-stream@0.0.58`
  - Exports:
-    - interface `hayride:ai/model@0.0.57`
-    - interface `hayride:ai/agents@0.0.57`
+    - interface `hayride:ai/model@0.0.58`
+    - interface `hayride:ai/agents@0.0.58`
 
-## <a id="hayride_ai_types_0_0_57"></a>Import interface hayride:ai/types@0.0.57
+## <a id="hayride_ai_types_0_0_57"></a>Import interface hayride:ai/types@0.0.58
 
 
 ----
@@ -85,7 +85,7 @@
 
 - <a id="message.role"></a>`role`: [`role`](#role)
 - <a id="message.content"></a>`content`: list<[`content`](#content)>
-## <a id="hayride_ai_context_0_0_57"></a>Import interface hayride:ai/context@0.0.57
+## <a id="hayride_ai_context_0_0_57"></a>Import interface hayride:ai/context@0.0.58
 
 
 ----
@@ -166,7 +166,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_context_messages.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_tools_0_0_57"></a>Import interface hayride:ai/tools@0.0.57
+## <a id="hayride_ai_tools_0_0_57"></a>Import interface hayride:ai/tools@0.0.58
 
 
 ----
@@ -929,7 +929,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_ai_tensor_stream_0_0_57"></a>Import interface hayride:ai/tensor-stream@0.0.57
+## <a id="hayride_ai_tensor_stream_0_0_57"></a>Import interface hayride:ai/tensor-stream@0.0.58
 
 This interface defines a stream of tensors. The stream is a sequence of tensors.
 
@@ -1020,7 +1020,7 @@ Read up to `len` bytes from the stream.
 
 - <a id="method_tensor_stream_subscribe.0"></a> own<[`pollable`](#pollable)>
 
-## <a id="hayride_ai_inference_stream_0_0_57"></a>Import interface hayride:ai/inference-stream@0.0.57
+## <a id="hayride_ai_inference_stream_0_0_57"></a>Import interface hayride:ai/inference-stream@0.0.58
 
 
 ----
@@ -1071,7 +1071,7 @@ Compute the inference on the given inputs.
 
 - <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
 
-## <a id="hayride_ai_graph_stream_0_0_57"></a>Import interface hayride:ai/graph-stream@0.0.57
+## <a id="hayride_ai_graph_stream_0_0_57"></a>Import interface hayride:ai/graph-stream@0.0.58
 
 
 ----
@@ -1120,7 +1120,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 - <a id="load_by_name.0"></a> result<own<[`graph-stream`](#graph_stream)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_model_0_0_57"></a>Export interface hayride:ai/model@0.0.57
+## <a id="hayride_ai_model_0_0_57"></a>Export interface hayride:ai/model@0.0.58
 
 ----
 
@@ -1202,7 +1202,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_format_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
-## <a id="hayride_ai_agents_0_0_57"></a>Export interface hayride:ai/agents@0.0.57
+## <a id="hayride_ai_agents_0_0_57"></a>Export interface hayride:ai/agents@0.0.58
 
 ----
 

@@ -12,14 +12,14 @@ To use the WIT definitions in your project, you can include them as dependencies
 Using wit-deps, you can add these definitions to your project by adding the following to your `deps.toml` file:
 
 ```toml
-ai = "https://github.com/hayride-dev/coven/releases/download/v0.0.57/hayride_ai_v0.0.57.tar.gz"
+ai = "https://github.com/hayride-dev/coven/releases/download/v0.0.58/hayride_ai_v0.0.58.tar.gz"
 ```
 
 Then reference them in your WIT files:
 
 ```wit
 world example {
-    export hayride:ai/agents@0.0.57;
+    export hayride:ai/agents@0.0.58;
 }
 ```
 
