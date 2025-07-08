@@ -5,13 +5,7 @@ default: gen-md
 deps: ; wit-deps update
 
 gen-md: 
-	@for dir in */ ; do \
-		dir=$${dir%/}; \
-		worlds=$$(grep -Eo 'world[[:space:]]+[[:alnum:]_]+' $$dir/wit/*.wit | awk '{print $$2}' | sort -u); \
-		for world in $$worlds; do \
-			wit-bindgen markdown --world $$world --out-dir $$dir $$dir/wit ; \
-		done \
-	done
+	wit-bindgen markdown --world syntax --out-dir ./wit/ ./wit
 
 release:
 	@for dir in */ ; do \
@@ -30,15 +24,6 @@ release:
         else \
             echo "No .wit files found in $$dir/wit"; \
         fi \
-    done
-
-gen-rust: 
-	@for dir in */ ; do \
-		dir=$${dir%/}; \
-        worlds=$$(grep -Eo 'world[[:space:]]+[[:alnum:]_]+' $$dir/wit/*.wit | awk '{print $$2}' | sort -u); \
-        for world in $$worlds; do \
-            wit-bindgen rust --generate-all --world $$world --out-dir $$dir/gen/rust $$dir/wit ; \
-        done \
     done
 
 clean: ; rm -rf **/gen & rm -rf *.tar.gz
