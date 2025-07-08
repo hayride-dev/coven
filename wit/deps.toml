@@ -1,0 +1,6 @@
+ai = "../ai/wit"
+core = "../core/wit"
+silo = "../silo/wit"
+http = "../http/wit"
+socket = "../socket/wit"
+wac = "../wac/wit"
