@@ -267,6 +267,7 @@ get metadata about a single thread
 - <a id="response_data.messages"></a>`messages`: list<[`message`](#message)>
 - <a id="response_data.path"></a>`path`: `string`
 - <a id="response_data.paths"></a>`paths`: list<`string`>
+- <a id="response_data.version"></a>`version`: `string`
 #### <a id="request"></a>`record request`
 
 
