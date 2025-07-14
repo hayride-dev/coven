@@ -29,10 +29,9 @@ We currently publish the WIT definitions to GitHub releases, which can be found 
 
 The primary goal of this repository is to store a collection of WIT defintions. The bindings are not stored or generated here. Using tools such as [wit-deps](https://github.com/bytecodealliance/wit-deps), you can include these definitions in your project and generate the bindings as needed.
 
-To ensure syntax correctness and compatibility, we provide a way to generate test bindings for various languages. The following commands can be used to generate bindings for different languages:
+To ensure syntax correctness and compatibility, we provide a way to generate test bindings for various languages.
 
-### Rust 
-`make gen-rust` 
+You can see examples of generated bindings in our [bindings](https://github.com/hayride-dev/bindings) repository. 
 
 ### Markdown 
 `make gen-md`
