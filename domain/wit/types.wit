@@ -1,8 +1,8 @@
-package hayride:domain@0.0.59;
+package hayride:domain@0.0.60;
 
 interface types {
-    use hayride:ai/types@0.0.59.{role, text-content, tool-schema, tool-input, tool-output, content, message};
-    use hayride:silo/types@0.0.59.{err-no, thread-status, thread-metadata};
-    use hayride:core/types@0.0.59.{cast, generate, request-data, response-data, request, response};
-    use hayride:http/types@0.0.59.{error-code, server-config};
+    use hayride:ai/types@0.0.60.{role, text-content, tool-schema, tool-input, tool-output, content, message};
+    use hayride:silo/types@0.0.60.{err-no, thread-status, thread-metadata};
+    use hayride:core/types@0.0.60.{cast, generate, request-data, response-data, request, response};
+    use hayride:http/types@0.0.60.{error-code, server-config};
 }
