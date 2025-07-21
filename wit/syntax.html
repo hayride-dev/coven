@@ -381,8 +381,8 @@ default: true
 <h2><a id="hayride_ai_types_0_0_61"></a>Import interface hayride:ai/types@0.0.61</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="tool_schema"></a><code>type tool-schema</code></h4>
-<p><a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a></p>
+<h4><a id="tool"></a><code>type tool</code></h4>
+<p><a href="#tool"><a href="#tool"><code>tool</code></a></a></p>
 <p>
 #### <a id="call_tool_params"></a>`type call-tool-params`
 [`call-tool-params`](#call_tool_params)
@@ -399,26 +399,21 @@ default: true
 <li><a id="role.tool"></a><a href="#tool"><code>tool</code></a></li>
 <li><a id="role.unknown"></a><code>unknown</code></li>
 </ul>
-<h4><a id="text_content"></a><code>record text-content</code></h4>
-<h5>Record Fields</h5>
-<ul>
-<li><a id="text_content.text"></a><code>text</code>: <code>string</code></li>
-<li><a id="text_content.content_type"></a><code>content-type</code>: <code>string</code></li>
-</ul>
-<h4><a id="content"></a><code>variant content</code></h4>
+<h4><a id="message_content"></a><code>variant message-content</code></h4>
 <h5>Variant Cases</h5>
 <ul>
-<li><a id="content.none"></a><code>none</code></li>
-<li><a id="content.text"></a><code>text</code>: <a href="#text_content"><a href="#text_content"><code>text-content</code></a></a></li>
-<li><a id="content.tool_schema"></a><a href="#tool_schema"><code>tool-schema</code></a>: <a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a></li>
-<li><a id="content.tool_input"></a><code>tool-input</code>: <a href="#call_tool_params"><a href="#call_tool_params"><code>call-tool-params</code></a></a></li>
-<li><a id="content.tool_output"></a><code>tool-output</code>: <a href="#call_tool_result"><a href="#call_tool_result"><code>call-tool-result</code></a></a></li>
+<li><a id="message_content.none"></a><code>none</code></li>
+<li><a id="message_content.text"></a><code>text</code>: <code>string</code></li>
+<li><a id="message_content.blob"></a><code>blob</code>: list&lt;<code>u8</code>&gt;</li>
+<li><a id="message_content.mcp_tools"></a><code>mcp-tools</code>: list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;</li>
+<li><a id="message_content.mcp_tool_input"></a><code>mcp-tool-input</code>: <a href="#call_tool_params"><a href="#call_tool_params"><code>call-tool-params</code></a></a></li>
+<li><a id="message_content.mcp_tool_output"></a><code>mcp-tool-output</code>: <a href="#call_tool_result"><a href="#call_tool_result"><code>call-tool-result</code></a></a></li>
 </ul>
 <h4><a id="message"></a><code>record message</code></h4>
 <h5>Record Fields</h5>
 <ul>
 <li><a id="message.role"></a><a href="#role"><code>role</code></a>: <a href="#role"><a href="#role"><code>role</code></a></a></li>
-<li><a id="message.content"></a><a href="#content"><code>content</code></a>: list&lt;<a href="#content"><a href="#content"><code>content</code></a></a>&gt;</li>
+<li><a id="message.content"></a><a href="#content"><code>content</code></a>: list&lt;<a href="#message_content"><a href="#message_content"><code>message-content</code></a></a>&gt;</li>
 </ul>
 <h2><a id="hayride_core_types_0_0_61"></a>Import interface hayride:core/types@0.0.61</h2>
 <hr />

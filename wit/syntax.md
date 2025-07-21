@@ -384,8 +384,8 @@ A content is [TextContent], [ImageContent], [AudioContent],
 
 ### Types
 
-#### <a id="tool_schema"></a>`type tool-schema`
-[`tool-schema`](#tool_schema)
+#### <a id="tool"></a>`type tool`
+[`tool`](#tool)
 <p>
 #### <a id="call_tool_params"></a>`type call-tool-params`
 [`call-tool-params`](#call_tool_params)
@@ -403,30 +403,24 @@ A content is [TextContent], [ImageContent], [AudioContent],
 - <a id="role.system"></a>`system`
 - <a id="role.tool"></a>`tool`
 - <a id="role.unknown"></a>`unknown`
-#### <a id="text_content"></a>`record text-content`
-
-
-##### Record Fields
-
-- <a id="text_content.text"></a>`text`: `string`
-- <a id="text_content.content_type"></a>`content-type`: `string`
-#### <a id="content"></a>`variant content`
+#### <a id="message_content"></a>`variant message-content`
 
 
 ##### Variant Cases
 
-- <a id="content.none"></a>`none`
-- <a id="content.text"></a>`text`: [`text-content`](#text_content)
-- <a id="content.tool_schema"></a>`tool-schema`: [`tool-schema`](#tool_schema)
-- <a id="content.tool_input"></a>`tool-input`: [`call-tool-params`](#call_tool_params)
-- <a id="content.tool_output"></a>`tool-output`: [`call-tool-result`](#call_tool_result)
+- <a id="message_content.none"></a>`none`
+- <a id="message_content.text"></a>`text`: `string`
+- <a id="message_content.blob"></a>`blob`: list<`u8`>
+- <a id="message_content.mcp_tools"></a>`mcp-tools`: list<[`tool`](#tool)>
+- <a id="message_content.mcp_tool_input"></a>`mcp-tool-input`: [`call-tool-params`](#call_tool_params)
+- <a id="message_content.mcp_tool_output"></a>`mcp-tool-output`: [`call-tool-result`](#call_tool_result)
 #### <a id="message"></a>`record message`
 
 
 ##### Record Fields
 
 - <a id="message.role"></a>`role`: [`role`](#role)
-- <a id="message.content"></a>`content`: list<[`content`](#content)>
+- <a id="message.content"></a>`content`: list<[`message-content`](#message_content)>
 ## <a id="hayride_core_types_0_0_61"></a>Import interface hayride:core/types@0.0.61
 
 
