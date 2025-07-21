@@ -19,10 +19,11 @@ world syntax {
     import hayride:ai/types@0.0.60;
     import hayride:ai/model@0.0.60;
     import hayride:ai/context@0.0.60;
-    import hayride:ai/tools@0.0.60;
     import hayride:ai/tensor-stream@0.0.60;
     import hayride:ai/graph-stream@0.0.60;
     import hayride:ai/inference-stream@0.0.60;
     import hayride:ai/rag@0.0.60;
     import hayride:ai/transformer@0.0.60;
+
+    import hayride:mcp/tools@0.0.60;
 }

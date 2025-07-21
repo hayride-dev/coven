@@ -18,7 +18,8 @@
 <li>interface <a href="#hayride_wac_wac_0_0_60"><code>hayride:wac/wac@0.0.60</code></a></li>
 <li>interface <a href="#hayride_ai_context_0_0_60"><code>hayride:ai/context@0.0.60</code></a></li>
 <li>interface <a href="#hayride_ai_model_0_0_60"><code>hayride:ai/model@0.0.60</code></a></li>
-<li>interface <a href="#hayride_ai_tools_0_0_60"><code>hayride:ai/tools@0.0.60</code></a></li>
+<li>interface <a href="#hayride_mcp_types_0_0_60"><code>hayride:mcp/types@0.0.60</code></a></li>
+<li>interface <a href="#hayride_mcp_tools_0_0_60"><code>hayride:mcp/tools@0.0.60</code></a></li>
 <li>interface <a href="#wasi_nn_errors_0_2_0_rc_2024_10_28"><code>wasi:nn/errors@0.2.0-rc-2024-10-28</code></a></li>
 <li>interface <a href="#wasi_nn_tensor_0_2_0_rc_2024_10_28"><code>wasi:nn/tensor@0.2.0-rc-2024-10-28</code></a></li>
 <li>interface <a href="#hayride_ai_tensor_stream_0_0_60"><code>hayride:ai/tensor-stream@0.0.60</code></a></li>
@@ -131,7 +132,7 @@
 <li><a id="role.user"></a><code>user</code></li>
 <li><a id="role.assistant"></a><code>assistant</code></li>
 <li><a id="role.system"></a><code>system</code></li>
-<li><a id="role.tool"></a><code>tool</code></li>
+<li><a id="role.tool"></a><a href="#tool"><code>tool</code></a></li>
 <li><a id="role.unknown"></a><code>unknown</code></li>
 </ul>
 <h4><a id="text_content"></a><code>record text-content</code></h4>
@@ -1000,17 +1001,231 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="method_format_decode.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h2><a id="hayride_ai_tools_0_0_60"></a>Import interface hayride:ai/tools@0.0.60</h2>
+<h2><a id="hayride_mcp_types_0_0_60"></a>Import interface hayride:mcp/types@0.0.60</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="tool_schema"></a><code>type tool-schema</code></h4>
-<p><a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a></p>
+<h4><a id="tool_annotations"></a><code>record tool-annotations</code></h4>
+<p>Tool annotations provide additional metadata about a tool's behavior
+https://modelcontextprotocol.io/docs/concepts/tools#available-tool-annotations</p>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="tool_annotations.title"></a><code>title</code>: <code>string</code></p>
+<p>A human-readable title for the tool, useful for UI display
+</li>
+<li>
+<p><a id="tool_annotations.read_only_hint"></a><code>read-only-hint</code>: <code>bool</code></p>
+<p>If true, indicates the tool does not modify its environment
+default: false
+</li>
+<li>
+<p><a id="tool_annotations.destructive_hint"></a><code>destructive-hint</code>: <code>bool</code></p>
+<p>If true, the tool may perform destructive updates
+(only meaningful when readOnlyHint is false)
+default: true
+</li>
+<li>
+<p><a id="tool_annotations.idempotent_hint"></a><code>idempotent-hint</code>: <code>bool</code></p>
+<p>If true, calling the tool repeatedly with the same arguments
+has no additional effect (only meaningful when readOnlyHint is false)
+default: false
+</li>
+<li>
+<p><a id="tool_annotations.open_world_hint"></a><code>open-world-hint</code>: <code>bool</code></p>
+<p>If true, the tool may interact with an “open world” of external entities
+default: true
+</li>
+</ul>
+<h4><a id="tool_schema"></a><code>record tool-schema</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="tool_schema.schema_type"></a><code>schema-type</code>: <code>string</code></li>
+<li><a id="tool_schema.properties"></a><code>properties</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</li>
+<li><a id="tool_schema.required"></a><code>required</code>: list&lt;<code>string</code>&gt;</li>
+</ul>
+<h4><a id="tool"></a><code>record tool</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="tool.name"></a><code>name</code>: <code>string</code></p>
+<p>Unique identifier for the tool
+</li>
+<li>
+<p><a id="tool.title"></a><code>title</code>: <code>string</code></p>
+<p>Optional human-readable name of the tool for display purposes.
+</li>
+<li>
+<p><a id="tool.description"></a><code>description</code>: <code>string</code></p>
+<p>Human-readable description of functionality
+</li>
+<li>
+<p><a id="tool.input_schema"></a><code>input-schema</code>: <a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a></p>
+<p>JSON Schema defining expected parameters
+</li>
+<li>
+<p><a id="tool.output_schema"></a><code>output-schema</code>: <a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a></p>
+<p>Optional JSON Schema defining expected output structure
+</li>
+<li>
+<p><a id="tool.annotations"></a><code>annotations</code>: <a href="#tool_annotations"><a href="#tool_annotations"><code>tool-annotations</code></a></a></p>
+<p>optional properties describing tool behavior
+</li>
+</ul>
+<h4><a id="text_content"></a><code>record text-content</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="text_content.content_type"></a><code>content-type</code>: <code>string</code></p>
+<p>Must be "text"
+</li>
+<li>
+<p><a id="text_content.text"></a><code>text</code>: <code>string</code></p>
+<p>Tool result text
+</li>
+</ul>
+<h4><a id="image_content"></a><code>record image-content</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="image_content.content_type"></a><code>content-type</code>: <code>string</code></p>
+<p>Must be "image"
+</li>
+<li>
+<p><a id="image_content.data"></a><code>data</code>: list&lt;<code>u8</code>&gt;</p>
+<p>Base64-encoded data
+</li>
+<li>
+<p><a id="image_content.mime_type"></a><code>mime-type</code>: <code>string</code></p>
+<p>MIME type of the image (e.g., "image/png")
+</li>
+</ul>
+<h4><a id="audio_content"></a><code>record audio-content</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="audio_content.content_type"></a><code>content-type</code>: <code>string</code></p>
+<p>Must be "audio"
+</li>
+<li>
+<p><a id="audio_content.data"></a><code>data</code>: list&lt;<code>u8</code>&gt;</p>
+<p>Base64-encoded audio data
+</li>
+<li>
+<p><a id="audio_content.mime_type"></a><code>mime-type</code>: <code>string</code></p>
+<p>MIME type of the audio (e.g., "audio/wav")
+</li>
+</ul>
+<h4><a id="resource_link_content"></a><code>record resource-link-content</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="resource_link_content.content_type"></a><code>content-type</code>: <code>string</code></p>
+<p>Must be "resource_link"
+</li>
+<li>
+<p><a id="resource_link_content.uri"></a><code>uri</code>: <code>string</code></p>
+<p>URI of the resource
+</li>
+<li>
+<p><a id="resource_link_content.name"></a><code>name</code>: <code>string</code></p>
+<p>name of the resource
+</li>
+<li>
+<p><a id="resource_link_content.description"></a><code>description</code>: <code>string</code></p>
+<p>description of the resource
+</li>
+<li>
+<p><a id="resource_link_content.mime_type"></a><code>mime-type</code>: <code>string</code></p>
+<p>MIME type of the resource (e.g., "text/x-rust")
+</li>
+</ul>
+<h4><a id="text_resource_contents"></a><code>record text-resource-contents</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="text_resource_contents.uri"></a><code>uri</code>: <code>string</code></p>
+<p>e.g. "file:///example.txt"
+</li>
+<li>
+<p><a id="text_resource_contents.name"></a><code>name</code>: <code>string</code></p>
+<p>e.g. "example.txt"
+</li>
+<li>
+<p><a id="text_resource_contents.title"></a><code>title</code>: <code>string</code></p>
+<p>e.g. "Example Text File"
+</li>
+<li>
+<p><a id="text_resource_contents.mime_type"></a><code>mime-type</code>: <code>string</code></p>
+<p>e.g. "text/plain"
+</li>
+<li>
+<p><a id="text_resource_contents.text"></a><code>text</code>: <code>string</code></p>
+<p>e.g. "Resource content"
+</li>
+</ul>
+<h4><a id="blob_resource_contents"></a><code>record blob-resource-contents</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="blob_resource_contents.uri"></a><code>uri</code>: <code>string</code></p>
+<p>e.g. "file:///example.png"
+</li>
+<li>
+<p><a id="blob_resource_contents.name"></a><code>name</code>: <code>string</code></p>
+<p>e.g. "example.png"
+</li>
+<li>
+<p><a id="blob_resource_contents.title"></a><code>title</code>: <code>string</code></p>
+<p>e.g. "Example Image"
+</li>
+<li>
+<p><a id="blob_resource_contents.mime_type"></a><code>mime-type</code>: <code>string</code></p>
+<p>e.g. "image/png"
+</li>
+<li>
+<p><a id="blob_resource_contents.blob"></a><code>blob</code>: list&lt;<code>u8</code>&gt;</p>
+<p>e.g. Base64-encoded binary data
+</li>
+</ul>
+<h4><a id="resource_contents"></a><code>variant resource-contents</code></h4>
+<p>A resource can be either text or binary data.</p>
+<h5>Variant Cases</h5>
+<ul>
+<li><a id="resource_contents.none"></a><code>none</code></li>
+<li><a id="resource_contents.text"></a><code>text</code>: <a href="#text_resource_contents"><a href="#text_resource_contents"><code>text-resource-contents</code></a></a></li>
+<li><a id="resource_contents.blob"></a><code>blob</code>: <a href="#blob_resource_contents"><a href="#blob_resource_contents"><code>blob-resource-contents</code></a></a></li>
+</ul>
+<h4><a id="embedded_resource_content"></a><code>record embedded-resource-content</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="embedded_resource_content.content_type"></a><code>content-type</code>: <code>string</code></p>
+<p>Must be "resource"
+</li>
+<li>
+<p><a id="embedded_resource_content.resource_contents"></a><a href="#resource_contents"><code>resource-contents</code></a>: <a href="#resource_contents"><a href="#resource_contents"><code>resource-contents</code></a></a></p>
+</li>
+</ul>
+<h4><a id="content"></a><code>variant content</code></h4>
+<p>A content is [TextContent], [ImageContent], [AudioContent],
+[ResourceLink], or [EmbeddedResource].</p>
+<h5>Variant Cases</h5>
+<ul>
+<li><a id="content.none"></a><code>none</code></li>
+<li><a id="content.text"></a><code>text</code>: <a href="#text_content"><a href="#text_content"><code>text-content</code></a></a></li>
+<li><a id="content.image"></a><code>image</code>: <a href="#image_content"><a href="#image_content"><code>image-content</code></a></a></li>
+<li><a id="content.audio"></a><code>audio</code>: <a href="#audio_content"><a href="#audio_content"><code>audio-content</code></a></a></li>
+<li><a id="content.resource_link"></a><code>resource-link</code>: <a href="#resource_link_content"><a href="#resource_link_content"><code>resource-link-content</code></a></a></li>
+<li><a id="content.resource_content"></a><code>resource-content</code>: <a href="#embedded_resource_content"><a href="#embedded_resource_content"><code>embedded-resource-content</code></a></a></li>
+</ul>
+<h2><a id="hayride_mcp_tools_0_0_60"></a>Import interface hayride:mcp/tools@0.0.60</h2>
+<hr />
+<h3>Types</h3>
+<h4><a id="tool"></a><code>type tool</code></h4>
+<p><a href="#tool"><a href="#tool"><code>tool</code></a></a></p>
 <p>
-#### <a id="tool_input"></a>`type tool-input`
-[`tool-input`](#tool_input)
-<p>
-#### <a id="tool_output"></a>`type tool-output`
-[`tool-output`](#tool_output)
+#### <a id="content"></a>`type content`
+[`content`](#content)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
@@ -1020,6 +1235,32 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <li><a id="error_code.unknown"></a><code>unknown</code></li>
 </ul>
 <h4><a id="error"></a><code>resource error</code></h4>
+<h4><a id="list_tools_result"></a><code>record list-tools-result</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="list_tools_result.tools"></a><a href="#tools"><code>tools</code></a>: list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;</li>
+<li><a id="list_tools_result.next_cursor"></a><code>next-cursor</code>: <code>string</code></li>
+<li><a id="list_tools_result.meta"></a><code>meta</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</li>
+</ul>
+<h4><a id="call_tool_result"></a><code>record call-tool-result</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="call_tool_result.content"></a><a href="#content"><code>content</code></a>: list&lt;<a href="#content"><a href="#content"><code>content</code></a></a>&gt;</p>
+<p>unstructured content in the form of multiple content items
+</li>
+<li>
+<p><a id="call_tool_result.structured_content"></a><code>structured-content</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</p>
+<p>structured content in the form of a JSON string
+</li>
+<li>
+<p><a id="call_tool_result.is_error"></a><code>is-error</code>: <code>bool</code></p>
+<p>true for tool execution errors
+</li>
+<li>
+<p><a id="call_tool_result.meta"></a><code>meta</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</p>
+</li>
+</ul>
 <h4><a id="tools"></a><code>resource tools</code></h4>
 <hr />
 <h3>Functions</h3>
@@ -1048,24 +1289,26 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <ul>
 <li><a id="constructor_tools.0"></a> own&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
 </ul>
-<h4><a id="method_tools_capabilities"></a><code>[method]tools.capabilities: func</code></h4>
+<h4><a id="method_tools_list_tools"></a><code>[method]tools.list-tools: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_tools_capabilities.self"></a><code>self</code>: borrow&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
+<li><a id="method_tools_list_tools.self"></a><code>self</code>: borrow&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
+<li><a id="method_tools_list_tools.cursor"></a><code>cursor</code>: <code>string</code></li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_tools_capabilities.0"></a> result&lt;list&lt;<a href="#tool_schema"><a href="#tool_schema"><code>tool-schema</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_tools_list_tools.0"></a> result&lt;<a href="#list_tools_result"><a href="#list_tools_result"><code>list-tools-result</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h4><a id="method_tools_call"></a><code>[method]tools.call: func</code></h4>
+<h4><a id="method_tools_call_tool"></a><code>[method]tools.call-tool: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_tools_call.self"></a><code>self</code>: borrow&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
-<li><a id="method_tools_call.input"></a><code>input</code>: <a href="#tool_input"><a href="#tool_input"><code>tool-input</code></a></a></li>
+<li><a id="method_tools_call_tool.self"></a><code>self</code>: borrow&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
+<li><a id="method_tools_call_tool.name"></a><code>name</code>: <code>string</code></li>
+<li><a id="method_tools_call_tool.arguments"></a><code>arguments</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_tools_call.0"></a> result&lt;<a href="#tool_output"><a href="#tool_output"><code>tool-output</code></a></a>, <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a>&gt;</li>
+<li><a id="method_tools_call_tool.0"></a> result&lt;<a href="#call_tool_result"><a href="#call_tool_result"><code>call-tool-result</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h2><a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28</h2>
 <p>TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)</p>
