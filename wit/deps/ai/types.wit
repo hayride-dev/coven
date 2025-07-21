@@ -15,9 +15,9 @@ interface types {
         none,
         text(string),
         blob(list<u8>),
-        mcp-tools(list<tool>),
-        mcp-tool-input(call-tool-params),
-        mcp-tool-output(call-tool-result),
+        tools(list<tool>),
+        tool-input(call-tool-params),
+        tool-output(call-tool-result),
     }
 
     record message {

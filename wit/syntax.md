@@ -411,9 +411,9 @@ A content is [TextContent], [ImageContent], [AudioContent],
 - <a id="message_content.none"></a>`none`
 - <a id="message_content.text"></a>`text`: `string`
 - <a id="message_content.blob"></a>`blob`: list<`u8`>
-- <a id="message_content.mcp_tools"></a>`mcp-tools`: list<[`tool`](#tool)>
-- <a id="message_content.mcp_tool_input"></a>`mcp-tool-input`: [`call-tool-params`](#call_tool_params)
-- <a id="message_content.mcp_tool_output"></a>`mcp-tool-output`: [`call-tool-result`](#call_tool_result)
+- <a id="message_content.tools"></a>`tools`: list<[`tool`](#tool)>
+- <a id="message_content.tool_input"></a>`tool-input`: [`call-tool-params`](#call_tool_params)
+- <a id="message_content.tool_output"></a>`tool-output`: [`call-tool-result`](#call_tool_result)
 #### <a id="message"></a>`record message`
 
 
