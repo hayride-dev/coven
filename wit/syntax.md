@@ -4,6 +4,7 @@
  - Imports:
     - interface `hayride:silo/types@0.0.60`
     - interface `hayride:silo/threads@0.0.60`
+    - interface `hayride:mcp/types@0.0.60`
     - interface `hayride:ai/types@0.0.60`
     - interface `hayride:core/types@0.0.60`
     - interface `hayride:core/version@0.0.60`
@@ -18,7 +19,6 @@
     - interface `hayride:wac/wac@0.0.60`
     - interface `hayride:ai/context@0.0.60`
     - interface `hayride:ai/model@0.0.60`
-    - interface `hayride:mcp/types@0.0.60`
     - interface `hayride:mcp/tools@0.0.60`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
     - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
@@ -147,6 +147,236 @@ get metadata about a single thread
 
 - <a id="group.0"></a> result<list<[`thread-metadata`](#thread_metadata)>, [`err-no`](#err_no)>
 
+## <a id="hayride_mcp_types_0_0_60"></a>Import interface hayride:mcp/types@0.0.60
+
+
+----
+
+### Types
+
+#### <a id="tool_annotations"></a>`record tool-annotations`
+
+Tool annotations provide additional metadata about a tool's behavior
+https://modelcontextprotocol.io/docs/concepts/tools#available-tool-annotations
+
+##### Record Fields
+
+- <a id="tool_annotations.title"></a>`title`: `string`
+  <p>A human-readable title for the tool, useful for UI display
+
+- <a id="tool_annotations.read_only_hint"></a>`read-only-hint`: `bool`
+  <p>If true, indicates the tool does not modify its environment
+  default: false
+
+- <a id="tool_annotations.destructive_hint"></a>`destructive-hint`: `bool`
+  <p>If true, the tool may perform destructive updates
+  (only meaningful when readOnlyHint is false)
+  default: true
+
+- <a id="tool_annotations.idempotent_hint"></a>`idempotent-hint`: `bool`
+  <p>If true, calling the tool repeatedly with the same arguments
+  has no additional effect (only meaningful when readOnlyHint is false)
+  default: false
+
+- <a id="tool_annotations.open_world_hint"></a>`open-world-hint`: `bool`
+  <p>If true, the tool may interact with an “open world” of external entities
+  default: true
+
+#### <a id="tool_schema"></a>`record tool-schema`
+
+
+##### Record Fields
+
+- <a id="tool_schema.schema_type"></a>`schema-type`: `string`
+- <a id="tool_schema.properties"></a>`properties`: list<(`string`, `string`)>
+- <a id="tool_schema.required"></a>`required`: list<`string`>
+#### <a id="tool"></a>`record tool`
+
+
+##### Record Fields
+
+- <a id="tool.name"></a>`name`: `string`
+  <p>Unique identifier for the tool
+
+- <a id="tool.title"></a>`title`: `string`
+  <p>Optional human-readable name of the tool for display purposes.
+
+- <a id="tool.description"></a>`description`: `string`
+  <p>Human-readable description of functionality
+
+- <a id="tool.input_schema"></a>`input-schema`: [`tool-schema`](#tool_schema)
+  <p>JSON Schema defining expected parameters
+
+- <a id="tool.output_schema"></a>`output-schema`: [`tool-schema`](#tool_schema)
+  <p>Optional JSON Schema defining expected output structure
+
+- <a id="tool.annotations"></a>`annotations`: [`tool-annotations`](#tool_annotations)
+  <p>optional properties describing tool behavior
+
+#### <a id="text_content"></a>`record text-content`
+
+
+##### Record Fields
+
+- <a id="text_content.content_type"></a>`content-type`: `string`
+  <p>Must be "text"
+
+- <a id="text_content.text"></a>`text`: `string`
+  <p>Tool result text
+
+#### <a id="image_content"></a>`record image-content`
+
+
+##### Record Fields
+
+- <a id="image_content.content_type"></a>`content-type`: `string`
+  <p>Must be "image"
+
+- <a id="image_content.data"></a>`data`: list<`u8`>
+  <p>Base64-encoded data
+
+- <a id="image_content.mime_type"></a>`mime-type`: `string`
+  <p>MIME type of the image (e.g., "image/png")
+
+#### <a id="audio_content"></a>`record audio-content`
+
+
+##### Record Fields
+
+- <a id="audio_content.content_type"></a>`content-type`: `string`
+  <p>Must be "audio"
+
+- <a id="audio_content.data"></a>`data`: list<`u8`>
+  <p>Base64-encoded audio data
+
+- <a id="audio_content.mime_type"></a>`mime-type`: `string`
+  <p>MIME type of the audio (e.g., "audio/wav")
+
+#### <a id="resource_link_content"></a>`record resource-link-content`
+
+
+##### Record Fields
+
+- <a id="resource_link_content.content_type"></a>`content-type`: `string`
+  <p>Must be "resource_link"
+
+- <a id="resource_link_content.uri"></a>`uri`: `string`
+  <p>URI of the resource
+
+- <a id="resource_link_content.name"></a>`name`: `string`
+  <p>name of the resource
+
+- <a id="resource_link_content.description"></a>`description`: `string`
+  <p>description of the resource
+
+- <a id="resource_link_content.mime_type"></a>`mime-type`: `string`
+  <p>MIME type of the resource (e.g., "text/x-rust")
+
+#### <a id="text_resource_contents"></a>`record text-resource-contents`
+
+
+##### Record Fields
+
+- <a id="text_resource_contents.uri"></a>`uri`: `string`
+  <p>e.g. "file:///example.txt"
+
+- <a id="text_resource_contents.name"></a>`name`: `string`
+  <p>e.g. "example.txt"
+
+- <a id="text_resource_contents.title"></a>`title`: `string`
+  <p>e.g. "Example Text File"
+
+- <a id="text_resource_contents.mime_type"></a>`mime-type`: `string`
+  <p>e.g. "text/plain"
+
+- <a id="text_resource_contents.text"></a>`text`: `string`
+  <p>e.g. "Resource content"
+
+#### <a id="blob_resource_contents"></a>`record blob-resource-contents`
+
+
+##### Record Fields
+
+- <a id="blob_resource_contents.uri"></a>`uri`: `string`
+  <p>e.g. "file:///example.png"
+
+- <a id="blob_resource_contents.name"></a>`name`: `string`
+  <p>e.g. "example.png"
+
+- <a id="blob_resource_contents.title"></a>`title`: `string`
+  <p>e.g. "Example Image"
+
+- <a id="blob_resource_contents.mime_type"></a>`mime-type`: `string`
+  <p>e.g. "image/png"
+
+- <a id="blob_resource_contents.blob"></a>`blob`: list<`u8`>
+  <p>e.g. Base64-encoded binary data
+
+#### <a id="resource_contents"></a>`variant resource-contents`
+
+A resource can be either text or binary data.
+
+##### Variant Cases
+
+- <a id="resource_contents.none"></a>`none`
+- <a id="resource_contents.text"></a>`text`: [`text-resource-contents`](#text_resource_contents)
+- <a id="resource_contents.blob"></a>`blob`: [`blob-resource-contents`](#blob_resource_contents)
+#### <a id="embedded_resource_content"></a>`record embedded-resource-content`
+
+
+##### Record Fields
+
+- <a id="embedded_resource_content.content_type"></a>`content-type`: `string`
+  <p>Must be "resource"
+
+- <a id="embedded_resource_content.resource_contents"></a>`resource-contents`: [`resource-contents`](#resource_contents)
+#### <a id="content"></a>`variant content`
+
+A content is [TextContent], [ImageContent], [AudioContent],
+[ResourceLink], or [EmbeddedResource].
+
+##### Variant Cases
+
+- <a id="content.none"></a>`none`
+- <a id="content.text"></a>`text`: [`text-content`](#text_content)
+- <a id="content.image"></a>`image`: [`image-content`](#image_content)
+- <a id="content.audio"></a>`audio`: [`audio-content`](#audio_content)
+- <a id="content.resource_link"></a>`resource-link`: [`resource-link-content`](#resource_link_content)
+- <a id="content.resource_content"></a>`resource-content`: [`embedded-resource-content`](#embedded_resource_content)
+#### <a id="call_tool_params"></a>`record call-tool-params`
+
+
+##### Record Fields
+
+- <a id="call_tool_params.name"></a>`name`: `string`
+  <p>The name of the tool to call
+
+- <a id="call_tool_params.arguments"></a>`arguments`: list<(`string`, `string`)>
+  <p>The arguments to pass to the tool
+
+#### <a id="call_tool_result"></a>`record call-tool-result`
+
+
+##### Record Fields
+
+- <a id="call_tool_result.content"></a>`content`: list<[`content`](#content)>
+  <p>unstructured content in the form of multiple content items
+
+- <a id="call_tool_result.structured_content"></a>`structured-content`: list<(`string`, `string`)>
+  <p>structured content in the form of a JSON string
+
+- <a id="call_tool_result.is_error"></a>`is-error`: `bool`
+  <p>true for tool execution errors
+
+- <a id="call_tool_result.meta"></a>`meta`: list<(`string`, `string`)>
+#### <a id="list_tools_result"></a>`record list-tools-result`
+
+
+##### Record Fields
+
+- <a id="list_tools_result.tools"></a>`tools`: list<[`tool`](#tool)>
+- <a id="list_tools_result.next_cursor"></a>`next-cursor`: `string`
+- <a id="list_tools_result.meta"></a>`meta`: list<(`string`, `string`)>
 ## <a id="hayride_ai_types_0_0_60"></a>Import interface hayride:ai/types@0.0.60
 
 
@@ -154,6 +384,15 @@ get metadata about a single thread
 
 ### Types
 
+#### <a id="tool_schema"></a>`type tool-schema`
+[`tool-schema`](#tool_schema)
+<p>
+#### <a id="call_tool_params"></a>`type call-tool-params`
+[`call-tool-params`](#call_tool_params)
+<p>
+#### <a id="call_tool_result"></a>`type call-tool-result`
+[`call-tool-result`](#call_tool_result)
+<p>
 #### <a id="role"></a>`enum role`
 
 
@@ -171,33 +410,6 @@ get metadata about a single thread
 
 - <a id="text_content.text"></a>`text`: `string`
 - <a id="text_content.content_type"></a>`content-type`: `string`
-#### <a id="tool_schema"></a>`record tool-schema`
-
-
-##### Record Fields
-
-- <a id="tool_schema.id"></a>`id`: `string`
-- <a id="tool_schema.name"></a>`name`: `string`
-- <a id="tool_schema.description"></a>`description`: `string`
-- <a id="tool_schema.params_schema"></a>`params-schema`: `string`
-#### <a id="tool_input"></a>`record tool-input`
-
-
-##### Record Fields
-
-- <a id="tool_input.content_type"></a>`content-type`: `string`
-- <a id="tool_input.id"></a>`id`: `string`
-- <a id="tool_input.name"></a>`name`: `string`
-- <a id="tool_input.input"></a>`input`: list<(`string`, `string`)>
-#### <a id="tool_output"></a>`record tool-output`
-
-
-##### Record Fields
-
-- <a id="tool_output.content_type"></a>`content-type`: `string`
-- <a id="tool_output.id"></a>`id`: `string`
-- <a id="tool_output.name"></a>`name`: `string`
-- <a id="tool_output.output"></a>`output`: `string`
 #### <a id="content"></a>`variant content`
 
 
@@ -206,8 +418,8 @@ get metadata about a single thread
 - <a id="content.none"></a>`none`
 - <a id="content.text"></a>`text`: [`text-content`](#text_content)
 - <a id="content.tool_schema"></a>`tool-schema`: [`tool-schema`](#tool_schema)
-- <a id="content.tool_input"></a>`tool-input`: [`tool-input`](#tool_input)
-- <a id="content.tool_output"></a>`tool-output`: [`tool-output`](#tool_output)
+- <a id="content.tool_input"></a>`tool-input`: [`call-tool-params`](#call_tool_params)
+- <a id="content.tool_output"></a>`tool-output`: [`call-tool-result`](#call_tool_result)
 #### <a id="message"></a>`record message`
 
 
@@ -1254,202 +1466,6 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_format_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
-## <a id="hayride_mcp_types_0_0_60"></a>Import interface hayride:mcp/types@0.0.60
-
-
-----
-
-### Types
-
-#### <a id="tool_annotations"></a>`record tool-annotations`
-
-Tool annotations provide additional metadata about a tool's behavior
-https://modelcontextprotocol.io/docs/concepts/tools#available-tool-annotations
-
-##### Record Fields
-
-- <a id="tool_annotations.title"></a>`title`: `string`
-  <p>A human-readable title for the tool, useful for UI display
-
-- <a id="tool_annotations.read_only_hint"></a>`read-only-hint`: `bool`
-  <p>If true, indicates the tool does not modify its environment
-  default: false
-
-- <a id="tool_annotations.destructive_hint"></a>`destructive-hint`: `bool`
-  <p>If true, the tool may perform destructive updates
-  (only meaningful when readOnlyHint is false)
-  default: true
-
-- <a id="tool_annotations.idempotent_hint"></a>`idempotent-hint`: `bool`
-  <p>If true, calling the tool repeatedly with the same arguments
-  has no additional effect (only meaningful when readOnlyHint is false)
-  default: false
-
-- <a id="tool_annotations.open_world_hint"></a>`open-world-hint`: `bool`
-  <p>If true, the tool may interact with an “open world” of external entities
-  default: true
-
-#### <a id="tool_schema"></a>`record tool-schema`
-
-
-##### Record Fields
-
-- <a id="tool_schema.schema_type"></a>`schema-type`: `string`
-- <a id="tool_schema.properties"></a>`properties`: list<(`string`, `string`)>
-- <a id="tool_schema.required"></a>`required`: list<`string`>
-#### <a id="tool"></a>`record tool`
-
-
-##### Record Fields
-
-- <a id="tool.name"></a>`name`: `string`
-  <p>Unique identifier for the tool
-
-- <a id="tool.title"></a>`title`: `string`
-  <p>Optional human-readable name of the tool for display purposes.
-
-- <a id="tool.description"></a>`description`: `string`
-  <p>Human-readable description of functionality
-
-- <a id="tool.input_schema"></a>`input-schema`: [`tool-schema`](#tool_schema)
-  <p>JSON Schema defining expected parameters
-
-- <a id="tool.output_schema"></a>`output-schema`: [`tool-schema`](#tool_schema)
-  <p>Optional JSON Schema defining expected output structure
-
-- <a id="tool.annotations"></a>`annotations`: [`tool-annotations`](#tool_annotations)
-  <p>optional properties describing tool behavior
-
-#### <a id="text_content"></a>`record text-content`
-
-
-##### Record Fields
-
-- <a id="text_content.content_type"></a>`content-type`: `string`
-  <p>Must be "text"
-
-- <a id="text_content.text"></a>`text`: `string`
-  <p>Tool result text
-
-#### <a id="image_content"></a>`record image-content`
-
-
-##### Record Fields
-
-- <a id="image_content.content_type"></a>`content-type`: `string`
-  <p>Must be "image"
-
-- <a id="image_content.data"></a>`data`: list<`u8`>
-  <p>Base64-encoded data
-
-- <a id="image_content.mime_type"></a>`mime-type`: `string`
-  <p>MIME type of the image (e.g., "image/png")
-
-#### <a id="audio_content"></a>`record audio-content`
-
-
-##### Record Fields
-
-- <a id="audio_content.content_type"></a>`content-type`: `string`
-  <p>Must be "audio"
-
-- <a id="audio_content.data"></a>`data`: list<`u8`>
-  <p>Base64-encoded audio data
-
-- <a id="audio_content.mime_type"></a>`mime-type`: `string`
-  <p>MIME type of the audio (e.g., "audio/wav")
-
-#### <a id="resource_link_content"></a>`record resource-link-content`
-
-
-##### Record Fields
-
-- <a id="resource_link_content.content_type"></a>`content-type`: `string`
-  <p>Must be "resource_link"
-
-- <a id="resource_link_content.uri"></a>`uri`: `string`
-  <p>URI of the resource
-
-- <a id="resource_link_content.name"></a>`name`: `string`
-  <p>name of the resource
-
-- <a id="resource_link_content.description"></a>`description`: `string`
-  <p>description of the resource
-
-- <a id="resource_link_content.mime_type"></a>`mime-type`: `string`
-  <p>MIME type of the resource (e.g., "text/x-rust")
-
-#### <a id="text_resource_contents"></a>`record text-resource-contents`
-
-
-##### Record Fields
-
-- <a id="text_resource_contents.uri"></a>`uri`: `string`
-  <p>e.g. "file:///example.txt"
-
-- <a id="text_resource_contents.name"></a>`name`: `string`
-  <p>e.g. "example.txt"
-
-- <a id="text_resource_contents.title"></a>`title`: `string`
-  <p>e.g. "Example Text File"
-
-- <a id="text_resource_contents.mime_type"></a>`mime-type`: `string`
-  <p>e.g. "text/plain"
-
-- <a id="text_resource_contents.text"></a>`text`: `string`
-  <p>e.g. "Resource content"
-
-#### <a id="blob_resource_contents"></a>`record blob-resource-contents`
-
-
-##### Record Fields
-
-- <a id="blob_resource_contents.uri"></a>`uri`: `string`
-  <p>e.g. "file:///example.png"
-
-- <a id="blob_resource_contents.name"></a>`name`: `string`
-  <p>e.g. "example.png"
-
-- <a id="blob_resource_contents.title"></a>`title`: `string`
-  <p>e.g. "Example Image"
-
-- <a id="blob_resource_contents.mime_type"></a>`mime-type`: `string`
-  <p>e.g. "image/png"
-
-- <a id="blob_resource_contents.blob"></a>`blob`: list<`u8`>
-  <p>e.g. Base64-encoded binary data
-
-#### <a id="resource_contents"></a>`variant resource-contents`
-
-A resource can be either text or binary data.
-
-##### Variant Cases
-
-- <a id="resource_contents.none"></a>`none`
-- <a id="resource_contents.text"></a>`text`: [`text-resource-contents`](#text_resource_contents)
-- <a id="resource_contents.blob"></a>`blob`: [`blob-resource-contents`](#blob_resource_contents)
-#### <a id="embedded_resource_content"></a>`record embedded-resource-content`
-
-
-##### Record Fields
-
-- <a id="embedded_resource_content.content_type"></a>`content-type`: `string`
-  <p>Must be "resource"
-
-- <a id="embedded_resource_content.resource_contents"></a>`resource-contents`: [`resource-contents`](#resource_contents)
-#### <a id="content"></a>`variant content`
-
-A content is [TextContent], [ImageContent], [AudioContent],
-[ResourceLink], or [EmbeddedResource].
-
-##### Variant Cases
-
-- <a id="content.none"></a>`none`
-- <a id="content.text"></a>`text`: [`text-content`](#text_content)
-- <a id="content.image"></a>`image`: [`image-content`](#image_content)
-- <a id="content.audio"></a>`audio`: [`audio-content`](#audio_content)
-- <a id="content.resource_link"></a>`resource-link`: [`resource-link-content`](#resource_link_content)
-- <a id="content.resource_content"></a>`resource-content`: [`embedded-resource-content`](#embedded_resource_content)
 ## <a id="hayride_mcp_tools_0_0_60"></a>Import interface hayride:mcp/tools@0.0.60
 
 
@@ -1463,6 +1479,15 @@ A content is [TextContent], [ImageContent], [AudioContent],
 #### <a id="content"></a>`type content`
 [`content`](#content)
 <p>
+#### <a id="call_tool_params"></a>`type call-tool-params`
+[`call-tool-params`](#call_tool_params)
+<p>
+#### <a id="call_tool_result"></a>`type call-tool-result`
+[`call-tool-result`](#call_tool_result)
+<p>
+#### <a id="list_tools_result"></a>`type list-tools-result`
+[`list-tools-result`](#list_tools_result)
+<p>
 #### <a id="error_code"></a>`enum error-code`
 
 
@@ -1473,29 +1498,6 @@ A content is [TextContent], [ImageContent], [AudioContent],
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
-#### <a id="list_tools_result"></a>`record list-tools-result`
-
-
-##### Record Fields
-
-- <a id="list_tools_result.tools"></a>`tools`: list<[`tool`](#tool)>
-- <a id="list_tools_result.next_cursor"></a>`next-cursor`: `string`
-- <a id="list_tools_result.meta"></a>`meta`: list<(`string`, `string`)>
-#### <a id="call_tool_result"></a>`record call-tool-result`
-
-
-##### Record Fields
-
-- <a id="call_tool_result.content"></a>`content`: list<[`content`](#content)>
-  <p>unstructured content in the form of multiple content items
-
-- <a id="call_tool_result.structured_content"></a>`structured-content`: list<(`string`, `string`)>
-  <p>structured content in the form of a JSON string
-
-- <a id="call_tool_result.is_error"></a>`is-error`: `bool`
-  <p>true for tool execution errors
-
-- <a id="call_tool_result.meta"></a>`meta`: list<(`string`, `string`)>
 #### <a id="tools"></a>`resource tools`
 
 ----
@@ -1551,8 +1553,7 @@ errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="method_tools_call_tool.self"></a>`self`: borrow<[`tools`](#tools)>
-- <a id="method_tools_call_tool.name"></a>`name`: `string`
-- <a id="method_tools_call_tool.arguments"></a>`arguments`: list<(`string`, `string`)>
+- <a id="method_tools_call_tool.params"></a>`params`: [`call-tool-params`](#call_tool_params)
 
 ##### Return values
 

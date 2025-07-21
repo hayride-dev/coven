@@ -2,7 +2,7 @@
 package hayride:mcp@0.0.60;
 
 interface tools {
-    use types.{tool, content};
+    use types.{tool, content, call-tool-params, call-tool-result, list-tools-result};
 
     enum error-code {
         tool-call-failed,
@@ -17,25 +17,9 @@ interface tools {
         data: func() -> string;
     }
 
-    record list-tools-result {
-        tools: list<tool>,
-        next-cursor: string,
-        meta: list<tuple<string, string>>,
-    }
-
-    record call-tool-result {
-        // unstructured content in the form of multiple content items
-        content: list<content>,
-        // structured content in the form of a JSON string
-        structured-content: list<tuple<string, string>>,
-        // true for tool execution errors
-        is-error: bool,
-        meta: list<tuple<string, string>>,
-    }
-
     resource tools {
         constructor();
         list-tools: func(cursor: string) -> result<list-tools-result, error>;
-        call-tool: func(name: string, arguments: list<tuple<string, string>>) -> result<call-tool-result, error>;
+        call-tool: func(params: call-tool-params) -> result<call-tool-result, error>;
     }
 }

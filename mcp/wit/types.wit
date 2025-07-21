@@ -130,4 +130,27 @@ interface types {
         resource-link(resource-link-content),
         resource-content(embedded-resource-content)
     }
+
+    record call-tool-params {
+        // The name of the tool to call
+        name: string,
+        // The arguments to pass to the tool
+        arguments: list<tuple<string, string>>,
+    }
+
+    record call-tool-result {
+        // unstructured content in the form of multiple content items
+        content: list<content>,
+        // structured content in the form of a JSON string
+        structured-content: list<tuple<string, string>>,
+        // true for tool execution errors
+        is-error: bool,
+        meta: list<tuple<string, string>>,
+    }
+
+    record list-tools-result {
+        tools: list<tool>,
+        next-cursor: string,
+        meta: list<tuple<string, string>>,
+    }
 }
