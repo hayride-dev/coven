@@ -28,6 +28,7 @@
     - interface `hayride:ai/agents@0.0.61`
     - interface `hayride:ai/transformer@0.0.61`
     - interface `hayride:ai/rag@0.0.61`
+    - interface `hayride:ai/runner@0.0.61`
 
 ## <a id="hayride_silo_types_0_0_61"></a>Import interface hayride:silo/types@0.0.61
 
@@ -1916,9 +1917,6 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 ### Types
 
-#### <a id="message"></a>`type message`
-[`message`](#message)
-<p>
 #### <a id="context"></a>`type context`
 [`context`](#context)
 <p>
@@ -1937,44 +1935,11 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
 <p>
-#### <a id="error_code"></a>`enum error-code`
-
-
-##### Enum Cases
-
-- <a id="error_code.invoke_error"></a>`invoke-error`
-- <a id="error_code.unknown"></a>`unknown`
-#### <a id="error"></a>`resource error`
-
 #### <a id="agent"></a>`resource agent`
 
 ----
 
 ### Functions
-
-#### <a id="method_error_code"></a>`[method]error.code: func`
-
-return the error code.
-
-##### Params
-
-- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_code.0"></a> [`error-code`](#error_code)
-
-#### <a id="method_error_data"></a>`[method]error.data: func`
-
-errors can propagated with backend specific status through a string value.
-
-##### Params
-
-- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_data.0"></a> `string`
 
 #### <a id="constructor_agent"></a>`[constructor]agent: func`
 
@@ -1992,30 +1957,71 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="constructor_agent.0"></a> own<[`agent`](#agent)>
 
-#### <a id="method_agent_invoke"></a>`[method]agent.invoke: func`
+#### <a id="method_agent_name"></a>`[method]agent.name: func`
 
 
 ##### Params
 
-- <a id="method_agent_invoke.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_invoke.input"></a>`input`: [`message`](#message)
+- <a id="method_agent_name.self"></a>`self`: borrow<[`agent`](#agent)>
 
 ##### Return values
 
-- <a id="method_agent_invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
+- <a id="method_agent_name.0"></a> `string`
 
-#### <a id="method_agent_invoke_stream"></a>`[method]agent.invoke-stream: func`
+#### <a id="method_agent_instruction"></a>`[method]agent.instruction: func`
 
 
 ##### Params
 
-- <a id="method_agent_invoke_stream.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_invoke_stream.message"></a>`message`: [`message`](#message)
-- <a id="method_agent_invoke_stream.writer"></a>`writer`: own<[`output-stream`](#output_stream)>
+- <a id="method_agent_instruction.self"></a>`self`: borrow<[`agent`](#agent)>
 
 ##### Return values
 
-- <a id="method_agent_invoke_stream.0"></a> result<_, own<[`error`](#error)>>
+- <a id="method_agent_instruction.0"></a> `string`
+
+#### <a id="method_agent_tools"></a>`[method]agent.tools: func`
+
+
+##### Params
+
+- <a id="method_agent_tools.self"></a>`self`: borrow<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="method_agent_tools.0"></a> own<[`tools`](#tools)>
+
+#### <a id="method_agent_context"></a>`[method]agent.context: func`
+
+
+##### Params
+
+- <a id="method_agent_context.self"></a>`self`: borrow<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="method_agent_context.0"></a> own<[`context`](#context)>
+
+#### <a id="method_agent_format"></a>`[method]agent.format: func`
+
+
+##### Params
+
+- <a id="method_agent_format.self"></a>`self`: borrow<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="method_agent_format.0"></a> own<[`format`](#format)>
+
+#### <a id="method_agent_graph"></a>`[method]agent.graph: func`
+
+
+##### Params
+
+- <a id="method_agent_graph.self"></a>`self`: borrow<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="method_agent_graph.0"></a> own<[`graph-execution-context-stream`](#graph_execution_context_stream)>
 
 ## <a id="hayride_ai_transformer_0_0_61"></a>Import interface hayride:ai/transformer@0.0.61
 
@@ -2206,4 +2212,82 @@ errors can propagated with backend specific status through a string value.
 ##### Return values
 
 - <a id="connect.0"></a> result<own<[`connection`](#connection)>, own<[`error`](#error)>>
+
+## <a id="hayride_ai_runner_0_0_61"></a>Import interface hayride:ai/runner@0.0.61
+
+
+----
+
+### Types
+
+#### <a id="message"></a>`type message`
+[`message`](#message)
+<p>
+#### <a id="agent"></a>`type agent`
+[`agent`](#agent)
+<p>
+#### <a id="output_stream"></a>`type output-stream`
+[`output-stream`](#output_stream)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.invoke_error"></a>`invoke-error`
+- <a id="error_code.unknown"></a>`unknown`
+#### <a id="error"></a>`resource error`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+#### <a id="invoke"></a>`invoke: func`
+
+
+##### Params
+
+- <a id="invoke.message"></a>`message`: [`message`](#message)
+- <a id="invoke.agent"></a>`agent`: own<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
+
+#### <a id="invoke_stream"></a>`invoke-stream: func`
+
+
+##### Params
+
+- <a id="invoke_stream.message"></a>`message`: [`message`](#message)
+- <a id="invoke_stream.writer"></a>`writer`: own<[`output-stream`](#output_stream)>
+- <a id="invoke_stream.agent"></a>`agent`: own<[`agent`](#agent)>
+
+##### Return values
+
+- <a id="invoke_stream.0"></a> result<_, own<[`error`](#error)>>
 

@@ -24,6 +24,7 @@ world syntax {
     import hayride:ai/inference-stream@0.0.61;
     import hayride:ai/rag@0.0.61;
     import hayride:ai/transformer@0.0.61;
+    import hayride:ai/runner@0.0.61;
 
     import hayride:mcp/tools@0.0.61;
 }
