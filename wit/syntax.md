@@ -1955,6 +1955,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 - <a id="error_code.capabilities_error"></a>`capabilities-error`
 - <a id="error_code.context_error"></a>`context-error`
 - <a id="error_code.compute_error"></a>`compute-error`
+- <a id="error_code.execute_error"></a>`execute-error`
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
