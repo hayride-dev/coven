@@ -1932,6 +1932,12 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="tool"></a>`type tool`
 [`tool`](#tool)
 <p>
+#### <a id="call_tool_params"></a>`type call-tool-params`
+[`call-tool-params`](#call_tool_params)
+<p>
+#### <a id="call_tool_result"></a>`type call-tool-result`
+[`call-tool-result`](#call_tool_result)
+<p>
 #### <a id="graph_stream"></a>`type graph-stream`
 [`graph-stream`](#graph_stream)
 <p>
@@ -1989,10 +1995,10 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="constructor_agent.name"></a>`name`: `string`
 - <a id="constructor_agent.instruction"></a>`instruction`: `string`
-- <a id="constructor_agent.tools"></a>`tools`: own<[`tools`](#tools)>
-- <a id="constructor_agent.context"></a>`context`: own<[`context`](#context)>
 - <a id="constructor_agent.format"></a>`format`: own<[`format`](#format)>
 - <a id="constructor_agent.graph"></a>`graph`: own<[`graph-execution-context-stream`](#graph_execution_context_stream)>
+- <a id="constructor_agent.tools"></a>`tools`: option<own<[`tools`](#tools)>>
+- <a id="constructor_agent.context"></a>`context`: option<own<[`context`](#context)>>
 
 ##### Return values
 
@@ -2053,6 +2059,18 @@ errors can propagated with backend specific status through a string value.
 ##### Return values
 
 - <a id="method_agent_compute.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+
+#### <a id="method_agent_execute"></a>`[method]agent.execute: func`
+
+
+##### Params
+
+- <a id="method_agent_execute.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_execute.params"></a>`params`: [`call-tool-params`](#call_tool_params)
+
+##### Return values
+
+- <a id="method_agent_execute.0"></a> result<[`call-tool-result`](#call_tool_result), own<[`error`](#error)>>
 
 ## <a id="hayride_ai_transformer_0_0_61"></a>Import interface hayride:ai/transformer@0.0.61
 

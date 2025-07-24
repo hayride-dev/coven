@@ -1622,6 +1622,12 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="tool"></a>`type tool`
 [`tool`](#tool)
 <p>
+#### <a id="call_tool_params"></a>`type call-tool-params`
+[`call-tool-params`](#call_tool_params)
+<p>
+#### <a id="call_tool_result"></a>`type call-tool-result`
+[`call-tool-result`](#call_tool_result)
+<p>
 #### <a id="graph_stream"></a>`type graph-stream`
 [`graph-stream`](#graph_stream)
 <p>
@@ -1668,10 +1674,10 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="constructor_agent.name"></a><code>name</code>: <code>string</code></li>
 <li><a id="constructor_agent.instruction"></a><code>instruction</code>: <code>string</code></li>
-<li><a id="constructor_agent.tools"></a><a href="#tools"><code>tools</code></a>: own&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
-<li><a id="constructor_agent.context"></a><a href="#context"><code>context</code></a>: own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
 <li><a id="constructor_agent.format"></a><a href="#format"><code>format</code></a>: own&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
 <li><a id="constructor_agent.graph"></a><code>graph</code>: own&lt;<a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a>&gt;</li>
+<li><a id="constructor_agent.tools"></a><a href="#tools"><code>tools</code></a>: option&lt;own&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;&gt;</li>
+<li><a id="constructor_agent.context"></a><a href="#context"><code>context</code></a>: option&lt;own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
@@ -1722,6 +1728,16 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h5>Return values</h5>
 <ul>
 <li><a id="method_agent_compute.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
+<h4><a id="method_agent_execute"></a><code>[method]agent.execute: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_agent_execute.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_execute.params"></a><code>params</code>: <a href="#call_tool_params"><a href="#call_tool_params"><code>call-tool-params</code></a></a></li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_agent_execute.0"></a> result&lt;<a href="#call_tool_result"><a href="#call_tool_result"><code>call-tool-result</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h2><a id="hayride_ai_transformer_0_0_61"></a>Import interface hayride:ai/transformer@0.0.61</h2>
 <hr />
