@@ -1917,6 +1917,9 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 ### Types
 
+#### <a id="message"></a>`type message`
+[`message`](#message)
+<p>
 #### <a id="context"></a>`type context`
 [`context`](#context)
 <p>
@@ -1925,6 +1928,9 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <p>
 #### <a id="tools"></a>`type tools`
 [`tools`](#tools)
+<p>
+#### <a id="tool"></a>`type tool`
+[`tool`](#tool)
 <p>
 #### <a id="graph_stream"></a>`type graph-stream`
 [`graph-stream`](#graph_stream)
@@ -1935,11 +1941,46 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
 <p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.capabilities_error"></a>`capabilities-error`
+- <a id="error_code.context_error"></a>`context-error`
+- <a id="error_code.compute_error"></a>`compute-error`
+- <a id="error_code.unknown"></a>`unknown`
+#### <a id="error"></a>`resource error`
+
 #### <a id="agent"></a>`resource agent`
 
 ----
 
 ### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
 
 #### <a id="constructor_agent"></a>`[constructor]agent: func`
 
@@ -1979,16 +2020,16 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 - <a id="method_agent_instruction.0"></a> `string`
 
-#### <a id="method_agent_tools"></a>`[method]agent.tools: func`
+#### <a id="method_agent_capabilities"></a>`[method]agent.capabilities: func`
 
 
 ##### Params
 
-- <a id="method_agent_tools.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_capabilities.self"></a>`self`: borrow<[`agent`](#agent)>
 
 ##### Return values
 
-- <a id="method_agent_tools.0"></a> own<[`tools`](#tools)>
+- <a id="method_agent_capabilities.0"></a> result<list<[`tool`](#tool)>, own<[`error`](#error)>>
 
 #### <a id="method_agent_context"></a>`[method]agent.context: func`
 
@@ -1999,29 +2040,19 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 ##### Return values
 
-- <a id="method_agent_context.0"></a> own<[`context`](#context)>
+- <a id="method_agent_context.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 
-#### <a id="method_agent_format"></a>`[method]agent.format: func`
-
-
-##### Params
-
-- <a id="method_agent_format.self"></a>`self`: borrow<[`agent`](#agent)>
-
-##### Return values
-
-- <a id="method_agent_format.0"></a> own<[`format`](#format)>
-
-#### <a id="method_agent_graph"></a>`[method]agent.graph: func`
+#### <a id="method_agent_compute"></a>`[method]agent.compute: func`
 
 
 ##### Params
 
-- <a id="method_agent_graph.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_compute.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_compute.message"></a>`message`: [`message`](#message)
 
 ##### Return values
 
-- <a id="method_agent_graph.0"></a> own<[`graph-execution-context-stream`](#graph_execution_context_stream)>
+- <a id="method_agent_compute.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
 ## <a id="hayride_ai_transformer_0_0_61"></a>Import interface hayride:ai/transformer@0.0.61
 
@@ -2272,7 +2303,7 @@ errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="invoke.message"></a>`message`: [`message`](#message)
-- <a id="invoke.agent"></a>`agent`: own<[`agent`](#agent)>
+- <a id="invoke.agent"></a>`agent`: borrow<[`agent`](#agent)>
 
 ##### Return values
 
@@ -2284,8 +2315,8 @@ errors can propagated with backend specific status through a string value.
 ##### Params
 
 - <a id="invoke_stream.message"></a>`message`: [`message`](#message)
-- <a id="invoke_stream.writer"></a>`writer`: own<[`output-stream`](#output_stream)>
-- <a id="invoke_stream.agent"></a>`agent`: own<[`agent`](#agent)>
+- <a id="invoke_stream.writer"></a>`writer`: borrow<[`output-stream`](#output_stream)>
+- <a id="invoke_stream.agent"></a>`agent`: borrow<[`agent`](#agent)>
 
 ##### Return values
 

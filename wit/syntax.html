@@ -1607,14 +1607,20 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h2><a id="hayride_ai_agents_0_0_61"></a>Import interface hayride:ai/agents@0.0.61</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="context"></a><code>type context</code></h4>
-<p><a href="#context"><a href="#context"><code>context</code></a></a></p>
+<h4><a id="message"></a><code>type message</code></h4>
+<p><a href="#message"><a href="#message"><code>message</code></a></a></p>
+<p>
+#### <a id="context"></a>`type context`
+[`context`](#context)
 <p>
 #### <a id="format"></a>`type format`
 [`format`](#format)
 <p>
 #### <a id="tools"></a>`type tools`
 [`tools`](#tools)
+<p>
+#### <a id="tool"></a>`type tool`
+[`tool`](#tool)
 <p>
 #### <a id="graph_stream"></a>`type graph-stream`
 [`graph-stream`](#graph_stream)
@@ -1625,9 +1631,38 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
 <p>
-#### <a id="agent"></a>`resource agent`
+#### <a id="error_code"></a>`enum error-code`
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="error_code.capabilities_error"></a><code>capabilities-error</code></li>
+<li><a id="error_code.context_error"></a><code>context-error</code></li>
+<li><a id="error_code.compute_error"></a><code>compute-error</code></li>
+<li><a id="error_code.unknown"></a><code>unknown</code></li>
+</ul>
+<h4><a id="error"></a><code>resource error</code></h4>
+<h4><a id="agent"></a><code>resource agent</code></h4>
 <hr />
 <h3>Functions</h3>
+<h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
+<p>return the error code.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_code.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_code.0"></a> <a href="#error_code"><a href="#error_code"><code>error-code</code></a></a></li>
+</ul>
+<h4><a id="method_error_data"></a><code>[method]error.data: func</code></h4>
+<p>errors can propagated with backend specific status through a string value.</p>
+<h5>Params</h5>
+<ul>
+<li><a id="method_error_data.self"></a><code>self</code>: borrow&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_error_data.0"></a> <code>string</code></li>
+</ul>
 <h4><a id="constructor_agent"></a><code>[constructor]agent: func</code></h4>
 <h5>Params</h5>
 <ul>
@@ -1660,14 +1695,14 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="method_agent_instruction.0"></a> <code>string</code></li>
 </ul>
-<h4><a id="method_agent_tools"></a><code>[method]agent.tools: func</code></h4>
+<h4><a id="method_agent_capabilities"></a><code>[method]agent.capabilities: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_agent_tools.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_capabilities.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_agent_tools.0"></a> own&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;</li>
+<li><a id="method_agent_capabilities.0"></a> result&lt;list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h4><a id="method_agent_context"></a><code>[method]agent.context: func</code></h4>
 <h5>Params</h5>
@@ -1676,25 +1711,17 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_agent_context.0"></a> own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;</li>
+<li><a id="method_agent_context.0"></a> result&lt;list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h4><a id="method_agent_format"></a><code>[method]agent.format: func</code></h4>
+<h4><a id="method_agent_compute"></a><code>[method]agent.compute: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_agent_format.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_compute.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_compute.message"></a><a href="#message"><code>message</code></a>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_agent_format.0"></a> own&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
-</ul>
-<h4><a id="method_agent_graph"></a><code>[method]agent.graph: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="method_agent_graph.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="method_agent_graph.0"></a> own&lt;<a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a>&gt;</li>
+<li><a id="method_agent_compute.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h2><a id="hayride_ai_transformer_0_0_61"></a>Import interface hayride:ai/transformer@0.0.61</h2>
 <hr />
@@ -1891,7 +1918,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h5>Params</h5>
 <ul>
 <li><a id="invoke.message"></a><a href="#message"><code>message</code></a>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
-<li><a id="invoke.agent"></a><a href="#agent"><code>agent</code></a>: own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="invoke.agent"></a><a href="#agent"><code>agent</code></a>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
@@ -1901,8 +1928,8 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <h5>Params</h5>
 <ul>
 <li><a id="invoke_stream.message"></a><a href="#message"><code>message</code></a>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
-<li><a id="invoke_stream.writer"></a><code>writer</code>: own&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
-<li><a id="invoke_stream.agent"></a><a href="#agent"><code>agent</code></a>: own&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="invoke_stream.writer"></a><code>writer</code>: borrow&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
+<li><a id="invoke_stream.agent"></a><a href="#agent"><code>agent</code></a>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
