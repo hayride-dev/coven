@@ -214,6 +214,55 @@ https://modelcontextprotocol.io/docs/concepts/tools#available-tool-annotations
 - <a id="tool.annotations"></a>`annotations`: [`tool-annotations`](#tool_annotations)
   <p>optional properties describing tool behavior
 
+#### <a id="mcp_resource"></a>`record mcp-resource`
+
+
+##### Record Fields
+
+- <a id="mcp_resource.name"></a>`name`: `string`
+  <p>The name of the resource
+
+- <a id="mcp_resource.title"></a>`title`: `string`
+  <p>A human-readable title for the resource, useful for UI display
+
+- <a id="mcp_resource.description"></a>`description`: `string`
+  <p>A human-readable description of the resource
+
+- <a id="mcp_resource.uri"></a>`uri`: `string`
+  <p>The URI of the resource
+
+- <a id="mcp_resource.mime_type"></a>`mime-type`: `string`
+  <p>The MIME type of the resource
+
+- <a id="mcp_resource.size"></a>`size`: `u64`
+  <p>The size of the raw resource contents in bytes
+
+- <a id="mcp_resource.annotations"></a>`annotations`: [`tool-annotations`](#tool_annotations)
+  <p>optional properties describing tool behavior
+
+#### <a id="mcp_resource_template"></a>`record mcp-resource-template`
+
+
+##### Record Fields
+
+- <a id="mcp_resource_template.name"></a>`name`: `string`
+  <p>The name of the resource template
+
+- <a id="mcp_resource_template.title"></a>`title`: `string`
+  <p>A human-readable title for the resource template, useful for UI display
+
+- <a id="mcp_resource_template.description"></a>`description`: `string`
+  <p>A human-readable description of the resource template
+
+- <a id="mcp_resource_template.uri_template"></a>`uri-template`: `string`
+  <p>A URI template (RFC 6570) that can be used to construct resource URIs
+
+- <a id="mcp_resource_template.mime_type"></a>`mime-type`: `string`
+  <p>The MIME type of the resource template
+
+- <a id="mcp_resource_template.annotations"></a>`annotations`: [`tool-annotations`](#tool_annotations)
+  <p>optional properties describing tool behavior
+
 #### <a id="text_content"></a>`record text-content`
 
 
@@ -378,6 +427,113 @@ A content is [TextContent], [ImageContent], [AudioContent],
 - <a id="list_tools_result.tools"></a>`tools`: list<[`tool`](#tool)>
 - <a id="list_tools_result.next_cursor"></a>`next-cursor`: `string`
 - <a id="list_tools_result.meta"></a>`meta`: list<(`string`, `string`)>
+#### <a id="prompt_argument"></a>`record prompt-argument`
+
+
+##### Record Fields
+
+- <a id="prompt_argument.name"></a>`name`: `string`
+  <p>The name of the argument
+
+- <a id="prompt_argument.title"></a>`title`: `string`
+  <p>A human-readable title for the argument, useful for UI display
+
+- <a id="prompt_argument.description"></a>`description`: `string`
+  <p>A human-readable description of the argument
+
+- <a id="prompt_argument.required"></a>`required`: `bool`
+  <p>Whether the argument must be provided
+
+#### <a id="prompt"></a>`record prompt`
+
+
+##### Record Fields
+
+- <a id="prompt.name"></a>`name`: `string`
+  <p>Name intended for programmatic use
+
+- <a id="prompt.title"></a>`title`: `string`
+  <p>A human-readable title for the prompt, useful for UI display
+
+- <a id="prompt.description"></a>`description`: `string`
+  <p>An optional description of what this prompt provides
+
+- <a id="prompt.arguments"></a>`arguments`: list<[`prompt-argument`](#prompt_argument)>
+  <p>A list of arguments to use for templating the prompt
+
+- <a id="prompt.meta"></a>`meta`: list<(`string`, `string`)>
+#### <a id="prompt_role"></a>`enum prompt-role`
+
+
+##### Enum Cases
+
+- <a id="prompt_role.user"></a>`user`
+- <a id="prompt_role.assistant"></a>`assistant`
+- <a id="prompt_role.unknown"></a>`unknown`
+#### <a id="prompt_message"></a>`record prompt-message`
+
+
+##### Record Fields
+
+- <a id="prompt_message.role"></a>`role`: [`prompt-role`](#prompt_role)
+- <a id="prompt_message.content"></a>`content`: [`content`](#content)
+#### <a id="get_prompt_params"></a>`record get-prompt-params`
+
+
+##### Record Fields
+
+- <a id="get_prompt_params.name"></a>`name`: `string`
+  <p>The name of the prompt or prompt template
+
+- <a id="get_prompt_params.arguments"></a>`arguments`: list<(`string`, `string`)>
+  <p>Arguments to use for templating the prompt
+
+#### <a id="get_prompt_result"></a>`record get-prompt-result`
+
+
+##### Record Fields
+
+- <a id="get_prompt_result.description"></a>`description`: `string`
+- <a id="get_prompt_result.messages"></a>`messages`: list<[`prompt-message`](#prompt_message)>
+- <a id="get_prompt_result.meta"></a>`meta`: list<(`string`, `string`)>
+#### <a id="list_prompts_result"></a>`record list-prompts-result`
+
+
+##### Record Fields
+
+- <a id="list_prompts_result.prompts"></a>`prompts`: list<[`prompt`](#prompt)>
+- <a id="list_prompts_result.next_cursor"></a>`next-cursor`: `string`
+- <a id="list_prompts_result.meta"></a>`meta`: list<(`string`, `string`)>
+#### <a id="read_resource_params"></a>`record read-resource-params`
+
+
+##### Record Fields
+
+- <a id="read_resource_params.uri"></a>`uri`: `string`
+#### <a id="read_resource_result"></a>`record read-resource-result`
+
+
+##### Record Fields
+
+- <a id="read_resource_result.contents"></a>`contents`: list<[`resource-contents`](#resource_contents)>
+  <p>The resource contents
+
+#### <a id="list_resources_result"></a>`record list-resources-result`
+
+
+##### Record Fields
+
+- <a id="list_resources_result.resources"></a>`resources`: list<[`mcp-resource`](#mcp_resource)>
+- <a id="list_resources_result.next_cursor"></a>`next-cursor`: `string`
+- <a id="list_resources_result.meta"></a>`meta`: list<(`string`, `string`)>
+#### <a id="list_resource_templates_result"></a>`record list-resource-templates-result`
+
+
+##### Record Fields
+
+- <a id="list_resource_templates_result.templates"></a>`templates`: list<[`mcp-resource-template`](#mcp_resource_template)>
+- <a id="list_resource_templates_result.next_cursor"></a>`next-cursor`: `string`
+- <a id="list_resource_templates_result.meta"></a>`meta`: list<(`string`, `string`)>
 ## <a id="hayride_ai_types_0_0_61"></a>Import interface hayride:ai/types@0.0.61
 
 
@@ -1468,12 +1624,6 @@ errors can propagated with backend specific status through a string value.
 
 ### Types
 
-#### <a id="tool"></a>`type tool`
-[`tool`](#tool)
-<p>
-#### <a id="content"></a>`type content`
-[`content`](#content)
-<p>
 #### <a id="call_tool_params"></a>`type call-tool-params`
 [`call-tool-params`](#call_tool_params)
 <p>
