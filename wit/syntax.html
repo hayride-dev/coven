@@ -194,6 +194,66 @@ default: true
 <p>optional properties describing tool behavior
 </li>
 </ul>
+<h4><a id="mcp_resource"></a><code>record mcp-resource</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="mcp_resource.name"></a><code>name</code>: <code>string</code></p>
+<p>The name of the resource
+</li>
+<li>
+<p><a id="mcp_resource.title"></a><code>title</code>: <code>string</code></p>
+<p>A human-readable title for the resource, useful for UI display
+</li>
+<li>
+<p><a id="mcp_resource.description"></a><code>description</code>: <code>string</code></p>
+<p>A human-readable description of the resource
+</li>
+<li>
+<p><a id="mcp_resource.uri"></a><code>uri</code>: <code>string</code></p>
+<p>The URI of the resource
+</li>
+<li>
+<p><a id="mcp_resource.mime_type"></a><code>mime-type</code>: <code>string</code></p>
+<p>The MIME type of the resource
+</li>
+<li>
+<p><a id="mcp_resource.size"></a><code>size</code>: <code>u64</code></p>
+<p>The size of the raw resource contents in bytes
+</li>
+<li>
+<p><a id="mcp_resource.annotations"></a><code>annotations</code>: <a href="#tool_annotations"><a href="#tool_annotations"><code>tool-annotations</code></a></a></p>
+<p>optional properties describing tool behavior
+</li>
+</ul>
+<h4><a id="mcp_resource_template"></a><code>record mcp-resource-template</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="mcp_resource_template.name"></a><code>name</code>: <code>string</code></p>
+<p>The name of the resource template
+</li>
+<li>
+<p><a id="mcp_resource_template.title"></a><code>title</code>: <code>string</code></p>
+<p>A human-readable title for the resource template, useful for UI display
+</li>
+<li>
+<p><a id="mcp_resource_template.description"></a><code>description</code>: <code>string</code></p>
+<p>A human-readable description of the resource template
+</li>
+<li>
+<p><a id="mcp_resource_template.uri_template"></a><code>uri-template</code>: <code>string</code></p>
+<p>A URI template (RFC 6570) that can be used to construct resource URIs
+</li>
+<li>
+<p><a id="mcp_resource_template.mime_type"></a><code>mime-type</code>: <code>string</code></p>
+<p>The MIME type of the resource template
+</li>
+<li>
+<p><a id="mcp_resource_template.annotations"></a><code>annotations</code>: <a href="#tool_annotations"><a href="#tool_annotations"><code>tool-annotations</code></a></a></p>
+<p>optional properties describing tool behavior
+</li>
+</ul>
 <h4><a id="text_content"></a><code>record text-content</code></h4>
 <h5>Record Fields</h5>
 <ul>
@@ -378,6 +438,113 @@ default: true
 <li><a id="list_tools_result.tools"></a><a href="#tools"><code>tools</code></a>: list&lt;<a href="#tool"><a href="#tool"><code>tool</code></a></a>&gt;</li>
 <li><a id="list_tools_result.next_cursor"></a><code>next-cursor</code>: <code>string</code></li>
 <li><a id="list_tools_result.meta"></a><code>meta</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</li>
+</ul>
+<h4><a id="prompt_argument"></a><code>record prompt-argument</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="prompt_argument.name"></a><code>name</code>: <code>string</code></p>
+<p>The name of the argument
+</li>
+<li>
+<p><a id="prompt_argument.title"></a><code>title</code>: <code>string</code></p>
+<p>A human-readable title for the argument, useful for UI display
+</li>
+<li>
+<p><a id="prompt_argument.description"></a><code>description</code>: <code>string</code></p>
+<p>A human-readable description of the argument
+</li>
+<li>
+<p><a id="prompt_argument.required"></a><code>required</code>: <code>bool</code></p>
+<p>Whether the argument must be provided
+</li>
+</ul>
+<h4><a id="prompt"></a><code>record prompt</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="prompt.name"></a><code>name</code>: <code>string</code></p>
+<p>Name intended for programmatic use
+</li>
+<li>
+<p><a id="prompt.title"></a><code>title</code>: <code>string</code></p>
+<p>A human-readable title for the prompt, useful for UI display
+</li>
+<li>
+<p><a id="prompt.description"></a><code>description</code>: <code>string</code></p>
+<p>An optional description of what this prompt provides
+</li>
+<li>
+<p><a id="prompt.arguments"></a><code>arguments</code>: list&lt;<a href="#prompt_argument"><a href="#prompt_argument"><code>prompt-argument</code></a></a>&gt;</p>
+<p>A list of arguments to use for templating the prompt
+</li>
+<li>
+<p><a id="prompt.meta"></a><code>meta</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</p>
+</li>
+</ul>
+<h4><a id="prompt_role"></a><code>enum prompt-role</code></h4>
+<h5>Enum Cases</h5>
+<ul>
+<li><a id="prompt_role.user"></a><code>user</code></li>
+<li><a id="prompt_role.assistant"></a><code>assistant</code></li>
+<li><a id="prompt_role.unknown"></a><code>unknown</code></li>
+</ul>
+<h4><a id="prompt_message"></a><code>record prompt-message</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="prompt_message.role"></a><a href="#role"><code>role</code></a>: <a href="#prompt_role"><a href="#prompt_role"><code>prompt-role</code></a></a></li>
+<li><a id="prompt_message.content"></a><a href="#content"><code>content</code></a>: <a href="#content"><a href="#content"><code>content</code></a></a></li>
+</ul>
+<h4><a id="get_prompt_params"></a><code>record get-prompt-params</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li>
+<p><a id="get_prompt_params.name"></a><code>name</code>: <code>string</code></p>
+<p>The name of the prompt or prompt template
+</li>
+<li>
+<p><a id="get_prompt_params.arguments"></a><code>arguments</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</p>
+<p>Arguments to use for templating the prompt
+</li>
+</ul>
+<h4><a id="get_prompt_result"></a><code>record get-prompt-result</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="get_prompt_result.description"></a><code>description</code>: <code>string</code></li>
+<li><a id="get_prompt_result.messages"></a><code>messages</code>: list&lt;<a href="#prompt_message"><a href="#prompt_message"><code>prompt-message</code></a></a>&gt;</li>
+<li><a id="get_prompt_result.meta"></a><code>meta</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</li>
+</ul>
+<h4><a id="list_prompts_result"></a><code>record list-prompts-result</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="list_prompts_result.prompts"></a><code>prompts</code>: list&lt;<a href="#prompt"><a href="#prompt"><code>prompt</code></a></a>&gt;</li>
+<li><a id="list_prompts_result.next_cursor"></a><code>next-cursor</code>: <code>string</code></li>
+<li><a id="list_prompts_result.meta"></a><code>meta</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</li>
+</ul>
+<h4><a id="read_resource_params"></a><code>record read-resource-params</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="read_resource_params.uri"></a><code>uri</code>: <code>string</code></li>
+</ul>
+<h4><a id="read_resource_result"></a><code>record read-resource-result</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="read_resource_result.contents"></a><code>contents</code>: list&lt;<a href="#resource_contents"><a href="#resource_contents"><code>resource-contents</code></a></a>&gt;<p>The resource contents
+</li>
+</ul>
+<h4><a id="list_resources_result"></a><code>record list-resources-result</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="list_resources_result.resources"></a><code>resources</code>: list&lt;<a href="#mcp_resource"><a href="#mcp_resource"><code>mcp-resource</code></a></a>&gt;</li>
+<li><a id="list_resources_result.next_cursor"></a><code>next-cursor</code>: <code>string</code></li>
+<li><a id="list_resources_result.meta"></a><code>meta</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</li>
+</ul>
+<h4><a id="list_resource_templates_result"></a><code>record list-resource-templates-result</code></h4>
+<h5>Record Fields</h5>
+<ul>
+<li><a id="list_resource_templates_result.templates"></a><code>templates</code>: list&lt;<a href="#mcp_resource_template"><a href="#mcp_resource_template"><code>mcp-resource-template</code></a></a>&gt;</li>
+<li><a id="list_resource_templates_result.next_cursor"></a><code>next-cursor</code>: <code>string</code></li>
+<li><a id="list_resource_templates_result.meta"></a><code>meta</code>: list&lt;(<code>string</code>, <code>string</code>)&gt;</li>
 </ul>
 <h2><a id="hayride_ai_types_0_0_61"></a>Import interface hayride:ai/types@0.0.61</h2>
 <hr />
@@ -1240,14 +1407,8 @@ is ready for reading, before performing the <code>splice</code>.</p>
 <h2><a id="hayride_mcp_tools_0_0_61"></a>Import interface hayride:mcp/tools@0.0.61</h2>
 <hr />
 <h3>Types</h3>
-<h4><a id="tool"></a><code>type tool</code></h4>
-<p><a href="#tool"><a href="#tool"><code>tool</code></a></a></p>
-<p>
-#### <a id="content"></a>`type content`
-[`content`](#content)
-<p>
-#### <a id="call_tool_params"></a>`type call-tool-params`
-[`call-tool-params`](#call_tool_params)
+<h4><a id="call_tool_params"></a><code>type call-tool-params</code></h4>
+<p><a href="#call_tool_params"><a href="#call_tool_params"><code>call-tool-params</code></a></a></p>
 <p>
 #### <a id="call_tool_result"></a>`type call-tool-result`
 [`call-tool-result`](#call_tool_result)
