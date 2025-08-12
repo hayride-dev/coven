@@ -2,35 +2,35 @@
 
 
  - Imports:
-    - interface `hayride:silo/types@0.0.61`
-    - interface `hayride:silo/threads@0.0.61`
-    - interface `hayride:mcp/types@0.0.61`
-    - interface `hayride:ai/types@0.0.61`
-    - interface `hayride:core/types@0.0.61`
-    - interface `hayride:core/version@0.0.61`
-    - interface `hayride:silo/process@0.0.61`
-    - interface `hayride:http/types@0.0.61`
-    - interface `hayride:http/config@0.0.61`
+    - interface `hayride:silo/types@0.0.62`
+    - interface `hayride:silo/threads@0.0.62`
+    - interface `hayride:mcp/types@0.0.62`
+    - interface `hayride:ai/types@0.0.62`
+    - interface `hayride:core/types@0.0.62`
+    - interface `hayride:core/version@0.0.62`
+    - interface `hayride:silo/process@0.0.62`
+    - interface `hayride:http/types@0.0.62`
+    - interface `hayride:http/config@0.0.62`
     - interface `wasi:io/error@0.2.0`
     - interface `wasi:io/poll@0.2.0`
     - interface `wasi:io/streams@0.2.0`
-    - interface `hayride:socket/websocket@0.0.61`
-    - interface `hayride:wac/types@0.0.61`
-    - interface `hayride:wac/wac@0.0.61`
-    - interface `hayride:ai/context@0.0.61`
-    - interface `hayride:ai/model@0.0.61`
-    - interface `hayride:mcp/tools@0.0.61`
+    - interface `hayride:socket/websocket@0.0.62`
+    - interface `hayride:wac/types@0.0.62`
+    - interface `hayride:wac/wac@0.0.62`
+    - interface `hayride:ai/context@0.0.62`
+    - interface `hayride:ai/model@0.0.62`
+    - interface `hayride:mcp/tools@0.0.62`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
     - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
-    - interface `hayride:ai/tensor-stream@0.0.61`
-    - interface `hayride:ai/inference-stream@0.0.61`
-    - interface `hayride:ai/graph-stream@0.0.61`
-    - interface `hayride:ai/agents@0.0.61`
-    - interface `hayride:ai/transformer@0.0.61`
-    - interface `hayride:ai/rag@0.0.61`
-    - interface `hayride:ai/runner@0.0.61`
+    - interface `hayride:ai/tensor-stream@0.0.62`
+    - interface `hayride:ai/inference-stream@0.0.62`
+    - interface `hayride:ai/graph-stream@0.0.62`
+    - interface `hayride:ai/agents@0.0.62`
+    - interface `hayride:ai/transformer@0.0.62`
+    - interface `hayride:ai/rag@0.0.62`
+    - interface `hayride:ai/runner@0.0.62`
 
-## <a id="hayride_silo_types_0_0_61"></a>Import interface hayride:silo/types@0.0.61
+## <a id="hayride_silo_types_0_0_62"></a>Import interface hayride:silo/types@0.0.62
 
 
 ----
@@ -61,7 +61,7 @@
 - <a id="thread_metadata.args"></a>`args`: list<`string`>
 - <a id="thread_metadata.output"></a>`output`: list<`u8`>
 - <a id="thread_metadata.status"></a>`status`: [`thread-status`](#thread_status)
-## <a id="hayride_silo_threads_0_0_61"></a>Import interface hayride:silo/threads@0.0.61
+## <a id="hayride_silo_threads_0_0_62"></a>Import interface hayride:silo/threads@0.0.62
 
 
 ----
@@ -113,6 +113,7 @@
 - <a id="spawn.pkg"></a>`pkg`: `string`
 - <a id="spawn.function"></a>`function`: `string`
 - <a id="spawn.args"></a>`args`: list<`string`>
+- <a id="spawn.envs"></a>`envs`: list<(`string`, `string`)>
 
 ##### Return values
 
@@ -148,7 +149,7 @@ get metadata about a single thread
 
 - <a id="group.0"></a> result<list<[`thread-metadata`](#thread_metadata)>, [`err-no`](#err_no)>
 
-## <a id="hayride_mcp_types_0_0_61"></a>Import interface hayride:mcp/types@0.0.61
+## <a id="hayride_mcp_types_0_0_62"></a>Import interface hayride:mcp/types@0.0.62
 
 
 ----
@@ -212,6 +213,55 @@ https://modelcontextprotocol.io/docs/concepts/tools#available-tool-annotations
   <p>Optional JSON Schema defining expected output structure
 
 - <a id="tool.annotations"></a>`annotations`: [`tool-annotations`](#tool_annotations)
+  <p>optional properties describing tool behavior
+
+#### <a id="mcp_resource"></a>`record mcp-resource`
+
+
+##### Record Fields
+
+- <a id="mcp_resource.name"></a>`name`: `string`
+  <p>The name of the resource
+
+- <a id="mcp_resource.title"></a>`title`: `string`
+  <p>A human-readable title for the resource, useful for UI display
+
+- <a id="mcp_resource.description"></a>`description`: `string`
+  <p>A human-readable description of the resource
+
+- <a id="mcp_resource.uri"></a>`uri`: `string`
+  <p>The URI of the resource
+
+- <a id="mcp_resource.mime_type"></a>`mime-type`: `string`
+  <p>The MIME type of the resource
+
+- <a id="mcp_resource.size"></a>`size`: `u64`
+  <p>The size of the raw resource contents in bytes
+
+- <a id="mcp_resource.annotations"></a>`annotations`: [`tool-annotations`](#tool_annotations)
+  <p>optional properties describing tool behavior
+
+#### <a id="mcp_resource_template"></a>`record mcp-resource-template`
+
+
+##### Record Fields
+
+- <a id="mcp_resource_template.name"></a>`name`: `string`
+  <p>The name of the resource template
+
+- <a id="mcp_resource_template.title"></a>`title`: `string`
+  <p>A human-readable title for the resource template, useful for UI display
+
+- <a id="mcp_resource_template.description"></a>`description`: `string`
+  <p>A human-readable description of the resource template
+
+- <a id="mcp_resource_template.uri_template"></a>`uri-template`: `string`
+  <p>A URI template (RFC 6570) that can be used to construct resource URIs
+
+- <a id="mcp_resource_template.mime_type"></a>`mime-type`: `string`
+  <p>The MIME type of the resource template
+
+- <a id="mcp_resource_template.annotations"></a>`annotations`: [`tool-annotations`](#tool_annotations)
   <p>optional properties describing tool behavior
 
 #### <a id="text_content"></a>`record text-content`
@@ -378,7 +428,114 @@ A content is [TextContent], [ImageContent], [AudioContent],
 - <a id="list_tools_result.tools"></a>`tools`: list<[`tool`](#tool)>
 - <a id="list_tools_result.next_cursor"></a>`next-cursor`: `string`
 - <a id="list_tools_result.meta"></a>`meta`: list<(`string`, `string`)>
-## <a id="hayride_ai_types_0_0_61"></a>Import interface hayride:ai/types@0.0.61
+#### <a id="prompt_argument"></a>`record prompt-argument`
+
+
+##### Record Fields
+
+- <a id="prompt_argument.name"></a>`name`: `string`
+  <p>The name of the argument
+
+- <a id="prompt_argument.title"></a>`title`: `string`
+  <p>A human-readable title for the argument, useful for UI display
+
+- <a id="prompt_argument.description"></a>`description`: `string`
+  <p>A human-readable description of the argument
+
+- <a id="prompt_argument.required"></a>`required`: `bool`
+  <p>Whether the argument must be provided
+
+#### <a id="prompt"></a>`record prompt`
+
+
+##### Record Fields
+
+- <a id="prompt.name"></a>`name`: `string`
+  <p>Name intended for programmatic use
+
+- <a id="prompt.title"></a>`title`: `string`
+  <p>A human-readable title for the prompt, useful for UI display
+
+- <a id="prompt.description"></a>`description`: `string`
+  <p>An optional description of what this prompt provides
+
+- <a id="prompt.arguments"></a>`arguments`: list<[`prompt-argument`](#prompt_argument)>
+  <p>A list of arguments to use for templating the prompt
+
+- <a id="prompt.meta"></a>`meta`: list<(`string`, `string`)>
+#### <a id="prompt_role"></a>`enum prompt-role`
+
+
+##### Enum Cases
+
+- <a id="prompt_role.user"></a>`user`
+- <a id="prompt_role.assistant"></a>`assistant`
+- <a id="prompt_role.unknown"></a>`unknown`
+#### <a id="prompt_message"></a>`record prompt-message`
+
+
+##### Record Fields
+
+- <a id="prompt_message.role"></a>`role`: [`prompt-role`](#prompt_role)
+- <a id="prompt_message.content"></a>`content`: [`content`](#content)
+#### <a id="get_prompt_params"></a>`record get-prompt-params`
+
+
+##### Record Fields
+
+- <a id="get_prompt_params.name"></a>`name`: `string`
+  <p>The name of the prompt or prompt template
+
+- <a id="get_prompt_params.arguments"></a>`arguments`: list<(`string`, `string`)>
+  <p>Arguments to use for templating the prompt
+
+#### <a id="get_prompt_result"></a>`record get-prompt-result`
+
+
+##### Record Fields
+
+- <a id="get_prompt_result.description"></a>`description`: `string`
+- <a id="get_prompt_result.messages"></a>`messages`: list<[`prompt-message`](#prompt_message)>
+- <a id="get_prompt_result.meta"></a>`meta`: list<(`string`, `string`)>
+#### <a id="list_prompts_result"></a>`record list-prompts-result`
+
+
+##### Record Fields
+
+- <a id="list_prompts_result.prompts"></a>`prompts`: list<[`prompt`](#prompt)>
+- <a id="list_prompts_result.next_cursor"></a>`next-cursor`: `string`
+- <a id="list_prompts_result.meta"></a>`meta`: list<(`string`, `string`)>
+#### <a id="read_resource_params"></a>`record read-resource-params`
+
+
+##### Record Fields
+
+- <a id="read_resource_params.uri"></a>`uri`: `string`
+#### <a id="read_resource_result"></a>`record read-resource-result`
+
+
+##### Record Fields
+
+- <a id="read_resource_result.contents"></a>`contents`: list<[`resource-contents`](#resource_contents)>
+  <p>The resource contents
+
+#### <a id="list_resources_result"></a>`record list-resources-result`
+
+
+##### Record Fields
+
+- <a id="list_resources_result.resources"></a>`resources`: list<[`mcp-resource`](#mcp_resource)>
+- <a id="list_resources_result.next_cursor"></a>`next-cursor`: `string`
+- <a id="list_resources_result.meta"></a>`meta`: list<(`string`, `string`)>
+#### <a id="list_resource_templates_result"></a>`record list-resource-templates-result`
+
+
+##### Record Fields
+
+- <a id="list_resource_templates_result.templates"></a>`templates`: list<[`mcp-resource-template`](#mcp_resource_template)>
+- <a id="list_resource_templates_result.next_cursor"></a>`next-cursor`: `string`
+- <a id="list_resource_templates_result.meta"></a>`meta`: list<(`string`, `string`)>
+## <a id="hayride_ai_types_0_0_62"></a>Import interface hayride:ai/types@0.0.62
 
 
 ----
@@ -422,7 +579,7 @@ A content is [TextContent], [ImageContent], [AudioContent],
 
 - <a id="message.role"></a>`role`: [`role`](#role)
 - <a id="message.content"></a>`content`: list<[`message-content`](#message_content)>
-## <a id="hayride_core_types_0_0_61"></a>Import interface hayride:core/types@0.0.61
+## <a id="hayride_core_types_0_0_62"></a>Import interface hayride:core/types@0.0.62
 
 
 ----
@@ -446,6 +603,7 @@ A content is [TextContent], [ImageContent], [AudioContent],
 - <a id="cast.name"></a>`name`: `string`
 - <a id="cast.function"></a>`function`: `string`
 - <a id="cast.args"></a>`args`: list<`string`>
+- <a id="cast.envs"></a>`envs`: list<(`string`, `string`)>
 #### <a id="generate"></a>`record generate`
 
 
@@ -494,7 +652,7 @@ A content is [TextContent], [ImageContent], [AudioContent],
   <p>Cursor for pagination
 
 - <a id="response.prev"></a>`prev`: `string`
-## <a id="hayride_core_version_0_0_61"></a>Import interface hayride:core/version@0.0.61
+## <a id="hayride_core_version_0_0_62"></a>Import interface hayride:core/version@0.0.62
 
 
 ----
@@ -545,7 +703,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="latest.0"></a> result<`string`, own<[`error`](#error)>>
 
-## <a id="hayride_silo_process_0_0_61"></a>Import interface hayride:silo/process@0.0.61
+## <a id="hayride_silo_process_0_0_62"></a>Import interface hayride:silo/process@0.0.62
 
 
 ----
@@ -608,7 +766,7 @@ true if running
 
 - <a id="kill.0"></a> result<`s32`, [`err-no`](#err_no)>
 
-## <a id="hayride_http_types_0_0_61"></a>Import interface hayride:http/types@0.0.61
+## <a id="hayride_http_types_0_0_62"></a>Import interface hayride:http/types@0.0.62
 
 
 ----
@@ -632,7 +790,7 @@ true if running
 - <a id="server_config.read_timeout"></a>`read-timeout`: `u32`
 - <a id="server_config.write_timeout"></a>`write-timeout`: `u32`
 - <a id="server_config.max_header_bytes"></a>`max-header-bytes`: `u32`
-## <a id="hayride_http_config_0_0_61"></a>Import interface hayride:http/config@0.0.61
+## <a id="hayride_http_config_0_0_62"></a>Import interface hayride:http/config@0.0.62
 
 
 ----
@@ -1192,7 +1350,7 @@ is ready for reading, before performing the `splice`.
 
 - <a id="method_output_stream_blocking_splice.0"></a> result<`u64`, [`stream-error`](#stream_error)>
 
-## <a id="hayride_socket_websocket_0_0_61"></a>Import interface hayride:socket/websocket@0.0.61
+## <a id="hayride_socket_websocket_0_0_62"></a>Import interface hayride:socket/websocket@0.0.62
 
 
 ----
@@ -1217,7 +1375,7 @@ is ready for reading, before performing the `splice`.
 - <a id="handle.input"></a>`input`: own<[`input-stream`](#input_stream)>
 - <a id="handle.output"></a>`output`: own<[`output-stream`](#output_stream)>
 
-## <a id="hayride_wac_types_0_0_61"></a>Import interface hayride:wac/types@0.0.61
+## <a id="hayride_wac_types_0_0_62"></a>Import interface hayride:wac/types@0.0.62
 
 
 ----
@@ -1234,7 +1392,7 @@ is ready for reading, before performing the `splice`.
 - <a id="error_code.compose_failed"></a>`compose-failed`
 - <a id="error_code.encode_failed"></a>`encode-failed`
 - <a id="error_code.unknown"></a>`unknown`
-## <a id="hayride_wac_wac_0_0_61"></a>Import interface hayride:wac/wac@0.0.61
+## <a id="hayride_wac_wac_0_0_62"></a>Import interface hayride:wac/wac@0.0.62
 
 
 ----
@@ -1297,7 +1455,7 @@ Errors can propagated with backend specific status through a string value.
 
 - <a id="plug.0"></a> result<list<`u8`>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_context_0_0_61"></a>Import interface hayride:ai/context@0.0.61
+## <a id="hayride_ai_context_0_0_62"></a>Import interface hayride:ai/context@0.0.62
 
 
 ----
@@ -1378,7 +1536,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_context_messages.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_model_0_0_61"></a>Import interface hayride:ai/model@0.0.61
+## <a id="hayride_ai_model_0_0_62"></a>Import interface hayride:ai/model@0.0.62
 
 
 ----
@@ -1461,19 +1619,13 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_format_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
-## <a id="hayride_mcp_tools_0_0_61"></a>Import interface hayride:mcp/tools@0.0.61
+## <a id="hayride_mcp_tools_0_0_62"></a>Import interface hayride:mcp/tools@0.0.62
 
 
 ----
 
 ### Types
 
-#### <a id="tool"></a>`type tool`
-[`tool`](#tool)
-<p>
-#### <a id="content"></a>`type content`
-[`content`](#content)
-<p>
 #### <a id="call_tool_params"></a>`type call-tool-params`
 [`call-tool-params`](#call_tool_params)
 <p>
@@ -1719,7 +1871,7 @@ Return the tensor data.
 
 - <a id="method_tensor_data.0"></a> [`tensor-data`](#tensor_data)
 
-## <a id="hayride_ai_tensor_stream_0_0_61"></a>Import interface hayride:ai/tensor-stream@0.0.61
+## <a id="hayride_ai_tensor_stream_0_0_62"></a>Import interface hayride:ai/tensor-stream@0.0.62
 
 This interface defines a stream of tensors. The stream is a sequence of tensors.
 
@@ -1810,7 +1962,7 @@ Read up to `len` bytes from the stream.
 
 - <a id="method_tensor_stream_subscribe.0"></a> own<[`pollable`](#pollable)>
 
-## <a id="hayride_ai_inference_stream_0_0_61"></a>Import interface hayride:ai/inference-stream@0.0.61
+## <a id="hayride_ai_inference_stream_0_0_62"></a>Import interface hayride:ai/inference-stream@0.0.62
 
 
 ----
@@ -1861,7 +2013,7 @@ Compute the inference on the given inputs.
 
 - <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
 
-## <a id="hayride_ai_graph_stream_0_0_61"></a>Import interface hayride:ai/graph-stream@0.0.61
+## <a id="hayride_ai_graph_stream_0_0_62"></a>Import interface hayride:ai/graph-stream@0.0.62
 
 
 ----
@@ -1910,7 +2062,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 - <a id="load_by_name.0"></a> result<own<[`graph-stream`](#graph_stream)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_agents_0_0_61"></a>Import interface hayride:ai/agents@0.0.61
+## <a id="hayride_ai_agents_0_0_62"></a>Import interface hayride:ai/agents@0.0.62
 
 
 ----
@@ -2073,7 +2225,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_agent_execute.0"></a> result<[`call-tool-result`](#call_tool_result), own<[`error`](#error)>>
 
-## <a id="hayride_ai_transformer_0_0_61"></a>Import interface hayride:ai/transformer@0.0.61
+## <a id="hayride_ai_transformer_0_0_62"></a>Import interface hayride:ai/transformer@0.0.62
 
 
 ----
@@ -2150,7 +2302,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_transformer_vector_column.0"></a> `string`
 
-## <a id="hayride_ai_rag_0_0_61"></a>Import interface hayride:ai/rag@0.0.61
+## <a id="hayride_ai_rag_0_0_62"></a>Import interface hayride:ai/rag@0.0.62
 
 
 ----
@@ -2263,7 +2415,7 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="connect.0"></a> result<own<[`connection`](#connection)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_runner_0_0_61"></a>Import interface hayride:ai/runner@0.0.61
+## <a id="hayride_ai_runner_0_0_62"></a>Import interface hayride:ai/runner@0.0.62
 
 
 ----
