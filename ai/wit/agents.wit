@@ -30,6 +30,7 @@ interface agents {
         instruction: func() -> string;
         capabilities: func() -> result<list<tool>, error>;
         context: func() -> result<list<message>, error>;
+        push: func(msg: message) -> result<_, error>;
         execute: func(params: call-tool-params) -> result<call-tool-result, error>;
     }
 }

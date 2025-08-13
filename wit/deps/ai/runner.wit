@@ -3,7 +3,10 @@ package hayride:ai@0.0.62;
 interface runner {
     use types.{message};
     use agents.{agent};
+    use model.{format};
     use wasi:io/streams@0.2.0.{output-stream};
+    use tensor-stream.{tensor-stream};
+    use inference-stream.{graph-execution-context-stream};
 
     enum error-code {
         invoke-error,
@@ -17,6 +20,10 @@ interface runner {
         data: func() -> string;
     }
 
-    invoke: func(message: message, agent: borrow<agent>) -> result<list<message>, error>;
-    invoke-stream: func(message: message, writer: borrow<output-stream>, agent: borrow<agent>) -> result<_,error>;
+    resource %stream {
+        constructor(tensor-stream: tensor-stream);
+        chunk: func(format: option<borrow<format>>) -> result<message,error>;
+    }
+
+    invoke: func(message: message, agent: borrow<agent>, format: borrow<format>, graph: borrow<graph-execution-context-stream>) -> result<stream, error>;
 }

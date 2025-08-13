@@ -579,6 +579,7 @@ A content is [TextContent], [ImageContent], [AudioContent],
 
 - <a id="message.role"></a>`role`: [`role`](#role)
 - <a id="message.content"></a>`content`: list<[`message-content`](#message_content)>
+- <a id="message.final"></a>`final`: `bool`
 ## <a id="hayride_core_types_0_0_62"></a>Import interface hayride:core/types@0.0.62
 
 
@@ -2096,9 +2097,6 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
 [`graph-execution-context-stream`](#graph_execution_context_stream)
 <p>
-#### <a id="output_stream"></a>`type output-stream`
-[`output-stream`](#output_stream)
-<p>
 #### <a id="error_code"></a>`enum error-code`
 
 
@@ -2148,8 +2146,6 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="constructor_agent.name"></a>`name`: `string`
 - <a id="constructor_agent.instruction"></a>`instruction`: `string`
-- <a id="constructor_agent.format"></a>`format`: own<[`format`](#format)>
-- <a id="constructor_agent.graph"></a>`graph`: own<[`graph-execution-context-stream`](#graph_execution_context_stream)>
 - <a id="constructor_agent.tools"></a>`tools`: option<own<[`tools`](#tools)>>
 - <a id="constructor_agent.context"></a>`context`: option<own<[`context`](#context)>>
 
@@ -2201,17 +2197,17 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_agent_context.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 
-#### <a id="method_agent_compute"></a>`[method]agent.compute: func`
+#### <a id="method_agent_push"></a>`[method]agent.push: func`
 
 
 ##### Params
 
-- <a id="method_agent_compute.self"></a>`self`: borrow<[`agent`](#agent)>
-- <a id="method_agent_compute.message"></a>`message`: [`message`](#message)
+- <a id="method_agent_push.self"></a>`self`: borrow<[`agent`](#agent)>
+- <a id="method_agent_push.msg"></a>`msg`: [`message`](#message)
 
 ##### Return values
 
-- <a id="method_agent_compute.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+- <a id="method_agent_push.0"></a> result<_, own<[`error`](#error)>>
 
 #### <a id="method_agent_execute"></a>`[method]agent.execute: func`
 
@@ -2428,8 +2424,17 @@ errors can propagated with backend specific status through a string value.
 #### <a id="agent"></a>`type agent`
 [`agent`](#agent)
 <p>
+#### <a id="format"></a>`type format`
+[`format`](#format)
+<p>
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
+<p>
+#### <a id="tensor_stream"></a>`type tensor-stream`
+[`tensor-stream`](#tensor_stream)
+<p>
+#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
+[`graph-execution-context-stream`](#graph_execution_context_stream)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 
@@ -2439,6 +2444,8 @@ errors can propagated with backend specific status through a string value.
 - <a id="error_code.invoke_error"></a>`invoke-error`
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
+
+#### <a id="stream"></a>`resource stream`
 
 ----
 
@@ -2468,6 +2475,29 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
+#### <a id="constructor_stream"></a>`[constructor]stream: func`
+
+
+##### Params
+
+- <a id="constructor_stream.tensor_stream"></a>`tensor-stream`: own<[`tensor-stream`](#tensor_stream)>
+
+##### Return values
+
+- <a id="constructor_stream.0"></a> own<[`stream`](#stream)>
+
+#### <a id="method_stream_chunk"></a>`[method]stream.chunk: func`
+
+
+##### Params
+
+- <a id="method_stream_chunk.self"></a>`self`: borrow<[`stream`](#stream)>
+- <a id="method_stream_chunk.format"></a>`format`: option<borrow<[`format`](#format)>>
+
+##### Return values
+
+- <a id="method_stream_chunk.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+
 #### <a id="invoke"></a>`invoke: func`
 
 
@@ -2475,21 +2505,10 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="invoke.message"></a>`message`: [`message`](#message)
 - <a id="invoke.agent"></a>`agent`: borrow<[`agent`](#agent)>
+- <a id="invoke.format"></a>`format`: borrow<[`format`](#format)>
+- <a id="invoke.graph"></a>`graph`: borrow<[`graph-execution-context-stream`](#graph_execution_context_stream)>
 
 ##### Return values
 
-- <a id="invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
-
-#### <a id="invoke_stream"></a>`invoke-stream: func`
-
-
-##### Params
-
-- <a id="invoke_stream.message"></a>`message`: [`message`](#message)
-- <a id="invoke_stream.writer"></a>`writer`: borrow<[`output-stream`](#output_stream)>
-- <a id="invoke_stream.agent"></a>`agent`: borrow<[`agent`](#agent)>
-
-##### Return values
-
-- <a id="invoke_stream.0"></a> result<_, own<[`error`](#error)>>
+- <a id="invoke.0"></a> result<stream, own<[`error`](#error)>>
 

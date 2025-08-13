@@ -583,6 +583,7 @@ default: true
 <ul>
 <li><a id="message.role"></a><a href="#role"><code>role</code></a>: <a href="#role"><a href="#role"><code>role</code></a></a></li>
 <li><a id="message.content"></a><a href="#content"><code>content</code></a>: list&lt;<a href="#message_content"><a href="#message_content"><code>message-content</code></a></a>&gt;</li>
+<li><a id="message.final"></a><code>final</code>: <code>bool</code></li>
 </ul>
 <h2><a id="hayride_core_types_0_0_62"></a>Import interface hayride:core/types@0.0.62</h2>
 <hr />
@@ -1797,9 +1798,6 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
 [`graph-execution-context-stream`](#graph_execution_context_stream)
 <p>
-#### <a id="output_stream"></a>`type output-stream`
-[`output-stream`](#output_stream)
-<p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
 <ul>
@@ -1838,8 +1836,6 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="constructor_agent.name"></a><code>name</code>: <code>string</code></li>
 <li><a id="constructor_agent.instruction"></a><code>instruction</code>: <code>string</code></li>
-<li><a id="constructor_agent.format"></a><a href="#format"><code>format</code></a>: own&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
-<li><a id="constructor_agent.graph"></a><code>graph</code>: own&lt;<a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a>&gt;</li>
 <li><a id="constructor_agent.tools"></a><a href="#tools"><code>tools</code></a>: option&lt;own&lt;<a href="#tools"><a href="#tools"><code>tools</code></a></a>&gt;&gt;</li>
 <li><a id="constructor_agent.context"></a><a href="#context"><code>context</code></a>: option&lt;own&lt;<a href="#context"><a href="#context"><code>context</code></a></a>&gt;&gt;</li>
 </ul>
@@ -1883,15 +1879,15 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="method_agent_context.0"></a> result&lt;list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
-<h4><a id="method_agent_compute"></a><code>[method]agent.compute: func</code></h4>
+<h4><a id="method_agent_push"></a><code>[method]agent.push: func</code></h4>
 <h5>Params</h5>
 <ul>
-<li><a id="method_agent_compute.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-<li><a id="method_agent_compute.message"></a><a href="#message"><code>message</code></a>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
+<li><a id="method_agent_push.self"></a><code>self</code>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="method_agent_push.msg"></a><code>msg</code>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="method_agent_compute.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="method_agent_push.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
 <h4><a id="method_agent_execute"></a><code>[method]agent.execute: func</code></h4>
 <h5>Params</h5>
@@ -2062,8 +2058,17 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="agent"></a>`type agent`
 [`agent`](#agent)
 <p>
+#### <a id="format"></a>`type format`
+[`format`](#format)
+<p>
 #### <a id="output_stream"></a>`type output-stream`
 [`output-stream`](#output_stream)
+<p>
+#### <a id="tensor_stream"></a>`type tensor-stream`
+[`tensor-stream`](#tensor_stream)
+<p>
+#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
+[`graph-execution-context-stream`](#graph_execution_context_stream)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 <h5>Enum Cases</h5>
@@ -2072,6 +2077,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <li><a id="error_code.unknown"></a><code>unknown</code></li>
 </ul>
 <h4><a id="error"></a><code>resource error</code></h4>
+<h4><a id="stream"></a><code>resource stream</code></h4>
 <hr />
 <h3>Functions</h3>
 <h4><a id="method_error_code"></a><code>[method]error.code: func</code></h4>
@@ -2094,24 +2100,34 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 <ul>
 <li><a id="method_error_data.0"></a> <code>string</code></li>
 </ul>
+<h4><a id="constructor_stream"></a><code>[constructor]stream: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="constructor_stream.tensor_stream"></a><a href="#tensor_stream"><code>tensor-stream</code></a>: own&lt;<a href="#tensor_stream"><a href="#tensor_stream"><code>tensor-stream</code></a></a>&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="constructor_stream.0"></a> own&lt;<a href="#stream"><a href="#stream"><code>stream</code></a></a>&gt;</li>
+</ul>
+<h4><a id="method_stream_chunk"></a><code>[method]stream.chunk: func</code></h4>
+<h5>Params</h5>
+<ul>
+<li><a id="method_stream_chunk.self"></a><code>self</code>: borrow&lt;<a href="#stream"><a href="#stream"><code>stream</code></a></a>&gt;</li>
+<li><a id="method_stream_chunk.format"></a><a href="#format"><code>format</code></a>: option&lt;borrow&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;&gt;</li>
+</ul>
+<h5>Return values</h5>
+<ul>
+<li><a id="method_stream_chunk.0"></a> result&lt;<a href="#message"><a href="#message"><code>message</code></a></a>, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+</ul>
 <h4><a id="invoke"></a><code>invoke: func</code></h4>
 <h5>Params</h5>
 <ul>
 <li><a id="invoke.message"></a><a href="#message"><code>message</code></a>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
 <li><a id="invoke.agent"></a><a href="#agent"><code>agent</code></a>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
+<li><a id="invoke.format"></a><a href="#format"><code>format</code></a>: borrow&lt;<a href="#format"><a href="#format"><code>format</code></a></a>&gt;</li>
+<li><a id="invoke.graph"></a><code>graph</code>: borrow&lt;<a href="#graph_execution_context_stream"><a href="#graph_execution_context_stream"><code>graph-execution-context-stream</code></a></a>&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a id="invoke.0"></a> result&lt;list&lt;<a href="#message"><a href="#message"><code>message</code></a></a>&gt;, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
-</ul>
-<h4><a id="invoke_stream"></a><code>invoke-stream: func</code></h4>
-<h5>Params</h5>
-<ul>
-<li><a id="invoke_stream.message"></a><a href="#message"><code>message</code></a>: <a href="#message"><a href="#message"><code>message</code></a></a></li>
-<li><a id="invoke_stream.writer"></a><code>writer</code>: borrow&lt;<a href="#output_stream"><a href="#output_stream"><code>output-stream</code></a></a>&gt;</li>
-<li><a id="invoke_stream.agent"></a><a href="#agent"><code>agent</code></a>: borrow&lt;<a href="#agent"><a href="#agent"><code>agent</code></a></a>&gt;</li>
-</ul>
-<h5>Return values</h5>
-<ul>
-<li><a id="invoke_stream.0"></a> result&lt;_, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
+<li><a id="invoke.0"></a> result&lt;stream, own&lt;<a href="#error"><a href="#error"><code>error</code></a></a>&gt;&gt;</li>
 </ul>
