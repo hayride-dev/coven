@@ -18,7 +18,6 @@
     - interface `hayride:wac/types@0.0.62`
     - interface `hayride:wac/wac@0.0.62`
     - interface `hayride:ai/context@0.0.62`
-    - interface `hayride:ai/model@0.0.62`
     - interface `hayride:mcp/tools@0.0.62`
     - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
     - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
@@ -26,6 +25,7 @@
     - interface `hayride:ai/inference-stream@0.0.62`
     - interface `hayride:ai/graph-stream@0.0.62`
     - interface `hayride:ai/agents@0.0.62`
+    - interface `hayride:ai/model@0.0.62`
     - interface `hayride:ai/transformer@0.0.62`
     - interface `hayride:ai/rag@0.0.62`
     - interface `hayride:ai/runner@0.0.62`
@@ -1537,89 +1537,6 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_context_messages.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 
-## <a id="hayride_ai_model_0_0_62"></a>Import interface hayride:ai/model@0.0.62
-
-
-----
-
-### Types
-
-#### <a id="message"></a>`type message`
-[`message`](#message)
-<p>
-#### <a id="error_code"></a>`enum error-code`
-
-
-##### Enum Cases
-
-- <a id="error_code.context_error"></a>`context-error`
-- <a id="error_code.context_encode"></a>`context-encode`
-- <a id="error_code.context_decode"></a>`context-decode`
-- <a id="error_code.compute_error"></a>`compute-error`
-- <a id="error_code.unknown"></a>`unknown`
-#### <a id="error"></a>`resource error`
-
-#### <a id="format"></a>`resource format`
-
-----
-
-### Functions
-
-#### <a id="method_error_code"></a>`[method]error.code: func`
-
-return the error code.
-
-##### Params
-
-- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_code.0"></a> [`error-code`](#error_code)
-
-#### <a id="method_error_data"></a>`[method]error.data: func`
-
-errors can propagated with backend specific status through a string value.
-
-##### Params
-
-- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_data.0"></a> `string`
-
-#### <a id="constructor_format"></a>`[constructor]format: func`
-
-
-##### Return values
-
-- <a id="constructor_format.0"></a> own<[`format`](#format)>
-
-#### <a id="method_format_encode"></a>`[method]format.encode: func`
-
-
-##### Params
-
-- <a id="method_format_encode.self"></a>`self`: borrow<[`format`](#format)>
-- <a id="method_format_encode.messages"></a>`messages`: list<[`message`](#message)>
-
-##### Return values
-
-- <a id="method_format_encode.0"></a> result<list<`u8`>, own<[`error`](#error)>>
-
-#### <a id="method_format_decode"></a>`[method]format.decode: func`
-
-
-##### Params
-
-- <a id="method_format_decode.self"></a>`self`: borrow<[`format`](#format)>
-- <a id="method_format_decode.raw"></a>`raw`: list<`u8`>
-
-##### Return values
-
-- <a id="method_format_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
-
 ## <a id="hayride_mcp_tools_0_0_62"></a>Import interface hayride:mcp/tools@0.0.62
 
 
@@ -2076,9 +1993,6 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="context"></a>`type context`
 [`context`](#context)
 <p>
-#### <a id="format"></a>`type format`
-[`format`](#format)
-<p>
 #### <a id="tools"></a>`type tools`
 [`tools`](#tools)
 <p>
@@ -2220,6 +2134,89 @@ errors can propagated with backend specific status through a string value.
 ##### Return values
 
 - <a id="method_agent_execute.0"></a> result<[`call-tool-result`](#call_tool_result), own<[`error`](#error)>>
+
+## <a id="hayride_ai_model_0_0_62"></a>Import interface hayride:ai/model@0.0.62
+
+
+----
+
+### Types
+
+#### <a id="message"></a>`type message`
+[`message`](#message)
+<p>
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.context_error"></a>`context-error`
+- <a id="error_code.context_encode"></a>`context-encode`
+- <a id="error_code.context_decode"></a>`context-decode`
+- <a id="error_code.compute_error"></a>`compute-error`
+- <a id="error_code.unknown"></a>`unknown`
+#### <a id="error"></a>`resource error`
+
+#### <a id="format"></a>`resource format`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+#### <a id="constructor_format"></a>`[constructor]format: func`
+
+
+##### Return values
+
+- <a id="constructor_format.0"></a> own<[`format`](#format)>
+
+#### <a id="method_format_encode"></a>`[method]format.encode: func`
+
+
+##### Params
+
+- <a id="method_format_encode.self"></a>`self`: borrow<[`format`](#format)>
+- <a id="method_format_encode.messages"></a>`messages`: list<[`message`](#message)>
+
+##### Return values
+
+- <a id="method_format_encode.0"></a> result<list<`u8`>, own<[`error`](#error)>>
+
+#### <a id="method_format_decode"></a>`[method]format.decode: func`
+
+
+##### Params
+
+- <a id="method_format_decode.self"></a>`self`: borrow<[`format`](#format)>
+- <a id="method_format_decode.raw"></a>`raw`: list<`u8`>
+
+##### Return values
+
+- <a id="method_format_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
 ## <a id="hayride_ai_transformer_0_0_62"></a>Import interface hayride:ai/transformer@0.0.62
 
