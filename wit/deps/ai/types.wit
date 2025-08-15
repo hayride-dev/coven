@@ -23,5 +23,6 @@ interface types {
     record message {
         role: role,
         content: list<message-content>,
+        final: bool,
     }
 }
