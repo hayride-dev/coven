@@ -19,13 +19,13 @@
     - interface `hayride:wac/wac@0.0.62`
     - interface `hayride:ai/context@0.0.62`
     - interface `hayride:mcp/tools@0.0.62`
-    - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
-    - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
-    - interface `hayride:ai/tensor-stream@0.0.62`
-    - interface `hayride:ai/inference-stream@0.0.62`
-    - interface `hayride:ai/graph-stream@0.0.62`
     - interface `hayride:ai/agents@0.0.62`
     - interface `hayride:ai/model@0.0.62`
+    - interface `wasi:nn/tensor@0.2.0-rc-2024-10-28`
+    - interface `hayride:ai/tensor-stream@0.0.62`
+    - interface `wasi:nn/errors@0.2.0-rc-2024-10-28`
+    - interface `hayride:ai/inference-stream@0.0.62`
+    - interface `hayride:ai/graph-stream@0.0.62`
     - interface `hayride:ai/transformer@0.0.62`
     - interface `hayride:ai/rag@0.0.62`
     - interface `hayride:ai/runner@0.0.62`
@@ -1624,362 +1624,6 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_tools_call_tool.0"></a> result<[`call-tool-result`](#call_tool_result), own<[`error`](#error)>>
 
-## <a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28
-
-TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)
-
-----
-
-### Types
-
-#### <a id="error_code"></a>`enum error-code`
-
-
-##### Enum Cases
-
-- <a id="error_code.invalid_argument"></a>`invalid-argument`
-  <p>Caller module passed an invalid argument.
-
-- <a id="error_code.invalid_encoding"></a>`invalid-encoding`
-  <p>Invalid encoding.
-
-- <a id="error_code.timeout"></a>`timeout`
-  <p>The operation timed out.
-
-- <a id="error_code.runtime_error"></a>`runtime-error`
-  <p>Runtime Error.
-
-- <a id="error_code.unsupported_operation"></a>`unsupported-operation`
-  <p>Unsupported operation.
-
-- <a id="error_code.too_large"></a>`too-large`
-  <p>Graph is too large.
-
-- <a id="error_code.not_found"></a>`not-found`
-  <p>Graph not found.
-
-- <a id="error_code.security"></a>`security`
-  <p>The operation is insecure or has insufficient privilege to be performed.
-  e.g., cannot access a hardware feature requested
-
-- <a id="error_code.unknown"></a>`unknown`
-  <p>The operation failed for an unspecified reason.
-
-#### <a id="error"></a>`resource error`
-
-----
-
-### Functions
-
-#### <a id="method_error_code"></a>`[method]error.code: func`
-
-Return the error code.
-
-##### Params
-
-- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_code.0"></a> [`error-code`](#error_code)
-
-#### <a id="method_error_data"></a>`[method]error.data: func`
-
-Errors can propagated with backend specific status through a string value.
-
-##### Params
-
-- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
-
-##### Return values
-
-- <a id="method_error_data.0"></a> `string`
-
-## <a id="wasi_nn_tensor_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/tensor@0.2.0-rc-2024-10-28
-
-All inputs and outputs to an ML inference are represented as `tensor`s.
-
-----
-
-### Types
-
-#### <a id="tensor_dimensions"></a>`type tensor-dimensions`
-[`tensor-dimensions`](#tensor_dimensions)
-<p>The dimensions of a tensor.
-
-The array length matches the tensor rank and each element in the array describes the size of
-each dimension
-
-#### <a id="tensor_type"></a>`enum tensor-type`
-
-The type of the elements in a tensor.
-
-##### Enum Cases
-
-- <a id="tensor_type.fp16"></a>`FP16`
-- <a id="tensor_type.fp32"></a>`FP32`
-- <a id="tensor_type.fp64"></a>`FP64`
-- <a id="tensor_type.bf16"></a>`BF16`
-- <a id="tensor_type.u8"></a>`U8`
-- <a id="tensor_type.i32"></a>`I32`
-- <a id="tensor_type.i64"></a>`I64`
-#### <a id="tensor_data"></a>`type tensor-data`
-[`tensor-data`](#tensor_data)
-<p>The tensor data.
-
-Initially conceived as a sparse representation, each empty cell would be filled with zeros
-and the array length must match the product of all of the dimensions and the number of bytes
-in the type (e.g., a 2x2 tensor with 4-byte f32 elements would have a data array of length
-16). Naturally, this representation requires some knowledge of how to lay out data in
-memory--e.g., using row-major ordering--and could perhaps be improved.
-
-#### <a id="tensor"></a>`resource tensor`
-
-----
-
-### Functions
-
-#### <a id="constructor_tensor"></a>`[constructor]tensor: func`
-
-
-##### Params
-
-- <a id="constructor_tensor.dimensions"></a>`dimensions`: [`tensor-dimensions`](#tensor_dimensions)
-- <a id="constructor_tensor.ty"></a>`ty`: [`tensor-type`](#tensor_type)
-- <a id="constructor_tensor.data"></a>`data`: [`tensor-data`](#tensor_data)
-
-##### Return values
-
-- <a id="constructor_tensor.0"></a> own<[`tensor`](#tensor)>
-
-#### <a id="method_tensor_dimensions"></a>`[method]tensor.dimensions: func`
-
-Describe the size of the tensor (e.g., 2x2x2x2 -> [2, 2, 2, 2]). To represent a tensor
-containing a single value, use `[1]` for the tensor dimensions.
-
-##### Params
-
-- <a id="method_tensor_dimensions.self"></a>`self`: borrow<[`tensor`](#tensor)>
-
-##### Return values
-
-- <a id="method_tensor_dimensions.0"></a> [`tensor-dimensions`](#tensor_dimensions)
-
-#### <a id="method_tensor_ty"></a>`[method]tensor.ty: func`
-
-Describe the type of element in the tensor (e.g., `f32`).
-
-##### Params
-
-- <a id="method_tensor_ty.self"></a>`self`: borrow<[`tensor`](#tensor)>
-
-##### Return values
-
-- <a id="method_tensor_ty.0"></a> [`tensor-type`](#tensor_type)
-
-#### <a id="method_tensor_data"></a>`[method]tensor.data: func`
-
-Return the tensor data.
-
-##### Params
-
-- <a id="method_tensor_data.self"></a>`self`: borrow<[`tensor`](#tensor)>
-
-##### Return values
-
-- <a id="method_tensor_data.0"></a> [`tensor-data`](#tensor_data)
-
-## <a id="hayride_ai_tensor_stream_0_0_62"></a>Import interface hayride:ai/tensor-stream@0.0.62
-
-This interface defines a stream of tensors. The stream is a sequence of tensors.
-
-----
-
-### Types
-
-#### <a id="tensor_data"></a>`type tensor-data`
-[`tensor-data`](#tensor_data)
-<p>
-#### <a id="tensor_dimensions"></a>`type tensor-dimensions`
-[`tensor-dimensions`](#tensor_dimensions)
-<p>
-#### <a id="tensor_type"></a>`type tensor-type`
-[`tensor-type`](#tensor_type)
-<p>
-#### <a id="pollable"></a>`type pollable`
-[`pollable`](#pollable)
-<p>
-#### <a id="stream_error"></a>`type stream-error`
-[`stream-error`](#stream_error)
-<p>
-#### <a id="tensor_stream"></a>`resource tensor-stream`
-
-----
-
-### Functions
-
-#### <a id="constructor_tensor_stream"></a>`[constructor]tensor-stream: func`
-
-
-##### Params
-
-- <a id="constructor_tensor_stream.dimensions"></a>`dimensions`: [`tensor-dimensions`](#tensor_dimensions)
-- <a id="constructor_tensor_stream.ty"></a>`ty`: [`tensor-type`](#tensor_type)
-- <a id="constructor_tensor_stream.data"></a>`data`: [`tensor-data`](#tensor_data)
-
-##### Return values
-
-- <a id="constructor_tensor_stream.0"></a> own<[`tensor-stream`](#tensor_stream)>
-
-#### <a id="method_tensor_stream_dimensions"></a>`[method]tensor-stream.dimensions: func`
-
-Describe the size of the tensor (e.g., 2x2x2x2 -> [2, 2, 2, 2]). To represent a tensor
-containing a single value, use `[1]` for the tensor dimensions.
-
-##### Params
-
-- <a id="method_tensor_stream_dimensions.self"></a>`self`: borrow<[`tensor-stream`](#tensor_stream)>
-
-##### Return values
-
-- <a id="method_tensor_stream_dimensions.0"></a> [`tensor-dimensions`](#tensor_dimensions)
-
-#### <a id="method_tensor_stream_ty"></a>`[method]tensor-stream.ty: func`
-
-Describe the type of element in the tensor (e.g., `f32`).
-
-##### Params
-
-- <a id="method_tensor_stream_ty.self"></a>`self`: borrow<[`tensor-stream`](#tensor_stream)>
-
-##### Return values
-
-- <a id="method_tensor_stream_ty.0"></a> [`tensor-type`](#tensor_type)
-
-#### <a id="method_tensor_stream_read"></a>`[method]tensor-stream.read: func`
-
-Read up to `len` bytes from the stream.
-
-##### Params
-
-- <a id="method_tensor_stream_read.self"></a>`self`: borrow<[`tensor-stream`](#tensor_stream)>
-- <a id="method_tensor_stream_read.len"></a>`len`: `u64`
-
-##### Return values
-
-- <a id="method_tensor_stream_read.0"></a> result<[`tensor-data`](#tensor_data), [`stream-error`](#stream_error)>
-
-#### <a id="method_tensor_stream_subscribe"></a>`[method]tensor-stream.subscribe: func`
-
-
-##### Params
-
-- <a id="method_tensor_stream_subscribe.self"></a>`self`: borrow<[`tensor-stream`](#tensor_stream)>
-
-##### Return values
-
-- <a id="method_tensor_stream_subscribe.0"></a> own<[`pollable`](#pollable)>
-
-## <a id="hayride_ai_inference_stream_0_0_62"></a>Import interface hayride:ai/inference-stream@0.0.62
-
-
-----
-
-### Types
-
-#### <a id="error"></a>`type error`
-[`error`](#error)
-<p>
-#### <a id="tensor"></a>`type tensor`
-[`tensor`](#tensor)
-<p>
-#### <a id="tensor_stream"></a>`type tensor-stream`
-[`tensor-stream`](#tensor_stream)
-<p>
-#### <a id="named_tensor"></a>`tuple named-tensor`
-
-Identify a tensor by name; this is necessary to associate tensors to
-graph inputs and outputs.
-
-##### Tuple Fields
-
-- <a id="named_tensor.0"></a>`0`: `string`
-- <a id="named_tensor.1"></a>`1`: own<[`tensor`](#tensor)>
-#### <a id="named_tensor_stream"></a>`tuple named-tensor-stream`
-
-
-##### Tuple Fields
-
-- <a id="named_tensor_stream.0"></a>`0`: `string`
-- <a id="named_tensor_stream.1"></a>`1`: own<[`tensor-stream`](#tensor_stream)>
-#### <a id="graph_execution_context_stream"></a>`resource graph-execution-context-stream`
-
-----
-
-### Functions
-
-#### <a id="method_graph_execution_context_stream_compute"></a>`[method]graph-execution-context-stream.compute: func`
-
-Compute the inference on the given inputs.
-
-##### Params
-
-- <a id="method_graph_execution_context_stream_compute.self"></a>`self`: borrow<[`graph-execution-context-stream`](#graph_execution_context_stream)>
-- <a id="method_graph_execution_context_stream_compute.inputs"></a>`inputs`: list<[`named-tensor`](#named_tensor)>
-
-##### Return values
-
-- <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
-
-## <a id="hayride_ai_graph_stream_0_0_62"></a>Import interface hayride:ai/graph-stream@0.0.62
-
-
-----
-
-### Types
-
-#### <a id="error"></a>`type error`
-[`error`](#error)
-<p>
-#### <a id="tensor"></a>`type tensor`
-[`tensor`](#tensor)
-<p>
-#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
-[`graph-execution-context-stream`](#graph_execution_context_stream)
-<p>
-#### <a id="graph_stream"></a>`resource graph-stream`
-
-----
-
-### Functions
-
-#### <a id="method_graph_stream_init_execution_context_stream"></a>`[method]graph-stream.init-execution-context-stream: func`
-
-
-##### Params
-
-- <a id="method_graph_stream_init_execution_context_stream.self"></a>`self`: borrow<[`graph-stream`](#graph_stream)>
-
-##### Return values
-
-- <a id="method_graph_stream_init_execution_context_stream.0"></a> result<own<[`graph-execution-context-stream`](#graph_execution_context_stream)>, own<[`error`](#error)>>
-
-#### <a id="load_by_name"></a>`load-by-name: func`
-
-Load a `graph` by name.
-
-How the host expects the names to be passed and how it stores the graphs for retrieval via
-this function is **implementation-specific**. This allows hosts to choose name schemes that
-range from simple to complex (e.g., URLs?) and caching mechanisms of various kinds.
-
-##### Params
-
-- <a id="load_by_name.name"></a>`name`: `string`
-
-##### Return values
-
-- <a id="load_by_name.0"></a> result<own<[`graph-stream`](#graph_stream)>, own<[`error`](#error)>>
-
 ## <a id="hayride_ai_agents_0_0_62"></a>Import interface hayride:ai/agents@0.0.62
 
 
@@ -2005,12 +1649,6 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 #### <a id="call_tool_result"></a>`type call-tool-result`
 [`call-tool-result`](#call_tool_result)
 <p>
-#### <a id="graph_stream"></a>`type graph-stream`
-[`graph-stream`](#graph_stream)
-<p>
-#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
-[`graph-execution-context-stream`](#graph_execution_context_stream)
-<p>
 #### <a id="error_code"></a>`enum error-code`
 
 
@@ -2018,7 +1656,7 @@ range from simple to complex (e.g., URLs?) and caching mechanisms of various kin
 
 - <a id="error_code.capabilities_error"></a>`capabilities-error`
 - <a id="error_code.context_error"></a>`context-error`
-- <a id="error_code.compute_error"></a>`compute-error`
+- <a id="error_code.push_error"></a>`push-error`
 - <a id="error_code.execute_error"></a>`execute-error`
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
@@ -2217,6 +1855,362 @@ errors can propagated with backend specific status through a string value.
 ##### Return values
 
 - <a id="method_format_decode.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+
+## <a id="wasi_nn_tensor_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/tensor@0.2.0-rc-2024-10-28
+
+All inputs and outputs to an ML inference are represented as `tensor`s.
+
+----
+
+### Types
+
+#### <a id="tensor_dimensions"></a>`type tensor-dimensions`
+[`tensor-dimensions`](#tensor_dimensions)
+<p>The dimensions of a tensor.
+
+The array length matches the tensor rank and each element in the array describes the size of
+each dimension
+
+#### <a id="tensor_type"></a>`enum tensor-type`
+
+The type of the elements in a tensor.
+
+##### Enum Cases
+
+- <a id="tensor_type.fp16"></a>`FP16`
+- <a id="tensor_type.fp32"></a>`FP32`
+- <a id="tensor_type.fp64"></a>`FP64`
+- <a id="tensor_type.bf16"></a>`BF16`
+- <a id="tensor_type.u8"></a>`U8`
+- <a id="tensor_type.i32"></a>`I32`
+- <a id="tensor_type.i64"></a>`I64`
+#### <a id="tensor_data"></a>`type tensor-data`
+[`tensor-data`](#tensor_data)
+<p>The tensor data.
+
+Initially conceived as a sparse representation, each empty cell would be filled with zeros
+and the array length must match the product of all of the dimensions and the number of bytes
+in the type (e.g., a 2x2 tensor with 4-byte f32 elements would have a data array of length
+16). Naturally, this representation requires some knowledge of how to lay out data in
+memory--e.g., using row-major ordering--and could perhaps be improved.
+
+#### <a id="tensor"></a>`resource tensor`
+
+----
+
+### Functions
+
+#### <a id="constructor_tensor"></a>`[constructor]tensor: func`
+
+
+##### Params
+
+- <a id="constructor_tensor.dimensions"></a>`dimensions`: [`tensor-dimensions`](#tensor_dimensions)
+- <a id="constructor_tensor.ty"></a>`ty`: [`tensor-type`](#tensor_type)
+- <a id="constructor_tensor.data"></a>`data`: [`tensor-data`](#tensor_data)
+
+##### Return values
+
+- <a id="constructor_tensor.0"></a> own<[`tensor`](#tensor)>
+
+#### <a id="method_tensor_dimensions"></a>`[method]tensor.dimensions: func`
+
+Describe the size of the tensor (e.g., 2x2x2x2 -> [2, 2, 2, 2]). To represent a tensor
+containing a single value, use `[1]` for the tensor dimensions.
+
+##### Params
+
+- <a id="method_tensor_dimensions.self"></a>`self`: borrow<[`tensor`](#tensor)>
+
+##### Return values
+
+- <a id="method_tensor_dimensions.0"></a> [`tensor-dimensions`](#tensor_dimensions)
+
+#### <a id="method_tensor_ty"></a>`[method]tensor.ty: func`
+
+Describe the type of element in the tensor (e.g., `f32`).
+
+##### Params
+
+- <a id="method_tensor_ty.self"></a>`self`: borrow<[`tensor`](#tensor)>
+
+##### Return values
+
+- <a id="method_tensor_ty.0"></a> [`tensor-type`](#tensor_type)
+
+#### <a id="method_tensor_data"></a>`[method]tensor.data: func`
+
+Return the tensor data.
+
+##### Params
+
+- <a id="method_tensor_data.self"></a>`self`: borrow<[`tensor`](#tensor)>
+
+##### Return values
+
+- <a id="method_tensor_data.0"></a> [`tensor-data`](#tensor_data)
+
+## <a id="hayride_ai_tensor_stream_0_0_62"></a>Import interface hayride:ai/tensor-stream@0.0.62
+
+This interface defines a stream of tensors. The stream is a sequence of tensors.
+
+----
+
+### Types
+
+#### <a id="tensor_data"></a>`type tensor-data`
+[`tensor-data`](#tensor_data)
+<p>
+#### <a id="tensor_dimensions"></a>`type tensor-dimensions`
+[`tensor-dimensions`](#tensor_dimensions)
+<p>
+#### <a id="tensor_type"></a>`type tensor-type`
+[`tensor-type`](#tensor_type)
+<p>
+#### <a id="pollable"></a>`type pollable`
+[`pollable`](#pollable)
+<p>
+#### <a id="stream_error"></a>`type stream-error`
+[`stream-error`](#stream_error)
+<p>
+#### <a id="tensor_stream"></a>`resource tensor-stream`
+
+----
+
+### Functions
+
+#### <a id="constructor_tensor_stream"></a>`[constructor]tensor-stream: func`
+
+
+##### Params
+
+- <a id="constructor_tensor_stream.dimensions"></a>`dimensions`: [`tensor-dimensions`](#tensor_dimensions)
+- <a id="constructor_tensor_stream.ty"></a>`ty`: [`tensor-type`](#tensor_type)
+- <a id="constructor_tensor_stream.data"></a>`data`: [`tensor-data`](#tensor_data)
+
+##### Return values
+
+- <a id="constructor_tensor_stream.0"></a> own<[`tensor-stream`](#tensor_stream)>
+
+#### <a id="method_tensor_stream_dimensions"></a>`[method]tensor-stream.dimensions: func`
+
+Describe the size of the tensor (e.g., 2x2x2x2 -> [2, 2, 2, 2]). To represent a tensor
+containing a single value, use `[1]` for the tensor dimensions.
+
+##### Params
+
+- <a id="method_tensor_stream_dimensions.self"></a>`self`: borrow<[`tensor-stream`](#tensor_stream)>
+
+##### Return values
+
+- <a id="method_tensor_stream_dimensions.0"></a> [`tensor-dimensions`](#tensor_dimensions)
+
+#### <a id="method_tensor_stream_ty"></a>`[method]tensor-stream.ty: func`
+
+Describe the type of element in the tensor (e.g., `f32`).
+
+##### Params
+
+- <a id="method_tensor_stream_ty.self"></a>`self`: borrow<[`tensor-stream`](#tensor_stream)>
+
+##### Return values
+
+- <a id="method_tensor_stream_ty.0"></a> [`tensor-type`](#tensor_type)
+
+#### <a id="method_tensor_stream_read"></a>`[method]tensor-stream.read: func`
+
+Read up to `len` bytes from the stream.
+
+##### Params
+
+- <a id="method_tensor_stream_read.self"></a>`self`: borrow<[`tensor-stream`](#tensor_stream)>
+- <a id="method_tensor_stream_read.len"></a>`len`: `u64`
+
+##### Return values
+
+- <a id="method_tensor_stream_read.0"></a> result<[`tensor-data`](#tensor_data), [`stream-error`](#stream_error)>
+
+#### <a id="method_tensor_stream_subscribe"></a>`[method]tensor-stream.subscribe: func`
+
+
+##### Params
+
+- <a id="method_tensor_stream_subscribe.self"></a>`self`: borrow<[`tensor-stream`](#tensor_stream)>
+
+##### Return values
+
+- <a id="method_tensor_stream_subscribe.0"></a> own<[`pollable`](#pollable)>
+
+## <a id="wasi_nn_errors_0_2_0_rc_2024_10_28"></a>Import interface wasi:nn/errors@0.2.0-rc-2024-10-28
+
+TODO: create function-specific errors (https://github.com/WebAssembly/wasi-nn/issues/42)
+
+----
+
+### Types
+
+#### <a id="error_code"></a>`enum error-code`
+
+
+##### Enum Cases
+
+- <a id="error_code.invalid_argument"></a>`invalid-argument`
+  <p>Caller module passed an invalid argument.
+
+- <a id="error_code.invalid_encoding"></a>`invalid-encoding`
+  <p>Invalid encoding.
+
+- <a id="error_code.timeout"></a>`timeout`
+  <p>The operation timed out.
+
+- <a id="error_code.runtime_error"></a>`runtime-error`
+  <p>Runtime Error.
+
+- <a id="error_code.unsupported_operation"></a>`unsupported-operation`
+  <p>Unsupported operation.
+
+- <a id="error_code.too_large"></a>`too-large`
+  <p>Graph is too large.
+
+- <a id="error_code.not_found"></a>`not-found`
+  <p>Graph not found.
+
+- <a id="error_code.security"></a>`security`
+  <p>The operation is insecure or has insufficient privilege to be performed.
+  e.g., cannot access a hardware feature requested
+
+- <a id="error_code.unknown"></a>`unknown`
+  <p>The operation failed for an unspecified reason.
+
+#### <a id="error"></a>`resource error`
+
+----
+
+### Functions
+
+#### <a id="method_error_code"></a>`[method]error.code: func`
+
+Return the error code.
+
+##### Params
+
+- <a id="method_error_code.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_code.0"></a> [`error-code`](#error_code)
+
+#### <a id="method_error_data"></a>`[method]error.data: func`
+
+Errors can propagated with backend specific status through a string value.
+
+##### Params
+
+- <a id="method_error_data.self"></a>`self`: borrow<[`error`](#error)>
+
+##### Return values
+
+- <a id="method_error_data.0"></a> `string`
+
+## <a id="hayride_ai_inference_stream_0_0_62"></a>Import interface hayride:ai/inference-stream@0.0.62
+
+
+----
+
+### Types
+
+#### <a id="error"></a>`type error`
+[`error`](#error)
+<p>
+#### <a id="tensor"></a>`type tensor`
+[`tensor`](#tensor)
+<p>
+#### <a id="tensor_stream"></a>`type tensor-stream`
+[`tensor-stream`](#tensor_stream)
+<p>
+#### <a id="named_tensor"></a>`tuple named-tensor`
+
+Identify a tensor by name; this is necessary to associate tensors to
+graph inputs and outputs.
+
+##### Tuple Fields
+
+- <a id="named_tensor.0"></a>`0`: `string`
+- <a id="named_tensor.1"></a>`1`: own<[`tensor`](#tensor)>
+#### <a id="named_tensor_stream"></a>`tuple named-tensor-stream`
+
+
+##### Tuple Fields
+
+- <a id="named_tensor_stream.0"></a>`0`: `string`
+- <a id="named_tensor_stream.1"></a>`1`: own<[`tensor-stream`](#tensor_stream)>
+#### <a id="graph_execution_context_stream"></a>`resource graph-execution-context-stream`
+
+----
+
+### Functions
+
+#### <a id="method_graph_execution_context_stream_compute"></a>`[method]graph-execution-context-stream.compute: func`
+
+Compute the inference on the given inputs.
+
+##### Params
+
+- <a id="method_graph_execution_context_stream_compute.self"></a>`self`: borrow<[`graph-execution-context-stream`](#graph_execution_context_stream)>
+- <a id="method_graph_execution_context_stream_compute.inputs"></a>`inputs`: list<[`named-tensor`](#named_tensor)>
+
+##### Return values
+
+- <a id="method_graph_execution_context_stream_compute.0"></a> result<[`named-tensor-stream`](#named_tensor_stream), own<[`error`](#error)>>
+
+## <a id="hayride_ai_graph_stream_0_0_62"></a>Import interface hayride:ai/graph-stream@0.0.62
+
+
+----
+
+### Types
+
+#### <a id="error"></a>`type error`
+[`error`](#error)
+<p>
+#### <a id="tensor"></a>`type tensor`
+[`tensor`](#tensor)
+<p>
+#### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
+[`graph-execution-context-stream`](#graph_execution_context_stream)
+<p>
+#### <a id="graph_stream"></a>`resource graph-stream`
+
+----
+
+### Functions
+
+#### <a id="method_graph_stream_init_execution_context_stream"></a>`[method]graph-stream.init-execution-context-stream: func`
+
+
+##### Params
+
+- <a id="method_graph_stream_init_execution_context_stream.self"></a>`self`: borrow<[`graph-stream`](#graph_stream)>
+
+##### Return values
+
+- <a id="method_graph_stream_init_execution_context_stream.0"></a> result<own<[`graph-execution-context-stream`](#graph_execution_context_stream)>, own<[`error`](#error)>>
+
+#### <a id="load_by_name"></a>`load-by-name: func`
+
+Load a `graph` by name.
+
+How the host expects the names to be passed and how it stores the graphs for retrieval via
+this function is **implementation-specific**. This allows hosts to choose name schemes that
+range from simple to complex (e.g., URLs?) and caching mechanisms of various kinds.
+
+##### Params
+
+- <a id="load_by_name.name"></a>`name`: `string`
+
+##### Return values
+
+- <a id="load_by_name.0"></a> result<own<[`graph-stream`](#graph_stream)>, own<[`error`](#error)>>
 
 ## <a id="hayride_ai_transformer_0_0_62"></a>Import interface hayride:ai/transformer@0.0.62
 
@@ -2442,7 +2436,7 @@ errors can propagated with backend specific status through a string value.
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
-#### <a id="stream"></a>`resource stream`
+#### <a id="rw_stream"></a>`resource rw-stream`
 
 ----
 
@@ -2472,28 +2466,28 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-#### <a id="constructor_stream"></a>`[constructor]stream: func`
+#### <a id="constructor_rw_stream"></a>`[constructor]rw-stream: func`
 
 
 ##### Params
 
-- <a id="constructor_stream.tensor_stream"></a>`tensor-stream`: own<[`tensor-stream`](#tensor_stream)>
+- <a id="constructor_rw_stream.tensor_stream"></a>`tensor-stream`: own<[`tensor-stream`](#tensor_stream)>
 
 ##### Return values
 
-- <a id="constructor_stream.0"></a> own<[`stream`](#stream)>
+- <a id="constructor_rw_stream.0"></a> own<[`rw-stream`](#rw_stream)>
 
-#### <a id="method_stream_chunk"></a>`[method]stream.chunk: func`
+#### <a id="method_rw_stream_chunk"></a>`[method]rw-stream.chunk: func`
 
 
 ##### Params
 
-- <a id="method_stream_chunk.self"></a>`self`: borrow<[`stream`](#stream)>
-- <a id="method_stream_chunk.format"></a>`format`: option<borrow<[`format`](#format)>>
+- <a id="method_rw_stream_chunk.self"></a>`self`: borrow<[`rw-stream`](#rw_stream)>
+- <a id="method_rw_stream_chunk.format"></a>`format`: option<borrow<[`format`](#format)>>
 
 ##### Return values
 
-- <a id="method_stream_chunk.0"></a> result<[`message`](#message), own<[`error`](#error)>>
+- <a id="method_rw_stream_chunk.0"></a> result<[`message`](#message), own<[`error`](#error)>>
 
 #### <a id="invoke"></a>`invoke: func`
 
@@ -2504,6 +2498,7 @@ errors can propagated with backend specific status through a string value.
 - <a id="invoke.agent"></a>`agent`: borrow<[`agent`](#agent)>
 - <a id="invoke.format"></a>`format`: borrow<[`format`](#format)>
 - <a id="invoke.graph"></a>`graph`: borrow<[`graph-execution-context-stream`](#graph_execution_context_stream)>
+- <a id="invoke.output_stream"></a>`output-stream`: option<borrow<[`output-stream`](#output_stream)>>
 
 ##### Return values
 

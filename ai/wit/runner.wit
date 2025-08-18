@@ -20,10 +20,5 @@ interface runner {
         data: func() -> string;
     }
 
-    resource %stream {
-        constructor(tensor-stream: tensor-stream);
-        chunk: func(format: option<borrow<format>>) -> result<message,error>;
-    }
-
-    invoke: func(message: message, agent: borrow<agent>, format: borrow<format>, graph: borrow<graph-execution-context-stream>) -> result<stream, error>;
+    invoke: func(message: message, agent: borrow<agent>, format: borrow<format>, graph: borrow<graph-execution-context-stream>, output-stream: option<borrow<output-stream>>) -> result<list<message>, error>;
 }

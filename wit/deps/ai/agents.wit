@@ -5,13 +5,11 @@ interface agents {
     use context.{context};
     use hayride:mcp/tools@0.0.62.{tools};
     use hayride:mcp/types@0.0.62.{tool, call-tool-params, call-tool-result};
-    use graph-stream.{graph-stream};
-    use inference-stream.{graph-execution-context-stream};
 
     enum error-code {
         capabilities-error,
         context-error,
-        compute-error,
+        push-error,
         execute-error,
         unknown
     }
