@@ -28,6 +28,8 @@
     - interface `hayride:ai/graph-stream@0.0.63`
     - interface `hayride:ai/transformer@0.0.63`
     - interface `hayride:ai/rag@0.0.63`
+    - interface `wasi:clocks/monotonic-clock@0.2.0`
+    - interface `wasi:http/types@0.2.0`
     - interface `hayride:ai/runner@0.0.63`
 
 ## <a id="hayride_silo_types_0_0_63"></a>Import interface hayride:silo/types@0.0.63
@@ -2403,6 +2405,1146 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="connect.0"></a> result<own<[`connection`](#connection)>, own<[`error`](#error)>>
 
+## <a id="wasi_clocks_monotonic_clock_0_2_0"></a>Import interface wasi:clocks/monotonic-clock@0.2.0
+
+WASI Monotonic Clock is a clock API intended to let users measure elapsed
+time.
+
+It is intended to be portable at least between Unix-family platforms and
+Windows.
+
+A monotonic clock is a clock which has an unspecified initial value, and
+successive reads of the clock will produce non-decreasing values.
+
+It is intended for measuring elapsed time.
+
+----
+
+### Types
+
+#### <a id="pollable"></a>`type pollable`
+[`pollable`](#pollable)
+<p>
+#### <a id="instant"></a>`type instant`
+`u64`
+<p>An instant in time, in nanoseconds. An instant is relative to an
+unspecified initial value, and can only be compared to instances from
+the same monotonic-clock.
+
+#### <a id="duration"></a>`type duration`
+`u64`
+<p>A duration of time, in nanoseconds.
+
+----
+
+### Functions
+
+#### <a id="now"></a>`now: func`
+
+Read the current value of the clock.
+
+The clock is monotonic, therefore calling this function repeatedly will
+produce a sequence of non-decreasing values.
+
+##### Return values
+
+- <a id="now.0"></a> [`instant`](#instant)
+
+#### <a id="resolution"></a>`resolution: func`
+
+Query the resolution of the clock. Returns the duration of time
+corresponding to a clock tick.
+
+##### Return values
+
+- <a id="resolution.0"></a> [`duration`](#duration)
+
+#### <a id="subscribe_instant"></a>`subscribe-instant: func`
+
+Create a `pollable` which will resolve once the specified instant
+occured.
+
+##### Params
+
+- <a id="subscribe_instant.when"></a>`when`: [`instant`](#instant)
+
+##### Return values
+
+- <a id="subscribe_instant.0"></a> own<[`pollable`](#pollable)>
+
+#### <a id="subscribe_duration"></a>`subscribe-duration: func`
+
+Create a `pollable` which will resolve once the given duration has
+elapsed, starting at the time at which this function was called.
+occured.
+
+##### Params
+
+- <a id="subscribe_duration.when"></a>`when`: [`duration`](#duration)
+
+##### Return values
+
+- <a id="subscribe_duration.0"></a> own<[`pollable`](#pollable)>
+
+## <a id="wasi_http_types_0_2_0"></a>Import interface wasi:http/types@0.2.0
+
+This interface defines all of the types and methods for implementing
+HTTP Requests and Responses, both incoming and outgoing, as well as
+their headers, trailers, and bodies.
+
+----
+
+### Types
+
+#### <a id="duration"></a>`type duration`
+[`duration`](#duration)
+<p>
+#### <a id="input_stream"></a>`type input-stream`
+[`input-stream`](#input_stream)
+<p>
+#### <a id="output_stream"></a>`type output-stream`
+[`output-stream`](#output_stream)
+<p>
+#### <a id="io_error"></a>`type io-error`
+[`error`](#error)
+<p>
+#### <a id="pollable"></a>`type pollable`
+[`pollable`](#pollable)
+<p>
+#### <a id="method"></a>`variant method`
+
+This type corresponds to HTTP standard Methods.
+
+##### Variant Cases
+
+- <a id="method.get"></a>`get`
+- <a id="method.head"></a>`head`
+- <a id="method.post"></a>`post`
+- <a id="method.put"></a>`put`
+- <a id="method.delete"></a>`delete`
+- <a id="method.connect"></a>`connect`
+- <a id="method.options"></a>`options`
+- <a id="method.trace"></a>`trace`
+- <a id="method.patch"></a>`patch`
+- <a id="method.other"></a>`other`: `string`
+#### <a id="scheme"></a>`variant scheme`
+
+This type corresponds to HTTP standard Related Schemes.
+
+##### Variant Cases
+
+- <a id="scheme.http"></a>`HTTP`
+- <a id="scheme.https"></a>`HTTPS`
+- <a id="scheme.other"></a>`other`: `string`
+#### <a id="dns_error_payload"></a>`record DNS-error-payload`
+
+Defines the case payload type for `DNS-error` above:
+
+##### Record Fields
+
+- <a id="dns_error_payload.rcode"></a>`rcode`: option<`string`>
+- <a id="dns_error_payload.info_code"></a>`info-code`: option<`u16`>
+#### <a id="tls_alert_received_payload"></a>`record TLS-alert-received-payload`
+
+Defines the case payload type for `TLS-alert-received` above:
+
+##### Record Fields
+
+- <a id="tls_alert_received_payload.alert_id"></a>`alert-id`: option<`u8`>
+- <a id="tls_alert_received_payload.alert_message"></a>`alert-message`: option<`string`>
+#### <a id="field_size_payload"></a>`record field-size-payload`
+
+Defines the case payload type for `HTTP-response-{header,trailer}-size` above:
+
+##### Record Fields
+
+- <a id="field_size_payload.field_name"></a>`field-name`: option<`string`>
+- <a id="field_size_payload.field_size"></a>`field-size`: option<`u32`>
+#### <a id="error_code"></a>`variant error-code`
+
+These cases are inspired by the IANA HTTP Proxy Error Types:
+https://www.iana.org/assignments/http-proxy-status/http-proxy-status.xhtml#table-http-proxy-error-types
+
+##### Variant Cases
+
+- <a id="error_code.dns_timeout"></a>`DNS-timeout`
+- <a id="error_code.dns_error"></a>`DNS-error`: [`DNS-error-payload`](#dns_error_payload)
+- <a id="error_code.destination_not_found"></a>`destination-not-found`
+- <a id="error_code.destination_unavailable"></a>`destination-unavailable`
+- <a id="error_code.destination_ip_prohibited"></a>`destination-IP-prohibited`
+- <a id="error_code.destination_ip_unroutable"></a>`destination-IP-unroutable`
+- <a id="error_code.connection_refused"></a>`connection-refused`
+- <a id="error_code.connection_terminated"></a>`connection-terminated`
+- <a id="error_code.connection_timeout"></a>`connection-timeout`
+- <a id="error_code.connection_read_timeout"></a>`connection-read-timeout`
+- <a id="error_code.connection_write_timeout"></a>`connection-write-timeout`
+- <a id="error_code.connection_limit_reached"></a>`connection-limit-reached`
+- <a id="error_code.tls_protocol_error"></a>`TLS-protocol-error`
+- <a id="error_code.tls_certificate_error"></a>`TLS-certificate-error`
+- <a id="error_code.tls_alert_received"></a>`TLS-alert-received`: [`TLS-alert-received-payload`](#tls_alert_received_payload)
+- <a id="error_code.http_request_denied"></a>`HTTP-request-denied`
+- <a id="error_code.http_request_length_required"></a>`HTTP-request-length-required`
+- <a id="error_code.http_request_body_size"></a>`HTTP-request-body-size`: option<`u64`>
+- <a id="error_code.http_request_method_invalid"></a>`HTTP-request-method-invalid`
+- <a id="error_code.http_request_uri_invalid"></a>`HTTP-request-URI-invalid`
+- <a id="error_code.http_request_uri_too_long"></a>`HTTP-request-URI-too-long`
+- <a id="error_code.http_request_header_section_size"></a>`HTTP-request-header-section-size`: option<`u32`>
+- <a id="error_code.http_request_header_size"></a>`HTTP-request-header-size`: option<[`field-size-payload`](#field_size_payload)>
+- <a id="error_code.http_request_trailer_section_size"></a>`HTTP-request-trailer-section-size`: option<`u32`>
+- <a id="error_code.http_request_trailer_size"></a>`HTTP-request-trailer-size`: [`field-size-payload`](#field_size_payload)
+- <a id="error_code.http_response_incomplete"></a>`HTTP-response-incomplete`
+- <a id="error_code.http_response_header_section_size"></a>`HTTP-response-header-section-size`: option<`u32`>
+- <a id="error_code.http_response_header_size"></a>`HTTP-response-header-size`: [`field-size-payload`](#field_size_payload)
+- <a id="error_code.http_response_body_size"></a>`HTTP-response-body-size`: option<`u64`>
+- <a id="error_code.http_response_trailer_section_size"></a>`HTTP-response-trailer-section-size`: option<`u32`>
+- <a id="error_code.http_response_trailer_size"></a>`HTTP-response-trailer-size`: [`field-size-payload`](#field_size_payload)
+- <a id="error_code.http_response_transfer_coding"></a>`HTTP-response-transfer-coding`: option<`string`>
+- <a id="error_code.http_response_content_coding"></a>`HTTP-response-content-coding`: option<`string`>
+- <a id="error_code.http_response_timeout"></a>`HTTP-response-timeout`
+- <a id="error_code.http_upgrade_failed"></a>`HTTP-upgrade-failed`
+- <a id="error_code.http_protocol_error"></a>`HTTP-protocol-error`
+- <a id="error_code.loop_detected"></a>`loop-detected`
+- <a id="error_code.configuration_error"></a>`configuration-error`
+- <a id="error_code.internal_error"></a>`internal-error`: option<`string`>
+  <p>This is a catch-all error for anything that doesn't fit cleanly into a
+  more specific case. It also includes an optional string for an
+  unstructured description of the error. Users should not depend on the
+  string for diagnosing errors, as it's not required to be consistent
+  between implementations.
+
+#### <a id="header_error"></a>`variant header-error`
+
+This type enumerates the different kinds of errors that may occur when
+setting or appending to a `fields` resource.
+
+##### Variant Cases
+
+- <a id="header_error.invalid_syntax"></a>`invalid-syntax`
+  <p>This error indicates that a `field-key` or `field-value` was
+  syntactically invalid when used with an operation that sets headers in a
+  `fields`.
+
+- <a id="header_error.forbidden"></a>`forbidden`
+  <p>This error indicates that a forbidden `field-key` was used when trying
+  to set a header in a `fields`.
+
+- <a id="header_error.immutable"></a>`immutable`
+  <p>This error indicates that the operation on the `fields` was not
+  permitted because the fields are immutable.
+
+#### <a id="field_key"></a>`type field-key`
+`string`
+<p>Field keys are always strings.
+
+#### <a id="field_value"></a>`type field-value`
+[`field-value`](#field_value)
+<p>Field values should always be ASCII strings. However, in
+reality, HTTP implementations often have to interpret malformed values,
+so they are provided as a list of bytes.
+
+#### <a id="fields"></a>`resource fields`
+
+This following block defines the `fields` resource which corresponds to
+HTTP standard Fields. Fields are a common representation used for both
+Headers and Trailers.
+
+A `fields` may be mutable or immutable. A `fields` created using the
+constructor, `from-list`, or `clone` will be mutable, but a `fields`
+resource given by other means (including, but not limited to,
+`incoming-request.headers`, `outgoing-request.headers`) might be be
+immutable. In an immutable fields, the `set`, `append`, and `delete`
+operations will fail with `header-error.immutable`.
+#### <a id="headers"></a>`type headers`
+[`fields`](#fields)
+<p>Headers is an alias for Fields.
+
+#### <a id="trailers"></a>`type trailers`
+[`fields`](#fields)
+<p>Trailers is an alias for Fields.
+
+#### <a id="incoming_request"></a>`resource incoming-request`
+
+Represents an incoming HTTP Request.
+#### <a id="outgoing_request"></a>`resource outgoing-request`
+
+Represents an outgoing HTTP Request.
+#### <a id="request_options"></a>`resource request-options`
+
+Parameters for making an HTTP Request. Each of these parameters is
+currently an optional timeout applicable to the transport layer of the
+HTTP protocol.
+
+These timeouts are separate from any the user may use to bound a
+blocking call to `wasi:io/poll.poll`.
+#### <a id="response_outparam"></a>`resource response-outparam`
+
+Represents the ability to send an HTTP Response.
+
+This resource is used by the `wasi:http/incoming-handler` interface to
+allow a Response to be sent corresponding to the Request provided as the
+other argument to `incoming-handler.handle`.
+#### <a id="status_code"></a>`type status-code`
+`u16`
+<p>This type corresponds to the HTTP standard Status Code.
+
+#### <a id="incoming_response"></a>`resource incoming-response`
+
+Represents an incoming HTTP Response.
+#### <a id="incoming_body"></a>`resource incoming-body`
+
+Represents an incoming HTTP Request or Response's Body.
+
+A body has both its contents - a stream of bytes - and a (possibly
+empty) set of trailers, indicating that the full contents of the
+body have been received. This resource represents the contents as
+an `input-stream` and the delivery of trailers as a `future-trailers`,
+and ensures that the user of this interface may only be consuming either
+the body contents or waiting on trailers at any given time.
+#### <a id="future_trailers"></a>`resource future-trailers`
+
+Represents a future which may eventaully return trailers, or an error.
+
+In the case that the incoming HTTP Request or Response did not have any
+trailers, this future will resolve to the empty set of trailers once the
+complete Request or Response body has been received.
+#### <a id="outgoing_response"></a>`resource outgoing-response`
+
+Represents an outgoing HTTP Response.
+#### <a id="outgoing_body"></a>`resource outgoing-body`
+
+Represents an outgoing HTTP Request or Response's Body.
+
+A body has both its contents - a stream of bytes - and a (possibly
+empty) set of trailers, inducating the full contents of the body
+have been sent. This resource represents the contents as an
+`output-stream` child resource, and the completion of the body (with
+optional trailers) with a static function that consumes the
+`outgoing-body` resource, and ensures that the user of this interface
+may not write to the body contents after the body has been finished.
+
+If the user code drops this resource, as opposed to calling the static
+method `finish`, the implementation should treat the body as incomplete,
+and that an error has occured. The implementation should propogate this
+error to the HTTP protocol by whatever means it has available,
+including: corrupting the body on the wire, aborting the associated
+Request, or sending a late status code for the Response.
+#### <a id="future_incoming_response"></a>`resource future-incoming-response`
+
+Represents a future which may eventaully return an incoming HTTP
+Response, or an error.
+
+This resource is returned by the `wasi:http/outgoing-handler` interface to
+provide the HTTP Response corresponding to the sent Request.
+----
+
+### Functions
+
+#### <a id="http_error_code"></a>`http-error-code: func`
+
+Attempts to extract a http-related `error` from the wasi:io `error`
+provided.
+
+Stream operations which return
+`wasi:io/stream/stream-error::last-operation-failed` have a payload of
+type `wasi:io/error/error` with more information about the operation
+that failed. This payload can be passed through to this function to see
+if there's http-related information about the error to return.
+
+Note that this function is fallible because not all io-errors are
+http-related errors.
+
+##### Params
+
+- <a id="http_error_code.err"></a>`err`: borrow<[`io-error`](#io_error)>
+
+##### Return values
+
+- <a id="http_error_code.0"></a> option<[`error-code`](#error_code)>
+
+#### <a id="constructor_fields"></a>`[constructor]fields: func`
+
+Construct an empty HTTP Fields.
+
+The resulting `fields` is mutable.
+
+##### Return values
+
+- <a id="constructor_fields.0"></a> own<[`fields`](#fields)>
+
+#### <a id="static_fields_from_list"></a>`[static]fields.from-list: func`
+
+Construct an HTTP Fields.
+
+The resulting `fields` is mutable.
+
+The list represents each key-value pair in the Fields. Keys
+which have multiple values are represented by multiple entries in this
+list with the same key.
+
+The tuple is a pair of the field key, represented as a string, and
+Value, represented as a list of bytes. In a valid Fields, all keys
+and values are valid UTF-8 strings. However, values are not always
+well-formed, so they are represented as a raw list of bytes.
+
+An error result will be returned if any header or value was
+syntactically invalid, or if a header was forbidden.
+
+##### Params
+
+- <a id="static_fields_from_list.entries"></a>`entries`: list<([`field-key`](#field_key), [`field-value`](#field_value))>
+
+##### Return values
+
+- <a id="static_fields_from_list.0"></a> result<own<[`fields`](#fields)>, [`header-error`](#header_error)>
+
+#### <a id="method_fields_get"></a>`[method]fields.get: func`
+
+Get all of the values corresponding to a key. If the key is not present
+in this `fields`, an empty list is returned. However, if the key is
+present but empty, this is represented by a list with one or more
+empty field-values present.
+
+##### Params
+
+- <a id="method_fields_get.self"></a>`self`: borrow<[`fields`](#fields)>
+- <a id="method_fields_get.name"></a>`name`: [`field-key`](#field_key)
+
+##### Return values
+
+- <a id="method_fields_get.0"></a> list<[`field-value`](#field_value)>
+
+#### <a id="method_fields_has"></a>`[method]fields.has: func`
+
+Returns `true` when the key is present in this `fields`. If the key is
+syntactically invalid, `false` is returned.
+
+##### Params
+
+- <a id="method_fields_has.self"></a>`self`: borrow<[`fields`](#fields)>
+- <a id="method_fields_has.name"></a>`name`: [`field-key`](#field_key)
+
+##### Return values
+
+- <a id="method_fields_has.0"></a> `bool`
+
+#### <a id="method_fields_set"></a>`[method]fields.set: func`
+
+Set all of the values for a key. Clears any existing values for that
+key, if they have been set.
+
+Fails with `header-error.immutable` if the `fields` are immutable.
+
+##### Params
+
+- <a id="method_fields_set.self"></a>`self`: borrow<[`fields`](#fields)>
+- <a id="method_fields_set.name"></a>`name`: [`field-key`](#field_key)
+- <a id="method_fields_set.value"></a>`value`: list<[`field-value`](#field_value)>
+
+##### Return values
+
+- <a id="method_fields_set.0"></a> result<_, [`header-error`](#header_error)>
+
+#### <a id="method_fields_delete"></a>`[method]fields.delete: func`
+
+Delete all values for a key. Does nothing if no values for the key
+exist.
+
+Fails with `header-error.immutable` if the `fields` are immutable.
+
+##### Params
+
+- <a id="method_fields_delete.self"></a>`self`: borrow<[`fields`](#fields)>
+- <a id="method_fields_delete.name"></a>`name`: [`field-key`](#field_key)
+
+##### Return values
+
+- <a id="method_fields_delete.0"></a> result<_, [`header-error`](#header_error)>
+
+#### <a id="method_fields_append"></a>`[method]fields.append: func`
+
+Append a value for a key. Does not change or delete any existing
+values for that key.
+
+Fails with `header-error.immutable` if the `fields` are immutable.
+
+##### Params
+
+- <a id="method_fields_append.self"></a>`self`: borrow<[`fields`](#fields)>
+- <a id="method_fields_append.name"></a>`name`: [`field-key`](#field_key)
+- <a id="method_fields_append.value"></a>`value`: [`field-value`](#field_value)
+
+##### Return values
+
+- <a id="method_fields_append.0"></a> result<_, [`header-error`](#header_error)>
+
+#### <a id="method_fields_entries"></a>`[method]fields.entries: func`
+
+Retrieve the full set of keys and values in the Fields. Like the
+constructor, the list represents each key-value pair.
+
+The outer list represents each key-value pair in the Fields. Keys
+which have multiple values are represented by multiple entries in this
+list with the same key.
+
+##### Params
+
+- <a id="method_fields_entries.self"></a>`self`: borrow<[`fields`](#fields)>
+
+##### Return values
+
+- <a id="method_fields_entries.0"></a> list<([`field-key`](#field_key), [`field-value`](#field_value))>
+
+#### <a id="method_fields_clone"></a>`[method]fields.clone: func`
+
+Make a deep copy of the Fields. Equivelant in behavior to calling the
+`fields` constructor on the return value of `entries`. The resulting
+`fields` is mutable.
+
+##### Params
+
+- <a id="method_fields_clone.self"></a>`self`: borrow<[`fields`](#fields)>
+
+##### Return values
+
+- <a id="method_fields_clone.0"></a> own<[`fields`](#fields)>
+
+#### <a id="method_incoming_request_method"></a>`[method]incoming-request.method: func`
+
+Returns the method of the incoming request.
+
+##### Params
+
+- <a id="method_incoming_request_method.self"></a>`self`: borrow<[`incoming-request`](#incoming_request)>
+
+##### Return values
+
+- <a id="method_incoming_request_method.0"></a> [`method`](#method)
+
+#### <a id="method_incoming_request_path_with_query"></a>`[method]incoming-request.path-with-query: func`
+
+Returns the path with query parameters from the request, as a string.
+
+##### Params
+
+- <a id="method_incoming_request_path_with_query.self"></a>`self`: borrow<[`incoming-request`](#incoming_request)>
+
+##### Return values
+
+- <a id="method_incoming_request_path_with_query.0"></a> option<`string`>
+
+#### <a id="method_incoming_request_scheme"></a>`[method]incoming-request.scheme: func`
+
+Returns the protocol scheme from the request.
+
+##### Params
+
+- <a id="method_incoming_request_scheme.self"></a>`self`: borrow<[`incoming-request`](#incoming_request)>
+
+##### Return values
+
+- <a id="method_incoming_request_scheme.0"></a> option<[`scheme`](#scheme)>
+
+#### <a id="method_incoming_request_authority"></a>`[method]incoming-request.authority: func`
+
+Returns the authority from the request, if it was present.
+
+##### Params
+
+- <a id="method_incoming_request_authority.self"></a>`self`: borrow<[`incoming-request`](#incoming_request)>
+
+##### Return values
+
+- <a id="method_incoming_request_authority.0"></a> option<`string`>
+
+#### <a id="method_incoming_request_headers"></a>`[method]incoming-request.headers: func`
+
+Get the `headers` associated with the request.
+
+The returned `headers` resource is immutable: `set`, `append`, and
+`delete` operations will fail with `header-error.immutable`.
+
+The `headers` returned are a child resource: it must be dropped before
+the parent `incoming-request` is dropped. Dropping this
+`incoming-request` before all children are dropped will trap.
+
+##### Params
+
+- <a id="method_incoming_request_headers.self"></a>`self`: borrow<[`incoming-request`](#incoming_request)>
+
+##### Return values
+
+- <a id="method_incoming_request_headers.0"></a> own<[`headers`](#headers)>
+
+#### <a id="method_incoming_request_consume"></a>`[method]incoming-request.consume: func`
+
+Gives the `incoming-body` associated with this request. Will only
+return success at most once, and subsequent calls will return error.
+
+##### Params
+
+- <a id="method_incoming_request_consume.self"></a>`self`: borrow<[`incoming-request`](#incoming_request)>
+
+##### Return values
+
+- <a id="method_incoming_request_consume.0"></a> result<own<[`incoming-body`](#incoming_body)>>
+
+#### <a id="constructor_outgoing_request"></a>`[constructor]outgoing-request: func`
+
+Construct a new `outgoing-request` with a default `method` of `GET`, and
+`none` values for `path-with-query`, `scheme`, and `authority`.
+
+* `headers` is the HTTP Headers for the Request.
+
+It is possible to construct, or manipulate with the accessor functions
+below, an `outgoing-request` with an invalid combination of `scheme`
+and `authority`, or `headers` which are not permitted to be sent.
+It is the obligation of the `outgoing-handler.handle` implementation
+to reject invalid constructions of `outgoing-request`.
+
+##### Params
+
+- <a id="constructor_outgoing_request.headers"></a>`headers`: own<[`headers`](#headers)>
+
+##### Return values
+
+- <a id="constructor_outgoing_request.0"></a> own<[`outgoing-request`](#outgoing_request)>
+
+#### <a id="method_outgoing_request_body"></a>`[method]outgoing-request.body: func`
+
+Returns the resource corresponding to the outgoing Body for this
+Request.
+
+Returns success on the first call: the `outgoing-body` resource for
+this `outgoing-request` can be retrieved at most once. Subsequent
+calls will return error.
+
+##### Params
+
+- <a id="method_outgoing_request_body.self"></a>`self`: borrow<[`outgoing-request`](#outgoing_request)>
+
+##### Return values
+
+- <a id="method_outgoing_request_body.0"></a> result<own<[`outgoing-body`](#outgoing_body)>>
+
+#### <a id="method_outgoing_request_method"></a>`[method]outgoing-request.method: func`
+
+Get the Method for the Request.
+
+##### Params
+
+- <a id="method_outgoing_request_method.self"></a>`self`: borrow<[`outgoing-request`](#outgoing_request)>
+
+##### Return values
+
+- <a id="method_outgoing_request_method.0"></a> [`method`](#method)
+
+#### <a id="method_outgoing_request_set_method"></a>`[method]outgoing-request.set-method: func`
+
+Set the Method for the Request. Fails if the string present in a
+`method.other` argument is not a syntactically valid method.
+
+##### Params
+
+- <a id="method_outgoing_request_set_method.self"></a>`self`: borrow<[`outgoing-request`](#outgoing_request)>
+- <a id="method_outgoing_request_set_method.method"></a>`method`: [`method`](#method)
+
+##### Return values
+
+- <a id="method_outgoing_request_set_method.0"></a> result
+
+#### <a id="method_outgoing_request_path_with_query"></a>`[method]outgoing-request.path-with-query: func`
+
+Get the combination of the HTTP Path and Query for the Request.
+When `none`, this represents an empty Path and empty Query.
+
+##### Params
+
+- <a id="method_outgoing_request_path_with_query.self"></a>`self`: borrow<[`outgoing-request`](#outgoing_request)>
+
+##### Return values
+
+- <a id="method_outgoing_request_path_with_query.0"></a> option<`string`>
+
+#### <a id="method_outgoing_request_set_path_with_query"></a>`[method]outgoing-request.set-path-with-query: func`
+
+Set the combination of the HTTP Path and Query for the Request.
+When `none`, this represents an empty Path and empty Query. Fails is the
+string given is not a syntactically valid path and query uri component.
+
+##### Params
+
+- <a id="method_outgoing_request_set_path_with_query.self"></a>`self`: borrow<[`outgoing-request`](#outgoing_request)>
+- <a id="method_outgoing_request_set_path_with_query.path_with_query"></a>`path-with-query`: option<`string`>
+
+##### Return values
+
+- <a id="method_outgoing_request_set_path_with_query.0"></a> result
+
+#### <a id="method_outgoing_request_scheme"></a>`[method]outgoing-request.scheme: func`
+
+Get the HTTP Related Scheme for the Request. When `none`, the
+implementation may choose an appropriate default scheme.
+
+##### Params
+
+- <a id="method_outgoing_request_scheme.self"></a>`self`: borrow<[`outgoing-request`](#outgoing_request)>
+
+##### Return values
+
+- <a id="method_outgoing_request_scheme.0"></a> option<[`scheme`](#scheme)>
+
+#### <a id="method_outgoing_request_set_scheme"></a>`[method]outgoing-request.set-scheme: func`
+
+Set the HTTP Related Scheme for the Request. When `none`, the
+implementation may choose an appropriate default scheme. Fails if the
+string given is not a syntactically valid uri scheme.
+
+##### Params
+
+- <a id="method_outgoing_request_set_scheme.self"></a>`self`: borrow<[`outgoing-request`](#outgoing_request)>
+- <a id="method_outgoing_request_set_scheme.scheme"></a>`scheme`: option<[`scheme`](#scheme)>
+
+##### Return values
+
+- <a id="method_outgoing_request_set_scheme.0"></a> result
+
+#### <a id="method_outgoing_request_authority"></a>`[method]outgoing-request.authority: func`
+
+Get the HTTP Authority for the Request. A value of `none` may be used
+with Related Schemes which do not require an Authority. The HTTP and
+HTTPS schemes always require an authority.
+
+##### Params
+
+- <a id="method_outgoing_request_authority.self"></a>`self`: borrow<[`outgoing-request`](#outgoing_request)>
+
+##### Return values
+
+- <a id="method_outgoing_request_authority.0"></a> option<`string`>
+
+#### <a id="method_outgoing_request_set_authority"></a>`[method]outgoing-request.set-authority: func`
+
+Set the HTTP Authority for the Request. A value of `none` may be used
+with Related Schemes which do not require an Authority. The HTTP and
+HTTPS schemes always require an authority. Fails if the string given is
+not a syntactically valid uri authority.
+
+##### Params
+
+- <a id="method_outgoing_request_set_authority.self"></a>`self`: borrow<[`outgoing-request`](#outgoing_request)>
+- <a id="method_outgoing_request_set_authority.authority"></a>`authority`: option<`string`>
+
+##### Return values
+
+- <a id="method_outgoing_request_set_authority.0"></a> result
+
+#### <a id="method_outgoing_request_headers"></a>`[method]outgoing-request.headers: func`
+
+Get the headers associated with the Request.
+
+The returned `headers` resource is immutable: `set`, `append`, and
+`delete` operations will fail with `header-error.immutable`.
+
+This headers resource is a child: it must be dropped before the parent
+`outgoing-request` is dropped, or its ownership is transfered to
+another component by e.g. `outgoing-handler.handle`.
+
+##### Params
+
+- <a id="method_outgoing_request_headers.self"></a>`self`: borrow<[`outgoing-request`](#outgoing_request)>
+
+##### Return values
+
+- <a id="method_outgoing_request_headers.0"></a> own<[`headers`](#headers)>
+
+#### <a id="constructor_request_options"></a>`[constructor]request-options: func`
+
+Construct a default `request-options` value.
+
+##### Return values
+
+- <a id="constructor_request_options.0"></a> own<[`request-options`](#request_options)>
+
+#### <a id="method_request_options_connect_timeout"></a>`[method]request-options.connect-timeout: func`
+
+The timeout for the initial connect to the HTTP Server.
+
+##### Params
+
+- <a id="method_request_options_connect_timeout.self"></a>`self`: borrow<[`request-options`](#request_options)>
+
+##### Return values
+
+- <a id="method_request_options_connect_timeout.0"></a> option<[`duration`](#duration)>
+
+#### <a id="method_request_options_set_connect_timeout"></a>`[method]request-options.set-connect-timeout: func`
+
+Set the timeout for the initial connect to the HTTP Server. An error
+return value indicates that this timeout is not supported.
+
+##### Params
+
+- <a id="method_request_options_set_connect_timeout.self"></a>`self`: borrow<[`request-options`](#request_options)>
+- <a id="method_request_options_set_connect_timeout.duration"></a>`duration`: option<[`duration`](#duration)>
+
+##### Return values
+
+- <a id="method_request_options_set_connect_timeout.0"></a> result
+
+#### <a id="method_request_options_first_byte_timeout"></a>`[method]request-options.first-byte-timeout: func`
+
+The timeout for receiving the first byte of the Response body.
+
+##### Params
+
+- <a id="method_request_options_first_byte_timeout.self"></a>`self`: borrow<[`request-options`](#request_options)>
+
+##### Return values
+
+- <a id="method_request_options_first_byte_timeout.0"></a> option<[`duration`](#duration)>
+
+#### <a id="method_request_options_set_first_byte_timeout"></a>`[method]request-options.set-first-byte-timeout: func`
+
+Set the timeout for receiving the first byte of the Response body. An
+error return value indicates that this timeout is not supported.
+
+##### Params
+
+- <a id="method_request_options_set_first_byte_timeout.self"></a>`self`: borrow<[`request-options`](#request_options)>
+- <a id="method_request_options_set_first_byte_timeout.duration"></a>`duration`: option<[`duration`](#duration)>
+
+##### Return values
+
+- <a id="method_request_options_set_first_byte_timeout.0"></a> result
+
+#### <a id="method_request_options_between_bytes_timeout"></a>`[method]request-options.between-bytes-timeout: func`
+
+The timeout for receiving subsequent chunks of bytes in the Response
+body stream.
+
+##### Params
+
+- <a id="method_request_options_between_bytes_timeout.self"></a>`self`: borrow<[`request-options`](#request_options)>
+
+##### Return values
+
+- <a id="method_request_options_between_bytes_timeout.0"></a> option<[`duration`](#duration)>
+
+#### <a id="method_request_options_set_between_bytes_timeout"></a>`[method]request-options.set-between-bytes-timeout: func`
+
+Set the timeout for receiving subsequent chunks of bytes in the Response
+body stream. An error return value indicates that this timeout is not
+supported.
+
+##### Params
+
+- <a id="method_request_options_set_between_bytes_timeout.self"></a>`self`: borrow<[`request-options`](#request_options)>
+- <a id="method_request_options_set_between_bytes_timeout.duration"></a>`duration`: option<[`duration`](#duration)>
+
+##### Return values
+
+- <a id="method_request_options_set_between_bytes_timeout.0"></a> result
+
+#### <a id="static_response_outparam_set"></a>`[static]response-outparam.set: func`
+
+Set the value of the `response-outparam` to either send a response,
+or indicate an error.
+
+This method consumes the `response-outparam` to ensure that it is
+called at most once. If it is never called, the implementation
+will respond with an error.
+
+The user may provide an `error` to `response` to allow the
+implementation determine how to respond with an HTTP error response.
+
+##### Params
+
+- <a id="static_response_outparam_set.param"></a>`param`: own<[`response-outparam`](#response_outparam)>
+- <a id="static_response_outparam_set.response"></a>`response`: result<own<[`outgoing-response`](#outgoing_response)>, [`error-code`](#error_code)>
+
+#### <a id="method_incoming_response_status"></a>`[method]incoming-response.status: func`
+
+Returns the status code from the incoming response.
+
+##### Params
+
+- <a id="method_incoming_response_status.self"></a>`self`: borrow<[`incoming-response`](#incoming_response)>
+
+##### Return values
+
+- <a id="method_incoming_response_status.0"></a> [`status-code`](#status_code)
+
+#### <a id="method_incoming_response_headers"></a>`[method]incoming-response.headers: func`
+
+Returns the headers from the incoming response.
+
+The returned `headers` resource is immutable: `set`, `append`, and
+`delete` operations will fail with `header-error.immutable`.
+
+This headers resource is a child: it must be dropped before the parent
+`incoming-response` is dropped.
+
+##### Params
+
+- <a id="method_incoming_response_headers.self"></a>`self`: borrow<[`incoming-response`](#incoming_response)>
+
+##### Return values
+
+- <a id="method_incoming_response_headers.0"></a> own<[`headers`](#headers)>
+
+#### <a id="method_incoming_response_consume"></a>`[method]incoming-response.consume: func`
+
+Returns the incoming body. May be called at most once. Returns error
+if called additional times.
+
+##### Params
+
+- <a id="method_incoming_response_consume.self"></a>`self`: borrow<[`incoming-response`](#incoming_response)>
+
+##### Return values
+
+- <a id="method_incoming_response_consume.0"></a> result<own<[`incoming-body`](#incoming_body)>>
+
+#### <a id="method_incoming_body_stream"></a>`[method]incoming-body.stream: func`
+
+Returns the contents of the body, as a stream of bytes.
+
+Returns success on first call: the stream representing the contents
+can be retrieved at most once. Subsequent calls will return error.
+
+The returned `input-stream` resource is a child: it must be dropped
+before the parent `incoming-body` is dropped, or consumed by
+`incoming-body.finish`.
+
+This invariant ensures that the implementation can determine whether
+the user is consuming the contents of the body, waiting on the
+`future-trailers` to be ready, or neither. This allows for network
+backpressure is to be applied when the user is consuming the body,
+and for that backpressure to not inhibit delivery of the trailers if
+the user does not read the entire body.
+
+##### Params
+
+- <a id="method_incoming_body_stream.self"></a>`self`: borrow<[`incoming-body`](#incoming_body)>
+
+##### Return values
+
+- <a id="method_incoming_body_stream.0"></a> result<own<[`input-stream`](#input_stream)>>
+
+#### <a id="static_incoming_body_finish"></a>`[static]incoming-body.finish: func`
+
+Takes ownership of `incoming-body`, and returns a `future-trailers`.
+This function will trap if the `input-stream` child is still alive.
+
+##### Params
+
+- <a id="static_incoming_body_finish.this"></a>`this`: own<[`incoming-body`](#incoming_body)>
+
+##### Return values
+
+- <a id="static_incoming_body_finish.0"></a> own<[`future-trailers`](#future_trailers)>
+
+#### <a id="method_future_trailers_subscribe"></a>`[method]future-trailers.subscribe: func`
+
+Returns a pollable which becomes ready when either the trailers have
+been received, or an error has occured. When this pollable is ready,
+the `get` method will return `some`.
+
+##### Params
+
+- <a id="method_future_trailers_subscribe.self"></a>`self`: borrow<[`future-trailers`](#future_trailers)>
+
+##### Return values
+
+- <a id="method_future_trailers_subscribe.0"></a> own<[`pollable`](#pollable)>
+
+#### <a id="method_future_trailers_get"></a>`[method]future-trailers.get: func`
+
+Returns the contents of the trailers, or an error which occured,
+once the future is ready.
+
+The outer `option` represents future readiness. Users can wait on this
+`option` to become `some` using the `subscribe` method.
+
+The outer `result` is used to retrieve the trailers or error at most
+once. It will be success on the first call in which the outer option
+is `some`, and error on subsequent calls.
+
+The inner `result` represents that either the HTTP Request or Response
+body, as well as any trailers, were received successfully, or that an
+error occured receiving them. The optional `trailers` indicates whether
+or not trailers were present in the body.
+
+When some `trailers` are returned by this method, the `trailers`
+resource is immutable, and a child. Use of the `set`, `append`, or
+`delete` methods will return an error, and the resource must be
+dropped before the parent `future-trailers` is dropped.
+
+##### Params
+
+- <a id="method_future_trailers_get.self"></a>`self`: borrow<[`future-trailers`](#future_trailers)>
+
+##### Return values
+
+- <a id="method_future_trailers_get.0"></a> option<result<result<option<own<[`trailers`](#trailers)>>, [`error-code`](#error_code)>>>
+
+#### <a id="constructor_outgoing_response"></a>`[constructor]outgoing-response: func`
+
+Construct an `outgoing-response`, with a default `status-code` of `200`.
+If a different `status-code` is needed, it must be set via the
+`set-status-code` method.
+
+* `headers` is the HTTP Headers for the Response.
+
+##### Params
+
+- <a id="constructor_outgoing_response.headers"></a>`headers`: own<[`headers`](#headers)>
+
+##### Return values
+
+- <a id="constructor_outgoing_response.0"></a> own<[`outgoing-response`](#outgoing_response)>
+
+#### <a id="method_outgoing_response_status_code"></a>`[method]outgoing-response.status-code: func`
+
+Get the HTTP Status Code for the Response.
+
+##### Params
+
+- <a id="method_outgoing_response_status_code.self"></a>`self`: borrow<[`outgoing-response`](#outgoing_response)>
+
+##### Return values
+
+- <a id="method_outgoing_response_status_code.0"></a> [`status-code`](#status_code)
+
+#### <a id="method_outgoing_response_set_status_code"></a>`[method]outgoing-response.set-status-code: func`
+
+Set the HTTP Status Code for the Response. Fails if the status-code
+given is not a valid http status code.
+
+##### Params
+
+- <a id="method_outgoing_response_set_status_code.self"></a>`self`: borrow<[`outgoing-response`](#outgoing_response)>
+- <a id="method_outgoing_response_set_status_code.status_code"></a>`status-code`: [`status-code`](#status_code)
+
+##### Return values
+
+- <a id="method_outgoing_response_set_status_code.0"></a> result
+
+#### <a id="method_outgoing_response_headers"></a>`[method]outgoing-response.headers: func`
+
+Get the headers associated with the Request.
+
+The returned `headers` resource is immutable: `set`, `append`, and
+`delete` operations will fail with `header-error.immutable`.
+
+This headers resource is a child: it must be dropped before the parent
+`outgoing-request` is dropped, or its ownership is transfered to
+another component by e.g. `outgoing-handler.handle`.
+
+##### Params
+
+- <a id="method_outgoing_response_headers.self"></a>`self`: borrow<[`outgoing-response`](#outgoing_response)>
+
+##### Return values
+
+- <a id="method_outgoing_response_headers.0"></a> own<[`headers`](#headers)>
+
+#### <a id="method_outgoing_response_body"></a>`[method]outgoing-response.body: func`
+
+Returns the resource corresponding to the outgoing Body for this Response.
+
+Returns success on the first call: the `outgoing-body` resource for
+this `outgoing-response` can be retrieved at most once. Subsequent
+calls will return error.
+
+##### Params
+
+- <a id="method_outgoing_response_body.self"></a>`self`: borrow<[`outgoing-response`](#outgoing_response)>
+
+##### Return values
+
+- <a id="method_outgoing_response_body.0"></a> result<own<[`outgoing-body`](#outgoing_body)>>
+
+#### <a id="method_outgoing_body_write"></a>`[method]outgoing-body.write: func`
+
+Returns a stream for writing the body contents.
+
+The returned `output-stream` is a child resource: it must be dropped
+before the parent `outgoing-body` resource is dropped (or finished),
+otherwise the `outgoing-body` drop or `finish` will trap.
+
+Returns success on the first call: the `output-stream` resource for
+this `outgoing-body` may be retrieved at most once. Subsequent calls
+will return error.
+
+##### Params
+
+- <a id="method_outgoing_body_write.self"></a>`self`: borrow<[`outgoing-body`](#outgoing_body)>
+
+##### Return values
+
+- <a id="method_outgoing_body_write.0"></a> result<own<[`output-stream`](#output_stream)>>
+
+#### <a id="static_outgoing_body_finish"></a>`[static]outgoing-body.finish: func`
+
+Finalize an outgoing body, optionally providing trailers. This must be
+called to signal that the response is complete. If the `outgoing-body`
+is dropped without calling `outgoing-body.finalize`, the implementation
+should treat the body as corrupted.
+
+Fails if the body's `outgoing-request` or `outgoing-response` was
+constructed with a Content-Length header, and the contents written
+to the body (via `write`) does not match the value given in the
+Content-Length.
+
+##### Params
+
+- <a id="static_outgoing_body_finish.this"></a>`this`: own<[`outgoing-body`](#outgoing_body)>
+- <a id="static_outgoing_body_finish.trailers"></a>`trailers`: option<own<[`trailers`](#trailers)>>
+
+##### Return values
+
+- <a id="static_outgoing_body_finish.0"></a> result<_, [`error-code`](#error_code)>
+
+#### <a id="method_future_incoming_response_subscribe"></a>`[method]future-incoming-response.subscribe: func`
+
+Returns a pollable which becomes ready when either the Response has
+been received, or an error has occured. When this pollable is ready,
+the `get` method will return `some`.
+
+##### Params
+
+- <a id="method_future_incoming_response_subscribe.self"></a>`self`: borrow<[`future-incoming-response`](#future_incoming_response)>
+
+##### Return values
+
+- <a id="method_future_incoming_response_subscribe.0"></a> own<[`pollable`](#pollable)>
+
+#### <a id="method_future_incoming_response_get"></a>`[method]future-incoming-response.get: func`
+
+Returns the incoming HTTP Response, or an error, once one is ready.
+
+The outer `option` represents future readiness. Users can wait on this
+`option` to become `some` using the `subscribe` method.
+
+The outer `result` is used to retrieve the response or error at most
+once. It will be success on the first call in which the outer option
+is `some`, and error on subsequent calls.
+
+The inner `result` represents that either the incoming HTTP Response
+status and headers have recieved successfully, or that an error
+occured. Errors may also occur while consuming the response body,
+but those will be reported by the `incoming-body` and its
+`output-stream` child.
+
+##### Params
+
+- <a id="method_future_incoming_response_get.self"></a>`self`: borrow<[`future-incoming-response`](#future_incoming_response)>
+
+##### Return values
+
+- <a id="method_future_incoming_response_get.0"></a> option<result<result<own<[`incoming-response`](#incoming_response)>, [`error-code`](#error_code)>>>
+
 ## <a id="hayride_ai_runner_0_0_63"></a>Import interface hayride:ai/runner@0.0.63
 
 
@@ -2427,6 +3569,21 @@ errors can propagated with backend specific status through a string value.
 <p>
 #### <a id="graph_execution_context_stream"></a>`type graph-execution-context-stream`
 [`graph-execution-context-stream`](#graph_execution_context_stream)
+<p>
+#### <a id="graph_stream"></a>`type graph-stream`
+[`graph-stream`](#graph_stream)
+<p>
+#### <a id="fields"></a>`type fields`
+[`fields`](#fields)
+<p>
+#### <a id="response_outparam"></a>`type response-outparam`
+[`response-outparam`](#response_outparam)
+<p>
+#### <a id="outgoing_response"></a>`type outgoing-response`
+[`outgoing-response`](#outgoing_response)
+<p>
+#### <a id="outgoing_body"></a>`type outgoing-body`
+[`outgoing-body`](#outgoing_body)
 <p>
 #### <a id="error_code"></a>`enum error-code`
 
