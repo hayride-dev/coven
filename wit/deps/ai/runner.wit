@@ -22,5 +22,8 @@ interface runner {
         data: func() -> string;
     }
 
-    invoke: func(message: message, agent: borrow<agent>, format: borrow<format>, graph: borrow<graph-execution-context-stream>, output-stream: option<borrow<output-stream>>) -> result<list<message>, error>;
+    resource runner {
+        constructor(sse-format: bool);
+        invoke: func(message: message, agent: borrow<agent>, format: borrow<format>, graph: borrow<graph-execution-context-stream>, output-stream: option<borrow<output-stream>>) -> result<list<message>, error>;
+    }
 }

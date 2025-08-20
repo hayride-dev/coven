@@ -1,7 +1,7 @@
 [ai]
 path = "../ai/wit"
-sha256 = "85209217f4e9e02325a6bb51bf0fc5af59f42d754018c02a4ab731de7300607b"
-sha512 = "e1670b4033a3afde7760e26f5d952b80b4fde603fa4acde1efd59c7c9b8effddf9c5d9151738b8658e3b25210c5206fdda09158ce02dfd392bcc3b49eaecd3ac"
+sha256 = "e217303e53dc6302a9b750e57a8690b51c4d53d798747853e5f634473d0da2e9"
+sha512 = "236126481ba3e40b30b00a7482a6bc93e294ccdc34a6a27a18ded604159620b0d653dd43b36badbc158def613a47ef8a459e769592ab8f578e49e2cb74255014"
 deps = ["cli", "clocks", "filesystem", "http", "io", "random", "sockets", "wasi-nn"]
 
 [cli]

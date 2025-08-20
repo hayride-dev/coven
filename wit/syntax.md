@@ -3594,6 +3594,8 @@ but those will be reported by the `incoming-body` and its
 - <a id="error_code.unknown"></a>`unknown`
 #### <a id="error"></a>`resource error`
 
+#### <a id="runner"></a>`resource runner`
+
 ----
 
 ### Functions
@@ -3622,18 +3624,30 @@ errors can propagated with backend specific status through a string value.
 
 - <a id="method_error_data.0"></a> `string`
 
-#### <a id="invoke"></a>`invoke: func`
+#### <a id="constructor_runner"></a>`[constructor]runner: func`
 
 
 ##### Params
 
-- <a id="invoke.message"></a>`message`: [`message`](#message)
-- <a id="invoke.agent"></a>`agent`: borrow<[`agent`](#agent)>
-- <a id="invoke.format"></a>`format`: borrow<[`format`](#format)>
-- <a id="invoke.graph"></a>`graph`: borrow<[`graph-execution-context-stream`](#graph_execution_context_stream)>
-- <a id="invoke.output_stream"></a>`output-stream`: option<borrow<[`output-stream`](#output_stream)>>
+- <a id="constructor_runner.sse_format"></a>`sse-format`: `bool`
 
 ##### Return values
 
-- <a id="invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
+- <a id="constructor_runner.0"></a> own<[`runner`](#runner)>
+
+#### <a id="method_runner_invoke"></a>`[method]runner.invoke: func`
+
+
+##### Params
+
+- <a id="method_runner_invoke.self"></a>`self`: borrow<[`runner`](#runner)>
+- <a id="method_runner_invoke.message"></a>`message`: [`message`](#message)
+- <a id="method_runner_invoke.agent"></a>`agent`: borrow<[`agent`](#agent)>
+- <a id="method_runner_invoke.format"></a>`format`: borrow<[`format`](#format)>
+- <a id="method_runner_invoke.graph"></a>`graph`: borrow<[`graph-execution-context-stream`](#graph_execution_context_stream)>
+- <a id="method_runner_invoke.output_stream"></a>`output-stream`: option<borrow<[`output-stream`](#output_stream)>>
+
+##### Return values
+
+- <a id="method_runner_invoke.0"></a> result<list<[`message`](#message)>, own<[`error`](#error)>>
 
